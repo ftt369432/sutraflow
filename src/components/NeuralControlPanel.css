@@ -1,0 +1,16 @@
+/* Neural Control Panel Styles */
+.neural-progress-bar {
+  transition: width 0.3s ease-in-out;
+}
+
+.neural-progress-0 { width: 0%; }
+.neural-progress-10 { width: 10%; }
+.neural-progress-20 { width: 20%; }
+.neural-progress-30 { width: 30%; }
+.neural-progress-40 { width: 40%; }
+.neural-progress-50 { width: 50%; }
+.neural-progress-60 { width: 60%; }
+.neural-progress-70 { width: 70%; }
+.neural-progress-80 { width: 80%; }
+.neural-progress-90 { width: 90%; }
+.neural-progress-100 { width: 100%; }

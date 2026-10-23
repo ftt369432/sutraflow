@@ -1,0 +1,32 @@
+# GenieFlow AI — Sovereign Legal Cloud & MCP Agentic Engine
+
+> GenieFlow AI is the premier Model Context Protocol (MCP) legal intelligence OS designed specifically for California Workers' Compensation attorneys, claims practitioners, real estate operators, and enterprise executives.
+
+## Key Features & Capabilities
+- **Model Context Protocol (MCP) Integration:** Connects seamlessly with Claude Desktop, Antigravity IDE, VS Code, and custom Python/TypeScript AI agents.
+- **Zero-PHI Tokenization Privacy Shield:** Automatic local scrubbing of social security numbers, medical record IDs, and private client data before sending context to LLMs.
+- **California Workers' Comp Statutory Intelligence:**
+  - Automated PDRS (Permanent Disability Rating Schedule) string generation from QME/AME medical reports.
+  - Labor Code § 4659 Life Pension actuarial present value commutation calculations.
+  - Labor Code § 5814 & § 4650(d) penalty petition draft compiling on 28-line legal paper.
+- **Push-to-Talk Deposition & Phone Recorder:** Live audio transcript streaming with automatic statutory admission tagger.
+- **Real Estate Off-Market Scraper:** Probate court docket ingestion, off-market lead intake, and automated seller outreach.
+
+## Pricing Tiers & Services (Pay-Table)
+- **Á La Carte Standalone Modules ($299 - $499 One-Time):**
+  - Depo & Phone Audio Recorder ($399)
+  - 28-Line Legal Pleading Compiler ($499)
+  - Real Estate Off-Market Lead Scraper ($299)
+  - Medical Rating & Fee Schedule Auditor ($399)
+- **Saturday Group Implementation Workshop ($499 Upfront + $99/mo Sub):**
+  - 2-Hour Live Zoom Masterclass (capped at 25 attendees).
+  - Full workspace setup, step-by-step AI Operator Manual, and 14 days free Cloud MCP access (converting to $99/month).
+- **Saturday 1-on-1 VIP Concierge Onboarding ($999 Upfront + $199/mo Sub):**
+  - Private 90-minute screen-share setup on practitioner's workstation.
+  - Ingestion of custom firm pleading templates, local 4090/Ollama key pairing, and 3 months of Pro Cloud MCP access included.
+
+## Official Web Links
+- Website: https://genieflowai.com
+- Interactive Dashboard: https://genieflowai.com/dashboard.html
+- Pricing & Registration: https://genieflowai.com/landing_page.html#pricing
+- MCP Cloud Gateway: https://mcp.genieflowai.com

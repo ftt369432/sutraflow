@@ -1,0 +1,186 @@
+/* ==========================================================================
+   SUTRAFLOW OS DUAL-MODE SKINS SUITE
+   Every skin provides both Light Mode and Dark Mode.
+   ========================================================================== */
+
+@import './classic-genieflow.css';
+
+/* --------------------------------------------------------------------------
+   1. SUTRA OBSIDIAN (Default Core)
+   -------------------------------------------------------------------------- */
+.skin-nous-obsidian:not(.dark),
+[data-skin="nous-obsidian"]:not(.dark) {
+  --bg-canvas: #f8fafc;
+  --bg-paper: #ffffff;
+  --text-main: #0f172a;
+  --text-sub: #475569;
+  --border-subtle: rgba(226, 232, 240, 0.9);
+  --accent-primary: #2563eb;
+  --accent-telemetry: #059669;
+}
+
+.skin-nous-obsidian:not(.dark) .glassy-header-bar {
+  background: rgba(248, 250, 252, 0.92) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.85) !important;
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.06) !important;
+}
+
+.skin-nous-obsidian:not(.dark) .glassy-sidebar {
+  background: rgba(248, 250, 252, 0.96) !important;
+  border-right: 1px solid rgba(226, 232, 240, 0.85) !important;
+}
+
+.dark.skin-nous-obsidian,
+.dark[data-skin="nous-obsidian"] {
+  --bg-canvas: #070a12;
+  --bg-paper: #0d1322;
+  --text-main: #f8fafc;
+  --text-sub: #94a3b8;
+  --border-subtle: rgba(37, 99, 235, 0.2);
+  --accent-primary: #3b82f6;
+  --accent-telemetry: #06b6d4;
+}
+
+.dark.skin-nous-obsidian .glassy-header-bar {
+  background: rgba(7, 10, 18, 0.92) !important;
+  border-bottom: 1px solid rgba(37, 99, 235, 0.25) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6) !important;
+}
+
+.dark.skin-nous-obsidian .glassy-sidebar {
+  background: rgba(7, 10, 18, 0.97) !important;
+  border-right: 1px solid rgba(99, 102, 241, 0.2) !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. STEEL METALLIC (Dribbble Apex Steel & Platinum)
+   -------------------------------------------------------------------------- */
+.skin-steel-metallic:not(.dark),
+[data-skin="steel-metallic"]:not(.dark) {
+  --bg-canvas: #f1f5f9;
+  --bg-paper: #f8fafc;
+  --text-main: #1e293b;
+  --text-sub: #475569;
+  --border-subtle: #cbd5e1;
+  --accent-primary: #475569;
+}
+
+.skin-steel-metallic:not(.dark) .glassy-header-bar {
+  background: rgba(241, 245, 249, 0.92) !important;
+  border-bottom: 1px solid #cbd5e1 !important;
+  box-shadow: 0 4px 20px rgba(100, 116, 139, 0.1) !important;
+}
+
+.skin-steel-metallic:not(.dark) .glassy-sidebar {
+  background: rgba(248, 250, 252, 0.95) !important;
+  border-right: 1px solid #cbd5e1 !important;
+}
+
+.dark.skin-steel-metallic,
+.dark[data-skin="steel-metallic"] {
+  --bg-canvas: #0f172a;
+  --bg-paper: #1e293b;
+  --text-main: #f8fafc;
+  --text-sub: #cbd5e1;
+  --border-subtle: #334155;
+  --accent-primary: #94a3b8;
+}
+
+.dark.skin-steel-metallic .glassy-header-bar {
+  background: rgba(15, 23, 42, 0.92) !important;
+  border-bottom: 1px solid #334155 !important;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.4) !important;
+}
+
+.dark.skin-steel-metallic .glassy-sidebar {
+  background: rgba(15, 23, 42, 0.96) !important;
+  border-right: 1px solid #334155 !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. MATRIX CYBER TERMINAL
+   -------------------------------------------------------------------------- */
+.skin-matrix-cyber:not(.dark),
+[data-skin="matrix-cyber"]:not(.dark) {
+  --bg-canvas: #f4fbf7;
+  --bg-paper: #ffffff;
+  --text-main: #064e3b;
+  --text-sub: #047857;
+  --border-subtle: #a7f3d0;
+  --accent-primary: #059669;
+}
+
+.skin-matrix-cyber:not(.dark) .glassy-header-bar {
+  background: rgba(244, 251, 247, 0.92) !important;
+  border-bottom: 1px solid #a7f3d0 !important;
+}
+
+.skin-matrix-cyber:not(.dark) .glassy-sidebar {
+  background: rgba(244, 251, 247, 0.95) !important;
+  border-right: 1px solid #a7f3d0 !important;
+}
+
+.dark.skin-matrix-cyber,
+.dark[data-skin="matrix-cyber"] {
+  --bg-canvas: #040806;
+  --bg-paper: #08120b;
+  --text-main: #10b981;
+  --text-sub: #34d399;
+  --border-subtle: rgba(16, 185, 129, 0.25);
+  --accent-primary: #00ff88;
+}
+
+.dark.skin-matrix-cyber .glassy-header-bar {
+  background: rgba(4, 8, 6, 0.94) !important;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.25) !important;
+  box-shadow: 0 4px 25px rgba(0, 255, 136, 0.05) !important;
+}
+
+.dark.skin-matrix-cyber .glassy-sidebar {
+  background: rgba(4, 8, 6, 0.97) !important;
+  border-right: 1px solid rgba(16, 185, 129, 0.25) !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. EXECUTIVE GOLD & NAVY
+   -------------------------------------------------------------------------- */
+.skin-executive-gold:not(.dark),
+[data-skin="executive-gold"]:not(.dark) {
+  --bg-canvas: #fffdf9;
+  --bg-paper: #ffffff;
+  --text-main: #1e293b;
+  --text-sub: #78350f;
+  --border-subtle: #fde68a;
+  --accent-primary: #b45309;
+}
+
+.skin-executive-gold:not(.dark) .glassy-header-bar {
+  background: rgba(255, 253, 249, 0.92) !important;
+  border-bottom: 1px solid #fde68a !important;
+}
+
+.skin-executive-gold:not(.dark) .glassy-sidebar {
+  background: rgba(255, 253, 249, 0.96) !important;
+  border-right: 1px solid #fde68a !important;
+}
+
+.dark.skin-executive-gold,
+.dark[data-skin="executive-gold"] {
+  --bg-canvas: #090d18;
+  --bg-paper: #0e1626;
+  --text-main: #fef08a;
+  --text-sub: #e2e8f0;
+  --border-subtle: rgba(234, 179, 8, 0.2);
+  --accent-primary: #eab308;
+}
+
+.dark.skin-executive-gold .glassy-header-bar {
+  background: rgba(9, 13, 24, 0.94) !important;
+  border-bottom: 1px solid rgba(234, 179, 8, 0.2) !important;
+  box-shadow: 0 4px 25px rgba(234, 179, 8, 0.06) !important;
+}
+
+.dark.skin-executive-gold .glassy-sidebar {
+  background: rgba(9, 13, 24, 0.97) !important;
+  border-right: 1px solid rgba(234, 179, 8, 0.2) !important;
+}

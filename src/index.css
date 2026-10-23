@@ -1,0 +1,355 @@
+/* Component styles */
+@import './styles/components/resizable-panels.css';
+@import './styles/theme-colors.css';
+@import './styles/skins/skins.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: var(--zoom-viewport-height, 100%) !important;
+  min-height: var(--zoom-viewport-height, 100%) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0;
+  padding: 0;
+  overflow: hidden !important;
+}
+
+:fullscreen, :-webkit-full-screen {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  overflow: hidden !important;
+}
+
+/* Base styles driven by active skin custom properties */
+body {
+  background-color: var(--bg-canvas, #070a12);
+  color: var(--text-main, #f8fafc);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.app-skin-canvas {
+  background-color: var(--bg-canvas, #070a12) !important;
+  color: var(--text-main, #f8fafc) !important;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.app-main-viewport {
+  background-color: var(--bg-canvas, #070a12) !important;
+  background-image: radial-gradient(ellipse at 50% 0%, var(--bg-paper, rgba(17, 24, 39, 0.85)) 0%, var(--bg-canvas, #070a12) 75%) !important;
+  color: var(--text-main, #f8fafc) !important;
+  transition: background-color 0.3s ease, background-image 0.3s ease;
+}
+
+/* Glassmorphism for chat bubbles and header buttons */
+.glassy-header-btn {
+  background: rgba(255,255,255,0.25);
+  box-shadow: 0 8px 32px 0 rgba(34,48,74,0.18);
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.2s, box-shadow 0.2s;
+  position: relative;
+  z-index: 2;
+  padding: 0.5rem 1.25rem;
+  min-width: 40px;
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.glassy-header-btn.cascade-1 {
+  left: 0px;
+  top: 0px;
+  z-index: 5;
+  box-shadow: 0 8px 32px 0 rgba(34,48,74,0.22), 0 2px 8px 0 rgba(34,48,74,0.10);
+}
+.glassy-header-btn.cascade-2 {
+  left: 8px;
+  top: 4px;
+  z-index: 4;
+  box-shadow: 0 8px 32px 0 rgba(34,48,74,0.16), 0 2px 8px 0 rgba(34,48,74,0.08);
+}
+.glassy-header-btn.cascade-3 {
+  left: 16px;
+  top: 8px;
+  z-index: 3;
+  box-shadow: 0 8px 32px 0 rgba(34,48,74,0.10), 0 2px 8px 0 rgba(34,48,74,0.06);
+}
+
+/* --- GenieFlow Custom: Raised Glass Chat Bubbles --- */
+.glassy-bubble {
+  background: rgba(240, 248, 255, 0.55); /* Lighter blue glass for user */
+  box-shadow: 0 12px 32px 0 rgba(34,48,74,0.22), 0 2px 8px 0 rgba(34,48,74,0.10);
+  border: 1.5px solid rgba(180, 200, 230, 0.25);
+  backdrop-filter: blur(18px) saturate(1.15);
+  -webkit-backdrop-filter: blur(18px) saturate(1.15);
+  transition: background 0.2s, box-shadow 0.2s;
+  position: relative;
+  z-index: 1;
+}
+.glassy-bubble.assistant {
+  background: rgba(220, 225, 235, 0.70); /* Steel gray glass for assistant */
+  border: 1.5px solid rgba(180, 190, 210, 0.22);
+}
+.glassy-bubble.user {
+  background: rgba(210, 230, 255, 0.70); /* Lighter blue glass for user */
+  border: 1.5px solid rgba(180, 210, 240, 0.22);
+}
+.dark .glassy-bubble {
+  background: rgba(34,48,74,0.40);
+  border: 1.5px solid rgba(255,255,255,0.10);
+}
+.dark .glassy-bubble.assistant {
+  background: rgba(34,48,74,0.70);
+  border: 1.5px solid rgba(60, 70, 90, 0.22);
+}
+.dark .glassy-bubble.user {
+  background: rgba(44, 80, 120, 0.70);
+  border: 1.5px solid rgba(60, 90, 120, 0.22);
+}
+/* --- End GenieFlow Custom --- */
+
+/* ✨ Chi-Inspired Shimmery Effects ✨ */
+.shimmer-chi-flow {
+  background: rgba(220, 225, 235, 0.75);
+  box-shadow: 0 4px 20px 0 rgba(220, 225, 235, 0.4), 0 1px 4px 0 rgba(220, 225, 235, 0.2);
+  border: 1px solid rgba(220, 225, 235, 0.5);
+  backdrop-filter: blur(12px) saturate(1.1);
+  -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  transition: all 0.3s ease;
+}
+
+.shimmer-chi-flow:hover {
+  background: rgba(220, 225, 235, 0.85);
+  box-shadow: 0 6px 28px 0 rgba(220, 225, 235, 0.5), 0 2px 8px 0 rgba(220, 225, 235, 0.3);
+  transform: translateY(-1px);
+  will-change: transform;
+}
+
+.shimmer-button-energy {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-button-energy::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -100%;
+  width: 100%;
+  height: calc(100% + 4px);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transition: transform 0.6s ease;
+  transform: translateX(0);
+  will-change: transform;
+}
+
+.shimmer-button-energy:hover::before {
+  transform: translateX(200%);
+}
+
+/* 💎 Exact Sutra OS Active List View / Segmented Steel Tab (User Photo Reference 2) */
+.sutra-steel-active {
+  background: linear-gradient(180deg, #5b6b82 0%, #465568 55%, #354253 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25) !important;
+  border: 1px solid rgba(71, 85, 105, 0.6) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sutra-steel-active:hover {
+  background: linear-gradient(180deg, #64758d 0%, #4c5d71 55%, #3b495b 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.42) !important;
+}
+
+/* ✨ Exact Sutra OS Shimmery Silver Create / Action Button (User Photo Reference 1) */
+.sutra-silver-create {
+  background: linear-gradient(180deg, #e7edf4 0%, #d2dbe6 50%, #c1ccd9 100%) !important;
+  color: #2c3848 !important;
+  box-shadow: 
+    0 2px 6px rgba(15, 23, 42, 0.08),
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(148, 163, 184, 0.35) !important;
+  border: 1px solid rgba(148, 163, 184, 0.65) !important;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sutra-silver-create:hover {
+  background: linear-gradient(180deg, #eef3f8 0%, #d8e1ec 50%, #c7d2df 100%) !important;
+  box-shadow: 
+    0 4px 12px rgba(15, 23, 42, 0.12),
+    0 1px 3px rgba(15, 23, 42, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+  transform: translateY(-0.5px);
+}
+
+.dark .sutra-silver-create {
+  background: linear-gradient(180deg, #384659 0%, #2c3849 50%, #202b39 100%) !important;
+  color: #f1f5f9 !important;
+  border-color: rgba(100, 116, 139, 0.6) !important;
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.6);
+}
+
+.dark .sutra-silver-create:hover {
+  background: linear-gradient(180deg, #425267 0%, #354256 50%, #263344 100%) !important;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28) !important;
+}
+
+/* --- SutraFlow OS Sovereign Design System: Obsidian & Frosted Glass --- */
+.glassy-header-bar {
+  background: rgba(248, 250, 252, 0.88);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
+  transition: background 0.3s, box-shadow 0.3s;
+  -webkit-app-region: drag; /* Let the user drag the window in Electron */
+}
+
+/* Ensure buttons, input fields and menus remain clickable inside the draggable header */
+.glassy-header-bar button,
+.glassy-header-bar input,
+.glassy-header-bar select,
+.glassy-header-bar [role="button"],
+.glassy-header-bar a {
+  -webkit-app-region: no-drag;
+}
+
+.glassy-sidebar {
+  background: rgba(248, 250, 252, 0.94);
+  box-shadow: 2px 0 24px rgba(0, 0, 0, 0.04);
+  border-right: 1px solid rgba(226, 232, 240, 0.85);
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.dark .glassy-header-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f1f5f9;
+}
+.dark .glassy-header-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(99, 102, 241, 0.4);
+}
+
+.dark .glassy-header-bar {
+  background: rgba(11, 15, 25, 0.88);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+.dark .glassy-sidebar {
+  background: rgba(11, 15, 25, 0.95);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 4px 0 30px rgba(0, 0, 0, 0.5);
+}
+
+/* --- GenieFlow Custom: Raised Glass Chat Bubbles (FINAL) --- */
+.glassy-bubble, .glassy-bubble.user, .glassy-bubble.assistant {
+  background: rgba(240, 248, 255, 0.45) !important;
+  box-shadow: 0 16px 48px 0 rgba(34,48,74,0.32), 0 4px 16px 0 rgba(34,48,74,0.18) !important;
+  backdrop-filter: blur(24px) saturate(1.25) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.25) !important;
+  position: relative;
+  z-index: 10;
+  border-radius: 1.5rem !important;
+  padding: 1.25rem 2rem !important;
+  margin: 1.5rem 0 !important;
+  will-change: auto;
+}
+.glassy-bubble.assistant {
+  background: rgba(180, 190, 210, 0.60) !important; /* Steel gray glass for assistant */
+  /* border removed: was for DEBUG only */
+}
+.glassy-bubble.user {
+  background: rgba(180, 220, 255, 0.60) !important; /* Lighter blue glass for user */
+  /* border removed: was for DEBUG only */
+}
+.dark .glassy-bubble, .dark .glassy-bubble.user, .dark .glassy-bubble.assistant {
+  background: rgba(34,48,74,0.60) !important;
+  /* border removed: was for DEBUG only */
+}
+.dark .glassy-bubble.assistant {
+  background: rgba(34,48,74,0.80) !important;
+  /* border removed: was for DEBUG only */
+}
+.dark .glassy-bubble.user {
+  background: rgba(44, 80, 120, 0.80) !important;
+  /* border removed: was for DEBUG only */
+}
+/* --- End GenieFlow Custom (FINAL) --- */
+
+/* Flowing Wave Animations for Dashboard Banner */
+@keyframes wave-1 {
+  0% { transform: translateX(-100%) rotate(15deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%) rotate(15deg); opacity: 0; }
+}
+
+@keyframes wave-2 {
+  0% { transform: translateX(-100%) rotate(-10deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%) rotate(-10deg); opacity: 0; }
+}
+
+@keyframes wave-3 {
+  0% { transform: translateX(-100%) rotate(8deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%) rotate(8deg); opacity: 0; }
+}
+
+@keyframes wave-4 {
+  0% { transform: translateX(-100%) rotate(-5deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%) rotate(-5deg); opacity: 0; }
+}
+
+@keyframes wave-5 {
+  0% { transform: translateX(-100%) rotate(12deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%) rotate(12deg); opacity: 0; }
+}
+
+@keyframes wave-6 {
+  0% { transform: translateX(-100%) rotate(-8deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(100%) rotate(-8deg); opacity: 0; }
+}
+
+.animate-wave-1 { animation: wave-1 4s infinite ease-in-out; }
+.animate-wave-2 { animation: wave-2 5s infinite ease-in-out 0.5s; }
+.animate-wave-3 { animation: wave-3 6s infinite ease-in-out 1s; }
+.animate-wave-4 { animation: wave-4 4.5s infinite ease-in-out 1.5s; }
+.animate-wave-5 { animation: wave-5 5.5s infinite ease-in-out 2s; }
+.animate-wave-6 { animation: wave-6 4.8s infinite ease-in-out 2.5s; }

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Assistants Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #3ECF8E;
+        }
+        button {
+            background-color: #3ECF8E;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+        button:hover {
+            background-color: #2EBF7E;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
+        #result {
+            margin-top: 20px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .copy-btn {
+            background-color: #4a5568;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 3px 8px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .copy-btn:hover {
+            background-color: #2d3748;
+        }
+        .panel {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+        }
+        .tab.active {
+            background-color: #3ECF8E;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 0 0 5px 5px;
+        }
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Supabase Assistants Explorer</h1>
+    
+    <div class="panel">
+        <h3>Connection Settings</h3>
+        <div>
+            <label for="apiKey">Supabase Anon Key:</label>
+            <input type="text" id="apiKey" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...">
+        </div>
+        <button onclick="initializeApp()">Connect & Load Data</button>
+    </div>
+    
+    <div class="tabs">
+        <div class="tab active" onclick="showTab('assistantsTab')">Assistants</div>
+        <div class="tab" onclick="showTab('trainingTab')">Training Data</div>
+        <div class="tab" onclick="showTab('rawTab')">Raw Query</div>
+    </div>
+    
+    <div id="assistantsTab" class="tab-content active">
+        <h2>All Assistants</h2>
+        <p>Click on "Load Assistants" to see all available assistants in your project.</p>
+        <button onclick="loadAssistants()">Load Assistants</button>
+        <div id="assistantsResult"></div>
+    </div>
+    
+    <div id="trainingTab" class="tab-content">
+        <h2>Training Data</h2>
+        <div>
+            <label for="assistantId">Assistant ID:</label>
+            <input type="text" id="assistantId" placeholder="Enter assistant ID">
+        </div>
+        <button onclick="loadTrainingData()">Load Training Data</button>
+        <div id="trainingResult"></div>
+    </div>
+    
+    <div id="rawTab" class="tab-content">
+        <h2>Raw SQL Query</h2>
+        <div>
+            <label for="sqlQuery">SQL Query:</label>
+            <textarea id="sqlQuery" style="width: 100%; height: 100px;" placeholder="Example: SELECT * FROM assistants LIMIT 10;"></textarea>
+        </div>
+        <button onclick="executeRawQuery()">Execute Query</button>
+        <div id="rawQueryResult"></div>
+    </div>
+
+    <script>
+        const PROJECT_URL = 'https://bpczmzsozjlqxercmnyu.supabase.co';
+        let apiKey = '';
+        
+        function showTab(tabId) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Deactivate all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabId).classList.add('active');
+            
+            // Activate the clicked tab
+            event.currentTarget.classList.add('active');
+        }
+        
+        function initializeApp() {
+            apiKey = document.getElementById('apiKey').value.trim();
+            
+            if (!apiKey) {
+                alert('Please enter your Supabase Anon Key');
+                return;
+            }
+            
+            // Test connection
+            fetch(`${PROJECT_URL}/rest/v1/rpc/test_cors`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': apiKey
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Connection test failed');
+                return response.json();
+            })
+            .then(data => {
+                alert('Connection successful! You can now use the tabs to explore data.');
+                // Auto-load assistants
+                loadAssistants();
+            })
+            .catch(error => {
+                alert('Connection failed: ' + error.message);
+            });
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('ID copied to clipboard!');
+            });
+        }
+        
+        async function loadAssistants() {
+            const resultDiv = document.getElementById('assistantsResult');
+            
+            if (!apiKey) {
+                resultDiv.innerHTML = '<p class="error">Please connect first using your Supabase Anon Key</p>';
+                return;
+            }
+            
+            resultDiv.innerHTML = '<p>Loading assistants...</p>';
+            
+            try {
+                const response = await fetch(`${PROJECT_URL}/rest/v1/rpc/list_assistants`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': apiKey
+                    },
+                    body: JSON.stringify({})
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    if (data.length === 0) {
+                        resultDiv.innerHTML = '<p>No assistants found.</p>';
+                        return;
+                    }
+                    
+                    let tableHtml = `
+                        <h3>Found ${data.length} assistants:</h3>
+                        <table>
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>ID</th>
+                                <th>Created At</th>
+                                <th>Action</th>
+                            </tr>
+                    `;
+                    
+                    data.forEach(assistant => {
+                        tableHtml += `
+                            <tr>
+                                <td>${assistant.name || 'No name'}</td>
+                                <td>${assistant.description || 'No description'}</td>
+                                <td><code>${assistant.id}</code></td>
+                                <td>${new Date(assistant.created_at).toLocaleString()}</td>
+                                <td>
+                                    <button class="copy-btn" onclick="copyToClipboard('${assistant.id}')">Copy ID</button>
+                                    <button class="copy-btn" onclick="setAssistantId('${assistant.id}')">Select for Training</button>
+                                </td>
+                            </tr>
+                        `;
+                    });
+                    
+                    tableHtml += '</table>';
+                    resultDiv.innerHTML = tableHtml;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `
+                        <p class="error">Error loading assistants: ${response.status}</p>
+                        <p>${errorText}</p>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">Error loading assistants</p>
+                    <p>${error.message}</p>
+                `;
+            }
+        }
+        
+        function setAssistantId(id) {
+            document.getElementById('assistantId').value = id;
+            showTab('trainingTab');
+        }
+        
+        async function loadTrainingData() {
+            const resultDiv = document.getElementById('trainingResult');
+            const assistantId = document.getElementById('assistantId').value.trim();
+            
+            if (!apiKey) {
+                resultDiv.innerHTML = '<p class="error">Please connect first using your Supabase Anon Key</p>';
+                return;
+            }
+            
+            if (!assistantId) {
+                resultDiv.innerHTML = '<p class="error">Please enter an Assistant ID</p>';
+                return;
+            }
+            
+            resultDiv.innerHTML = `<p>Loading training data for assistant: ${assistantId}...</p>`;
+            
+            try {
+                const response = await fetch(`${PROJECT_URL}/rest/v1/rpc/get_assistant_training`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': apiKey
+                    },
+                    body: JSON.stringify({
+                        "p_assistant_id": assistantId
+                    })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    if (data.length === 0) {
+                        resultDiv.innerHTML = '<p>No training data found for this assistant.</p>';
+                        return;
+                    }
+                    
+                    let tableHtml = `
+                        <h3>Found ${data.length} training entries:</h3>
+                        <table>
+                            <tr>
+                                <th>Question</th>
+                                <th>Answer</th>
+                                <th>Created At</th>
+                            </tr>
+                    `;
+                    
+                    data.forEach(entry => {
+                        tableHtml += `
+                            <tr>
+                                <td>${entry.question || 'No question'}</td>
+                                <td>${entry.answer || 'No answer'}</td>
+                                <td>${new Date(entry.created_at).toLocaleString()}</td>
+                            </tr>
+                        `;
+                    });
+                    
+                    tableHtml += '</table>';
+                    resultDiv.innerHTML = tableHtml;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `
+                        <p class="error">Error loading training data: ${response.status}</p>
+                        <p>${errorText}</p>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">Error loading training data</p>
+                    <p>${error.message}</p>
+                `;
+            }
+        }
+        
+        async function executeRawQuery() {
+            const resultDiv = document.getElementById('rawQueryResult');
+            const query = document.getElementById('sqlQuery').value.trim();
+            
+            if (!apiKey) {
+                resultDiv.innerHTML = '<p class="error">Please connect first using your Supabase Anon Key</p>';
+                return;
+            }
+            
+            if (!query) {
+                resultDiv.innerHTML = '<p class="error">Please enter an SQL query</p>';
+                return;
+            }
+            
+            resultDiv.innerHTML = `<p>Executing query...</p>`;
+            
+            try {
+                // Note: This is a simplified approach and might not work for all queries
+                // Complex queries should use appropriate Supabase API endpoints
+                const response = await fetch(`${PROJECT_URL}/rest/v1/${query.includes('SELECT') ? query : ''}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': apiKey
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    resultDiv.innerHTML = `
+                        <h3>Query Results:</h3>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    const errorText = await response.text();
+                    resultDiv.innerHTML = `
+                        <p class="error">Error executing query: ${response.status}</p>
+                        <p>${errorText}</p>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <p class="error">Error executing query</p>
+                    <p>${error.message}</p>
+                    <p>Note: This simple tool only supports basic SELECT queries via REST API.</p>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

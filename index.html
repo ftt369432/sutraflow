@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2563eb" />
+    <meta
+      name="description"
+      content="Sutra OS - Sovereign Intelligence & Air-Gapped Universal Operating System"
+    />
+    
+    <!-- Content Security Policy - Allow Google APIs, Cloudflare Insights, local GPU inference, and required scripts -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self' https:;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://apis.google.com https://accounts.google.com https://www.gstatic.com https://ssl.gstatic.com https://www.google.com https://esm.sh https://static.cloudflareinsights.com https://*.cloudflareinsights.com blob: data:;
+      style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+      font-src 'self' https://fonts.gstatic.com;
+      img-src 'self' data: https: blob:;
+      media-src 'self' data: https: blob:;
+      connect-src 'self' https: http: wss: ws: https://cloudflareinsights.com https://*.cloudflareinsights.com blob: data:;
+      frame-src 'self' https://accounts.google.com https://www.google.com https://content.googleapis.com https://apis.google.com https://*.googleapis.com https://api.allorigins.win https://*.allorigins.win;
+      child-src 'self' blob:;
+      worker-src 'self' blob: data:;
+    ">
+    
+    <!-- Suppress icon error warning in console -->
+    <link rel="apple-touch-icon" href="#" />
+    <link rel="manifest" href="./manifest.json" />
+    <title>Sutra OS | Sovereign Intelligence</title>
+    
+    <!-- 🔧 Web API Compatibility Check -->
+    <script>
+      (function() {
+        'use strict';
+        
+        // Basic compatibility check for modern web APIs
+        const apis = ['fetch', 'Promise', 'Object', 'Array'];
+        const missing = apis.filter(api => typeof window[api] === 'undefined');
+        
+        if (missing.length > 0) {
+          console.warn('🔧 Missing APIs:', missing);
+        } else {
+          console.log('🔧 Web APIs compatibility: OK');
+        }
+      })();
+    </script>
+    
+    <!-- Google API Client Library - Load asynchronously without blocking app startup -->
+    <script src="https://apis.google.com/js/api.js" async defer></script>
+    
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+    <!-- Live Email Configuration -->
+    <script>
+      // Enable live Google services
+      window.ENV_OVERRIDE = {
+        VITE_USE_MOCK: false,
+        VITE_DEBUG: true,
+        VITE_DISABLE_GOOGLE_INTEGRATION: false
+      };
+      console.log('🚀 Live Mode: Enabled');
+      console.log('📧 Using live email and calendar services...');
+      
+      // Window load event for app initialization
+      window.addEventListener('load', function() {
+        console.log('✅ App loaded - Live services ready');
+      });
+    </script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

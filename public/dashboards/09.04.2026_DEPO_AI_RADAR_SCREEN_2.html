@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>⚡ SCREEN 2: DEPO AI RADAR & LIVE LISTENER | NICOLL PERDOMO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0d1117;
+      --card-bg: #161b22;
+      --card-border: #30363d;
+      --header-bg: #161b22;
+      --text-main: #f0f6fc;
+      --text-muted: #8b949e;
+      --accent-blue: #58a6ff;
+      --accent-blue-bg: rgba(88, 166, 255, 0.12);
+      --accent-emerald: #3fb950;
+      --accent-red: #f85149;
+      --accent-amber: #d29922;
+      --accent-purple: #bc8cff;
+      --accent-purple-bg: rgba(188, 140, 255, 0.12);
+    }
+    [data-theme="light"] {
+      --bg-dark: #f6f8fa;
+      --card-bg: #ffffff;
+      --card-border: #d0d7de;
+      --header-bg: #ffffff;
+      --text-main: #1f2328;
+      --text-muted: #656d76;
+      --accent-blue: #0969da;
+      --accent-blue-bg: rgba(9, 105, 218, 0.1);
+      --accent-emerald: #1a7f37;
+      --accent-red: #cf222e;
+      --accent-amber: #9a6700;
+      --accent-purple: #8250df;
+      --accent-purple-bg: rgba(130, 80, 223, 0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    header {
+      padding: 10px 20px;
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    }
+
+    /* HIGH CONTRAST BUTTONS IN BOTH THEMES */
+    .btn {
+      padding: 6px 14px;
+      border-radius: 6px;
+      border: 1px solid var(--card-border);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      outline: none;
+    }
+
+    [data-theme="dark"] .btn {
+      background-color: #21262d;
+      color: #f0f6fc;
+      border-color: #363c46;
+    }
+    [data-theme="dark"] .btn:hover {
+      background-color: #30363d;
+      color: #ffffff;
+    }
+
+    [data-theme="light"] .btn {
+      background-color: #ffffff;
+      color: #1f2328;
+      border-color: #d0d7de;
+      box-shadow: 0 1px 2px rgba(27, 31, 36, 0.08);
+    }
+    [data-theme="light"] .btn:hover {
+      background-color: #f6f8fa;
+      border-color: #0969da;
+      color: #0969da;
+    }
+
+    .btn-green {
+      background: linear-gradient(135deg, #238636, #2ea043) !important;
+      color: #fff !important;
+      border-color: #2ea043 !important;
+    }
+    .btn-green:hover { background: #2ea043 !important; }
+
+    .btn-blue {
+      background: linear-gradient(135deg, #1f6feb, #0969da) !important;
+      color: #fff !important;
+      border-color: #0969da !important;
+    }
+    .btn-blue:hover { background: #388bfd !important; }
+
+    .btn-red {
+      background: rgba(248, 81, 73, 0.15) !important;
+      color: var(--accent-red) !important;
+      border-color: rgba(248, 81, 73, 0.3) !important;
+    }
+    .btn-red:hover { background: var(--accent-red) !important; color: #fff !important; }
+
+    .lang-select {
+      background: var(--card-bg);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .hud-main {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 16px;
+      padding: 16px;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .pane {
+      display: flex;
+      flex-direction: column;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .pane-hdr {
+      padding: 10px 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .pane-body {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .keyword {
+      background: rgba(210, 153, 34, 0.3);
+      color: #e3b341;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+
+    .ai-card {
+      background: var(--bg-dark);
+      border-left: 4px solid var(--accent-purple);
+      border-top: 1px solid var(--card-border);
+      border-right: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 14px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      animation: slideIn 0.2s ease-out;
+    }
+
+    @keyframes slideIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+    .ai-card.trap { border-left-color: var(--accent-red); }
+    .ai-card.lockdown { border-left-color: var(--accent-amber); }
+    .ai-card.impeach { border-left-color: var(--accent-blue); }
+
+    .q-en { font-size: 13.5px; font-weight: 600; line-height: 1.4; color: var(--text-main); }
+    .q-es { font-size: 12.5px; font-style: italic; color: var(--text-muted); line-height: 1.35; margin-top: 2px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h2 style="font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+        <span>🎙️ DEPO AI RADAR (SCREEN 2)</span>
+        <span id="popStatusPill" style="font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 12px; background: rgba(139, 148, 158, 0.2); color: var(--text-muted);">STANDBY</span>
+      </h2>
+      <p style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">NICOLL PERDOMO v. VESTA FOODSERVICE | Live Sync Active</p>
+    </div>
+
+    <div style="display: flex; gap: 8px; align-items: center;">
+      <!-- LANGUAGE SELECTOR -->
+      <select class="lang-select" id="langSelector" onchange="changeLanguage()">
+        <option value="en-US">🇺🇸 English (US)</option>
+        <option value="es-US">🇲🇽 Español (Spanish)</option>
+        <option value="es-MX">🌐 Dual / Interpreter</option>
+      </select>
+
+      <button class="btn btn-green" id="popMicBtn" onclick="togglePopMic()">🎙️ Room Mic</button>
+      <button class="btn btn-blue" id="popZoomBtn" onclick="connectPopZoom()">💻 Zoom / Depo Audio</button>
+      <button class="btn btn-red" id="popStopBtn" onclick="stopPopListening()" style="display:none;">⏹️ Stop</button>
+      <button class="btn" id="themeBtn" onclick="togglePopTheme()" title="Toggle Dark/Light Mode">☀️ / 🌙 Theme</button>
+    </div>
+  </header>
+
+  <div class="hud-main">
+    <!-- TRANSCRIPT PANE -->
+    <div class="pane">
+      <div class="pane-hdr">
+        <span>📝 Live Rolling Testimony Feed</span>
+        <div style="display: flex; gap: 6px;">
+          <button class="btn" style="padding: 3px 8px; font-size: 10.5px;" onclick="exportTranscript()">💾 Save Feed (.txt)</button>
+          <button class="btn" style="padding: 3px 8px; font-size: 10.5px;" onclick="clearPopTranscript()">Clear</button>
+          <button class="btn" style="padding: 3px 8px; font-size: 10.5px;" onclick="copyPopTranscript()">Copy</button>
+        </div>
+      </div>
+      <div class="pane-body" id="popTranscript">
+        <p style="color: var(--text-muted); font-style: italic; padding: 20px 0;">
+          Select <strong>"🎙️ Room Mic"</strong> or <strong>"💻 Zoom / Depo Audio"</strong> above.<br>
+          Words spoken in <strong>English or Spanish</strong> will stream here with real-time keyword tracking and automatic local persistence...
+        </p>
+      </div>
+    </div>
+
+    <!-- AI FOLLOW-UP QUEUE -->
+    <div class="pane">
+      <div class="pane-hdr">
+        <span style="color: var(--accent-purple);">⚡ Dynamic Follow-Up Queue (<span id="popFollowupCount">0</span>)</span>
+        <div style="display: flex; gap: 6px;">
+          <button class="btn" style="padding: 3px 8px; font-size: 10.5px;" onclick="exportFollowups()">💾 Save Q's (.md)</button>
+          <button class="btn" style="padding: 3px 8px; font-size: 10.5px;" onclick="clearPopFollowups()">Clear All</button>
+        </div>
+      </div>
+      <div class="pane-body" id="popFollowupList" style="font-family: 'Inter', sans-serif;">
+        <p style="color: var(--text-muted); font-style: italic; text-align: center; padding: 60px 10px;">
+          Listening for testimony...<br>When the witness speaks in English or Spanish, AI will generate real-time trap questions, lock-down evasions, and bilingual impeachment angles here.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const syncChannel = new BroadcastChannel('depo_hud_sync');
+    const LS_FEED = 'depo_saved_transcript_v1';
+    const LS_QS = 'depo_saved_followups_v1';
+
+    let popRec = null;
+    let popListening = false;
+    let currentLang = 'en-US';
+    let popLines = [];
+    let popFollowups = [];
+
+    // BILINGUAL KEYWORDS (ENGLISH & SPANISH)
+    const KEYWORDS = [
+      // English
+      "pallet", "pallets", "jack", "electric", "manual", "broke", "broken", "malfunction",
+      "weight", "heavy", "lbs", "pounds", "50", "40", "30", "scale", "crates",
+      "never", "always", "nobody", "alone", "solo", "two people", "team lift",
+      "training", "manual", "rule", "safety", "reported", "injury", "hurt",
+      "doctor", "supervisor", "manager", "don't recall", "do not recall",
+      "not sure", "someone else", "shift", "aisle", "produce", "vesta", "box", "boxes",
+      // Spanish
+      "paleta", "paletas", "montacargas", "manual", "electrico", "descompuesto", "roto",
+      "peso", "pesado", "libras", "kilos", "caja", "cajas", "nunca", "siempre", "nadie",
+      "sola", "solo", "dos personas", "entrenamiento", "regla", "seguridad", "reporto",
+      "lastimo", "dolor", "espalda", "cuello", "rodilla", "hombro", "doctor", "supervisor",
+      "no me acuerdo", "no recuerdo", "no se", "turno", "fruta", "verdura"
+    ];
+
+    // BILINGUAL INTERROGATION PATTERNS
+    const PATTERNS = [
+      {
+        regex: /(don't recall|do not recall|not sure|can't remember|don't remember|no me acuerdo|no recuerdo|no se|no estoy seguro)/i,
+        badge: "LOCK-DOWN EVASION",
+        type: "lockdown",
+        q_en: "Who at Vesta Foodservice would possess written records or knowledge of that fact?",
+        q_es: "¿Quién en Vesta Foodservice tendría registros escritos o conocimiento de ese hecho?"
+      },
+      {
+        regex: /(refresh my memory|review logs|refrescar la memoria|registros)/i,
+        badge: "DOCUMENT REFRESH",
+        type: "lockdown",
+        q_en: "Did you review shift logs, dispatch sheets, or timecards before testifying today to refresh your memory?",
+        q_es: "¿Revisó los registros de turno o tarjetas de tiempo antes de testificar hoy para refrescar su memoria?"
+      },
+      {
+        regex: /(pallet jack|jack|broken|didn't work|malfunction|dead battery|montacargas|descompuesto|no servia|no funcionaba)/i,
+        badge: "PALLET JACK ADMISSION",
+        type: "trap",
+        q_en: "When pallet jacks broke down during a shift, selectors were still required to pull loaded pallets manually, correct?",
+        q_es: "¿Cuando los montacargas se descomponían en el turno, los trabajadores aún tenían que jalar las paletas manualmente, verdad?"
+      },
+      {
+        regex: /(maintenance log|repairs|mantenimiento|reparacion)/i,
+        badge: "EQUIPMENT LOGS",
+        type: "trap",
+        q_en: "Where are the maintenance logs documenting every repair request for manual and electric pallet jacks in 2025 and 2026?",
+        q_es: "¿Dónde están las bitácoras de mantenimiento de las reparaciones de montacargas en 2025 y 2026?"
+      },
+      {
+        regex: /(heavy|weight|50 lbs|40 lbs|pounds|bulk|crate|crates|pesado|peso|cajas pesadas)/i,
+        badge: "WEIGHT TRAP",
+        type: "trap",
+        q_en: "Produce pallets frequently contain watermelon crates or potato sacks exceeding 50 lbs, true?",
+        q_es: "¿Las paletas de verduras frecuentemente contienen cajas de sandías o costales que superan las 50 libras, cierto?"
+      },
+      {
+        regex: /(always|never|every time|mandatory|two people|siempre|nunca|dos personas|regla obligatoria)/i,
+        badge: "IMPEACHMENT WEDGE",
+        type: "impeach",
+        q_en: "Show me where in the employee handbook or safety manual that mandatory two-person lift rule is written down.",
+        q_es: "¿Muéstreme en qué parte del manual del empleado o de seguridad está escrita esa regla de levantar entre dos personas?"
+      },
+      {
+        regex: /(didn't report|never told me|no complaint|no me dijo|no reporto|no se quejo)/i,
+        badge: "NOTICE OF INJURY TRAP",
+        type: "trap",
+        q_en: "Isn't it true that workers often continue working through pain out of fear of losing their job or being disciplined?",
+        q_es: "¿No es verdad que los empleados a menudo continúan trabajando con dolor por temor a perder su trabajo o ser reprendidos?"
+      }
+    ];
+
+    // RESTORE SAVED STATE ON LOAD
+    window.addEventListener('DOMContentLoaded', () => {
+      try {
+        const savedFeed = localStorage.getItem(LS_FEED);
+        if (savedFeed) {
+          popLines = JSON.parse(savedFeed);
+          renderPopTranscript();
+        }
+        const savedQs = localStorage.getItem(LS_QS);
+        if (savedQs) {
+          popFollowups = JSON.parse(savedQs);
+          renderPopFollowups();
+        }
+      } catch(e){}
+    });
+
+    function changeLanguage() {
+      currentLang = document.getElementById('langSelector').value;
+      if (popListening && popRec) {
+        popRec.stop();
+        setTimeout(() => { togglePopMic(); }, 300);
+      }
+    }
+
+    function togglePopMic() {
+      if (popListening) { stopPopListening(); return; }
+      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRec) { alert("SpeechRecognition supported in Google Chrome, Microsoft Edge, and Brave."); return; }
+      popRec = new SpeechRec();
+      popRec.continuous = true;
+      popRec.interimResults = true;
+      popRec.lang = currentLang;
+
+      popRec.onstart = () => {
+        popListening = true;
+        const langLabel = currentLang.startsWith('es') ? 'ESPAÑOL' : 'ENGLISH';
+        updatePopUI(true, `LISTENING (${langLabel})`);
+      };
+
+      popRec.onresult = (e) => {
+        for (let i = e.resultIndex; i < e.results.length; ++i) {
+          if (e.results[i].isFinal) {
+            addPopLine(e.results[i][0].transcript);
+          }
+        }
+      };
+
+      popRec.onerror = (e) => { console.warn("Mic error:", e.error); };
+      popRec.onend = () => {
+        if (popListening) { try { popRec.start(); } catch(e){} }
+        else updatePopUI(false, "STANDBY");
+      };
+
+      try { popRec.start(); } catch(e) {}
+    }
+
+    async function connectPopZoom() {
+      try {
+        if (popListening) stopPopListening();
+        const stream = await navigator.mediaDevices.getDisplayMedia({ video: true, audio: true });
+        togglePopMic();
+        updatePopUI(true, "ZOOM / DEPO AUDIO CONNECTED");
+      } catch(e) { console.warn(e); }
+    }
+
+    function stopPopListening() {
+      popListening = false;
+      if (popRec) { try { popRec.stop(); } catch(e){} }
+      updatePopUI(false, "STANDBY");
+    }
+
+    function updatePopUI(active, txt) {
+      const pill = document.getElementById('popStatusPill');
+      const mic = document.getElementById('popMicBtn');
+      const zoom = document.getElementById('popZoomBtn');
+      const stop = document.getElementById('popStopBtn');
+      if (active) {
+        pill.style.background = 'rgba(63, 185, 80, 0.2)';
+        pill.style.color = '#3fb950';
+        pill.innerText = '● ' + txt;
+        mic.style.display = 'none';
+        zoom.style.display = 'none';
+        stop.style.display = 'inline-flex';
+      } else {
+        pill.style.background = 'rgba(139, 148, 158, 0.2)';
+        pill.style.color = '#8b949e';
+        pill.innerText = 'STANDBY';
+        mic.style.display = 'inline-flex';
+        zoom.style.display = 'inline-flex';
+        stop.style.display = 'none';
+      }
+    }
+
+    function addPopLine(text) {
+      const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      popLines.push({ time, text: text.trim() });
+      try { localStorage.setItem(LS_FEED, JSON.stringify(popLines)); } catch(e){}
+      renderPopTranscript();
+      analyzePop(text);
+    }
+
+    function renderPopTranscript() {
+      const box = document.getElementById('popTranscript');
+      if (popLines.length === 0) {
+        box.innerHTML = '<p style="color: var(--text-muted); font-style: italic; padding: 20px 0;">No testimony recorded yet. Select Room Mic or Zoom Audio above...</p>';
+        return;
+      }
+      box.innerHTML = popLines.map(l => {
+        let txt = l.text;
+        KEYWORDS.forEach(kw => {
+          const reg = new RegExp('\\b(' + kw + ')\\b', 'gi');
+          txt = txt.replace(reg, '<span class="keyword">$1</span>');
+        });
+        return '<div style="margin-bottom: 6px;"><span style="color: var(--text-muted); font-size: 10.5px;">[' + l.time + ']</span> ' + txt + '</div>';
+      }).join('');
+      box.scrollTop = box.scrollHeight;
+    }
+
+    function analyzePop(text) {
+      PATTERNS.forEach(pat => {
+        if (pat.regex.test(text)) {
+          if (!popFollowups.some(f => f.q_en === pat.q_en)) {
+            popFollowups.unshift({
+              badge: pat.badge,
+              type: pat.type,
+              q_en: pat.q_en,
+              q_es: pat.q_es,
+              trigger: text.trim()
+            });
+            try { localStorage.setItem(LS_QS, JSON.stringify(popFollowups)); } catch(e){}
+            renderPopFollowups();
+          }
+        }
+      });
+    }
+
+    function renderPopFollowups() {
+      const box = document.getElementById('popFollowupList');
+      const count = document.getElementById('popFollowupCount');
+      count.innerText = popFollowups.length;
+      if (popFollowups.length === 0) {
+        box.innerHTML = '<p style="color: var(--text-muted); font-style: italic; text-align: center; padding: 60px 10px;">Listening for testimony in English or Spanish... Real-time trap questions generate here.</p>';
+        return;
+      }
+      box.innerHTML = popFollowups.map((f, i) => {
+        return '<div class="ai-card ' + f.type + '">' +
+          '<div style="display: flex; justify-content: space-between; align-items: center;">' +
+            '<span style="font-size: 10px; font-weight: 800; color: var(--accent-purple); text-transform: uppercase;">⚡ ' + f.badge + '</span>' +
+            '<button class="btn" style="padding: 2px 6px; font-size: 10px;" onclick="removeFollowup(' + i + ')">✕</button>' +
+          '</div>' +
+          '<p class="q-en">"' + f.q_en + '"</p>' +
+          '<p class="q-es">🇲🇽 "' + f.q_es + '"</p>' +
+          '<div style="display: flex; justify-content: flex-end; gap: 6px; margin-top: 6px;">' +
+            '<button class="btn" style="padding: 4px 10px; font-size: 11px;" onclick="copyCardByIndex(' + i + ', \'en\')">📋 Copy EN</button>' +
+            '<button class="btn" style="padding: 4px 10px; font-size: 11px;" onclick="copyCardByIndex(' + i + ', \'es\')">📋 Copy ES</button>' +
+            '<button class="btn" style="padding: 4px 10px; font-size: 11px; background: #238636; color: #fff; border-color: #2ea043;" onclick="sendToScreen1ByIndex(' + i + ')">➕ Send to Screen 1</button>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function removeFollowup(i) {
+      popFollowups.splice(i, 1);
+      localStorage.setItem(LS_QS, JSON.stringify(popFollowups));
+      renderPopFollowups();
+    }
+
+    function copyCardByIndex(i, lang) {
+      const card = popFollowups[i];
+      if (!card) return;
+      const text = lang === 'es' ? card.q_es : card.q_en;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("Copied " + (lang === 'es' ? "Spanish" : "English") + " question to clipboard!");
+      });
+    }
+
+    function sendToScreen1ByIndex(i) {
+      const card = popFollowups[i];
+      if (!card) return;
+      syncChannel.postMessage({ type: 'INSERT_QUESTION', text: card.q_en, badge: card.badge });
+      alert("✅ Follow-up question instantly sent to your Screen 1 HUD!");
+    }
+
+    // EXPORT TRANSCRIPT AS TXT FILE
+    function exportTranscript() {
+      if (popLines.length === 0) { alert("No testimony to export yet."); return; }
+      let out = "DEPOSITION TESTIMONY RECORD\n";
+      out += "CASE: NICOLL PERDOMO v. VESTA FOODSERVICE (ADJ22473506)\n";
+      out += "DATE: " + new Date().toLocaleDateString() + "\n";
+      out += "=======================================================\n\n";
+      popLines.forEach(l => {
+        out += `[${l.time}] ${l.text}\n\n`;
+      });
+      downloadFile(out, "DEPOSITION_TESTIMONY_TRANSCRIPT.txt", "text/plain");
+    }
+
+    // EXPORT FOLLOW-UP QUESTIONS AS MARKDOWN
+    function exportFollowups() {
+      if (popFollowups.length === 0) { alert("No follow-up questions to export yet."); return; }
+      let out = "# DEPOSITION DYNAMIC FOLLOW-UP QUESTIONS\n";
+      out += "**Case:** Nicoll Perdomo v. Vesta Foodservice\n";
+      out += "**Date:** " + new Date().toLocaleDateString() + "\n\n---\n\n";
+      popFollowups.forEach((f, idx) => {
+        out += `### ${idx + 1}. [${f.badge}]\n`;
+        out += `- **English:** "${f.q_en}"\n`;
+        out += `- **Spanish:** "${f.q_es}"\n\n`;
+      });
+      downloadFile(out, "DEPOSITION_AI_FOLLOWUP_QUESTIONS.md", "text/markdown");
+    }
+
+    function downloadFile(content, fileName, contentType) {
+      const a = document.createElement("a");
+      const file = new Blob([content], { type: contentType });
+      a.href = URL.createObjectURL(file);
+      a.download = fileName;
+      a.click();
+    }
+
+    function clearPopTranscript() {
+      if (confirm('Clear transcript history?')) {
+        popLines = [];
+        localStorage.removeItem(LS_FEED);
+        renderPopTranscript();
+      }
+    }
+
+    function copyPopTranscript() {
+      const all = popLines.map(l => `[${l.time}] ${l.text}`).join('\n');
+      navigator.clipboard.writeText(all).then(() => alert('Transcript copied to clipboard!'));
+    }
+
+    function clearPopFollowups() {
+      if (confirm('Clear all generated follow-ups?')) {
+        popFollowups = [];
+        localStorage.removeItem(LS_QS);
+        renderPopFollowups();
+      }
+    }
+
+    function togglePopTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+    }
+  </script>
+</body>
+</html>

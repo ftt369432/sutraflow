@@ -1,0 +1,32 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sutraBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#090D16"/>
+      <stop offset="50%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="sutraGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="40%" stop-color="#6366F1"/>
+      <stop offset="80%" stop-color="#A855F7"/>
+      <stop offset="100%" stop-color="#EC4899"/>
+    </linearGradient>
+    <filter id="sutraGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" rx="128" fill="url(#sutraBg)"/>
+  <rect x="8" y="8" width="496" height="496" rx="120" stroke="url(#sutraGradient)" stroke-width="4" stroke-opacity="0.4"/>
+  <g filter="url(#sutraGlow)">
+    <!-- Stylized Neural S Ribbon (Sutra Thread) -->
+    <path d="M 330 160 C 330 125 300 96 256 96 C 200 96 160 136 160 192 C 160 270 352 240 352 320 C 352 376 312 416 256 416 C 212 416 182 387 182 352" 
+          stroke="url(#sutraGradient)" 
+          stroke-width="44" 
+          stroke-linecap="round" 
+          stroke-linejoin="round"
+          fill="none"/>
+    <!-- Central Node Spark -->
+    <circle cx="256" cy="256" r="14" fill="#38BDF8"/>
+  </g>
+</svg>

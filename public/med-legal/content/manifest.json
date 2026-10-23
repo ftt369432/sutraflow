@@ -1,0 +1,1093 @@
+{
+  "version": "2026.2",
+  "last_updated": "2026-10-09",
+  "divisions": [
+    {
+      "filename": "00_PREFACE_AND_TOC.md",
+      "title": "California Workers' Compensation Litigation Master Reference (2026 Sovereign Edition)",
+      "division": "",
+      "chapters": "",
+      "line_count": 322
+    },
+    {
+      "filename": "DIVISION_01_INJURY_CAUSATION_COMPENSABILITY.md",
+      "title": "Division I: Injury Causation & Compensability",
+      "division": "I",
+      "chapters": "Chapters 1\u201315",
+      "line_count": 7352
+    },
+    {
+      "filename": "DIVISION_02_MEDICAL_TREATMENT_AND_EXPENSES.md",
+      "title": "Division II: Medical Treatment & Expenses",
+      "division": "II",
+      "chapters": "Chapters 16\u201328",
+      "line_count": 4794
+    },
+    {
+      "filename": "DIVISION_03_QME_AME_EVALUATIONS.md",
+      "title": "Division III: QME & AME Medical-Legal Evaluations",
+      "division": "III",
+      "chapters": "Chapters 29\u201335",
+      "line_count": 2934
+    },
+    {
+      "filename": "DIVISION_04_PERMANENT_DISABILITY_APPORTIONMENT.md",
+      "title": "Division IV: Permanent Disability, Rating & Apportionment",
+      "division": "IV",
+      "chapters": "Chapters 36\u201343",
+      "line_count": 4539
+    },
+    {
+      "filename": "DIVISION_05_DISCOVERY_DEPOSITIONS_SUBPOENAS.md",
+      "title": "Division V: Discovery, Depositions & Subpoenas",
+      "division": "V",
+      "chapters": "Chapters 44\u201363",
+      "line_count": 4874
+    },
+    {
+      "filename": "DIVISION_06_SETTLEMENTS_CR_STIPS_MSAS.md",
+      "title": "Division VI: Settlements (C&R, Stipulations, MSAs & Liens)",
+      "division": "VI",
+      "chapters": "Chapters 64\u201367",
+      "line_count": 2235
+    },
+    {
+      "filename": "DIVISION_07_PRE_TRIAL_MSC_DISCOVERY_CUTOFF.md",
+      "title": "Division VII: Pre-Trial, MSC & Discovery Cutoff",
+      "division": "VII",
+      "chapters": "Chapters 68\u201375",
+      "line_count": 1333
+    },
+    {
+      "filename": "DIVISION_08_TRIAL_EVIDENCE_RECORD_DEVELOPMENT.md",
+      "title": "Division VIII: Trial, Evidence & Duty to Develop Record",
+      "division": "VIII",
+      "chapters": "Chapters 76\u201379",
+      "line_count": 1388
+    },
+    {
+      "filename": "DIVISION_09_ATTORNEY_FEES_COSTS_SANCTIONS.md",
+      "title": "Division IX: Attorney's Fees, Costs & Sanctions (LC \u00a7\u00a7 5813, 5814, 5814.5)",
+      "division": "IX",
+      "chapters": "Chapters 80\u201382",
+      "line_count": 570
+    },
+    {
+      "filename": "DIVISION_10_POST_AWARD_RECON_WRITS.md",
+      "title": "Division X: Post-Award Proceedings, Reconsideration & Writs",
+      "division": "X",
+      "chapters": "Chapters 83\u201388",
+      "line_count": 3059
+    },
+    {
+      "filename": "DIVISION_11_TREATMENT_AND_MED_LEGAL_LIENS.md",
+      "title": "Division XI: Medical Treatment & Medical-Legal Liens",
+      "division": "XI",
+      "chapters": "Chapters 89\u201397",
+      "line_count": 3546
+    },
+    {
+      "filename": "DIVISION_12_LIABILITY_UEBTF_SIBTF_REMEDIES.md",
+      "title": "Division XII: General Liability, S&W, UEBTF, SIBTF & Exclusive Remedy",
+      "division": "XII",
+      "chapters": "Chapters 98\u2013115",
+      "line_count": 13620
+    }
+  ],
+  "cases": [
+    {
+      "filename": "CASE_Almaraz_v_Envtl_Recovery_Guzman_v_Milpitas_Un.md",
+      "name": "Almaraz v. Envtl. Recovery / Guzman v. Milpitas Unified",
+      "citation": "(2009) 74 Cal.Comp.Cases 1084 (Almaraz/Guzman II)",
+      "court": "WCAB Appeals Board En Banc",
+      "year": "2009",
+      "category": "AMA Guides Rebuttal (Almaraz/Guzman)",
+      "authority": "Labor Code \u00a7 4660, 8 CCR \u00a7 9805",
+      "holding": "The AMA Guides 5th Edition rating is rebuttable. An evaluating physician may utilize any chapter, table, or analogy within the four corners of the Guides that most accurately reflects true impairment.",
+      "quote": "\"A physician may offer an alternative rating based on the four corners of the AMA Guides if the standard rating does not accurately reflect the employee's whole person impairment.\""
+    },
+    {
+      "filename": "CASE_Arias_v_WCAB_Medland_Medical.md",
+      "name": "Arias v. WCAB (Medland Medical)",
+      "citation": "ADJ16902178 (WCAB Panel Decision)",
+      "court": "WCAB Panel Decision",
+      "year": "2024",
+      "category": "Sanctions for Fabricated Citations",
+      "authority": "Labor Code \u00a7 5813, 8 CCR \u00a7 10421",
+      "holding": "Submitting a pleading or petition containing a fabricated or hallucinated legal citation is sanctionable under LC \u00a7 5813 to protect judicial integrity, even if committed without intent to deceive.",
+      "quote": "\"The inclusion of a false or non-existent legal citation in a petition presented to the Appeals Board constitutes bad-faith, frivolous litigation conduct warranting sanctions under Labor Code section 5813.\""
+    },
+    {
+      "filename": "CASE_Ashley_Colamonico_v_Secure_Transportation.md",
+      "name": "Ashley Colamonico v. Secure Transportation",
+      "citation": "(2019) 84 Cal.Comp.Cases 1059",
+      "court": "WCAB Appeals Board En Banc",
+      "year": "2019",
+      "category": "Medical-Legal Contested Claim Standard",
+      "authority": "Labor Code \u00a7 4620, \u00a7 4621",
+      "holding": "To establish liability for medical-legal expenses under LC \u00a7 4620: (1) a contested claim must exist at the time of evaluation; (2) expenses must be incurred to prove or disprove the contested claim; and (3) services must be reasonable and necessary.",
+      "quote": "\"Medical-legal expenses are reimbursable when incurred for the purpose of proving or disproving a contested claim, provided the services were reasonable and necessary at the time rendered.\""
+    },
+    {
+      "filename": "CASE_Ballard_v_Workmen_s_Comp_App_Bd.md",
+      "name": "Ballard v. Workmen's Comp. App. Bd.",
+      "citation": "(1971) 3 Cal.3d 832, 36 CCC 34",
+      "court": "California Supreme Court",
+      "year": "1971",
+      "category": "AOE / COE & Susceptibility (Eggshell Applicant)",
+      "authority": "Labor Code \u00a7 3600, \u00a7 4663",
+      "holding": "An employer takes the employee subject to his condition when he enters the employment; even if the employee is uniquely or unusually susceptible to injury or addiction from prescribed medications, full compensation is awarded without apportionment.",
+      "quote": "\"An employer takes the employee as he finds him at the time of employment. The employer may be held liable for disability resulting from the aggravation of a preexisting condition or idiosyncratic susceptibility.\""
+    },
+    {
+      "filename": "CASE_Bodam_v_San_Bernardino_County_Dept_of_Social_.md",
+      "name": "Bodam v. San Bernardino County / Dept. of Social Services",
+      "citation": "(2014) 79 Cal.Comp.Cases 977",
+      "court": "WCAB Appeals Board En Banc",
+      "year": "2014",
+      "category": "Utilization Review Timeframe Strictness",
+      "authority": "Labor Code \u00a7 4610(g)(1), 8 CCR \u00a7 9792.9.1",
+      "holding": "UR statutory time limits (5 business days / 14 calendar days from RFA) are mandatory and strictly construed. An untimely UR decision is legally void and cannot be cured.",
+      "quote": "\"The timeframes in Labor Code section 4610 are mandatory... an untimely utilization review decision is invalid and ineffective to deny the requested medical treatment.\""
+    },
+    {
+      "filename": "CASE_Boeing_Co_v_WCAB_Hansen.md",
+      "name": "Boeing Co. v. WCAB (Hansen)",
+      "citation": "(2015) 80 Cal.Comp.Cases 1338",
+      "court": "Court of Appeal / WCAB Significant Panel",
+      "year": "2015",
+      "category": "MPN Failure of Access Standards",
+      "authority": "Labor Code \u00a7 4616, 8 CCR \u00a7 9767.5",
+      "holding": "If an MPN fails to satisfy statutory geographic access standards or fails to provide an active, accurate physician directory upon request, the employee is legally entitled to treat outside the MPN.",
+      "quote": "\"Failure of the employer's MPN to meet access standards or provide an updated physician directory permits the employee to select a treating physician outside of the network.\""
+    },
+    {
+      "filename": "CASE_Braewood_Convalescent_Hospital_v_WCAB_Bolton.md",
+      "name": "Braewood Convalescent Hospital v. WCAB (Bolton)",
+      "citation": "(1983) 34 Cal.3d 159, 48 CCC 566",
+      "court": "California Supreme Court",
+      "year": "1983",
+      "category": "Attendant Care & Medical Treatment Scope",
+      "authority": "Labor Code \u00a7 4600",
+      "holding": "Medical treatment under Labor Code \u00a7 4600 broadly encompasses any treatment reasonably required to cure or relieve, including medically supervised weight reduction, attendant nursing care, and out-of-pocket lodging/travel expenses.",
+      "quote": "\"The employer must provide all treatment reasonably required to cure or relieve the employee from the effects of the injury, including attendant home care and specialized programs.\""
+    },
+    {
+      "filename": "CASE_Brenda_Gonzalez_v_Insource_Staffing.md",
+      "name": "Brenda Gonzalez v. Insource Staffing",
+      "citation": "ADJ20228986 (WCAB Decision on Recon)",
+      "court": "WCAB Panel Decision",
+      "year": "2026",
+      "category": "Medical Report Basis for C&R Adequacy",
+      "authority": "8 CCR \u00a7 10803(b), Labor Code \u00a7 5001",
+      "holding": "Where a medical provider's report was relied upon to establish the adequacy of a Compromise & Release settlement, the defendant is equitably estopped from denying the industrial compensability of that provider's services.",
+      "quote": "\"When a medical report serves as the foundation for the Court's approval of a Compromise and Release, the defendant cannot subsequently disclaim the industrial basis of that provider's treatment.\""
+    },
+    {
+      "filename": "CASE_Brinker_Restaurant_Corp_v_Superior_Court.md",
+      "name": "Brinker Restaurant Corp. v. Superior Court",
+      "citation": "(2012) 53 Cal.4th 1004",
+      "court": "California Supreme Court",
+      "year": "2012",
+      "category": "Employer Duty on Meal & Rest Periods",
+      "authority": "Labor Code \u00a7 512, IWC Wage Orders",
+      "holding": "An employer satisfies its obligation to provide a 30-minute meal period by relieving the employee of all duty, relinquishing control over activities, and permitting them to leave the premises.",
+      "quote": "\"An employer's duty with respect to meal periods is to provide them by relieving the employee of all duty and relinquishing control over how the employee spends the time.\""
+    },
+    {
+      "filename": "CASE_Brodie_v_Workers_Comp_Appeals_Bd.md",
+      "name": "Brodie v. Workers' Comp. Appeals Bd.",
+      "citation": "(2007) 40 Cal.4th 1313, 72 CCC 565",
+      "court": "California Supreme Court",
+      "year": "2007",
+      "category": "Apportionment 'Formula C' Calculation",
+      "authority": "Labor Code \u00a7 4663, \u00a7 4664",
+      "holding": "Establishes 'Formula C' as the controlling method for calculating permanent disability indemnity dollar awards after non-industrial apportionment under SB 899.",
+      "quote": "\"Apportionment under SB 899 requires calculating the percentage of permanent disability directly caused by the industrial injury and awarding the dollar value corresponding to that percentage.\""
+    },
+    {
+      "filename": "CASE_Castillo_v_State_of_California.md",
+      "name": "Castillo v. State of California",
+      "citation": "(2014) 79 Cal.Comp.Cases 1090",
+      "court": "WCAB Appeals Board En Banc",
+      "year": "2014",
+      "category": "UR Notice & Communication Rules",
+      "authority": "Labor Code \u00a7 4610, 8 CCR \u00a7 9792.9.1(e)",
+      "holding": "UR decision must be communicated to the treating physician by telephone or fax within 24 hours of the decision and written notice served within 2 business days. Failure invalidates the UR.",
+      "quote": "\"Failure to communicate the UR decision to the treating physician within the mandatory regulatory timeframe renders the UR denial legally defective and of no force or effect.\""
+    },
+    {
+      "filename": "CASE_City_of_Petaluma_v_WCAB_Lindh.md",
+      "name": "City of Petaluma v. WCAB (Lindh)",
+      "citation": "(2018) 29 Cal.App.5th 1175, 83 CCC 1869",
+      "court": "Court of Appeal (1st Dist.)",
+      "year": "2018",
+      "category": "Asymptomatic Pre-existing Pathology Apportionment",
+      "authority": "Labor Code \u00a7 4663",
+      "holding": "Apportionment to pre-existing, asymptomatic genetic or underlying disease pathology is legally permissible under LC \u00a7 4663 if the medical expert establishes that the pathology directly caused a percentage of disability.",
+      "quote": "\"Labor Code section 4663 requires apportionment to causation of disability, which includes pre-existing, non-industrial pathology that directly causes permanent disability even if asymptomatic prior to injury.\""
+    },
+    {
+      "filename": "CASE_Contra_Costa_County_v_WCAB_Dahl.md",
+      "name": "Contra Costa County v. WCAB (Dahl)",
+      "citation": "(2015) 233 Cal.App.4th 223, 80 CCC 99",
+      "court": "Court of Appeal (1st Dist.)",
+      "year": "2015",
+      "category": "Post-SB 899 Vocational Rebuttal",
+      "authority": "Labor Code \u00a7 4660, \u00a7 4662",
+      "holding": "Reaffirming LeBoeuf standard post-SB 899: An employee can rebut a scheduled PD rating and prove 100% PTD by showing an inability to compete in the labor market due to industrial physical limitations.",
+      "quote": "\"A scheduled permanent disability rating under the 2005 PDRS may be rebutted by showing that the employee is not amenable to vocational rehabilitation under LeBoeuf.\""
+    },
+    {
+      "filename": "CASE_County_of_San_Luis_Obispo_v_WCAB_Barnes.md",
+      "name": "County of San Luis Obispo v. WCAB (Barnes)",
+      "citation": "(2005) 133 Cal.App.4th 641, 70 CCC 1247",
+      "court": "Court of Appeal (2nd Dist.)",
+      "year": "2005",
+      "category": "Penalty Cap & Multipliers",
+      "authority": "Labor Code \u00a7 5814",
+      "holding": "Under post-SB 899 LC \u00a7 5814, unreasonable delay penalties are 25% of the delayed amount up to a $10,000 maximum per separate, distinct act of unreasonable delay.",
+      "quote": "\"Section 5814 authorizes a penalty of up to 25 percent of the amount unreasonably delayed, not to exceed $10,000, for each separate and distinct act of delay.\""
+    },
+    {
+      "filename": "CASE_DPR_Construction_et_al_v_WCAB_McClanahan.md",
+      "name": "DPR Construction et al. v. WCAB (McClanahan)",
+      "citation": "(2025) 107 Cal.App.5th ___ [2025 Cal. App. LEXIS 378]",
+      "court": "Court of Appeal (Third Appellate Dist.)",
+      "year": "2025",
+      "category": "Discovery Cutoff & Evidence Exclusion",
+      "authority": "Labor Code \u00a7 5502(d)(3), 8 CCR \u00a7 10670",
+      "holding": "Discovery strictly closes at the MSC under LC \u00a7 5502(d)(3). Admitting evidence not listed on the Pre-Trial Conference Statement exceeds WCAB jurisdiction and is strictly NOT SUBJECT TO HARMLESS ERROR ANALYSIS. Lack of prejudice cannot excuse failure to list evidence.",
+      "quote": "\"Disregard of the statutory procedural mechanisms for resolving workers\u2019 compensation cases is inappropriate... Such disregard is not subject to harmless error analysis... The absence of prejudice cannot be the deciding factor.\""
+    },
+    {
+      "filename": "CASE_Daniel_Guerrero_v_Ramcast_Steel_Fabrication.md",
+      "name": "Daniel Guerrero v. Ramcast Steel Fabrication",
+      "citation": "(2017) 82 Cal.Comp.Cases 1222",
+      "court": "WCAB Panel Decision",
+      "year": "2017",
+      "category": "Violent Act (Mechanical Crushing Force)",
+      "authority": "Labor Code \u00a7 4660.1(c)(2)(A)",
+      "holding": "A crushing accident caused by heavy industrial machinery constitutes a 'violent act' under LC \u00a7 4660.1(c)(2)(A), qualifying for the statutory exception allowing permanent psychiatric disability ratings.",
+      "quote": "\"An injury resulting from a mechanical crushing force by heavy machinery qualifies as a 'violent act' under Labor Code section 4660.1(c)(2)(A), permitting an award of permanent psychiatric disability.\""
+    },
+    {
+      "filename": "CASE_Deborah_Larsen_v_Securitas_Security_Services.md",
+      "name": "Deborah Larsen v. Securitas Security Services",
+      "citation": "(2016) 81 Cal.Comp.Cases 770",
+      "court": "WCAB Panel Decision",
+      "year": "2016",
+      "category": "Violent Act (No Criminal Actor Required)",
+      "authority": "Labor Code \u00a7 4660.1(c)(2)(A)",
+      "holding": "A 'violent act' under LC \u00a7 4660.1(c)(2)(A) does not require criminal intent or a criminal perpetrator; extreme kinetic physical force or vehicular collision suffices.",
+      "quote": "\"A 'violent act' under Labor Code section 4660.1(c)(2)(A) does not require criminal intent or a third-party perpetrator; it encompasses injuries caused by strong or violent physical force.\""
+    },
+    {
+      "filename": "CASE_Department_of_Rehabilitation_v_WCAB_Lauher.md",
+      "name": "Department of Rehabilitation v. WCAB (Lauher)",
+      "citation": "(2003) 30 Cal.4th 1281, 68 CCC 831",
+      "court": "California Supreme Court",
+      "year": "2003",
+      "category": "132a Prima Facie Case & Business Necessity",
+      "authority": "Labor Code \u00a7 132a",
+      "holding": "To establish a prima facie case under LC \u00a7 132a, an employee must prove disadvantage caused by the industrial injury or claim. The employer may defend by proving 'business necessity.'",
+      "quote": "\"An employee must show that he or she suffered some disadvantage or detriment caused by the employer's discriminatory act... the employer can avoid liability by proving real and reasonable business necessity.\""
+    },
+    {
+      "filename": "CASE_Escobedo_v_Marshalls.md",
+      "name": "Escobedo v. Marshalls",
+      "citation": "(2005) 70 Cal.Comp.Cases 604",
+      "court": "WCAB Appeals Board En Banc",
+      "year": "2005",
+      "category": "Apportionment Substantial Evidence",
+      "authority": "Labor Code \u00a7 4663, \u00a7 4664",
+      "holding": "To constitute substantial medical evidence on apportionment, a doctor must explain the exact nature of the apportioned pathology, how and why it causes permanent disability, and state exact percentages.",
+      "quote": "\"A medical report is not substantial evidence on apportionment unless it explains how and why a particular non-industrial condition causes permanent disability... bare percentages without reasoned medical explanation are legally invalid.\""
+    },
+    {
+      "filename": "CASE_Gillette_v_Workmen_s_Comp_Appeals_Bd.md",
+      "name": "Gillette v. Workmen's Comp. Appeals Bd.",
+      "citation": "(1971) 20 Cal.App.3d 312, 36 CCC 570",
+      "court": "Court of Appeal (3rd Dist.)",
+      "year": "1971",
+      "category": "AOE / COE & Cumulative Trauma",
+      "authority": "Labor Code \u00a7 3208.1, \u00a7 3600",
+      "holding": "Cumulative trauma / repetitive micro-trauma occurring gradually over time is fully compensable even without a specific traumatic event.",
+      "quote": "\"An injury may be cumulative and occur gradually over a period of time where repetitive physical work activities aggregate to produce pathology.\""
+    },
+    {
+      "filename": "CASE_Granado_v_Workmen_s_Comp_App_Bd.md",
+      "name": "Granado v. Workmen's Comp. App. Bd.",
+      "citation": "(1968) 69 Cal.2d 399, 33 CCC 647",
+      "court": "California Supreme Court",
+      "year": "1968",
+      "category": "No Apportionment of Temporary Disability or Medical Treatment",
+      "authority": "Labor Code \u00a7 4600, \u00a7 4650",
+      "holding": "Temporary disability indemnity (TTD) and medical treatment (Labor Code \u00a7 4600) cannot be apportioned to non-industrial conditions. Even where permanent disability is apportioned, medical care and TTD are 100% the carrier's responsibility.",
+      "quote": "\"There can be no apportionment of temporary disability or medical care; the employer is liable for the full cost of medical treatment and full temporary disability so long as employment is a contributing cause.\""
+    },
+    {
+      "filename": "CASE_Hartman_v_WCAB_Sciarotta_v_WCAB.md",
+      "name": "Hartman v. WCAB / Sciarotta v. WCAB",
+      "citation": "Hartman / Sciarotta Settlement Doctrine",
+      "court": "Court of Appeal / WCAB Practice Standard",
+      "year": "1985",
+      "category": "Settlement Allocations & Zero-MSA Formula",
+      "authority": "Labor Code \u00a7 5001",
+      "holding": "Establishes the formula for lifetime allocation of Compromise and Release settlement proceeds across the injured worker's remaining life expectancy to minimize or eliminate Social Security Disability / Medicare offset.",
+      "quote": "\"Settlement proceeds in a Compromise and Release may be allocated over the injured worker's statistical life expectancy to calculate monthly amortization for federal benefit offsets.\""
+    },
+    {
+      "filename": "CASE_Henson_v_Workmen_s_Comp_Appeals_Bd.md",
+      "name": "Henson v. Workmen's Comp. Appeals Bd.",
+      "citation": "(1972) 27 Cal.App.3d 452, 37 CCC 564",
+      "court": "Court of Appeal (4th Dist.)",
+      "year": "1972",
+      "category": "Spousal Home Health Care Liens",
+      "authority": "Labor Code \u00a7 4600",
+      "holding": "An injured worker's spouse who provides extraordinary nursing and attendant care that would otherwise require hired professional nursing or institutionalization is entitled to reasonable reimbursement under LC \u00a7 4600.",
+      "quote": "\"The employer is liable for the reasonable value of nursing care provided by the wife where the employer had notice of the need for such services... the employer cannot escape liability merely because the care was rendered by a family member.\""
+    },
+    {
+      "filename": "CASE_Hernandez_v_Mendoza.md",
+      "name": "Hernandez v. Mendoza",
+      "citation": "(1988) 199 Cal.App.3d 721",
+      "court": "Court of Appeal (2nd Dist.)",
+      "year": "1988",
+      "category": "Shifting Burden of Proof for Missing Records",
+      "authority": "Labor Code \u00a7 1174, \u00a7 1194",
+      "holding": "When an employer fails to keep accurate time and wage records as required by law, the employee's credible approximation of hours worked shifts the burden of proof to the employer.",
+      "quote": "\"Where the employer fails to maintain accurate employment records, the employee satisfies his burden of proof by producing sufficient evidence to show the amount and extent of that work as a matter of just and reasonable inference.\""
+    },
+    {
+      "filename": "CASE_Judson_Steel_Corp_v_Workers_Comp_Appeals_Bd.md",
+      "name": "Judson Steel Corp. v. Workers' Comp. Appeals Bd.",
+      "citation": "(1978) 22 Cal.3d 658, 43 CCC 1205",
+      "court": "California Supreme Court",
+      "year": "1978",
+      "category": "132a Discrimination Shield",
+      "authority": "Labor Code \u00a7 132a",
+      "holding": "Labor Code \u00a7 132a prohibits an employer from discharging, threatening to discharge, or discriminating against an employee in any manner because the employee filed or declared an intent to file a workers' compensation claim.",
+      "quote": "\"Section 132a serves as a broad shield protecting employees from retaliation for exercising their rights under the workers' compensation laws.\""
+    },
+    {
+      "filename": "CASE_Kaiser_Foundation_Hospitals_v_WCAB_Keifer.md",
+      "name": "Kaiser Foundation Hospitals v. WCAB (Keifer)",
+      "citation": "(1974) 13 Cal.3d 20, 39 CCC 857",
+      "court": "California Supreme Court",
+      "year": "1974",
+      "category": "No Unauthorized Reduction of Valid Liens",
+      "authority": "Labor Code \u00a7 4903, \u00a7 4906",
+      "holding": "The WCAB has no authority to reduce the amount of a valid medical lien or award a compromised fraction of the lien without an evidentiary hearing and statutory basis.",
+      "quote": "\"The Board has no statutory authority to reduce the amount of a valid lien for medical services without a full evidentiary hearing and legal justification.\""
+    },
+    {
+      "filename": "CASE_Kaiser_Foundation_Hospitals_v_WCAB_Martin.md",
+      "name": "Kaiser Foundation Hospitals v. WCAB (Martin)",
+      "citation": "(1985) 39 Cal.3d 57, 50 CCC 507",
+      "court": "California Supreme Court",
+      "year": "1985",
+      "category": "Tolling of SOL for Failure to Give Notice",
+      "authority": "Labor Code \u00a7 5402, \u00a7 5405",
+      "holding": "An employer's failure to provide statutory notices of workers' compensation rights under LC \u00a7 5402 tolls the statute of limitations for the filing of medical provider claims/liens until notice is given.",
+      "quote": "\"The statute of limitations for filing a claim or lien is tolled where the employer fails to notify the employee of his workers' compensation rights upon receiving notice of injury.\""
+    },
+    {
+      "filename": "CASE_Kerley_v_Workmen_s_Comp_App_Bd.md",
+      "name": "Kerley v. Workmen's Comp. App. Bd.",
+      "citation": "(1971) 4 Cal.3d 223, 36 CCC 152",
+      "court": "California Supreme Court",
+      "year": "1971",
+      "category": "Unreasonable Delay Penalty Standard",
+      "authority": "Labor Code \u00a7 5814",
+      "holding": "The only satisfactory excuse for delay or non-payment of compensation is the existence of 'genuine doubt from a medical or legal standpoint as to liability.' The burden of proving genuine doubt is on the employer.",
+      "quote": "\"The only satisfactory excuse for delay in payment of disability benefits is 'genuine doubt from a medical or legal standpoint as to liability for benefits'... the burden is on the employer to present substantial evidence of such doubt.\""
+    },
+    {
+      "filename": "CASE_Kuykendall_v_Workers_Comp_Appeals_Bd.md",
+      "name": "Kuykendall v. Workers' Comp. Appeals Bd.",
+      "citation": "(2000) 79 Cal.App.4th 396, 65 CCC 264",
+      "court": "Court of Appeal (2nd Dist.)",
+      "year": "2000",
+      "category": "Duty to Develop the Medical Record",
+      "authority": "Labor Code \u00a7 5701, \u00a7 5906",
+      "holding": "The WCAB and WCJ have an affirmative statutory duty to fully develop the medical record when the existing record is inadequate or incomplete, rather than rendering a 'take nothing' decision against the injured worker.",
+      "quote": "\"The Board has wide discretion and an affirmative duty to develop the record where the medical evidence is insufficient, ambiguous, or lacks foundation, to achieve substantial justice.\""
+    },
+    {
+      "filename": "CASE_Lamb_v_Workmen_s_Comp_Appeals_Bd.md",
+      "name": "Lamb v. Workmen's Comp. Appeals Bd.",
+      "citation": "(1974) 11 Cal.3d 274, 39 CCC 310",
+      "court": "California Supreme Court",
+      "year": "1974",
+      "category": "AOE / COE & Vulnerability (Take Employee As You Find Him)",
+      "authority": "Labor Code \u00a7 3600, \u00a7 3202",
+      "holding": "The employer takes the employee as he finds him (take the client/applicant as you find them). Industry takes the employee as it finds him. A pre-existing pathology or idiosyncratic predisposition does not preclude compensation where employment activities light up, aggravate, or accelerate the condition.",
+      "quote": "\"Industry takes the employee as it finds him. A person suffering from a pre-existing disease who is disabled by an abnormal strain or condition in his work is entitled to compensation even though a normal employee would not have been so disabled.\""
+    },
+    {
+      "filename": "CASE_LeBoeuf_v_Workers_Comp_Appeals_Bd.md",
+      "name": "LeBoeuf v. Workers' Comp. Appeals Bd.",
+      "citation": "(1983) 34 Cal.3d 234, 48 CCC 587",
+      "court": "California Supreme Court",
+      "year": "1983",
+      "category": "100% PTD (Vocational Infeasibility)",
+      "authority": "Labor Code \u00a7 4660, \u00a7 4662",
+      "holding": "An injured worker is 100% permanently and totally disabled (PTD) when industrial injuries prevent the worker from being educated, retrained, or benefiting from vocational rehabilitation.",
+      "quote": "\"The employee's inability to participate in vocational rehabilitation due to the industrial injury is a critical factor establishing 100% total permanent disability.\""
+    },
+    {
+      "filename": "CASE_Lundberg_v_Workmen_s_Comp_App_Bd.md",
+      "name": "Lundberg v. Workmen's Comp. App. Bd.",
+      "citation": "(1968) 69 Cal.2d 436, 33 CCC 656",
+      "court": "California Supreme Court",
+      "year": "1968",
+      "category": "AOE / COE & Liberal Construction",
+      "authority": "Labor Code \u00a7 3202, \u00a7 3600",
+      "holding": "Under Labor Code \u00a7 3202, all reasonable doubts as to whether an injury arose out of and occurred in the course of employment must be resolved in favor of the injured worker.",
+      "quote": "\"Where the employee's work activities contribute to the disabling pathology, and there is doubt as to whether the injury is industrial, Labor Code section 3202 mandates that all doubts be resolved in favor of the employee.\""
+    },
+    {
+      "filename": "CASE_Mandatory_Duty_to_Pay_on_QME_Report.md",
+      "name": "Mandatory Duty to Pay on QME Report",
+      "citation": "Cal. Lab. Code \u00a7 4063",
+      "court": "California Statute",
+      "year": "1993",
+      "category": "Mandatory Duty to Pay upon QME Finding",
+      "authority": "Labor Code \u00a7 4063",
+      "holding": "When an agreed or qualified medical evaluator issues a formal evaluation resolving an issue requiring payment of benefits, the employer must immediately pay those benefits. Blanket refusal is a violation of law.",
+      "quote": "\"If a formal medical evaluation from an agreed medical evaluator or a qualified medical evaluator resolves any issue so as to require an immediate payment of compensation or benefits, the employee shall be paid that compensation or benefits by the employer or the insurance carrier.\""
+    },
+    {
+      "filename": "CASE_Martin_v_Workers_Comp_Appeals_Bd.md",
+      "name": "Martin v. Workers' Comp. Appeals Bd.",
+      "citation": "(1997) 59 Cal.App.4th 333, 62 CCC 1500",
+      "court": "Court of Appeal (2nd Dist.)",
+      "year": "1997",
+      "category": "Discovery Abuse & Scattershot Privilege Assertions Barred",
+      "authority": "Labor Code \u00a7 5710, Evid. Code \u00a7 917",
+      "holding": "Carriers cannot assert blanket or scattershot claims of attorney-client or work-product privilege to suppress discoverable claim logs and investigation notes. Defendants are mandated to provide an itemized privilege log.",
+      "quote": "\"Blanket, scattershot assertions of privilege are prohibited; a party asserting privilege must specify each individual document and the specific legal ground for withholding it.\""
+    },
+    {
+      "filename": "CASE_McAllister_v_Workmen_s_Comp_App_Bd.md",
+      "name": "McAllister v. Workmen's Comp. App. Bd.",
+      "citation": "(1968) 69 Cal.2d 408, 33 CCC 660",
+      "court": "California Supreme Court",
+      "year": "1968",
+      "category": "AOE / COE & Causation",
+      "authority": "Labor Code \u00a7 3600, \u00a7 3202.5",
+      "holding": "Proof of industrial causation requires only 'reasonable medical probability' (more likely than not), not absolute scientific certainty or mathematical precision.",
+      "quote": "\"The applicant need only establish the reasonable probability of industrial causation. He is not required to prove causation with scientific certainty.\""
+    },
+    {
+      "filename": "CASE_McClune_v_Workers_Comp_Appeals_Bd.md",
+      "name": "McClune v. Workers' Comp. Appeals Bd.",
+      "citation": "(1998) 62 Cal.App.4th 1117, 63 CCC 261",
+      "court": "Court of Appeal (4th Dist.)",
+      "year": "1998",
+      "category": "Due Process in Record Development",
+      "authority": "Labor Code \u00a7 5701, U.S. Const. 14th Amend.",
+      "holding": "Due process requires that when medical evidence is ambiguous or incomplete, the WCJ must develop the record rather than cutting off the injured worker's right to prove compensability.",
+      "quote": "\"Due process requires that the parties be provided a full and fair opportunity to present evidence, and the Board has an obligation to order development of the record to determine industrial causation.\""
+    },
+    {
+      "filename": "CASE_McCoy_v_Industrial_Acc_Comm_n.md",
+      "name": "McCoy v. Industrial Acc. Comm'n",
+      "citation": "(1966) 64 Cal.2d 82, 31 CCC 93",
+      "court": "California Supreme Court",
+      "year": "1966",
+      "category": "Self-Procured Medical Care Reimbursement",
+      "authority": "Labor Code \u00a7 4600, \u00a7 4603.2",
+      "holding": "When an employer or carrier fails, neglects, or refuses seasonably to provide reasonable medical care, the employee may self-procure treatment outside the network at the employer's expense.",
+      "quote": "\"If the employer has notice of the injury and fails or refuses to provide treatment, the employee may procure it himself and the employer is liable for the reasonable expense incurred.\""
+    },
+    {
+      "filename": "CASE_Mercer_Fraser_Co_v_Industrial_Acc_Com.md",
+      "name": "Mercer-Fraser Co. v. Industrial Acc. Com.",
+      "citation": "(1953) 40 Cal.2d 102, 18 CCC 3",
+      "court": "California Supreme Court",
+      "year": "1953",
+      "category": "Serious & Willful Misconduct (S&W)",
+      "authority": "Labor Code \u00a7 4553",
+      "holding": "Serious and Willful Misconduct under LC \u00a7 4553 requires proving that the employer intentionally committed an act with knowledge that serious injury was a probable result, or with reckless disregard.",
+      "quote": "\"Serious and willful misconduct is not mere negligence or gross negligence; it involves intentional conduct with knowledge that serious injury is likely to result.\""
+    },
+    {
+      "filename": "CASE_Myers_v_Workers_Comp_Appeals_Bd.md",
+      "name": "Myers v. Workers' Comp. Appeals Bd.",
+      "citation": "(1971) 20 Cal.App.3d 120, 36 CCC 568",
+      "court": "Court of Appeal (1st Dist.)",
+      "year": "1971",
+      "category": "Mandatory 7% Statutory Interest",
+      "authority": "Labor Code \u00a7 5800",
+      "holding": "Interest at the rate of 7% per annum accrues automatically on all delayed indemnity and medical compensation from the date payment became due under LC \u00a7 5800.",
+      "quote": "\"Interest under Labor Code section 5800 is mandatory and runs from the date when each installment of compensation becomes due and payable.\""
+    },
+    {
+      "filename": "CASE_Navarro_v_City_of_Montebello.md",
+      "name": "Navarro v. City of Montebello",
+      "citation": "(2014) 79 Cal.Comp.Cases 418",
+      "court": "WCAB Appeals Board En Banc",
+      "year": "2014",
+      "category": "Additional QME Specialty Panels",
+      "authority": "Labor Code \u00a7 4062.2, 8 CCR \u00a7 37.1",
+      "holding": "A party is entitled to an additional QME panel in a different medical specialty when the existing QME recommends evaluation in another specialty or when a distinct condition falls outside the existing QME's expertise.",
+      "quote": "\"The Medical Unit may issue an additional panel QME in a different specialty when substantial medical evidence establishes that the injured worker has sustained an injury involving a distinct medical specialty.\""
+    },
+    {
+      "filename": "CASE_Nickelsberg_v_Workers_Comp_Appeals_Bd.md",
+      "name": "Nickelsberg v. Workers' Comp. Appeals Bd.",
+      "citation": "(1991) 54 Cal.3d 288, 56 CCC 476",
+      "court": "California Supreme Court",
+      "year": "1991",
+      "category": "5-Year TTD Cap & Reopening Jurisdiction",
+      "authority": "Labor Code \u00a7 4656, \u00a7 5410, \u00a7 5804",
+      "holding": "The WCAB lacks jurisdiction to award temporary total disability (TTD) indemnity more than five years after the date of injury unless a timely petition to reopen for new and further disability was filed within five years under LC \u00a7 5410.",
+      "quote": "\"Labor Code section 4656 establishes a strict limitation on temporary disability indemnity... the Board cannot award temporary disability beyond the five-year period absent a timely petition to reopen.\""
+    },
+    {
+      "filename": "CASE_Nunes_v_State_of_California_Dept_of_Motor_Veh.md",
+      "name": "Nunes v. State of California / Dept. of Motor Vehicles",
+      "citation": "(2023) 88 Cal.Comp.Cases 741 & 88 CCC 894",
+      "court": "WCAB Appeals Board En Banc",
+      "year": "2023",
+      "category": "Multiple Injuries Apportionment",
+      "authority": "Labor Code \u00a7 4663, \u00a7 4664",
+      "holding": "Reporting physicians must apportion permanent disability between separate, distinct industrial injuries before applying the Combined Values Chart (CVC), unless reporting proves inexorably intertwined disability.",
+      "quote": "\"A physician must evaluate and determine apportionment to other injuries before combining multiple impairments under the rating schedule.\""
+    },
+    {
+      "filename": "CASE_Patterson_v_The_Oaks_Farm.md",
+      "name": "Patterson v. The Oaks Farm",
+      "citation": "(2014) 79 Cal.Comp.Cases 910",
+      "court": "WCAB Appeals Board En Banc",
+      "year": "2014",
+      "category": "Unilateral Termination of Ongoing Care Barred",
+      "authority": "Labor Code \u00a7 4610, \u00a7 4600",
+      "holding": "A defendant cannot unilaterally submit ongoing, previously authorized medical treatment (e.g. home care, medication) to UR to terminate it without demonstrating a change in medical circumstances.",
+      "quote": "\"An employer cannot unilaterally terminate medical treatment that has been previously authorized and provided without showing a change in the employee's medical condition.\""
+    },
+    {
+      "filename": "CASE_Perez_v_Santa_Ana_Unified_School_District.md",
+      "name": "Perez v. Santa Ana Unified School District",
+      "citation": "(2023) 88 Cal.Comp.Cases 1",
+      "court": "WCAB Appeals Board En Banc",
+      "year": "2023",
+      "category": "Remote Witness Testimony & Virtual Trials",
+      "authority": "8 CCR \u00a7 10817, Labor Code \u00a7 5700",
+      "holding": "The WCAB has broad discretion to permit electronic and remote video testimony of injured workers, witnesses, and physicians upon a showing of good cause under 8 CCR \u00a7 10817.",
+      "quote": "\"The Appeals Board has the authority and discretion to order that a trial or hearing proceed electronically via video conference upon a showing of good cause.\""
+    },
+    {
+      "filename": "CASE_Purvis_Cowens_v_ABC_Unified_School_District.md",
+      "name": "Purvis Cowens v. ABC Unified School District",
+      "citation": "ADJ13906645 (WCAB Decision on Recon)",
+      "court": "WCAB Panel Decision",
+      "year": "2022",
+      "category": "Attorney Fees on Delayed Ancillary Benefits",
+      "authority": "Labor Code \u00a7 5814.5",
+      "holding": "Attorney's fees under LC \u00a7 5814.5 apply not only to delayed indemnity but also to unreasonable delays in providing ancillary medical benefits and medical transportation.",
+      "quote": "\"An unreasonable delay in providing medical transportation or ancillary benefits triggers entitlement to statutory penalties under section 5814 and attorney's fees under section 5814.5.\""
+    },
+    {
+      "filename": "CASE_Ramirez_v_Drive_Financial_Services.md",
+      "name": "Ramirez v. Drive Financial Services",
+      "citation": "(2008) 73 Cal.Comp.Cases 1324",
+      "court": "WCAB Appeals Board En Banc",
+      "year": "2008",
+      "category": "Mandatory Attorney Fees on Delayed Pay",
+      "authority": "Labor Code \u00a7 5814.5",
+      "holding": "When an employee successfully enforces payment of unreasonably delayed compensation under LC \u00a7 5814 against an unreasonable employer, the WCAB must award reasonable attorney's fees under LC \u00a7 5814.5.",
+      "quote": "\"Labor Code section 5814.5 mandates an award of reasonable attorney's fees incurred in enforcing the payment of delayed compensation against an unreasonable employer or insurer.\""
+    },
+    {
+      "filename": "CASE_Roesch_v_De_Mota.md",
+      "name": "Roesch v. De Mota",
+      "citation": "(1944) 24 Cal.2d 563",
+      "court": "California Supreme Court",
+      "year": "1944",
+      "category": "Burden of Proof & Affirmative Issues",
+      "authority": "Labor Code \u00a7 5705, Evid. Code \u00a7 500",
+      "holding": "The party holding the affirmative of an issue bears the burden of proof. If that party fails to produce substantial evidence, the court has a mandatory duty to rule against them.   Waiver always rests upon intent. Waiver is the intentional relinquishment of a known right after knowledge of the facts. (Wienke v. Smith, 179 Cal. 220, 226 [176 P. 42]; 25 Cal.Jur. 926.) [3b]",
+      "quote": "\"The burden of proof rests upon the party holding the affirmative of the issue... where the party with the burden fails to sustain it, the court must enter judgment against that party.\""
+    },
+    {
+      "filename": "CASE_Romero_v_Costco_Wholesale.md",
+      "name": "Romero v. Costco Wholesale",
+      "citation": "(2007) 72 Cal.Comp.Cases 824",
+      "court": "WCAB Appeals Board En Banc",
+      "year": "2007",
+      "category": "Representation Voids Unrepresented QME Panel",
+      "authority": "Labor Code \u00a7 4062.1, \u00a7 4062.2",
+      "holding": "When an unrepresented worker retains counsel after a QME panel is issued under LC \u00a7 4062.1 but before an evaluation occurs, the unrepresented panel is void and the parties must proceed under represented panel rules (LC \u00a7 4062.2).",
+      "quote": "\"When an unrepresented employee retains counsel prior to the medical evaluation, the unrepresented QME panel process is terminated and the parties must initiate the represented panel process under Labor Code section 4062.2.\""
+    },
+    {
+      "filename": "CASE_Smyers_v_Workers_Comp_Appeals_Bd.md",
+      "name": "Smyers v. Workers' Comp. Appeals Bd.",
+      "citation": "(1984) 157 Cal.App.3d 914, 49 CCC 454",
+      "court": "Court of Appeal (1st Dist.)",
+      "year": "1984",
+      "category": "Domestic Services as Prescribed Medical Care",
+      "authority": "Labor Code \u00a7 4600",
+      "holding": "Housekeeping, cleaning, and domestic services are reimbursable medical care under LC \u00a7 4600 when prescribed by a doctor to prevent medical complications, infection, or physical aggravation.",
+      "quote": "\"Housekeeping services are reimbursable as medical treatment under Labor Code section 4600 when they are medically necessary to cure or relieve the effects of the injury.\""
+    },
+    {
+      "filename": "CASE_South_Coast_Framing_Inc_v_WCAB_Clark.md",
+      "name": "South Coast Framing, Inc. v. WCAB (Clark)",
+      "citation": "(2015) 61 Cal.4th 291, 80 CCC 489",
+      "court": "California Supreme Court",
+      "year": "2015",
+      "category": "AOE / COE & Contributing Cause",
+      "authority": "Labor Code \u00a7 3600, \u00a7 4663",
+      "holding": "Industrial causation requires only that employment be a contributing cause among others. Even a nominal industrial contribution (under 10%) triggers full joint & several liability.",
+      "quote": "\"In workers' compensation law, an employee is entitled to compensation for an injury if the employment is a contributing cause of the injury... even if the industrial contribution is small.\""
+    },
+    {
+      "filename": "CASE_Spectrum_Medical_Group_8_CCR_10786_Precedent.md",
+      "name": "Spectrum Medical Group / 8 CCR \u00a7 10786 Precedent",
+      "citation": "8 CCR \u00a7 10786(f)",
+      "court": "DWC / WCAB Regulatory Rule",
+      "year": "2023",
+      "category": "Medical-Legal Expenses & 60-Day Waiver",
+      "authority": "Labor Code \u00a7 4620, \u00a7 4622, 8 CCR \u00a7 10786(f)",
+      "holding": "Under 8 CCR \u00a7 10786(f), if a defendant fails to file a Petition for Determination of Medical-Legal Expenses within 60 days of receiving a timely Objection to EOR, all non-threshold defense objections are waived as a matter of law.",
+      "quote": "\"If the employer fails to file a petition within 60 days of service of the provider's objection, all objections to the billing other than threshold issues are deemed waived.\""
+    },
+    {
+      "filename": "CASE_State_Compensation_Ins_Fund_v_WCAB_Dubon_Dubo.md",
+      "name": "State Compensation Ins. Fund v. WCAB (Dubon) (Dubon II)",
+      "citation": "(2014) 79 Cal.Comp.Cases 1298",
+      "court": "WCAB Appeals Board En Banc",
+      "year": "2014",
+      "category": "Utilization Review (UR) & IMR Jurisdiction",
+      "authority": "Labor Code \u00a7 4610, \u00a7 4610.5, 8 CCR \u00a7 9792.9.1",
+      "holding": "If a Utilization Review (UR) decision is untimely or procedurally defective, the UR is void, IMR does not apply, and the WCAB has exclusive jurisdiction to decide medical necessity based on substantial evidence.",
+      "quote": "\"When a utilization review decision is untimely and therefore invalid, the dispute over medical necessity is not subject to IMR, and the WCAB has jurisdiction to determine the medical necessity of the requested treatment based on substantial medical evidence.\""
+    },
+    {
+      "filename": "CASE_State_Compensation_Ins_Fund_v_WCAB_Welcher.md",
+      "name": "State Compensation Ins. Fund v. WCAB (Welcher)",
+      "citation": "(1995) 31 Cal.App.4th 90, 60 CCC 27",
+      "court": "Court of Appeal (3rd Dist.)",
+      "year": "1995",
+      "category": "AOE / COE Presumptions (90-Day Rule)",
+      "authority": "Labor Code \u00a7 5402(b)",
+      "holding": "If liability is not rejected within 90 days after the claim form is filed, the injury is presumed compensable; evidence discoverable during the 90 days with reasonable diligence is strictly barred.",
+      "quote": "\"The presumption of compensability is mandatory and requires the exclusion of all evidence which could have been obtained by the employer within the initial 90-day period with the exercise of reasonable diligence.\""
+    },
+    {
+      "filename": "CASE_Statutory_Workplace_Outbreak_Presumption.md",
+      "name": "Statutory Workplace Outbreak Presumption",
+      "citation": "Cal. Lab. Code \u00a7 3212.88",
+      "court": "California Statute / WCAB Precedent",
+      "year": "2020",
+      "category": "AOE / COE Presumptions (COVID Outbreak)",
+      "authority": "Labor Code \u00a7 3212.88 (SB 1159)",
+      "holding": "Creates a rebuttable presumption of industrial causation for employees testing positive within 14 days of working during an active workplace outbreak. Defendant has only 45 days to reject liability.",
+      "quote": "\"If liability is not rejected within 45 days after the claim is filed, the injury shall be presumed compensable. This presumption is rebuttable only by evidence discovered subsequent to the 45-day period.\""
+    },
+    {
+      "filename": "CASE_Subsequent_Injuries_Fund_v_IAC_Roberson.md",
+      "name": "Subsequent Injuries Fund v. IAC (Roberson)",
+      "citation": "(1963) 59 Cal.2d 842, 28 CCC 143",
+      "court": "California Supreme Court",
+      "year": "1963",
+      "category": "Med-Legal Reimbursement Regardless of Success",
+      "authority": "Labor Code \u00a7 4620, \u00a7 4621",
+      "holding": "A workers' compensation claimant (and medical-legal provider) is entitled to reimbursement for medical-legal expenses reasonably incurred to prove a claim regardless of whether the claimant ultimately prevails.",
+      "quote": "\"An employee is entitled to reimbursement for medical-legal expenses reasonably and necessarily incurred to prove a contested claim whether he is successful or not.\""
+    },
+    {
+      "filename": "CASE_Super_Wash_Express_v_WCAB_Garcia.md",
+      "name": "Super Wash Express v. WCAB (Garcia)",
+      "citation": "(2009) 74 Cal.Comp.Cases 1459",
+      "court": "WCAB Appeals Board / Panel Precedent",
+      "year": "2009",
+      "category": "Bad-Faith Litigation & Scattershot Objections Sanctions",
+      "authority": "Labor Code \u00a7 5813, 8 CCR \u00a7 10421",
+      "holding": "Filing blanket, scattershot, or boilerplate objections and petitions without an evidentiary foundation or without conducting a reasonable investigation is frivolous and in bad faith under Labor Code \u00a7 5813, justifying monetary sanctions and applicant attorney's fees.",
+      "quote": "\"Asserting scattershot and blanket defense objections without factual verification or evidence constitutes bad-faith, frivolous tactics warranting sanctions under section 5813.\""
+    },
+    {
+      "filename": "CASE_Tanenbaum_v_Industrial_Acc_Com.md",
+      "name": "Tanenbaum v. Industrial Acc. Com.",
+      "citation": "(1935) 4 Cal.2d 615",
+      "court": "California Supreme Court",
+      "year": "1935",
+      "category": "AOE / COE & Dormant Pathology (Lighting Up)",
+      "authority": "Labor Code \u00a7 3600, \u00a7 4663",
+      "holding": "Where employment activity lights up or activates a previously dormant, non-disabling pre-existing pathology, the resulting disability is industrial. Apportionment is only permitted if the pre-existing pathology was independently producing disability prior to industrial aggravation.",
+      "quote": "\"The acceleration, aggravation, or 'lighting up' of a pre-existing disease or condition by work constitutes an industrial injury.\""
+    },
+    {
+      "filename": "CASE_Tito_Torres_v_AJC_Sandblasting.md",
+      "name": "Tito Torres v. AJC Sandblasting",
+      "citation": "(2012) 77 Cal.Comp.Cases 1113",
+      "court": "WCAB Appeals Board En Banc",
+      "year": "2012",
+      "category": "Frivolous Litigation & Lien Proof Standard",
+      "authority": "Labor Code \u00a7 3202.5, \u00a7 5705, \u00a7 5813",
+      "holding": "Proceeding to trial without evidence or with evidence utterly incapable of meeting the burden of proof is frivolous and bad faith under LC \u00a7 5813, justifying monetary sanctions and attorney's fees.",
+      "quote": "\"Proceeding to trial without any evidence or with evidence that is utterly incapable of meeting its burden of proof is frivolous and constitutes bad faith within the meaning of section 5813 justifying an award of sanctions, attorney's fees and costs.\""
+    },
+    {
+      "filename": "CASE_Tyler_v_Workers_Comp_Appeals_Bd.md",
+      "name": "Tyler v. Workers' Comp. Appeals Bd.",
+      "citation": "(1997) 56 Cal.App.4th 389, 62 CCC 924",
+      "court": "Court of Appeal (2nd Dist.)",
+      "year": "1997",
+      "category": "Judge's Authority to Order Medical Exam",
+      "authority": "Labor Code \u00a7 5701, \u00a7 5906",
+      "holding": "The WCJ possesses broad inherent statutory authority under LC \u00a7\u00a7 5701 and 5906 to order the taking of further medical evidence or appoint an independent medical evaluator whenever necessary to determine the truth.",
+      "quote": "\"The workers' compensation judge has the authority to order the taking of further medical evidence or appoint an independent medical evaluator where existing reporting is unsatisfactory.\""
+    },
+    {
+      "filename": "CASE_Valdez_v_Workers_Comp_Appeals_Bd.md",
+      "name": "Valdez v. Workers' Comp. Appeals Bd.",
+      "citation": "(2013) 57 Cal.4th 1231, 78 CCC 1209",
+      "court": "California Supreme Court",
+      "year": "2013",
+      "category": "Admissibility of Non-MPN Medical Reports",
+      "authority": "Labor Code \u00a7 4600, \u00a7 4605, \u00a7 4616",
+      "holding": "Medical reports from non-MPN treating physicians obtained under LC \u00a7 4605 are admissible in WCAB proceedings and can constitute substantial medical evidence.",
+      "quote": "\"Reports prepared by non-MPN treating physicians are admissible in proceedings before the WCAB... the Legislature did not intend to make non-MPN medical reports inadmissible.\""
+    },
+    {
+      "filename": "CASE_Warren_Brower_v_David_Jones_Construction.md",
+      "name": "Warren Brower v. David Jones Construction",
+      "citation": "(2014) 79 Cal.Comp.Cases 550",
+      "court": "WCAB Appeals Board En Banc",
+      "year": "2014",
+      "category": "MPN Defense Inapplicable to Med-Legal",
+      "authority": "Labor Code \u00a7 4620, 8 CCR \u00a7 9793",
+      "holding": "Employer MPNs have zero jurisdiction over medical-legal evaluations obtained by applicant's attorney to prove a contested claim under LC \u00a7 4060. MPN restrictions do not apply.",
+      "quote": "\"An employer or insurer has no authority under the MPN statutes to restrict an injured worker's attorney from selecting a medical-legal evaluator on a contested claim under Labor Code section 4060.\""
+    },
+    {
+      "filename": "CASE_Western_Growers_Ins_Co_v_WCAB_Austin.md",
+      "name": "Western Growers Ins. Co. v. WCAB (Austin)",
+      "citation": "(1993) 16 Cal.App.4th 227, 58 CCC 323",
+      "court": "Court of Appeal (5th Dist.)",
+      "year": "1993",
+      "category": "AOE / COE & Date of Cumulative Injury",
+      "authority": "Labor Code \u00a7 5405, \u00a7 5412",
+      "holding": "The date of a cumulative injury under LC \u00a7 5412 is the concurrence of disability and knowledge that disability was work-related. Two separate periods of disability from continuous work constitute two separate injuries.",
+      "quote": "\"The date of a cumulative injury is that date upon which the employee first suffered disability therefrom and either knew, or in the exercise of reasonable diligence should have known, that such disability was caused by present or prior employment.\""
+    },
+    {
+      "filename": "CASE_Willette_v_Au_Electric_Corp.md",
+      "name": "Willette v. Au Electric Corp.",
+      "citation": "(2004) 69 Cal.Comp.Cases 1298",
+      "court": "WCAB Appeals Board En Banc",
+      "year": "2004",
+      "category": "Post-UR Dispute Resolution & QME Primacy",
+      "authority": "Labor Code \u00a7 4600, \u00a7 4062",
+      "holding": "Established the mandatory procedure for resolving medical disputes when UR does not approve care; panel QME reporting must consider both PTP and UR reports; authority to award 24-hour attendant care.",
+      "quote": "\"When faced with differing medical opinions from the Panel QME, treating physician, and UR physician... the WCJ or Appeals Board need not rely on the opinion of a particular physician but evaluates substantial evidence.\""
+    },
+    {
+      "filename": "CASE_Wilson_v_State_of_California_Cal_Fire.md",
+      "name": "Wilson v. State of California, Cal Fire",
+      "citation": "(2019) 84 Cal.Comp.Cases 393",
+      "court": "WCAB Appeals Board En Banc",
+      "year": "2019",
+      "category": "Catastrophic Injury Exception",
+      "authority": "Labor Code \u00a7 4660.1(c)(2)(B)",
+      "holding": "Defines what constitutes a 'catastrophic injury' under LC \u00a7 4660.1(c)(2)(B). A catastrophic injury lifts the statutory bar on secondary psychiatric, sleep, and sexual dysfunction ratings, adding them directly to the PD rating.",
+      "quote": "\"Whether an injury is catastrophic under Labor Code section 4660.1(c)(2)(B) is evaluated based on the intensity and seriousness of treatment, ultimate outcome, severity of physical impairment, and impact on activities of daily living.\""
+    },
+    {
+      "filename": "CASE_Zenith_Insurance_Co_v_WCAB_Capi.md",
+      "name": "Zenith Insurance Co. v. WCAB (Capi)",
+      "citation": "(2006) 138 Cal.App.4th 373, 71 CCC 374",
+      "court": "Court of Appeal (2nd Dist.)",
+      "year": "2006",
+      "category": "Burden of Proof for Lien Claimants",
+      "authority": "Labor Code \u00a7 5705, Evid. Code \u00a7 500",
+      "holding": "Lien claimants bear the burden of proving industrial injury and reasonable medical necessity by a preponderance of the evidence, 'standing in the shoes' of the injured worker.",
+      "quote": "\"Under Labor Code section 5705 and Evidence Code section 500, a lien claimant has the burden of proving all elements necessary to establish its claim for reimbursement.\""
+    }
+  ],
+  "rules": [
+    {
+      "filename": "RULE_8_CCR_10605.md",
+      "title": "Service Extension of Time (+5 Calendar Days)",
+      "new_rule": "8 CCR \u00a7 10605",
+      "old_rule": "8 CCR \u00a7 10507",
+      "authority": "8 CCR \u00a7 10605; LC \u00a7 5316; CCP \u00a7 1013",
+      "hammer": "Service by Mail/Fax/Email: Adds 5 calendar days for actions required within California. Critical for calculating EOR response deadlines and 25-day Reconsideration windows."
+    },
+    {
+      "filename": "RULE_8_CCR_10635.md",
+      "title": "Ongoing Duty to Serve Medical Reports",
+      "new_rule": "8 CCR \u00a7 10635",
+      "old_rule": "8 CCR \u00a7\u00a7 10608 / 10616",
+      "authority": "8 CCR \u00a7 10635; Hardesty v. McCord (1976) 41 CCC 111 (En Banc)",
+      "hammer": "The 10-Day Service Duty: Parties must serve medical reports within 10 calendar days of receipt. Defense cannot withhold prior accident records and then claim PTP/QME report lacks substantial evidence."
+    },
+    {
+      "filename": "RULE_8_CCR_10670.md",
+      "title": "Documentary Evidence & Pre-Trial Exclusion (DPR Construction Strict Cutoff)",
+      "new_rule": "8 CCR \u00a7 10670",
+      "old_rule": "8 CCR \u00a7 10622",
+      "authority": "DPR Construction v. WCAB (McClanahan) (2025) 107 Cal.App.5th ___; Rucker (2000); LC \u00a7 5502(d)(3)",
+      "hammer": "Exclusion of Unlisted Evidence: Evidence not listed on the PTCS or served prior to MSC is excluded. Under DPR Construction (2025), Section 5502(d)(3) closure is jurisdictional and strictly NOT subject to harmless error review."
+    },
+    {
+      "filename": "RULE_8_CCR_10700.md",
+      "title": "Approval of Compromise and Release & Settlements",
+      "new_rule": "8 CCR \u00a7 10700",
+      "old_rule": "8 CCR \u00a7\u00a7 10870 / 10882",
+      "authority": "8 CCR \u00a7 10700; LC \u00a7 5001; Camarena (1983) 48 CCC 53",
+      "hammer": "Approval Standards: Eliminates blanket unpleaded waivers and enforces adequate consideration under LC \u00a7 5001."
+    },
+    {
+      "filename": "RULE_8_CCR_10752.md",
+      "title": "Appearances Required & Unlimited Settlement Authority",
+      "new_rule": "8 CCR \u00a7 10752",
+      "old_rule": "8 CCR \u00a7\u00a7 10563 / 10563.1",
+      "authority": "8 CCR \u00a7 10752; LC \u00a7 5813; 8 CCR \u00a7 10421",
+      "hammer": "Settlement Authority Mandate: Defense adjusters and counsel must have immediate full settlement authority at MSC and hearings. Failure triggers mandatory sanctions under LC \u00a7 5813."
+    },
+    {
+      "filename": "RULE_8_CCR_10786.md",
+      "title": "Determination of Medical-Legal Expense Disputes & 60-Day Waiver",
+      "new_rule": "8 CCR \u00a7 10786",
+      "old_rule": "8 CCR \u00a7 10451.1",
+      "authority": "Colamonico v. Secure Transportation (2019) 84 CCC 1059 (En Banc); LC \u00a7 4622",
+      "hammer": "The 60-Day Default Waiver: Carrier waives all affirmative defenses (e.g., false history, post-term bar) if it fails to file a Petition for Determination within 60 days of provider's objection."
+    },
+    {
+      "filename": "RULE_8_CCR_10788.md",
+      "title": "Petition for Automatic Reassignment of Judge",
+      "new_rule": "8 CCR \u00a7 10788",
+      "old_rule": "8 CCR \u00a7 10453",
+      "authority": "8 CCR \u00a7 10788; LC \u00a7 5310",
+      "hammer": "Peremptory WCJ Strike: Must be filed within 5 days of notice of hearing before a regular judge. Automatic assignment upon timely filing."
+    },
+    {
+      "filename": "RULE_8_CCR_10803_b.md",
+      "title": "Record of Proceedings Maintained in Adjudication File",
+      "new_rule": "8 CCR \u00a7 10803(b)",
+      "old_rule": "8 CCR \u00a7\u00a7 10750 / 10751",
+      "authority": "8 CCR \u00a7 10803(b); LC \u00a7 5703",
+      "hammer": "The C&R Evidentiary Admission: All medical reports filed in EAMS as of the OACAR approval date are automatically deemed admitted into evidence as a matter of law."
+    },
+    {
+      "filename": "RULE_8_CCR_10832.md",
+      "title": "Notices of Intention (NOI) and Orders after NOI",
+      "new_rule": "8 CCR \u00a7 10832",
+      "old_rule": "8 CCR \u00a7 10349",
+      "authority": "8 CCR \u00a7 10832",
+      "hammer": "Due Process Response Window: Requires specific objection and offer of proof within designated timeframe before WCJ can execute adverse orders."
+    },
+    {
+      "filename": "RULE_8_CCR_10875.md",
+      "title": "Lien Conferences and Lien Trials",
+      "new_rule": "8 CCR \u00a7 10875",
+      "old_rule": "8 CCR \u00a7 10770.1",
+      "authority": "8 CCR \u00a7 10875; LC \u00a7 4903.05",
+      "hammer": "Lien Conference Appearance Mandate: Defendants must appear with full authority. Failure to appear triggers dismissal of objections and fee awards."
+    },
+    {
+      "filename": "RULE_8_CCR_10888.md",
+      "title": "Dismissal of Inactive Lien Claims",
+      "new_rule": "8 CCR \u00a7 10888",
+      "old_rule": "8 CCR \u00a7 10582.5",
+      "authority": "8 CCR \u00a7 10888; LC \u00a7 4903.5",
+      "hammer": "Lien Preservation: Defense cannot obtain dismissal without formal Notice of Intention and verification of service."
+    },
+    {
+      "filename": "RULE_8_CCR___10605.md",
+      "title": "Service Extension of Time (+5 Calendar Days)",
+      "new_rule": "8 CCR \u00a7 10605",
+      "old_rule": "8 CCR \u00a7 10507",
+      "authority": "8 CCR \u00a7 10605; LC \u00a7 5316; CCP \u00a7 1013",
+      "hammer": "Service by Mail/Fax/Email: Adds 5 calendar days for actions required within California. Critical for calculating EOR response deadlines and 25-day Reconsideration windows."
+    },
+    {
+      "filename": "RULE_8_CCR___10635.md",
+      "title": "Ongoing Duty to Serve Medical Reports",
+      "new_rule": "8 CCR \u00a7 10635",
+      "old_rule": "8 CCR \u00a7\u00a7 10608 / 10616",
+      "authority": "8 CCR \u00a7 10635; Hardesty v. McCord (1976) 41 CCC 111 (En Banc)",
+      "hammer": "The 10-Day Service Duty: Parties must serve medical reports within 10 calendar days of receipt. Defense cannot withhold prior accident records and then claim PTP/QME report lacks substantial evidence."
+    },
+    {
+      "filename": "RULE_8_CCR___10670.md",
+      "title": "Documentary Evidence & Pre-Trial Exclusion (DPR Construction Strict Cutoff)",
+      "new_rule": "8 CCR \u00a7 10670",
+      "old_rule": "8 CCR \u00a7 10622",
+      "authority": "DPR Construction v. WCAB (McClanahan) (2025) 107 Cal.App.5th ___; Rucker (2000); LC \u00a7 5502(d)(3)",
+      "hammer": "Exclusion of Unlisted Evidence: Evidence not listed on the PTCS or served prior to MSC is excluded. Under DPR Construction (2025), Section 5502(d)(3) closure is jurisdictional and strictly NOT subject to harmless error review."
+    },
+    {
+      "filename": "RULE_8_CCR___10700.md",
+      "title": "Approval of Compromise and Release & Settlements",
+      "new_rule": "8 CCR \u00a7 10700",
+      "old_rule": "8 CCR \u00a7\u00a7 10870 / 10882",
+      "authority": "8 CCR \u00a7 10700; LC \u00a7 5001; Camarena (1983) 48 CCC 53",
+      "hammer": "Approval Standards: Eliminates blanket unpleaded waivers and enforces adequate consideration under LC \u00a7 5001."
+    },
+    {
+      "filename": "RULE_8_CCR___10752.md",
+      "title": "Appearances Required & Unlimited Settlement Authority",
+      "new_rule": "8 CCR \u00a7 10752",
+      "old_rule": "8 CCR \u00a7\u00a7 10563 / 10563.1",
+      "authority": "8 CCR \u00a7 10752; LC \u00a7 5813; 8 CCR \u00a7 10421",
+      "hammer": "Settlement Authority Mandate: Defense adjusters and counsel must have immediate full settlement authority at MSC and hearings. Failure triggers mandatory sanctions under LC \u00a7 5813."
+    },
+    {
+      "filename": "RULE_8_CCR___10786.md",
+      "title": "Determination of Medical-Legal Expense Disputes & 60-Day Waiver",
+      "new_rule": "8 CCR \u00a7 10786",
+      "old_rule": "8 CCR \u00a7 10451.1",
+      "authority": "Colamonico v. Secure Transportation (2019) 84 CCC 1059 (En Banc); LC \u00a7 4622",
+      "hammer": "The 60-Day Default Waiver: Carrier waives all affirmative defenses (e.g., false history, post-term bar) if it fails to file a Petition for Determination within 60 days of provider's objection."
+    },
+    {
+      "filename": "RULE_8_CCR___10788.md",
+      "title": "Petition for Automatic Reassignment of Judge",
+      "new_rule": "8 CCR \u00a7 10788",
+      "old_rule": "8 CCR \u00a7 10453",
+      "authority": "8 CCR \u00a7 10788; LC \u00a7 5310",
+      "hammer": "Peremptory WCJ Strike: Must be filed within 5 days of notice of hearing before a regular judge. Automatic assignment upon timely filing."
+    },
+    {
+      "filename": "RULE_8_CCR___10803_b.md",
+      "title": "Record of Proceedings Maintained in Adjudication File",
+      "new_rule": "8 CCR \u00a7 10803(b)",
+      "old_rule": "8 CCR \u00a7\u00a7 10750 / 10751",
+      "authority": "8 CCR \u00a7 10803(b); LC \u00a7 5703",
+      "hammer": "The C&R Evidentiary Admission: All medical reports filed in EAMS as of the OACAR approval date are automatically deemed admitted into evidence as a matter of law."
+    },
+    {
+      "filename": "RULE_8_CCR___10832.md",
+      "title": "Notices of Intention (NOI) and Orders after NOI",
+      "new_rule": "8 CCR \u00a7 10832",
+      "old_rule": "8 CCR \u00a7 10349",
+      "authority": "8 CCR \u00a7 10832",
+      "hammer": "Due Process Response Window: Requires specific objection and offer of proof within designated timeframe before WCJ can execute adverse orders."
+    },
+    {
+      "filename": "RULE_8_CCR___10875.md",
+      "title": "Lien Conferences and Lien Trials",
+      "new_rule": "8 CCR \u00a7 10875",
+      "old_rule": "8 CCR \u00a7 10770.1",
+      "authority": "8 CCR \u00a7 10875; LC \u00a7 4903.05",
+      "hammer": "Lien Conference Appearance Mandate: Defendants must appear with full authority. Failure to appear triggers dismissal of objections and fee awards."
+    },
+    {
+      "filename": "RULE_8_CCR___10888.md",
+      "title": "Dismissal of Inactive Lien Claims",
+      "new_rule": "8 CCR \u00a7 10888",
+      "old_rule": "8 CCR \u00a7 10582.5",
+      "authority": "8 CCR \u00a7 10888; LC \u00a7 4903.5",
+      "hammer": "Lien Preservation: Defense cannot obtain dismissal without formal Notice of Intention and verification of service."
+    }
+  ],
+  "traps": [
+    {
+      "filename": "TRAP_01_The_Defective_UR_Dubon_Invalidation.md",
+      "name": "The Defective UR / Dubon Invalidation",
+      "code": "LC \u00a7 4610, 8 CCR \u00a7 9792.9.1",
+      "case": "Dubon II / Bodam / Castillo (En Banc)",
+      "blunder": "Carrier/UR issues denial late (over 5 business days from complete RFA) or fails to telephone/fax requesting doctor within 24 hours of decision.",
+      "remedy": "UR decision is legally void; IMR does NOT apply; WCAB Judge has full jurisdiction to award requested medical treatment based on PTP report.",
+      "roadmap": "1. Subpoena UR fax logs & RFA receipt timestamp.\n2. File DOR on Expedited Medical Treatment.\n3. Request finding of invalid UR under Dubon II."
+    },
+    {
+      "filename": "TRAP_02_The_90_Day_Liability_Presumption_Trap.md",
+      "name": "The 90-Day Liability Presumption Trap",
+      "code": "Labor Code \u00a7 5402(b)",
+      "case": "Welcher (1995) 31 Cal.App.4th 90",
+      "blunder": "Carrier delays decision on DWC-1 claim form past 90 days without issuing written Notice of Denial.",
+      "remedy": "Injury is presumed compensable AOE/COE. All evidence discoverable within the 90 days is EXCLUDED at trial.",
+      "roadmap": "1. File Motion in Limine on Day of Trial.\n2. Exclude defense QMEs, sub-rosa video, and witness declarations obtained after 90 days."
+    },
+    {
+      "filename": "TRAP_03_The_45_Day_COVID_Outbreak_Default.md",
+      "name": "The 45-Day COVID Outbreak Default",
+      "code": "Labor Code \u00a7 3212.88",
+      "case": "Statutory COVID Outbreak Rule",
+      "blunder": "Carrier fails to reject liability within 45 days for employee who tested positive during active workplace outbreak.",
+      "remedy": "Industrial causation is presumed by law. Carrier barred from introducing prior discoverable evidence.",
+      "roadmap": "1. Establish outbreak via employer COVID tracker/PMQ depo.\n2. Prove positive PCR within 14 days of work.\n3. Move for compensability finding."
+    },
+    {
+      "filename": "TRAP_04_Frivolous_Defense_Trial_Sanctions.md",
+      "name": "Frivolous Defense Trial Sanctions",
+      "code": "LC \u00a7 5813, 8 CCR \u00a7 10421",
+      "case": "Tito Torres (2012) 77 CCC 1113 (En Banc)",
+      "blunder": "Defense counsel pushes matter to trial without substantial medical evidence, asserting baseless or contradicted defenses.",
+      "remedy": "Monetary sanctions + full reasonable attorney's fees + costs awarded against carrier and defense attorney jointly/severally.",
+      "roadmap": "1. Serve 10-day Meet & Confer letter under 8 CCR \u00a7 10761.\n2. File Petition for Sanctions under LC \u00a7 5813.\n3. Attach Exhibit 1 itemized time declaration."
+    },
+    {
+      "filename": "TRAP_05_Fabricated_Citation_AI_Hallucination_Tra.md",
+      "name": "Fabricated Citation / AI Hallucination Trap",
+      "code": "LC \u00a7 5813, 8 CCR \u00a7 10421",
+      "case": "Arias v. WCAB (ADJ16902178)",
+      "blunder": "Opposing counsel (or sloppy practitioner) submits brief with fake, hallucinated, or modified citations.",
+      "remedy": "Direct monetary sanction against attorney/representative for bad-faith litigation conduct to preserve judicial integrity.",
+      "roadmap": "1. Cross-reference opposing brief citations against official Lexis/Cal.Comp.Cases.\n2. File Objection & Request for Sanctions under Arias/Torres."
+    },
+    {
+      "filename": "TRAP_06_Unreasonable_Delay_Penalty_Multiplier.md",
+      "name": "Unreasonable Delay Penalty Multiplier",
+      "code": "Labor Code \u00a7 5814, \u00a7 5814.5",
+      "case": "Kerley (1971) / Barnes (2005) / Ramirez",
+      "blunder": "Carrier delays TTD, PD, or medical mileage without genuine medical or legal doubt.",
+      "remedy": "25% penalty up to $10,000 per separate act of delay + mandatory attorney's fees under LC \u00a7 5814.5.",
+      "roadmap": "1. Send formal demand with 10-day cure.\n2. Calculate exact 25% penalty on all delayed sums.\n3. File LC \u00a7 5814 petition + \u00a7 5814.5 fee petition."
+    },
+    {
+      "filename": "TRAP_07_Duty_to_Pay_upon_QME_Finding.md",
+      "name": "Duty to Pay upon QME Finding",
+      "code": "Labor Code \u00a7 4063",
+      "case": "LC \u00a7 4063 Statutory Mandate",
+      "blunder": "State Panel QME issues report finding industrial injury/disability; carrier maintains blanket denial.",
+      "remedy": "Direct statutory violation; eliminates genuine legal doubt; triggers maximum \u00a7 5814 penalties and sanctions.",
+      "roadmap": "1. Serve QME report with formal demand under LC \u00a7 4063.\n2. If unpaid within 14 days, file \u00a7 5814 penalty petition."
+    },
+    {
+      "filename": "TRAP_08_The_Belated_Unlisted_Exhibit_Trap_DPR_St.md",
+      "name": "The Belated / Unlisted Exhibit Trap (DPR Strict Bar)",
+      "code": "LC \u00a7 5502(d)(3), 8 CCR \u00a7 10670",
+      "case": "DPR Construction v. WCAB (McClanahan) (2025)",
+      "blunder": "Carrier dumps unlisted medical records, MPN letters, or investigation reports on FileNet after the MSC or on the eve of trial.",
+      "remedy": "Immediate mandatory exclusion of evidence. Annulment of any award relying on unlisted evidence. Harmless error and lack of prejudice defenses are legally barred.",
+      "roadmap": "1. Object on the record at trial.\n2. Cite DPR Construction (2025) holding that Section 5502(d)(3) is jurisdictional and NOT subject to harmless error.\n3. Demand order excluding exhibit and striking defense reliance."
+    },
+    {
+      "filename": "TRAP_09_The_MSC_Discovery_Cutoff_Trap_DPR_Constr.md",
+      "name": "The MSC Discovery Cutoff Trap / DPR Construction Hammer",
+      "code": "Labor Code \u00a7 5502(d)(3), 8 CCR \u00a7 10670",
+      "case": "DPR Construction et al. v. WCAB (McClanahan) (2025)",
+      "blunder": "Carrier attempts to introduce unlisted medical reports, surveillance, or personnel records at trial, arguing absence of prejudice or harmless error.",
+      "remedy": "Evidence is strictly inadmissible. Section 5502(d)(3) discovery closure is jurisdictional and strictly NOT SUBJECT TO HARMLESS ERROR ANALYSIS. Lack of prejudice cannot excuse carrier failure to list evidence on PTCS.",
+      "roadmap": "1. Object immediately on the record at trial call under LC \u00a7 5502(d)(3).\n2. Cite DPR Construction (2025) and McKenzie (1999).\n3. State: 'Admitting unlisted exhibits exceeds Board jurisdiction and cannot be excused by harmless error or lack of prejudice.'\n4. Move to exclude exhibit with prejudice."
+    },
+    {
+      "filename": "TRAP_10_The_Scattershot_Boilerplate_Defense_Obje.md",
+      "name": "The Scattershot & Boilerplate Defense Objection Trap",
+      "code": "Labor Code \u00a7 5813, 8 CCR \u00a7 10421",
+      "case": "Super Wash Express v. WCAB (Garcia) (2009); Martin (1997)",
+      "blunder": "Carrier files shotgun, scattershot objections to DOR, medical treatment, or DOR trial without verifying factual basis or conducting reasonable investigation.",
+      "remedy": "Sanctions up to $2,500 payable to State General Fund plus mandatory applicant attorney's fees under LC \u00a7 5813 and 8 CCR \u00a7 10421.",
+      "roadmap": "1. Issue 10-day safe harbor meet-and-confer demanding defense withdraw scattershot objections or provide evidence.\n2. Subpoena claims adjuster investigation notes.\n3. File Petition for Sanctions and Attorney's Fees under LC \u00a7 5813 citing Super Wash Express."
+    },
+    {
+      "filename": "TRAP_11_The_Lien_Inactive_Dismissal_Trap_Mandato.md",
+      "name": "The Lien Inactive Dismissal Trap (Mandatory Notice of Intention)",
+      "code": "8 CCR \u00a7 10888, Labor Code \u00a7 4903.5",
+      "case": "8 CCR \u00a7 10888 Regulatory Precedent",
+      "blunder": "Carrier moves to dismiss lien for lack of prosecution without serving formal Notice of Intention or without proving proper service of trial notices.",
+      "remedy": "Dismissal order is void for violation of due process. Lien is reinstated with statutory interest running under LC \u00a7 5800.",
+      "roadmap": "1. File Petition for Reconsideration within 25 days under 8 CCR \u00a7 10888.\n2. Establish lack of statutory 10-day Notice of Intention.\n3. Demand reinstatement and setting for Lien Conference."
+    }
+  ]
+}

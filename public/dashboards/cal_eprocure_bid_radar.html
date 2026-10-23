@@ -1,0 +1,2929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>California State Software Contract Radar | Cal eProcure CSCR</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0d14;
+      --bg-secondary: #111724;
+      --bg-tertiary: #182235;
+      --card-bg: rgba(22, 31, 48, 0.75);
+      --card-border: rgba(56, 189, 248, 0.18);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent-cyan: #06b6d4;
+      --accent-sky: #38bdf8;
+      --accent-gold: #f59e0b;
+      --accent-emerald: #10b981;
+      --accent-rose: #f43f5e;
+      --accent-indigo: #6366f1;
+      --accent-purple: #a855f7;
+      --glow-blue: rgba(56, 189, 248, 0.25);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #f1f5f9;
+      --card-bg: rgba(255, 255, 255, 0.96);
+      --card-border: rgba(14, 165, 233, 0.25);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --accent-cyan: #0891b2;
+      --accent-sky: #0284c7;
+      --accent-gold: #d97706;
+      --accent-emerald: #059669;
+      --accent-rose: #e11d48;
+      --accent-indigo: #4f46e5;
+      --accent-purple: #9333ea;
+      --glow-blue: rgba(2, 132, 199, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(6, 182, 212, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.08) 0%, transparent 40%);
+      background-attachment: fixed;
+    }
+
+    [data-theme="light"] body {
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(6, 182, 212, 0.04) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(99, 102, 241, 0.04) 0%, transparent 40%);
+    }
+
+    .container {
+      max-width: 1520px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    /* Top Ribbon */
+    .top-ribbon {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.75rem 1.25rem;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    [data-theme="light"] .top-ribbon {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    .ribbon-nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.85rem;
+      flex-wrap: wrap;
+    }
+
+    .ribbon-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .ribbon-link:hover {
+      color: var(--accent-sky);
+    }
+
+    .ribbon-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .ctrl-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.9rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+
+    [data-theme="light"] .ctrl-btn {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+
+    .ctrl-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px var(--glow-blue);
+    }
+
+    .ctrl-gold {
+      background: rgba(245, 158, 11, 0.12);
+      border-color: rgba(245, 158, 11, 0.35);
+      color: var(--accent-gold);
+    }
+
+    .ctrl-emerald {
+      background: rgba(16, 185, 129, 0.12);
+      border-color: rgba(16, 185, 129, 0.35);
+      color: var(--accent-emerald);
+    }
+
+    .ctrl-sky {
+      background: rgba(56, 189, 248, 0.12);
+      border-color: rgba(56, 189, 248, 0.35);
+      color: var(--accent-sky);
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    [data-theme="light"] header {
+      border-bottom-color: rgba(0, 0, 0, 0.08);
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .radar-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-indigo));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px var(--glow-blue);
+      font-size: 1.5rem;
+    }
+
+    .title-group h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.85rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, #ffffff, var(--accent-sky));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    [data-theme="light"] .title-group h1 {
+      background: linear-gradient(to right, #0f172a, #0284c7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .title-group p {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--accent-emerald);
+      padding: 0.4rem 0.9rem;
+      border-radius: 9999px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .status-pulse {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-emerald);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-emerald);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.3); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+
+    /* KPI Metrics Strip */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      backdrop-filter: blur(12px);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    [data-theme="light"] .metric-card {
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .metric-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(56, 189, 248, 0.4);
+    }
+
+    .metric-label {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 0.35rem;
+    }
+
+    .metric-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .metric-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Tabs */
+    .tab-bar {
+      display: flex;
+      gap: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 1.5rem;
+    }
+
+    [data-theme="light"] .tab-bar {
+      border-bottom-color: #cbd5e1;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      padding: 0.75rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      color: #fff;
+    }
+
+    [data-theme="light"] .tab-btn:hover {
+      color: #0f172a;
+    }
+
+    .tab-btn.active {
+      color: var(--accent-sky);
+    }
+
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent-sky);
+      box-shadow: 0 0 10px var(--accent-sky);
+    }
+
+    /* Filter Controls */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      background: rgba(17, 23, 36, 0.6);
+      padding: 1rem 1.25rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    [data-theme="light"] .filter-bar {
+      background: #ffffff;
+      border-color: #cbd5e1;
+    }
+
+    .search-input {
+      background: rgba(10, 13, 20, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      width: 320px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    [data-theme="light"] .search-input {
+      background: #f8fafc;
+      color: #0f172a;
+      border-color: #cbd5e1;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-sky);
+    }
+
+    .pill-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .filter-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-secondary);
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    [data-theme="light"] .filter-pill {
+      background: #f1f5f9;
+      color: #475569;
+      border-color: #cbd5e1;
+    }
+
+    .filter-pill:hover, .filter-pill.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent-sky);
+      color: var(--accent-sky);
+    }
+
+    /* Bids Grid / Cards */
+    .bids-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .bid-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    [data-theme="light"] .bid-card {
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.06);
+    }
+
+    .bid-card:hover {
+      border-color: rgba(56, 189, 248, 0.55);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+      transform: translateY(-3px);
+    }
+
+    .bid-card.completed-card {
+      border-color: var(--accent-emerald) !important;
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.2) !important;
+    }
+
+    .bid-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+    }
+
+    .bid-id {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent-cyan);
+      background: rgba(6, 182, 212, 0.12);
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .bid-type {
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    .type-rfp { background: rgba(99, 102, 241, 0.15); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.3); }
+    .type-sb { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35); }
+    .type-rfo { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35); }
+
+    .bid-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.4rem;
+      line-height: 1.35;
+    }
+
+    .bid-dept {
+      font-size: 0.85rem;
+      color: var(--accent-sky);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .bid-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .bid-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .tag-badge {
+      font-size: 0.72rem;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    [data-theme="light"] .tag-badge {
+      background: #f1f5f9;
+      color: #64748b;
+      border-color: #e2e8f0;
+    }
+
+    /* Target Bid Amount Highlight Box */
+    .bid-target-box {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(16, 185, 129, 0.08));
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 12px;
+      padding: 0.9rem 1rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    [data-theme="light"] .bid-target-box {
+      background: linear-gradient(135deg, #fffbeb, #ecfdf5);
+      border-color: #f59e0b;
+    }
+
+    .target-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--accent-gold);
+      letter-spacing: 0.5px;
+      margin-bottom: 0.2rem;
+    }
+
+    .target-amount {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+
+    [data-theme="light"] .target-amount {
+      color: #0f172a;
+    }
+
+    .target-sub {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      margin-top: 0.2rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    /* Official Contacts Box */
+    .bid-contact-box {
+      background: rgba(0, 0, 0, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 0.75rem 0.9rem;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+    }
+
+    [data-theme="light"] .bid-contact-box {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+    }
+
+    .contact-title {
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--accent-sky);
+      letter-spacing: 0.4px;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .contact-person {
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-actions {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-top: 0.35rem;
+    }
+
+    .contact-link {
+      color: var(--accent-sky);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.76rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.15rem 0.45rem;
+      background: rgba(56, 189, 248, 0.08);
+      border-radius: 4px;
+      transition: all 0.2s ease;
+    }
+
+    .contact-link:hover {
+      background: var(--accent-sky);
+      color: #000;
+    }
+
+    .contact-address {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+      margin-top: 0.3rem;
+    }
+
+    /* Bid Submission To-Do Tracker Box */
+    .bid-tracker-box {
+      background: rgba(10, 13, 20, 0.6);
+      border: 1px solid rgba(56, 189, 248, 0.15);
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    [data-theme="light"] .bid-tracker-box {
+      background: #ffffff;
+      border-color: #cbd5e1;
+    }
+
+    .tracker-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.6rem;
+    }
+
+    .tracker-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent-emerald);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .tracker-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-emerald);
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+    }
+
+    .tracker-bar-bg {
+      width: 100%;
+      height: 7px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+    }
+
+    [data-theme="light"] .tracker-bar-bg {
+      background: #e2e8f0;
+    }
+
+    .tracker-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-emerald));
+      border-radius: 999px;
+      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .tracker-tasks {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.02);
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    [data-theme="light"] .task-item {
+      background: #f8fafc;
+      border-color: #f1f5f9;
+      color: #334155;
+    }
+
+    .task-item:hover {
+      border-color: rgba(56, 189, 248, 0.25);
+      background: rgba(56, 189, 248, 0.04);
+    }
+
+    .task-item.checked {
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    [data-theme="light"] .task-item.checked {
+      color: #94a3b8;
+    }
+
+    .task-checkbox {
+      margin-top: 0.2rem;
+      width: 15px;
+      height: 15px;
+      accent-color: var(--accent-emerald);
+      cursor: pointer;
+    }
+
+    .task-content {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .task-link {
+      font-size: 0.74rem;
+      color: var(--accent-sky);
+      text-decoration: none;
+      font-weight: 600;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .task-link:hover {
+      text-decoration: underline;
+    }
+
+    .tracker-controls {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      margin-top: 0.6rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .btn-tiny {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-tiny:hover {
+      color: var(--text-primary);
+      border-color: var(--accent-sky);
+    }
+
+    /* Card Action Buttons */
+    .card-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .btn {
+      background: rgba(56, 189, 248, 0.1);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      color: var(--accent-sky);
+      padding: 0.55rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    .btn:hover {
+      background: var(--accent-sky);
+      color: #000;
+      box-shadow: 0 0 15px var(--glow-blue);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.1);
+      color: var(--text-secondary);
+    }
+
+    [data-theme="light"] .btn-secondary {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #334155;
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      box-shadow: none;
+    }
+
+    [data-theme="light"] .btn-secondary:hover {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .btn-primary-gold {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(16, 185, 129, 0.25));
+      border: 1px solid var(--accent-gold);
+      color: var(--accent-gold);
+      font-weight: 700;
+    }
+
+    .btn-primary-gold:hover {
+      background: var(--accent-gold);
+      color: #000;
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+    }
+
+    /* Modal Overlay & Card */
+
+    /* Google Material Symbols base */
+    .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-feature-settings: 'liga';
+      -webkit-font-smoothing: antialiased;
+      vertical-align: middle;
+    }
+
+    /* Modal Enhancements */
+    .modal-card.modal-xl {
+      max-width: 1080px;
+      width: 96%;
+    }
+
+    /* Executive Dossier Callout Banner */
+    .dossier-banner {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(16, 185, 129, 0.08));
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    [data-theme="light"] .dossier-banner {
+      background: linear-gradient(135deg, #fffbeb, #f0fdf4);
+      border-color: #f59e0b;
+    }
+
+    .dossier-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0.35rem 0 0.2rem 0;
+    }
+
+    [data-theme="light"] .dossier-title {
+      color: #0f172a;
+    }
+
+    .dossier-meta-grid {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.75rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 0.85rem;
+      margin-top: 0.85rem;
+    }
+
+    [data-theme="light"] .dossier-meta-grid {
+      border-top-color: #cbd5e1;
+      color: #334155;
+    }
+
+    .dossier-meta-pill {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 0.45rem 0.75rem;
+      border-radius: 6px;
+    }
+
+    [data-theme="light"] .dossier-meta-pill {
+      background: #ffffff;
+      border-color: #cbd5e1;
+    }
+
+    .dossier-section-header {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 1.25rem 0 0.75rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Verbatim Script Cards */
+    .script-stage-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 1.15rem 1.25rem;
+      margin-bottom: 0.85rem;
+      transition: all 0.2s ease;
+    }
+
+    [data-theme="light"] .script-stage-card {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+    }
+
+    .script-stage-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.65rem;
+    }
+
+    .script-stage-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+    }
+
+    .script-stage-body {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: var(--text-primary);
+    }
+
+    [data-theme="light"] .script-stage-body {
+      color: #1e293b;
+    }
+
+    .script-stage-body strong {
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
+    [data-theme="light"] .script-stage-body strong {
+      color: #0f172a;
+    }
+
+    .script-quote-box {
+      border-left: 3px solid var(--card-border);
+      padding-left: 0.85rem;
+      margin: 0.5rem 0;
+      font-style: italic;
+    }
+
+    /* Levers 5-Card Stack */
+    .lever-item {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 0.9rem 1.15rem;
+      margin-bottom: 0.75rem;
+    }
+
+    [data-theme="light"] .lever-item {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+
+    .lever-item-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .lever-item-desc {
+      font-size: 0.83rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    [data-theme="light"] .lever-item-desc {
+      color: #475569;
+    }
+
+    /* Call Notes Scratchpad */
+    .notes-editor-box {
+      width: 100%;
+      height: 220px;
+      background: #080d1a;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 10px;
+      color: #f1f5f9;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.84rem;
+      padding: 1rem;
+      line-height: 1.6;
+      resize: vertical;
+      transition: border-color 0.2s;
+    }
+
+    [data-theme="light"] .notes-editor-box {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      color: #0f172a;
+    }
+
+    .notes-editor-box:focus {
+      outline: none;
+      border-color: var(--accent-sky);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+    }
+
+    /* Objection Matrix Table */
+    .objection-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+      font-size: 0.84rem;
+    }
+
+    .objection-table th {
+      text-align: left;
+      padding: 0.65rem 0.85rem;
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    [data-theme="light"] .objection-table th {
+      background: #f1f5f9;
+      color: #475569;
+      border-bottom-color: #cbd5e1;
+    }
+
+    .objection-table td {
+      padding: 0.75rem 0.85rem;
+      border-bottom: 1px solid var(--card-border);
+      vertical-align: top;
+      line-height: 1.55;
+    }
+
+    [data-theme="light"] .objection-table td {
+      border-bottom-color: #e2e8f0;
+    }
+
+    .objection-table tr:hover td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    [data-theme="light"] .objection-table tr:hover td {
+      background: #f8fafc;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.82);
+      backdrop-filter: blur(8px);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+    }
+
+    .modal-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      max-width: 800px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      padding: 2rem;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    }
+
+    [data-theme="light"] .modal-card {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.6rem;
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    pre.modal-code {
+      background: #080b11;
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: #cbd5e1;
+      overflow-x: auto;
+      margin-top: 1rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    [data-theme="light"] pre.modal-code {
+      background: #f8fafc;
+      color: #1e293b;
+      border-color: #cbd5e1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Top Executive Navigation Ribbon -->
+    <div class="top-ribbon">
+      <div class="ribbon-nav" style="flex-wrap: wrap; gap: 0.5rem;">
+        <a href="war_room_100_days_to_1m.html" class="ribbon-link" style="color: var(--accent-gold);"><span class="material-symbols-outlined" style="font-size:16px;">lock</span> $1M War Room</a>
+        <span style="color: var(--text-muted);">|</span>
+        <a href="mock_eams_docketing_hud.html" class="ribbon-link" style="color: var(--accent-cyan);">⚖️ EAMS Ingest HUD</a>
+        <span style="color: var(--text-muted);">|</span>
+        <a href="template_clinical_precision_saas.html" class="ribbon-link"><span class="material-symbols-outlined" style="font-size:16px;">stethoscope</span> Clinical Precision</a>
+        <span style="color: var(--text-muted);">|</span>
+        <a href="template_executive_matter_os.html" class="ribbon-link"><span class="material-symbols-outlined" style="font-size:16px;">account_balance</span> Matter OS Spine</a>
+        <span style="color: var(--text-muted);">|</span>
+        <a href="template_novo_legal_ai_suite.html" class="ribbon-link"><span class="material-symbols-outlined" style="font-size:16px;">work</span> Novo Suite</a>
+        <span style="color: var(--text-muted);">|</span>
+        <a href="template_fed_legal_azure.html" class="ribbon-link" style="color: var(--accent-sky); font-weight: 700;"><span class="material-symbols-outlined" style="font-size:16px;">radar</span> Fed-Legal Azure</a>
+        <span style="color: var(--text-muted);">|</span>
+        <a href="template_eams_executive_os.html" class="ribbon-link" style="color: #38bdf8; font-weight: 700;"><span class="material-symbols-outlined" style="font-size:16px;">account_balance</span> EAMS Executive OS</a>
+        <span style="color: var(--text-muted);">|</span>
+        <a href="../ACADEMY/presentations/index.html" class="ribbon-link"><span class="material-symbols-outlined" style="font-size:16px;">account_balance</span> Presentation Hub</a>
+      </div>
+
+      <div class="ribbon-controls">
+        <button onclick="openSbCalcModal()" class="ctrl-btn ctrl-gold">
+          <span class="material-symbols-outlined" style="font-size:16px;">calculate</span> 5% SB Preference Calculator
+        </button>
+        <button onclick="exportBidsToCSV()" class="ctrl-btn ctrl-emerald">
+          <span class="material-symbols-outlined" style="font-size:16px;">download</span> Export Bids & Contacts (CSV)
+        </button>
+        <button id="themeToggleBtn" onclick="toggleTheme()" class="ctrl-btn ctrl-sky">
+          ☀️ Light Mode
+        </button>
+      </div>
+    </div>
+
+    <header>
+      <div class="logo-area">
+        <div class="radar-icon"><span class="material-symbols-outlined" style="font-size:24px;">radar</span></div>
+        <div class="title-group">
+          <h1>California State Contract Radar</h1>
+          <p>Autonomous Cal eProcure CSCR & Leveraged Procurement Intelligence Engine</p>
+        </div>
+      </div>
+      <div class="status-badge" id="liveStatusBadge">
+        <span class="status-pulse"></span>
+        <span>CSCR FEED: SYNCHRONIZED</span>
+      </div>
+    </header>
+
+    <!-- Metrics Strip -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Active Software Solicitations</div>
+        <div class="metric-value" id="kpiActiveCount">6</div>
+        <div class="metric-sub">Cal eProcure CSCR Open Bids</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Cannabis & Legal Priority</div>
+        <div class="metric-value" id="kpiCannabisCount">3</div>
+        <div class="metric-sub">DCC & DIR Modernization</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">SB Option Fast-Track Target</div>
+        <div class="metric-value">$242,500</div>
+        <div class="metric-sub">Gov. Code § 14838.5 (2-Quote Direct)</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Total Targeted Contract Pool</div>
+        <div class="metric-value">$17.3M</div>
+        <div class="metric-sub">Across 6 Prime & Sub Vehicles</div>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="tab-bar">
+      <button class="tab-btn active" id="tabOpenBids" onclick="switchTab('open')">Active CSCR Bids & To-Do Trackers</button>
+      <button class="tab-btn" id="tabHistorical" onclick="switchTab('historical')">Historical Awards & Re-Compete Horizon</button>
+      <button class="tab-btn" id="tabAdvocates" onclick="switchTab('advocates')">SB Advocates & $250k Direct Pool</button>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar" id="filterBar">
+      <input type="text" class="search-input" id="bidSearch" placeholder="Search title, agency, contact or UNSPSC..." oninput="filterBids()">
+      <div class="pill-group" id="deptPills">
+        <span class="filter-pill active" onclick="filterByDept('ALL')">All Agencies</span>
+        <span class="filter-pill" onclick="filterByDept('Cannabis')">Dept. of Cannabis Control</span>
+        <span class="filter-pill" onclick="filterByDept('Industrial Relations')">DIR / Workers' Comp</span>
+        <span class="filter-pill" onclick="filterByDept('Technology')">Dept. of Technology</span>
+        <span class="filter-pill" onclick="filterByDept('Consumer Affairs')">Consumer Affairs</span>
+      </div>
+      <div class="pill-group" id="quickPills" style="margin-top: 0.5rem; width: 100%;">
+        <span style="font-size: 0.75rem; color: var(--text-muted); align-self: center; font-family: 'JetBrains Mono'; margin-right: 0.4rem;">QUICK TIER:</span>
+        <span class="filter-pill active" onclick="filterByTier('ALL')">All Bids</span>
+        <span class="filter-pill" onclick="filterByTier('SB')">⚡ &lt; $250k SB Direct Option</span>
+        <span class="filter-pill" onclick="filterByTier('ENTERPRISE')"><span class="material-symbols-outlined" style="font-size:16px;">account_balance</span> $1M+ Enterprise RFPs</span>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="bids-grid" id="bidsGrid">
+      <!-- Cards Injected via JavaScript -->
+    </div>
+
+    <!-- Dynamic Modal for MQs, SOW, Cost Sheets, PRA, and Outreach -->
+    <div class="modal-overlay" id="modalOverlay" onclick="handleBackdropClick(event)">
+      <div class="modal-card" onclick="event.stopPropagation()">
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem; padding-right: 2rem;">
+          <h2 id="modalTitle" style="font-family: 'Outfit'; color: var(--text-primary);"></h2>
+        </div>
+        <div id="modalBody"></div>
+        <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 0.75rem; flex-wrap: wrap;">
+          <button id="btnCopyModal" class="ctrl-btn ctrl-emerald" onclick="copyModalCode()"><span class="material-symbols-outlined" style="font-size:16px;">content_copy</span> Copy Formal Text</button>
+          <button class="ctrl-btn" onclick="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5% Small Business Preference Bid Calculator Modal -->
+    <div class="modal-overlay" id="sbCalcModal" onclick="handleBackdropClick(event)">
+      <div class="modal-card" style="max-width: 680px;" onclick="event.stopPropagation()">
+        <button class="close-btn" onclick="closeSbCalcModal()">&times;</button>
+        <h2 style="font-family: 'Outfit'; margin-bottom: 0.5rem; color: var(--accent-gold); display: flex; align-items: center; gap: 0.5rem;">
+          <span><span class="material-symbols-outlined" style="font-size:16px;">calculate</span></span> California 5% SB Bid Preference Calculator
+        </h2>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
+          Under <strong>California Government Code § 14838</strong>, certified Small Businesses receive a statutory 5% bid evaluation preference against the lowest responsive non-small business bid (capped at $50,000 for state IT solicitations).
+        </p>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.35rem; color: var(--text-secondary);">Lowest Non-SB Competitor Bid ($)</label>
+            <input type="number" id="inpCompetitorBid" value="1000000" step="25000" class="search-input" style="width: 100%;" oninput="calculatePreference()">
+          </div>
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.35rem; color: var(--text-secondary);">Your Certified SB Bid ($)</label>
+            <input type="number" id="inpYourSbBid" value="1040000" step="25000" class="search-input" style="width: 100%;" oninput="calculatePreference()">
+          </div>
+        </div>
+
+        <div id="calcResultBox" style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 10px; padding: 1.25rem; margin-bottom: 1rem;">
+          <!-- Dynamic results calculated via JS -->
+        </div>
+
+        <div style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;">
+          <em>Statutory note: The 5% preference is computed on the lowest non-small business price and subtracted for evaluation purposes. The winning certified Small Business is paid their full actual bid amount!</em>
+        </div>
+
+        <div style="margin-top: 1.25rem; text-align: right;">
+          <button class="ctrl-btn ctrl-gold" onclick="closeSbCalcModal()">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const BIDS_DATA = [
+      {
+        id: "0000041005",
+        title: "Cannabis Track-and-Trace (CCTT) API Gateway Enhancements & Auditor Middleware",
+        department: "Department of Cannabis Control",
+        dept_url: "https://cannabis.ca.gov/about-us/contracts-and-procurement/",
+        type: "SB Option (<$250k)",
+        typeClass: "type-sb",
+        targetBid: "$242,500.00",
+        statutoryCap: "$249,999.00 (Gov. Code § 14838.5)",
+        evaluationVehicle: "Direct 2-Quote SB Option (No RFP Protest)",
+        dueDate: "Oct 05, 2026",
+        unspsc: "81112200",
+        desc: "Direct Small Business acquisition for specialized Python/REST API middleware connecting state compliance auditors with Metrc supply chain telemetry under Gov. Code § 14838.5.",
+        tags: ["Cannabis", "CCTT", "Track and Trace", "SB Option", "Python"],
+        link: "https://caleprocure.ca.gov/pages/Events-BS3/event-details.aspx",
+        prototype_url: "mock_cctt_auditor_portal.html",
+        proposal_file: "../src/procurement/proposals/EVENT_0000041005_CCTT_PROPOSAL_PACKAGE.md",
+        contact: {
+          name: "Wendy Travis (Small Business & DVBE Advocate)",
+          email: "SB.DVBE@cannabis.ca.gov",
+          phone: "(844) 612-2322",
+          division: "DCC Procurement & Business Services Branch",
+          address: "2920 Kilgore Road, Rancho Cordova, CA 95670"
+        },
+        deliverables: [
+          { name: "D-1: API Architecture & Data Schema Mapping", payout: "$36,375.00 (15%)", day: "Day 15" },
+          { name: "D-2: Metrc Telemetry Ingestion Engine", payout: "$60,625.00 (25%)", day: "Day 35" },
+          { name: "D-3: Discrepancy & Anomaly Detection CCR § 15034", payout: "$72,750.00 (30%)", day: "Day 60" },
+          { name: "D-4: State Auditor HUD & Form DCC-AUD-01", payout: "$48,500.00 (20%)", day: "Day 75" },
+          { name: "D-5: User Acceptance Testing & 90-Day Warranty", payout: "$24,250.00 (10%)", day: "Day 90" }
+        ]
+      },
+      {
+        id: "0000038812",
+        title: "EAMS Workers' Compensation Court Record OCR & Document Pipeline Modernization",
+        department: "Department of Industrial Relations",
+        dept_url: "https://www.dir.ca.gov/dlsr/contracts/",
+        type: "RFO (CMAS / MSA)",
+        typeClass: "type-rfo",
+        targetBid: "$1,450,000.00",
+        statutoryCap: "$2,800,000.00 ($650k SB Workshare)",
+        evaluationVehicle: "CMAS / MSA with 25% SB Subcontracting Mandate",
+        dueDate: "Oct 15, 2026",
+        unspsc: "81111508",
+        desc: "Modernization of DWC/WCAB electronic document intake, automated OCR extraction for medical-legal reports (PR-2/DWC-1), and court pleading docketing.",
+        tags: ["Workers Comp", "DIR", "OCR", "EAMS", "Legal Tech"],
+        link: "https://caleprocure.ca.gov/pages/Events-BS3/event-details.aspx",
+        prototype_url: "mock_eams_docketing_hud.html",
+        proposal_file: null,
+        contact: {
+          name: "Sarah Rodriguez (DIR Small Business Liaison)",
+          email: "DIRAdvocate@dir.ca.gov",
+          phone: "(510) 286-7000",
+          division: "DIR Contracts & Leveraged Procurement Office",
+          address: "1515 Clay Street, Suite 1700, Oakland, CA 94612"
+        },
+        deliverables: [
+          { name: "D-1: Document Ingestion & PDF/TIFF OCR Engine", payout: "$362,500.00 (25%)", day: "Month 2" },
+          { name: "D-2: Entity Extraction for ADJ Numbers & Liens", payout: "$435,000.00 (30%)", day: "Month 4" },
+          { name: "D-3: Automated EAMS XML Docketing API", payout: "$362,500.00 (25%)", day: "Month 6" },
+          { name: "D-4: DWC Security Audit & Handoff", payout: "$290,000.00 (20%)", day: "Month 8" }
+        ]
+      },
+      {
+        id: "0000039409",
+        title: "Cannabis System Integration (CSI) - Dual Accela Platform Unification",
+        department: "Department of Cannabis Control",
+        dept_url: "https://cannabis.ca.gov/about-us/contracts-and-procurement/",
+        type: "RFP (Enterprise)",
+        typeClass: "type-rfp",
+        targetBid: "$6,850,000.00",
+        statutoryCap: "$5.0M - $12.0M Range (PCC § 10335)",
+        evaluationVehicle: "Full State RFP (5% SB Preference = $50k deduction)",
+        dueDate: "Sept 30, 2026",
+        unspsc: "81111508",
+        desc: "Integration and unification of two disparate Accela platform environments used by DCC for commercial cannabis licensing, compliance, and enforcement tracking.",
+        tags: ["Cannabis", "Accela", "Integration", "Licensing", "Cloud"],
+        link: "https://caleprocure.ca.gov/pages/Events-BS3/event-details.aspx",
+        prototype_url: null,
+        proposal_file: null,
+        contact: {
+          name: "Kimberly Jensen (Senior IT Procurement Specialist)",
+          email: "Procurement@cannabis.ca.gov",
+          phone: "(844) 612-2322",
+          division: "DCC Contracts & Procurement Division",
+          address: "2920 Kilgore Road, Rancho Cordova, CA 95670"
+        },
+        deliverables: [
+          { name: "D-1: Dual Accela Schema Analysis & Data Mapping", payout: "$1,027,500.00 (15%)", day: "Month 3" },
+          { name: "D-2: Microservices Bridge & Real-Time Sync Layer", payout: "$2,055,000.00 (30%)", day: "Month 6" },
+          { name: "D-3: Unified Licensee & Enforcement Database", payout: "$2,055,000.00 (30%)", day: "Month 9" },
+          { name: "D-4: Migration Cutover & Enterprise Training", payout: "$1,712,500.00 (25%)", day: "Month 12" }
+        ]
+      },
+      {
+        id: "0000040170",
+        title: "Statewide Cannabis Regulatory & Economic Modeling Data Platform",
+        department: "Department of Cannabis Control",
+        dept_url: "https://cannabis.ca.gov/about-us/contracts-and-procurement/",
+        type: "RFP (Analytics)",
+        typeClass: "type-rfp",
+        targetBid: "$985,000.00",
+        statutoryCap: "$750,000 - $1,500,000 Range",
+        evaluationVehicle: "State Secondary RFP with 5% SB Preference",
+        dueDate: "Sept 30, 2026",
+        unspsc: "43230000",
+        desc: "Contractor services and analytical software modeling tools for statewide economic and regulatory impact assessment of California commercial cannabis.",
+        tags: ["Cannabis", "Analytics", "Economic Modeling", "SaaS"],
+        link: "https://caleprocure.ca.gov/pages/Events-BS3/event-details.aspx",
+        prototype_url: null,
+        proposal_file: null,
+        contact: {
+          name: "Marcus Wong (Research & Economic Contracts Lead)",
+          email: "EconomicModeling@cannabis.ca.gov",
+          phone: "(916) 465-9000",
+          division: "DCC Research & Data Intelligence Branch",
+          address: "Sacramento, CA 95814"
+        },
+        deliverables: [
+          { name: "D-1: Econometric Data Pipeline & Tax Model Spec", payout: "$197,000.00 (20%)", day: "Month 2" },
+          { name: "D-2: Interactive Supply/Demand Simulation Engine", payout: "$394,000.00 (40%)", day: "Month 5" },
+          { name: "D-3: Executive Scenario Dashboard & Reports", payout: "$295,500.00 (30%)", day: "Month 7" },
+          { name: "D-4: Staff Handover & Regulatory Model Sign-Off", payout: "$98,500.00 (10%)", day: "Month 8" }
+        ]
+      },
+      {
+        id: "0000037951",
+        title: "Statewide Sovereign AI & Generative Language Model Enablement Hub",
+        department: "Department of Technology",
+        dept_url: "https://cdt.ca.gov/procurement/",
+        type: "RFI / Master Agreement",
+        typeClass: "type-rfp",
+        targetBid: "$3,850,000.00",
+        statutoryCap: "$3.0M - $8.0M Statewide Framework",
+        evaluationVehicle: "Master Service Agreement (MSA) Prequalification",
+        dueDate: "Nov 01, 2026",
+        unspsc: "80101507",
+        desc: "Statewide framework for sovereign, air-gapped on-premise AI deployments, zero-egress LLM inference, and automated regulatory review across California state agencies.",
+        tags: ["AI", "CDT", "Sovereign LLM", "On-Prem", "Cloud"],
+        link: "https://caleprocure.ca.gov/pages/Events-BS3/event-details.aspx",
+        prototype_url: null,
+        proposal_file: null,
+        contact: {
+          name: "David Sterling (CDT Acquisition & Innovation Officer)",
+          email: "SBDVBEAdvocate@state.ca.gov",
+          phone: "(916) 431-5555",
+          division: "CDT Statewide Technology Procurement (STP)",
+          address: "10860 Gold Center Drive, Suite 200, Rancho Cordova, CA 95670"
+        },
+        deliverables: [
+          { name: "D-1: Air-Gapped Zero-Egress Cluster Architecture", payout: "$770,000.00 (20%)", day: "Month 3" },
+          { name: "D-2: State Agency RAG Ingestion & Guardrails", payout: "$1,540,000.00 (40%)", day: "Month 6" },
+          { name: "D-3: SIMM 5300 Compliance & Security Attestation", payout: "$770,000.00 (20%)", day: "Month 8" },
+          { name: "D-4: Statewide Deployment & Multi-Agency Pilot", payout: "$770,000.00 (20%)", day: "Month 10" }
+        ]
+      },
+      {
+        id: "0000036210",
+        title: "Licensing & Enforcement Case Management Cloud Migration",
+        department: "Department of Consumer Affairs",
+        dept_url: "https://www.dca.ca.gov/about_us/contracts.shtml",
+        type: "RFP (Cloud Microservices)",
+        typeClass: "type-rfp",
+        targetBid: "$2,150,000.00",
+        statutoryCap: "$2,500,000.00 Budget Cap",
+        evaluationVehicle: "Leveraged Procurement RFP with 5% SB Preference",
+        dueDate: "Oct 31, 2026",
+        unspsc: "43230000",
+        desc: "Upgrading legacy board and bureau licensing systems to unified modern cloud API microservices with citizen portal and real-time verification.",
+        tags: ["DCA", "Licensing", "Cloud", "Case Management"],
+        link: "https://caleprocure.ca.gov/pages/Events-BS3/event-details.aspx",
+        prototype_url: null,
+        proposal_file: null,
+        contact: {
+          name: "Patricia Ramos (DCA Small Business Advocate)",
+          email: "SmallBusinessAdvocate@dca.ca.gov",
+          phone: "(916) 574-7290",
+          division: "DCA Purchasing & Contracts Unit",
+          address: "1625 North Market Blvd, Sacramento, CA 95834"
+        },
+        deliverables: [
+          { name: "D-1: Legacy Database Audit & Schema Export", payout: "$430,000.00 (20%)", day: "Month 2" },
+          { name: "D-2: Cloud Microservices API & Verification Engine", payout: "$860,000.00 (40%)", day: "Month 5" },
+          { name: "D-3: Citizen License Search & Renewal Portal", payout: "$537,500.00 (25%)", day: "Month 7" },
+          { name: "D-4: Acceptance Sign-Off & Security Verification", payout: "$322,500.00 (15%)", day: "Month 9" }
+        ]
+      }
+    ];
+
+    const HISTORICAL_DATA = [
+      {
+        contract_id: "DCC-2021-0044",
+        title: "California Cannabis Track-and-Trace (CCTT) System",
+        department: "Department of Cannabis Control",
+        vendor: "Franwell, Inc. / Metrc LLC",
+        amount: "$24,800,000",
+        award_date: "2018-01-01",
+        recompete: "Q1 2027 (Under DGS Extension)",
+        notes: "Original statewide seed-to-sale tracking database. Open for third-party middleware and API integration enhancements."
+      },
+      {
+        contract_id: "DCC-2022-0012",
+        title: "Cannabis Licensing System Integration (Accela)",
+        department: "Department of Cannabis Control",
+        vendor: "Carahsoft Technology Corp / Accela, Inc.",
+        amount: "$8,450,000",
+        award_date: "2022-03-15",
+        recompete: "Active Re-Procurement (RFP 0000039409)",
+        notes: "Accela Civic Platform instances unification for cannabis dispensary and cultivation licensing."
+      },
+      {
+        contract_id: "DIR-EAMS-MOD-01",
+        title: "EAMS Document Management & Court Modernization",
+        department: "Department of Industrial Relations (DIR/DWC)",
+        vendor: "Deloitte Consulting LLP",
+        amount: "$16,200,000",
+        award_date: "2020-11-01",
+        recompete: "Mid 2026 - 2027",
+        notes: "Core adjudication system for California workers' compensation. Frequent modular RFOs for document parsing and OCR."
+      }
+    ];
+
+    const ADVOCATE_DATA = [
+      {
+        dept: "Department of Cannabis Control (DCC)",
+        name: "Wendy Travis (Small Business & DVBE Advocate)",
+        email: "SB.DVBE@cannabis.ca.gov",
+        phone: "(844) 612-2322",
+        directAuthority: "Gov. Code § 14838.5 ($249,999 Direct SB Option)",
+        focus: "Licensing Integration, Track-and-Trace APIs, Analytics"
+      },
+      {
+        dept: "Department of Industrial Relations (DIR / DWC)",
+        name: "Sarah Rodriguez (DIR Small Business Liaison)",
+        email: "DIRAdvocate@dir.ca.gov",
+        phone: "(510) 286-7000",
+        directAuthority: "Gov. Code § 14838.5 ($249,999 Direct SB Option)",
+        focus: "Workers' Comp (EAMS), OCR, Court Modernization"
+      },
+      {
+        dept: "California Department of Technology (CDT)",
+        name: "David Sterling (CDT Vendor Relations & SB Advocate)",
+        email: "SBDVBEAdvocate@state.ca.gov",
+        phone: "(916) 431-5555",
+        directAuthority: "Gov. Code § 14838.5 ($249,999 Direct SB Option)",
+        focus: "Statewide Cloud Architecture, AI Governance, CMAS"
+      },
+      {
+        dept: "Department of Consumer Affairs (DCA)",
+        name: "Patricia Ramos (DCA Small Business Advocate)",
+        email: "SmallBusinessAdvocate@dca.ca.gov",
+        phone: "(916) 574-7290",
+        directAuthority: "Gov. Code § 14838.5 ($249,999 Direct SB Option)",
+        focus: "Licensing Portals, Enforcement Case Management"
+      }
+    ];
+
+    // Checkable items for every bid
+    const STANDARD_TASKS = [
+      {
+        id: "std204",
+        name: "STD 204 Payee Data Record",
+        desc: "State vendor tax ID & EFT setup",
+        url: "https://www.documents.dgs.ca.gov/dgs/fmc/pdf/std204.pdf",
+        label: "Official DGS PDF ↗"
+      },
+      {
+        id: "std843",
+        name: "STD 843 & GSPD-05-105 Declarations",
+        desc: "Small Business / DVBE participation",
+        url: "https://www.documents.dgs.ca.gov/dgs/fmc/pdf/std843.pdf",
+        label: "Official DGS PDF ↗"
+      },
+      {
+        id: "form700",
+        name: "Form 700 Conflict of Interest Review",
+        desc: "FPPC Statement of Economic Interests",
+        url: "https://www.fppc.ca.gov/Form700.html",
+        label: "FPPC Portal ↗"
+      },
+      {
+        id: "proposal",
+        name: "Technical Narrative & MQs Matrix",
+        desc: "Mandatory qualification pass/fail gates",
+        action: "openRequirementsModal",
+        label: "View Specs ↗"
+      },
+      {
+        id: "cost",
+        name: "Exhibit B Cost Proposal Sheet",
+        desc: "Milestone payment schedule & rates",
+        action: "openCostSheetModal",
+        label: "Cost Breakdown ↗"
+      },
+      {
+        id: "prototype",
+        name: "Live Working Mock Prototype Demo",
+        desc: "Functional proof of technical competency",
+        action: "openPrototypeAction",
+        label: "Launch Demo ↗"
+      }
+    ];
+
+    let currentDeptFilter = 'ALL';
+    let currentTierFilter = 'ALL';
+    let currentTab = 'open';
+
+    function getTaskState(bidId, taskId) {
+      return localStorage.getItem(`cscr_bid_${bidId}_${taskId}`) === 'true';
+    }
+
+    function setTaskState(bidId, taskId, val) {
+      localStorage.setItem(`cscr_bid_${bidId}_${taskId}`, val ? 'true' : 'false');
+    }
+
+    function calculateProgress(bidId) {
+      let count = 0;
+      STANDARD_TASKS.forEach(t => {
+        if (getTaskState(bidId, t.id)) count++;
+      });
+      const pct = Math.round((count / STANDARD_TASKS.length) * 100);
+      return { count, total: STANDARD_TASKS.length, pct };
+    }
+
+    function toggleTask(bidId, taskId) {
+      const current = getTaskState(bidId, taskId);
+      setTaskState(bidId, taskId, !current);
+      updateCardTrackerUI(bidId);
+    }
+
+    function toggleAllTasks(bidId, markAll) {
+      STANDARD_TASKS.forEach(t => {
+        setTaskState(bidId, t.id, markAll);
+      });
+      updateCardTrackerUI(bidId);
+    }
+
+    function updateCardTrackerUI(bidId) {
+      const { count, total, pct } = calculateProgress(bidId);
+      
+      const badge = document.getElementById(`badge_${bidId}`);
+      if (badge) {
+        badge.innerText = `${count} / ${total} (${pct}%)`;
+        badge.style.color = pct === 100 ? 'var(--accent-emerald)' : (pct > 0 ? 'var(--accent-gold)' : 'var(--text-muted)');
+      }
+
+      const bar = document.getElementById(`bar_${bidId}`);
+      if (bar) {
+        bar.style.width = `${pct}%`;
+      }
+
+      const card = document.getElementById(`card_${bidId}`);
+      if (card) {
+        if (pct === 100) {
+          card.classList.add('completed-card');
+        } else {
+          card.classList.remove('completed-card');
+        }
+      }
+
+      // Update item visual strikethrough
+      STANDARD_TASKS.forEach(t => {
+        const itemEl = document.getElementById(`task_item_${bidId}_${t.id}`);
+        const chkEl = document.getElementById(`chk_${bidId}_${t.id}`);
+        const isDone = getTaskState(bidId, t.id);
+        if (itemEl) itemEl.classList.toggle('checked', isDone);
+        if (chkEl) chkEl.checked = isDone;
+      });
+    }
+
+    function renderBids(bids) {
+      const container = document.getElementById('bidsGrid');
+      container.innerHTML = '';
+
+      if (bids.length === 0) {
+        container.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: var(--text-secondary); padding: 3rem;">No matching state software solicitations found for this filter.</div>';
+        return;
+      }
+
+      bids.forEach(bid => {
+        const { count, total, pct } = calculateProgress(bid.id);
+        const isCompleted = pct === 100;
+
+        const card = document.createElement('div');
+        card.className = `bid-card ${isCompleted ? 'completed-card' : ''}`;
+        card.id = `card_${bid.id}`;
+        
+        card.innerHTML = `
+          <div>
+            <div class="bid-top">
+              <span class="bid-id">EVENT: ${bid.id}</span>
+              <span class="bid-type ${bid.typeClass}">${bid.type}</span>
+            </div>
+            <h3 class="bid-title">${bid.title}</h3>
+            <div class="bid-dept">
+              <span><span class="material-symbols-outlined" style="font-size:16px;">account_balance</span></span>
+              <a href="${bid.dept_url || '#'}" target="_blank" style="color: inherit; text-decoration: none; border-bottom: 1px dashed var(--accent-sky);">
+                ${bid.department}
+              </a>
+            </div>
+            <p class="bid-desc">${bid.desc}</p>
+            <div class="bid-tags">
+              ${bid.tags.map(t => `<span class="tag-badge">#${t}</span>`).join('')}
+              <span class="tag-badge">UNSPSC ${bid.unspsc}</span>
+              <span class="tag-badge" style="color: var(--accent-gold); font-weight: 700;">DUE: ${bid.dueDate}</span>
+            </div>
+
+            <!-- Prominent Target Bid Amount Highlight Box -->
+            <div class="bid-target-box">
+              <div class="target-header">
+                <span><span class="material-symbols-outlined" style="font-size:16px;">payments</span> TARGET PROPOSED BID AMOUNT</span>
+                <span>${bid.evaluationVehicle}</span>
+              </div>
+              <div class="target-amount">${bid.targetBid}</div>
+              <div class="target-sub">
+                <span><strong>Statutory Cap / Budget:</strong> ${bid.statutoryCap}</span>
+                <span style="color: var(--accent-emerald); font-weight: 700;">Closing: ${bid.dueDate}</span>
+              </div>
+            </div>
+
+            <!-- Official State Contact Box -->
+            <div class="bid-contact-box">
+              <div class="contact-title"><span class="material-symbols-outlined" style="font-size:16px;">account_balance</span> OFFICIAL STATE DEPARTMENT CONTACT</div>
+              <div class="contact-person"><span class="material-symbols-outlined" style="font-size:16px;">person</span> ${bid.contact.name}</div>
+              <div class="contact-actions">
+                <a href="mailto:${bid.contact.email}?subject=California%20Solicitation%20Inquiry%20Event%20${bid.id}&body=Dear%20${encodeURIComponent(bid.contact.name)}%3A%0D%0A%0D%0ARe%3A%20Solicitation%20${bid.id}%20(${encodeURIComponent(bid.title)})%0D%0A%0D%0AWe%20are%20preparing%20our%20formal%20bid%20submittal..." class="contact-link">
+                  <span class="material-symbols-outlined" style="font-size:16px;">mail</span> ${bid.contact.email}
+                </a>
+                <a href="tel:${bid.contact.phone.replace(/[^0-9]/g, '')}" class="contact-link">
+                  <span class="material-symbols-outlined" style="font-size:16px;">call</span> ${bid.contact.phone}
+                </a>
+              </div>
+              <div class="contact-address"><span class="material-symbols-outlined" style="font-size:16px;">location_on</span> ${bid.contact.division} • ${bid.contact.address}</div>
+            </div>
+
+            <!-- Interactive To-Do List & Bid Submission Tracker -->
+            <div class="bid-tracker-box">
+              <div class="tracker-header">
+                <span class="tracker-title">
+                  <span><span class="material-symbols-outlined" style="font-size:16px;">content_copy</span></span> SUBMISSION TO-DO LIST & TRACKER
+                </span>
+                <span class="tracker-badge" id="badge_${bid.id}">
+                  ${count} / ${total} (${pct}%)
+                </span>
+              </div>
+              <div class="tracker-bar-bg">
+                <div class="tracker-bar-fill" id="bar_${bid.id}" style="width: ${pct}%;"></div>
+              </div>
+              <div class="tracker-tasks">
+                ${STANDARD_TASKS.map(task => {
+                  const isChecked = getTaskState(bid.id, task.id);
+                  let linkHtml = '';
+                  if (task.url) {
+                    linkHtml = `<a href="${task.url}" target="_blank" class="task-link">${task.label}</a>`;
+                  } else if (task.action === 'openRequirementsModal') {
+                    linkHtml = `<a href="javascript:void(0)" onclick="openRequirementsModal('${bid.id}')" class="task-link">${task.label}</a>`;
+                  } else if (task.action === 'openCostSheetModal') {
+                    linkHtml = `<a href="javascript:void(0)" onclick="openCostSheetModal('${bid.id}')" class="task-link">${task.label}</a>`;
+                  } else if (task.action === 'openPrototypeAction') {
+                    if (bid.prototype_url) {
+                      linkHtml = `<a href="${bid.prototype_url}" target="_blank" class="task-link" style="color: var(--accent-gold);">${task.label}</a>`;
+                    } else {
+                      linkHtml = `<a href="javascript:void(0)" onclick="openPrototypeModal('${bid.id}')" class="task-link">${task.label}</a>`;
+                    }
+                  }
+                  return `
+                    <div class="task-item ${isChecked ? 'checked' : ''}" id="task_item_${bid.id}_${task.id}">
+                      <input type="checkbox" class="task-checkbox" id="chk_${bid.id}_${task.id}" ${isChecked ? 'checked' : ''} onchange="toggleTask('${bid.id}', '${task.id}')">
+                      <div class="task-content">
+                        <span><strong>${task.name}:</strong> ${task.desc}</span>
+                        ${linkHtml}
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+              <div class="tracker-controls">
+                <button class="btn-tiny" onclick="toggleAllTasks('${bid.id}', true)">✓ Mark All Completed</button>
+                <button class="btn-tiny" onclick="toggleAllTasks('${bid.id}', false)">↺ Reset Checklist</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Action Buttons Strip -->
+          <div class="card-actions">
+            ${bid.id === '0000038812' ? `
+              <button class="btn" style="width: 100%; background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(99, 102, 241, 0.25)); border: 1px solid var(--accent-gold); color: var(--accent-gold); font-weight: 700; font-size: 0.84rem; padding: 0.55rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.35rem;" onclick="openSarahScriptModal()">
+                <span class="material-symbols-outlined" style="font-size:16px;">call</span> Call Sarah Rodriguez Script, GenieFlow Cloud & Notes Dossier →
+              </button>
+            ` : ''}
+            ${bid.prototype_url ? `
+              <a href="${bid.prototype_url}" target="_blank" class="btn btn-primary-gold">
+                <span class="material-symbols-outlined" style="font-size:16px;">rocket_launch</span> Launch Live Working Mock Prototype →
+              </a>
+            ` : `
+              <button class="btn btn-primary-gold" onclick="openPrototypeModal('${bid.id}')">
+                <span class="material-symbols-outlined" style="font-size:16px;">rocket_launch</span> Open Prototype Architecture & Demo HUD →
+              </button>
+            `}
+
+            <div style="display: flex; gap: 0.5rem; width: 100%;">
+              <button class="btn" style="flex: 1.2; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: var(--accent-emerald); font-weight: 700;" onclick="openRequirementsModal('${bid.id}')">
+                <span class="material-symbols-outlined" style="font-size:16px;">content_copy</span> Pull Requirements & MQs
+              </button>
+              <button class="btn btn-secondary" style="flex: 0.8;" onclick="openCostSheetModal('${bid.id}')">
+                <span class="material-symbols-outlined" style="font-size:16px;">payments</span> Cost Sheet
+              </button>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; width: 100%;">
+              <button class="btn btn-secondary" style="flex: 1; font-size: 0.78rem;" onclick="openAdvocateOutreachModal('${bid.id}')">
+                <span class="material-symbols-outlined" style="font-size:16px;">mail</span> Contact Analyst
+              </button>
+              <a href="${bid.link}" target="_blank" class="btn" style="flex: 1; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); color: var(--accent-sky); font-size: 0.78rem;">
+                <span class="material-symbols-outlined" style="font-size:16px;">public</span> Cal eProcure (${bid.id}) →
+              </a>
+            </div>
+
+            <div style="display: flex; gap: 0.5rem; width: 100%;">
+              <button class="btn btn-secondary" style="flex: 1; font-size: 0.74rem; padding: 0.35rem;" onclick="openGoNoGoModal('${bid.id}')">
+                <span class="material-symbols-outlined" style="font-size:18px;">ads_click</span> Go / No-Go Decision
+              </button>
+              <button class="btn btn-secondary" style="flex: 1; font-size: 0.74rem; padding: 0.35rem;" onclick="openPraModal('${bid.id}')">
+                <span class="material-symbols-outlined" style="font-size:16px;">description</span> Prior Vendor SOW (PRA)
+              </button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderHistorical() {
+      const container = document.getElementById('bidsGrid');
+      container.innerHTML = '';
+
+      HISTORICAL_DATA.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'bid-card';
+        card.innerHTML = `
+          <div>
+            <div class="bid-top">
+              <span class="bid-id">CONTRACT: ${item.contract_id}</span>
+              <span class="bid-type type-rfo">HISTORICAL AWARD</span>
+            </div>
+            <h3 class="bid-title">${item.title}</h3>
+            <div class="bid-dept"><span class="material-symbols-outlined" style="font-size:16px;">account_balance</span> ${item.department}</div>
+            <p class="bid-desc"><strong>Awarded Vendor:</strong> ${item.vendor}<br><strong>Intel Notes:</strong> ${item.notes}</p>
+          </div>
+          <div>
+            <div class="bid-target-box">
+              <div class="target-header">ORIGINAL CONTRACT VALUE</div>
+              <div class="target-amount">${item.amount}</div>
+              <div class="target-sub">
+                <span>Award Date: ${item.award_date}</span>
+                <span style="color: var(--accent-emerald); font-weight: 700;">Re-Compete: ${item.recompete}</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn ctrl-gold" onclick="openHistoricalPra('${item.contract_id}')">
+                <span class="material-symbols-outlined" style="font-size:16px;">description</span> Draft California PRA Proposal Request
+              </button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderAdvocates() {
+      const container = document.getElementById('bidsGrid');
+      container.innerHTML = '';
+
+      ADVOCATE_DATA.forEach(adv => {
+        const card = document.createElement('div');
+        card.className = 'bid-card';
+        card.innerHTML = `
+          <div>
+            <div class="bid-top">
+              <span class="bid-id">SB ADVOCATE</span>
+              <span class="bid-type type-sb">SB DIRECT POOL</span>
+            </div>
+            <h3 class="bid-title">${adv.dept}</h3>
+            <div class="bid-dept"><span class="material-symbols-outlined" style="font-size:16px;">person</span> ${adv.name}</div>
+            <p class="bid-desc">
+              <strong>Email:</strong> <a href="mailto:${adv.email}" style="color: var(--accent-sky);">${adv.email}</a><br>
+              <strong>Direct Phone:</strong> <a href="tel:${adv.phone.replace(/[^0-9]/g, '')}" style="color: var(--accent-sky);">${adv.phone}</a><br>
+              <strong>High Priority SOW Focus:</strong> ${adv.focus}
+            </p>
+          </div>
+          <div>
+            <div class="bid-target-box">
+              <div class="target-header">DIRECT CONTRACTING AUTHORITY</div>
+              <div class="target-amount" style="font-size: 1.3rem;">Gov. Code § 14838.5</div>
+              <div class="target-sub">
+                <span>Statutory Cap: <strong>$249,999.00</strong></span>
+                <span style="color: var(--accent-emerald); font-weight: 700;">2-Quote Award</span>
+              </div>
+            </div>
+            <div class="card-actions">
+              <button class="btn btn-primary-gold" onclick="openAdvocateDirectLetter('${adv.dept}')">
+                <span class="material-symbols-outlined" style="font-size:16px;">mail</span> Generate Direct SB Outreach Letter
+              </button>
+              ${adv.name.includes('Sarah') ? `
+                <button class="btn" style="background: rgba(245, 158, 11, 0.2); border: 1px solid var(--accent-gold); color: var(--accent-gold); font-weight: 700; width: 100%; margin-top: 0.4rem;" onclick="openSarahScriptModal()">
+                  <span class="material-symbols-outlined" style="font-size:16px;">call</span> Open Sarah Rodriguez Call Script & Intel Dossier →
+                </button>
+              ` : ''}
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function switchTab(tab) {
+      currentTab = tab;
+      document.getElementById('tabOpenBids').classList.toggle('active', tab === 'open');
+      document.getElementById('tabHistorical').classList.toggle('active', tab === 'historical');
+      document.getElementById('tabAdvocates').classList.toggle('active', tab === 'advocates');
+      
+      const filterBar = document.getElementById('filterBar');
+      if (tab === 'open') {
+        filterBar.style.display = 'flex';
+        filterBids();
+      } else if (tab === 'historical') {
+        filterBar.style.display = 'none';
+        renderHistorical();
+      } else if (tab === 'advocates') {
+        filterBar.style.display = 'none';
+        renderAdvocates();
+      }
+    }
+
+    function filterByDept(dept) {
+      currentDeptFilter = dept;
+      const pills = document.querySelectorAll('#deptPills .filter-pill');
+      pills.forEach(p => {
+        if ((dept === 'ALL' && p.innerText.includes('All')) || p.innerText.includes(dept)) {
+          p.classList.add('active');
+        } else {
+          p.classList.remove('active');
+        }
+      });
+      filterBids();
+    }
+
+    function filterByTier(tier) {
+      currentTierFilter = tier;
+      const pills = document.querySelectorAll('#quickPills .filter-pill');
+      pills.forEach(p => {
+        if ((tier === 'ALL' && p.innerText.includes('All')) || 
+            (tier === 'SB' && p.innerText.includes('SB Direct')) || 
+            (tier === 'ENTERPRISE' && p.innerText.includes('Enterprise'))) {
+          p.classList.add('active');
+        } else {
+          p.classList.remove('active');
+        }
+      });
+      filterBids();
+    }
+
+    function filterBids() {
+      const search = (document.getElementById('bidSearch').value || '').toLowerCase();
+      const filtered = BIDS_DATA.filter(bid => {
+        const matchesDept = (currentDeptFilter === 'ALL') || bid.department.toLowerCase().includes(currentDeptFilter.toLowerCase());
+        const matchesSearch = !search || 
+          bid.title.toLowerCase().includes(search) || 
+          bid.department.toLowerCase().includes(search) || 
+          bid.id.includes(search) ||
+          bid.contact.name.toLowerCase().includes(search) ||
+          bid.unspsc.includes(search) ||
+          bid.tags.some(t => t.toLowerCase().includes(search));
+        
+        let matchesTier = true;
+        if (currentTierFilter === 'SB') {
+          matchesTier = bid.type.includes('SB Option');
+        } else if (currentTierFilter === 'ENTERPRISE') {
+          matchesTier = !bid.type.includes('SB Option');
+        }
+
+        return matchesDept && matchesSearch && matchesTier;
+      });
+      renderBids(filtered);
+    }
+
+    /* -------------------------------------------------------------
+       Modal Handlers
+    ------------------------------------------------------------- */
+    function openRequirementsModal(eventId) {
+      const bid = BIDS_DATA.find(b => b.id === eventId);
+      if (!bid) return;
+
+      document.getElementById('modalTitle').innerText = `<span class="material-symbols-outlined" style="font-size:16px;">content_copy</span> Solicitation Requirements & MQs: Event ${bid.id}`;
+      document.getElementById('modalBody').innerHTML = `
+        <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 10px; padding: 1rem; margin-bottom: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+            <span style="font-family: 'JetBrains Mono'; font-size: 0.8rem; color: var(--accent-cyan);">FEED: CAL EPROCURE CSCR + STATE SPECIFICATIONS</span>
+            <span style="font-size: 0.75rem; background: rgba(16, 185, 129, 0.2); color: var(--accent-emerald); padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: 600;">ACTIVE CSCR EVENT</span>
+          </div>
+          <h3 style="color: var(--text-primary); font-size: 1.15rem; margin-bottom: 0.35rem;">${bid.title}</h3>
+          <p style="font-size: 0.84rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+            <strong>Agency:</strong> ${bid.department} &nbsp;|&nbsp; 
+            <strong>Contact Analyst:</strong> ${bid.contact.name} (${bid.contact.email})
+          </p>
+          <p style="font-size: 0.84rem; color: var(--accent-gold);">
+            <strong>Proposed Bid:</strong> ${bid.targetBid} &nbsp;|&nbsp; 
+            <strong>Statutory Cap:</strong> ${bid.statutoryCap} &nbsp;|&nbsp; 
+            <strong>Closing:</strong> ${bid.dueDate}
+          </p>
+        </div>
+
+        <h4 style="color: var(--accent-emerald); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+          <span><span class="material-symbols-outlined" style="font-size:18px;">shield</span></span> Mandatory Minimum Qualifications (MQs — Pass/Fail Gates)
+        </h4>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.25rem; font-size: 0.82rem;">
+          <thead>
+            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.15); text-align: left; color: var(--text-secondary);">
+              <th style="padding: 0.4rem;">MQ Criterion</th>
+              <th style="padding: 0.4rem;">State Specification</th>
+              <th style="padding: 0.4rem;">GenieFlow / Firm Posture</th>
+              <th style="padding: 0.4rem;">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+              <td style="padding: 0.5rem 0.4rem; font-weight: 600; color: var(--text-primary);">MQ-1: Business Standing</td>
+              <td style="padding: 0.5rem 0.4rem; color: var(--text-secondary);">Active registration with CA Secretary of State</td>
+              <td style="padding: 0.5rem 0.4rem; color: var(--text-primary);">Active California Commercial Practice (Good Standing)</td>
+              <td style="padding: 0.5rem 0.4rem; color: var(--accent-emerald); font-weight: 700;">PASS</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+              <td style="padding: 0.5rem 0.4rem; font-weight: 600; color: var(--text-primary);">MQ-2: Small Business Status</td>
+              <td style="padding: 0.5rem 0.4rem; color: var(--text-secondary);">Certified CA Small Business under Gov. Code § 14837</td>
+              <td style="padding: 0.5rem 0.4rem; color: var(--text-primary);">Qualifies for instant SB certification & 5% bid boost</td>
+              <td style="padding: 0.5rem 0.4rem; color: var(--accent-gold); font-weight: 700;">FAST-TRACK</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+              <td style="padding: 0.5rem 0.4rem; font-weight: 600; color: var(--text-primary);">MQ-3: Technical Architecture</td>
+              <td style="padding: 0.5rem 0.4rem; color: var(--text-secondary);">3+ years demonstrated REST APIs, Python/Postgres middleware</td>
+              <td style="padding: 0.5rem 0.4rem; color: var(--text-primary);">Live Working Prototype ready to demo right now</td>
+              <td style="padding: 0.5rem 0.4rem; color: var(--accent-emerald); font-weight: 700;">EXCEEDS</td>
+            </tr>
+            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+              <td style="padding: 0.5rem 0.4rem; font-weight: 600; color: var(--text-primary);">MQ-4: Information Security</td>
+              <td style="padding: 0.5rem 0.4rem; color: var(--text-secondary);">SIMM 5300 & Cal-Secure state security mandates</td>
+              <td style="padding: 0.5rem 0.4rem; color: var(--text-primary);">Air-gapped on-premise execution; zero external cloud leakage</td>
+              <td style="padding: 0.5rem 0.4rem; color: var(--accent-emerald); font-weight: 700;">PASS</td>
+            </tr>
+            <tr>
+              <td style="padding: 0.5rem 0.4rem; font-weight: 600; color: var(--text-primary);">MQ-5: Regulatory Domain</td>
+              <td style="padding: 0.5rem 0.4rem; color: var(--text-secondary);">Demonstrated expertise with California administrative law</td>
+              <td style="padding: 0.5rem 0.4rem; color: var(--text-primary);">Native CCR Title 4 and California Labor Code engines</td>
+              <td style="padding: 0.5rem 0.4rem; color: var(--accent-emerald); font-weight: 700;">EXCEEDS</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4 style="color: var(--accent-sky); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+          <span><span class="material-symbols-outlined" style="font-size:16px;">inventory_2</span></span> Exhibit A: Statement of Work (SOW) Deliverables & Milestone Schedule
+        </h4>
+        <div style="background: rgba(10, 13, 20, 0.8); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 0.75rem; margin-bottom: 1.25rem;">
+          ${bid.deliverables.map(d => `
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.06); padding: 0.45rem 0; font-size: 0.82rem;">
+              <span><strong>${d.name}</strong> (${d.day})</span>
+              <span style="color: var(--accent-gold); font-family: 'JetBrains Mono'; font-weight: 700;">${d.payout}</span>
+            </div>
+          `).join('')}
+        </div>
+
+        <h4 style="color: var(--accent-gold); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+          <span><span class="material-symbols-outlined" style="font-size:16px;">description</span></span> Mandatory State Submittal Forms Required
+        </h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1.25rem;">
+          <a href="https://www.documents.dgs.ca.gov/dgs/fmc/pdf/std204.pdf" target="_blank" style="text-decoration: none; color: inherit; background: rgba(255, 255, 255, 0.04); padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(255,255,255,0.06);">
+            <span style="color: var(--accent-emerald);">☑</span> <span><strong>STD 204:</strong> Payee Data Record ↗</span>
+          </a>
+          <a href="https://www.documents.dgs.ca.gov/dgs/fmc/pdf/std843.pdf" target="_blank" style="text-decoration: none; color: inherit; background: rgba(255, 255, 255, 0.04); padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(255,255,255,0.06);">
+            <span style="color: var(--accent-emerald);">☑</span> <span><strong>STD 843:</strong> DVBE Declarations ↗</span>
+          </a>
+          <a href="https://www.documents.dgs.ca.gov/dgs/fmc/pdf/gspd05-105.pdf" target="_blank" style="text-decoration: none; color: inherit; background: rgba(255, 255, 255, 0.04); padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(255,255,255,0.06);">
+            <span style="color: var(--accent-emerald);">☑</span> <span><strong>GSPD-05-105:</strong> Bidder Declaration ↗</span>
+          </a>
+          <a href="https://www.fppc.ca.gov/Form700.html" target="_blank" style="text-decoration: none; color: inherit; background: rgba(255, 255, 255, 0.04); padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.8rem; display: flex; align-items: center; gap: 0.5rem; border: 1px solid rgba(255,255,255,0.06);">
+            <span style="color: var(--accent-emerald);">☑</span> <span><strong>Form 700:</strong> FPPC Economic Interests ↗</span>
+          </a>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; margin-top: 1rem;">
+          ${bid.prototype_url ? `
+            <a href="${bid.prototype_url}" target="_blank" class="ctrl-btn ctrl-gold" style="text-decoration: none;">
+              <span class="material-symbols-outlined" style="font-size:16px;">rocket_launch</span> Open Live Working Mock Demo →
+            </a>
+          ` : `
+            <button class="ctrl-btn ctrl-gold" onclick="openPrototypeModal('${bid.id}')">
+              <span class="material-symbols-outlined" style="font-size:16px;">rocket_launch</span> Open Live Demo HUD →
+            </button>
+          `}
+          <button class="ctrl-btn ctrl-emerald" onclick="openCostSheetModal('${bid.id}')">
+            <span class="material-symbols-outlined" style="font-size:16px;">payments</span> View Exhibit B Cost Proposal Sheet
+          </button>
+          <a href="${bid.link}" target="_blank" class="ctrl-btn" style="text-decoration: none;">
+            <span class="material-symbols-outlined" style="font-size:16px;">public</span> View on Cal eProcure CSCR →
+          </a>
+        </div>
+      `;
+      document.getElementById('modalOverlay').style.display = 'flex';
+    }
+
+    function openCostSheetModal(eventId) {
+      const bid = BIDS_DATA.find(b => b.id === eventId);
+      if (!bid) return;
+
+      document.getElementById('modalTitle').innerText = `<span class="material-symbols-outlined" style="font-size:16px;">payments</span> Exhibit B: Cost Proposal Worksheet & Milestones (${bid.id})`;
+      document.getElementById('modalBody').innerHTML = `
+        <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 10px; padding: 1rem; margin-bottom: 1.25rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap;">
+            <span style="font-family: 'JetBrains Mono'; font-size: 0.8rem; color: var(--accent-emerald);">STATE CONTRACT BUDGET ALLOCATION</span>
+            <span style="font-size: 0.85rem; font-weight: 800; color: var(--accent-gold);">TARGET BID: ${bid.targetBid}</span>
+          </div>
+          <h3 style="color: var(--text-primary); font-size: 1.15rem; margin-bottom: 0.25rem;">${bid.title}</h3>
+          <p style="font-size: 0.84rem; color: var(--text-secondary);"><strong>Statutory Cap / Budget Ceiling:</strong> ${bid.statutoryCap} &nbsp;|&nbsp; <strong>Payment Term:</strong> Net 45 pursuant to California Prompt Payment Act (Gov. Code § 927 et seq.)</p>
+        </div>
+
+        <h4 style="color: var(--accent-sky); margin-bottom: 0.5rem;">Itemized Deliverable Payment Schedule:</h4>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.84rem;">
+          <thead>
+            <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.15); text-align: left; color: var(--text-secondary);">
+              <th style="padding: 0.5rem;">Deliverable Milestone</th>
+              <th style="padding: 0.5rem;">Completion Target</th>
+              <th style="padding: 0.5rem; text-align: right;">State Payout Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${bid.deliverables.map(d => `
+              <tr style="border-bottom: 1px solid rgba(255, 255, 255, 0.06);">
+                <td style="padding: 0.5rem; font-weight: 600; color: var(--text-primary);">${d.name}</td>
+                <td style="padding: 0.5rem; color: var(--accent-cyan); font-family: 'JetBrains Mono';">${d.day}</td>
+                <td style="padding: 0.5rem; text-align: right; color: var(--accent-gold); font-family: 'JetBrains Mono'; font-weight: 700;">${d.payout}</td>
+              </tr>
+            `).join('')}
+            <tr style="border-top: 2px solid rgba(255, 255, 255, 0.2); font-weight: 800;">
+              <td style="padding: 0.75rem 0.5rem; color: #fff;">TOTAL NOT-TO-EXCEED PROPOSED BID:</td>
+              <td style="padding: 0.75rem 0.5rem;"></td>
+              <td style="padding: 0.75rem 0.5rem; text-align: right; color: var(--accent-emerald); font-size: 1.1rem; font-family: 'JetBrains Mono';">${bid.targetBid}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="background: rgba(0, 0, 0, 0.25); border-radius: 8px; padding: 1rem; border: 1px solid rgba(255,255,255,0.06); font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6;">
+          <strong>California Small Business Statutory Advantage:</strong><br>
+          Under Gov. Code § 14838.5, awards under $250,000 do not require formal IFB/RFP advertising and can be executed via 2 competitive certified Small Business quotes. For RFPs exceeding $250,000, your certified Small Business receives an automatic 5% bid evaluation deduction (up to $50,000).
+        </div>
+      `;
+      document.getElementById('modalOverlay').style.display = 'flex';
+    }
+
+    function openPrototypeModal(eventId) {
+      const bid = BIDS_DATA.find(b => b.id === eventId);
+      if (!bid) return;
+
+      document.getElementById('modalTitle').innerText = `<span class="material-symbols-outlined" style="font-size:16px;">rocket_launch</span> Working Prototype Architecture: Event ${bid.id}`;
+      document.getElementById('modalBody').innerHTML = `
+        <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 10px; padding: 1rem; margin-bottom: 1.25rem;">
+          <h3 style="color: var(--accent-gold); font-size: 1.1rem; margin-bottom: 0.25rem;">${bid.title}</h3>
+          <p style="font-size: 0.85rem; color: var(--text-secondary);">Demonstrating ready-to-deploy software architecture compliant with California State Information Management Manual (SIMM 5300).</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+          <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 1rem;">
+            <div style="color: var(--accent-cyan); font-weight: 700; margin-bottom: 0.5rem; font-size: 0.88rem;">⚙️ Core Middleware Architecture</div>
+            <ul style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.8; margin-left: 1.25rem;">
+              <li>Zero-cloud egress / air-gapped on-premise execution</li>
+              <li>PostgreSQL schema with deterministic state audit logging</li>
+              <li>OpenAPI 3.0 REST endpoint documentation & telemetry</li>
+              <li>California statutory rule engine validation</li>
+            </ul>
+          </div>
+          <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 1rem;">
+            <div style="color: var(--accent-emerald); font-weight: 700; margin-bottom: 0.5rem; font-size: 0.88rem;"><span class="material-symbols-outlined" style="font-size:18px;">shield</span> State Security & Verification</div>
+            <ul style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.8; margin-left: 1.25rem;">
+              <li>Cal-Secure and SIMM 5300 encryption standards</li>
+              <li>Role-based Access Control (RBAC) with State SAML / SSO</li>
+              <li>Sub-second query latency under high concurrent load</li>
+              <li>100% automated regression test coverage</li>
+            </ul>
+          </div>
+        </div>
+
+        <pre class="modal-code"># GenieFlow California State Contract Dispatcher
+# Event: ${bid.id} | Department: ${bid.department}
+# Target Bid Amount: ${bid.targetBid}
+
+class StateContractOrchestrator:
+    def __init__(self, event_id="${bid.id}"):
+        self.event_id = event_id
+        self.target_bid = "${bid.targetBid}"
+        self.department = "${bid.department}"
+        self.contact_email = "${bid.contact.email}"
+        self.status = "READY_FOR_SUBMITTAL"
+
+    def verify_statutory_compliance(self):
+        print(f"[+] Verifying Gov. Code § 14838.5 & SIMM 5300 posture...")
+        return {"status": "PASSED", "exceeds_mqs": True}
+
+print(StateContractOrchestrator().verify_statutory_compliance())</pre>
+      `;
+      document.getElementById('modalOverlay').style.display = 'flex';
+    }
+
+    function openAdvocateOutreachModal(eventId) {
+      const bid = BIDS_DATA.find(b => b.id === eventId);
+      if (!bid) return;
+
+      document.getElementById('modalTitle').innerText = `<span class="material-symbols-outlined" style="font-size:16px;">mail</span> Official State Outreach: ${bid.contact.name}`;
+      document.getElementById('modalBody').innerHTML = `
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+          Direct formal capabilities inquiry to <strong>${bid.contact.email}</strong> regarding <strong>Solicitation ${bid.id}</strong>:
+        </p>
+        <pre class="modal-code">To: ${bid.contact.email}
+Subject: Inquiry: Solicitation ${bid.id} (${bid.title}) — Small Business Capabilities & Quote
+Date: September 15, 2026
+
+Dear ${bid.contact.name}:
+
+Our firm is preparing our formal proposal for Solicitation ${bid.id} (${bid.title}).
+
+As a certified California Small Business, we have architected and deployed a live working demonstration addressing your department's exact technical requirements. 
+
+Key Qualifications:
+1. Small Business Contracting Preference (Gov. Code § 14837 / 14838.5)
+2. Proposed Not-to-Exceed Cost: ${bid.targetBid} (Within statutory budget)
+3. Information Security: Zero-cloud egress architecture adhering to SIMM 5300 & Cal-Secure
+4. Proven domain integration with California statutory compliance engines
+
+Could you please confirm the deadline for clarification inquiries and confirm receipt of our initial capabilities profile?
+
+Sincerely,
+
+Principal & Lead Systems Architect
+GenieFlow Sovereign Systems
+State Supplier ID: [Pending Final Cal eProcure Profile Verification]</pre>
+      `;
+      document.getElementById('modalOverlay').style.display = 'flex';
+    }
+
+    function openAdvocateDirectLetter(deptName) {
+      const adv = ADVOCATE_DATA.find(a => a.dept === deptName);
+      if (!adv) return;
+
+      document.getElementById('modalTitle').innerText = `SB Option Outreach: ${adv.dept}`;
+      document.getElementById('modalBody').innerHTML = `
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+          Direct outreach email to <strong>${adv.email}</strong> under <strong>California Government Code § 14838.5 ($249,999 direct award option)</strong>:
+        </p>
+        <pre class="modal-code">To: ${adv.email}
+Subject: SB Option Contracting Pool (Gov. Code § 14838.5) — Capabilities Introduction
+Date: September 15, 2026
+
+Dear ${adv.name}:
+
+Under California Government Code § 14838.5, ${adv.dept} is authorized to contract directly with certified California Small Businesses for IT goods, software, and services up to $249,999.00 with only two price quotes.
+
+We specialize in high-reliability regulatory software, Python APIs, deterministic document intelligence, and zero-cloud egress sovereign AI architectures (${adv.focus}).
+
+Could you please confirm the process for adding our entity to your department's informal solicitation pool for upcoming IT needs under $250,000?
+
+Sincerely,
+
+GenieFlow Sovereign Systems</pre>
+      `;
+      document.getElementById('modalOverlay').style.display = 'flex';
+    }
+
+    function openGoNoGoModal(eventId) {
+      const bid = BIDS_DATA.find(b => b.id === eventId);
+      if (!bid) return;
+
+      const isSbOption = bid.type.includes('SB Option');
+      const score = isSbOption ? 96 : 88;
+
+      document.getElementById('modalTitle').innerText = `<span class="material-symbols-outlined" style="font-size:18px;">ads_click</span> Go / No-Go Decision: ${bid.title}`;
+      document.getElementById('modalBody').innerHTML = `
+        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+          <h3 style="color: var(--accent-emerald); margin-bottom: 0.25rem;">Recommendation: STRONG GO (Score: ${score}/100)</h3>
+          <p style="font-size: 0.85rem; color: var(--text-primary);">${isSbOption ? 'Direct contracting vehicle under California Gov. Code § 14838.5. Requires only 2 competitive quotes without protracted RFP evaluation!' : 'Full competitive solicitation with 5% California Small Business bid preference evaluation advantage.'}</p>
+        </div>
+        <h4 style="color: var(--accent-sky); margin-top: 1rem;">Compliance Matrix & Advantage Analysis:</h4>
+        <ul style="font-size: 0.85rem; color: var(--text-secondary); margin-left: 1.25rem; margin-top: 0.5rem; line-height: 1.8;">
+          <li><strong>Domain Fit:</strong> Directly matches GenieFlow sovereign legal, regulatory, and OCR extraction databases.</li>
+          <li><strong>Target Bid:</strong> ${bid.targetBid} (Engineered to win evaluation while protecting maximum profit margin).</li>
+          <li><strong>Architecture:</strong> Zero-cloud egress / air-gapped security compliant with State Information Management Manual (SIMM 5300).</li>
+          <li><strong>Official Contact:</strong> ${bid.contact.name} (${bid.contact.email}).</li>
+          <li><strong>Action Plan:</strong> Complete all 6 tasks on the card to achieve 100% submission readiness!</li>
+        </ul>
+      `;
+      document.getElementById('modalOverlay').style.display = 'flex';
+    }
+
+    function openPraModal(eventId) {
+      const bid = BIDS_DATA.find(b => b.id === eventId);
+      if (!bid) return;
+
+      document.getElementById('modalTitle').innerText = `Automated California PRA Request (${bid.id})`;
+      document.getElementById('modalBody').innerHTML = `
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+          Use this formal Public Records Act (Gov. Code § 7920 et seq.) request to inspect the prior contract SOW, incumbent proposal, and evaluator sheets:
+        </p>
+        <pre class="modal-code">VIA ELECTRONIC TRANSMISSION - PUBLIC RECORDS ACT REQUEST
+Date: September 15, 2026
+To: Public Records Coordinator, ${bid.department}
+Re: Gov. Code § 7920.000 Request for Solicitation ${bid.id} (${bid.title})
+
+Please provide electronic copies of:
+1. Executed Standard Agreement (STD 213) and Statement of Work (Exhibit A) for the preceding contract.
+2. The winning contractor's technical proposal and price schedule.
+3. Final consensus scoring and evaluator sheets from the prior award.</pre>
+      `;
+      document.getElementById('modalOverlay').style.display = 'flex';
+    }
+
+    function openHistoricalPra(contractId) {
+      const contract = HISTORICAL_DATA.find(c => c.contract_id === contractId);
+      if (!contract) return;
+
+      document.getElementById('modalTitle').innerText = `PRA Request: ${contract.title}`;
+      document.getElementById('modalBody').innerHTML = `
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+          Formal California Public Records Act request for historical contract awarded to <strong>${contract.vendor}</strong> (${contract.amount}):
+        </p>
+        <pre class="modal-code">VIA ELECTRONIC TRANSMISSION - PUBLIC RECORDS ACT REQUEST
+Date: September 15, 2026
+To: Public Records Coordinator, ${contract.department}
+Re: Contract ${contract.contract_id} (${contract.title}) - ${contract.vendor}
+
+Under California Government Code § 7920.000 et seq., please provide:
+1. The executed Standard Agreement (STD 213) with all Exhibits and Amendments.
+2. The complete technical proposal submitted by ${contract.vendor}.
+3. Current contract option years status and scheduled re-compete date.</pre>
+      `;
+      document.getElementById('modalOverlay').style.display = 'flex';
+    }
+
+    
+    /* -------------------------------------------------------------
+       Sarah Rodriguez (DIR) Strategic Call Script & Intel Dossier
+    ------------------------------------------------------------- */
+    /* -------------------------------------------------------------
+       Sarah Rodriguez (DIR) Strategic Call Script & Intel Dossier
+    ------------------------------------------------------------- */
+    
+    const SARAH_SNIPPETS = {
+      stage1: `Hi Sarah, my name is [Your Name] with Apex Consulting Services LLC, a California Small Business. I’m calling you as DIR’s Small Business Advocate regarding DIR’s upcoming EAMS court record OCR and document pipeline modernizations (Event #0000038812). Do you have 90 seconds to discuss how we can help DIR fulfill its Small Business subcontracting mandate on this bid?`,
+      stage2: `Most software contractors bidding on this have never filed a pleading in EAMS or sat in a WCAB courtroom. They spend 6 to 12 months simply trying to figure out what an ADJ number is, how multiple dates of injury connect, and why uniform document naming under 8 CCR § 10205.12 causes document rejections.\n\nFirst, I have been a daily, active EAMS user, practitioner, and super-user trainer for 15 years—literally since DWC first deployed EAMS in 2008.\n\nSecond, we are software architects: we engineered the GenieFlow AI platform, featuring an enterprise PostgreSQL vector database (pgvector), automated legal OCR ingestion, and pleading compilation engines.\n\nWe already solved the exact engineering problem DIR is facing: ingesting multi-page medical packets, running high-accuracy OCR, extracting case metadata, and binding it to WCAB docket structures. We don't have to build this from scratch—we have already built it, tested it, and deployed a live interactive prototype that your evaluation team can test today.`,
+      stage3: `As a California Small Business, we have structured our submittal to deliver maximum value under State procurement law:\n\n1. If bidding as Prime: We qualify under California Government Code § 14838 for the statutory 5% Small Business bid preference ($50,000 evaluation deduction), and we formally guarantee to beat any non-SB competitor's commercial price by 5% while delivering a vastly superior product backed by 15 years of daily EAMS mastery.\n\n2. If partnering with an MSA/CMAS Prime: Large primes bidding on this contract are legally required to subcontract at least 25% to certified Small Businesses ($650,000 to $700,000 workshare). We are ready to serve as their designated Technical Subject Matter Expert, Database/OCR Ingestion Architect, and Training Lead, guaranteeing that their technical deployment actually works for DWC clerks and judges on day one.`,
+      stage4: `Sarah, could you tell me:\n1. What is the current release calendar for the formal RFO documents and pre-bid vendor conference?\n2. What is the process for adding Apex Consulting Services LLC to DIR's certified vendor list for upcoming IT needs under Government Code § 14838.5 ($250k SB Direct Option)?\n3. Can I send you our formal proposal overview and live prototype link right now so you have our capabilities on file?`
+    };
+
+    function copySarahSnippet(key) {
+      if (SARAH_SNIPPETS[key]) {
+        copyTextSnippet(SARAH_SNIPPETS[key]);
+      }
+    }
+
+    /* -------------------------------------------------------------
+       Sarah Rodriguez (DIR) Strategic Call Script & Intel Dossier
+    ------------------------------------------------------------- */
+    function openSarahScriptModal() {
+      const modalCard = document.querySelector('#modalOverlay .modal-card');
+      if (modalCard) modalCard.classList.add('modal-xl');
+
+      document.getElementById('modalTitle').innerHTML = `
+        <div style="display: flex; align-items: center; gap: 0.6rem;">
+          <span class="material-symbols-outlined" style="color: var(--accent-emerald); font-size: 26px;">call</span>
+          <span>Sarah Rodriguez (DIR) — Strategic Call Script & Intel Dossier</span>
+        </div>
+      `;
+      const savedNotes = localStorage.getItem('cscr_sarah_rodriguez_notes') || '';
+      
+      document.getElementById('modalBody').innerHTML = `
+        <!-- Executive Liaison Banner -->
+        <div class="dossier-banner">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.85rem; margin-bottom: 0.85rem;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+                <span style="font-size: 0.72rem; background: rgba(245, 158, 11, 0.25); color: var(--accent-gold); padding: 0.2rem 0.55rem; border-radius: 4px; font-weight: 700; font-family: 'JetBrains Mono';">DIR EVENT #0000038812</span>
+                <span style="font-size: 0.72rem; background: rgba(16, 185, 129, 0.2); color: var(--accent-emerald); padding: 0.2rem 0.55rem; border-radius: 4px; font-weight: 700; font-family: 'JetBrains Mono';">PRIMARY DWC LIAISON</span>
+              </div>
+              <h3 class="dossier-title">Sarah Rodriguez — Small Business & DVBE Advocate</h3>
+              <div style="font-size: 0.85rem; color: var(--text-secondary);">California Department of Industrial Relations (DIR) / Division of Workers' Compensation (DWC)</div>
+            </div>
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+              <a href="tel:5102867000" class="ctrl-btn ctrl-emerald" style="font-weight: 700; text-decoration: none;">
+                <span class="material-symbols-outlined" style="font-size: 16px;">call</span> Call (510) 286-7000
+              </a>
+              <a href="mailto:DIRAdvocate@dir.ca.gov?subject=Event%200000038812%20-%20Small%20Business%20Capabilities%20(Apex%20Consulting%20Services%20LLC)&body=Dear%20Sarah%20Rodriguez%3A%0D%0A%0D%0AI%20am%20following%20up%20on%20our%20discussion%20regarding%20the%20EAMS%20OCR%20solicitation..." class="ctrl-btn ctrl-gold" style="text-decoration: none;">
+                <span class="material-symbols-outlined" style="font-size: 16px;">mail</span> Email DIRAdvocate@dir.ca.gov
+              </a>
+              <a href="mock_eams_docketing_hud.html" target="_blank" class="ctrl-btn ctrl-sky" style="text-decoration: none;">
+                <span class="material-symbols-outlined" style="font-size: 16px;">rocket_launch</span> Open Live Prototype
+              </a>
+            </div>
+          </div>
+          
+          <div class="dossier-meta-grid">
+            <div class="dossier-meta-pill"><strong>HQ Location:</strong> 1515 Clay St, Suite 1700, Oakland, CA</div>
+            <div class="dossier-meta-pill"><strong>Bidding Entity:</strong> Apex Consulting Services LLC (Certified SB)</div>
+            <div class="dossier-meta-pill"><strong>Target Allocation:</strong> $1,450,000 (Prime) / $650,000 (25% Sub)</div>
+            <div class="dossier-meta-pill"><strong>Statutory Authority:</strong> Gov. Code § 14838.5 / § 14838</div>
+          </div>
+        </div>
+
+        <!-- Section 1: Verbatim Call Script -->
+        <div class="dossier-section-header" style="color: var(--accent-cyan);">
+          <span class="material-symbols-outlined">mic</span>
+          <span>Verbatim Call Script (Word-for-Word Pitch Track)</span>
+        </div>
+
+        <!-- Stage 1 -->
+        <div class="script-stage-card" style="border-left: 4px solid var(--accent-gold);">
+          <div class="script-stage-header">
+            <span class="script-stage-tag" style="background: rgba(245, 158, 11, 0.18); color: var(--accent-gold);">Stage 1: Opening (First 20 Seconds)</span>
+            <button class="btn-tiny" onclick="copySarahSnippet('stage1')">
+              <span class="material-symbols-outlined" style="font-size: 13px;">content_copy</span> Copy
+            </button>
+          </div>
+          <div class="script-stage-body">
+            "Hi Sarah, my name is <strong>[Your Name]</strong> with <strong>Apex Consulting Services LLC</strong>, a California Small Business. I’m calling you as DIR’s Small Business Advocate regarding DIR’s upcoming <strong>EAMS court record OCR and document pipeline modernizations (Event #0000038812)</strong>. Do you have 90 seconds to discuss how we can help DIR fulfill its Small Business subcontracting mandate on this bid?"
+          </div>
+        </div>
+
+        <!-- Stage 2 -->
+        <div class="script-stage-card" style="border-left: 4px solid var(--accent-emerald);">
+          <div class="script-stage-header">
+            <span class="script-stage-tag" style="background: rgba(16, 185, 129, 0.18); color: var(--accent-emerald);">Stage 2: 15-Year EAMS Mastery & GenieFlow AI Stack</span>
+            <button class="btn-tiny" onclick="copySarahSnippet('stage2')">
+              <span class="material-symbols-outlined" style="font-size: 13px;">content_copy</span> Copy
+            </button>
+          </div>
+          <div class="script-stage-body">
+            "Most software contractors bidding on this have never filed a pleading in EAMS or sat in a WCAB courtroom. They spend 6 to 12 months simply trying to figure out what an ADJ number is, how multiple dates of injury connect, and why uniform document naming under 8 CCR § 10205.12 causes document rejections.<br><br>
+            <strong>1. Daily 15-Year EAMS Practitioner:</strong> I have been a daily, active EAMS user, practitioner, and super-user trainer for 15 years—literally since DWC first deployed EAMS in 2008.<br>
+            <strong>2. Engineered for DWC Architecture:</strong> We engineered the GenieFlow AI platform, featuring an enterprise PostgreSQL vector database (<code>pgvector</code>), automated legal OCR ingestion, and pleading compilation engines.<br><br>
+            We already solved the exact engineering problem DIR is facing: ingesting multi-page medical packets, running high-accuracy OCR, extracting case metadata, and binding it to WCAB docket structures. We don't have to build this from scratch—we have already built it, tested it, and deployed a live interactive prototype that your evaluation team can test today."
+          </div>
+        </div>
+
+        <!-- Stage 3 -->
+        <div class="script-stage-card" style="border-left: 4px solid var(--accent-sky);">
+          <div class="script-stage-header">
+            <span class="script-stage-tag" style="background: rgba(56, 189, 248, 0.18); color: var(--accent-sky);">Stage 3: Dual-Track Value Proposition (Prime vs. 25% Sub)</span>
+            <button class="btn-tiny" onclick="copySarahSnippet('stage3')">
+              <span class="material-symbols-outlined" style="font-size: 13px;">content_copy</span> Copy
+            </button>
+          </div>
+          <div class="script-stage-body">
+            "As a California Small Business, we have structured our submittal to deliver maximum value under State procurement law:<br><br>
+            <strong>Track 1 — If bidding as Prime:</strong> We qualify under California Government Code § 14838 for the statutory <strong>5% Small Business bid preference</strong> ($50,000 evaluation deduction), and <strong>we formally guarantee to beat any non-SB competitor's commercial price by 5%</strong> while delivering a vastly superior product backed by 15 years of daily EAMS mastery.<br><br>
+            <strong>Track 2 — If partnering with an MSA/CMAS Prime:</strong> Large primes bidding on this contract are legally required to subcontract at least 25% to certified Small Businesses ($650,000 to $700,000 workshare). We are ready to serve as their <strong>designated Technical Subject Matter Expert, Database/OCR Ingestion Architect, and Training Lead</strong>, guaranteeing that their technical deployment actually works for DWC clerks and judges on day one."
+          </div>
+        </div>
+
+        <!-- Stage 4 -->
+        <div class="script-stage-card" style="border-left: 4px solid var(--accent-purple);">
+          <div class="script-stage-header">
+            <span class="script-stage-tag" style="background: rgba(168, 85, 247, 0.18); color: var(--accent-purple);">Stage 4: Closing the Loop & Direct Next Steps</span>
+            <button class="btn-tiny" onclick="copySarahSnippet('stage4')">
+              <span class="material-symbols-outlined" style="font-size: 13px;">content_copy</span> Copy
+            </button>
+          </div>
+          <div class="script-stage-body">
+            "Sarah, could you tell me:<br>
+            <strong>1.</strong> What is the current release calendar for the formal RFO documents and pre-bid vendor conference?<br>
+            <strong>2.</strong> What is the process for adding Apex Consulting Services LLC to DIR's certified vendor list for upcoming IT needs under Government Code § 14838.5 ($250k SB Direct Option)?<br>
+            <strong>3.</strong> Can I send you our formal proposal overview and live prototype link right now so you have our capabilities on file?"
+          </div>
+        </div>
+
+        <!-- Section 2: Exactly What to Push to Her -->
+        <div class="dossier-section-header" style="color: var(--accent-gold);">
+          <span class="material-symbols-outlined">ads_click</span>
+          <span>Exactly What to Push to Sarah (5 High-Leverage Institutional Levers)</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr; gap: 0.75rem; margin-bottom: 1.5rem;">
+          <div class="lever-item" style="border-left: 4px solid var(--accent-gold);">
+            <div class="lever-item-title" style="color: var(--accent-gold);">
+              <span class="material-symbols-outlined" style="font-size: 18px;">verified</span> 1. PUSH THE 25% SMALL BUSINESS MANDATE (Her Official KPI)
+            </div>
+            <div class="lever-item-desc">
+              California Gov. Code mandates 25% of all DIR contracting dollars MUST go to certified Small Businesses. Prime vendors (Deloitte, CGI, Accenture) <em>cannot win without a qualified SB sub</em>. Push Sarah to connect you with the primes requesting documents so you take the $650,000–$700,000 workshare.
+            </div>
+          </div>
+          
+          <div class="lever-item" style="border-left: 4px solid var(--accent-emerald);">
+            <div class="lever-item-title" style="color: var(--accent-emerald);">
+              <span class="material-symbols-outlined" style="font-size: 18px;">database</span> 2. PUSH THE PROVEN CLOUD, DATABASE & OCR ENGINE (GenieFlow AI Stack)
+            </div>
+            <div class="lever-item-desc">
+              You aren't starting from scratch. You built GenieFlow AI with a production PostgreSQL vector database (<code style="color: var(--accent-sky);">pgvector</code>), automated multi-threaded PDF OCR, and universal pleading compiler. You can deploy to State GovCloud or on-premise into DWC's Sacramento datacenter on Day 1.
+            </div>
+          </div>
+
+          <div class="lever-item" style="border-left: 4px solid var(--accent-sky);">
+            <div class="lever-item-title" style="color: var(--accent-sky);">
+              <span class="material-symbols-outlined" style="font-size: 18px;">psychology</span> 3. PUSH THE "ZERO LEARNING CURVE" (Eliminates DIR's Fear of IT Failure)
+            </div>
+            <div class="lever-item-desc">
+              State IT projects fail when engineers don't understand the court. You have been inside EAMS every single day for 15 years since its 2008 rollout. You know 8 CCR § 10205.12 uniform naming, PR-2/4 forms, and court clerk bottlenecks instinctively.
+            </div>
+          </div>
+
+          <div class="lever-item" style="border-left: 4px solid var(--accent-indigo);">
+            <div class="lever-item-title" style="color: var(--accent-indigo);">
+              <span class="material-symbols-outlined" style="font-size: 18px;">laptop_mac</span> 4. PUSH THE WORKING PROTOTYPE (Proof Beats Promises)
+            </div>
+            <div class="lever-item-desc">
+              Competitors bring paper slides. You built and deployed the live interactive EAMS OCR Docketing HUD at <code style="color: var(--accent-gold);">dashboards/mock_eams_docketing_hud.html</code>. DWC evaluators can inspect live extraction and XML generation right now.
+            </div>
+          </div>
+
+          <div class="lever-item" style="border-left: 4px solid var(--accent-rose);">
+            <div class="lever-item-title" style="color: var(--accent-rose);">
+              <span class="material-symbols-outlined" style="font-size: 18px;">fast_forward</span> 5. PUSH THE $250,000 DIRECT SB OPTION (Gov. Code § 14838.5 Fast-Track Pilot)
+            </div>
+            <div class="lever-item-desc">
+              If the formal $2.8M procurement gets delayed, DIR has statutory authority to award an informal pilot up to $249,999.00 directly to Apex Consulting Services LLC with just 2 price quotes and zero formal protest.
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Interactive Live Call Notes Scratchpad -->
+        <div class="dossier-section-header" style="color: var(--accent-emerald); justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span class="material-symbols-outlined">edit_note</span>
+            <span>Live Call Notes & Intel Scratchpad</span>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--accent-emerald); font-weight: 500;" id="notesAutoSaveIndicator">
+            ● Auto-saves continuously
+          </span>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <textarea id="sarahNotesTextarea" class="notes-editor-box"
+            placeholder="Type live call notes here... Notes auto-save continuously to localStorage and can be downloaded as an executive Markdown file."
+            oninput="saveSarahNotes(this.value)">${savedNotes}</textarea>
+          
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.6rem; flex-wrap: wrap; gap: 0.5rem;">
+            <div style="display: flex; gap: 0.5rem;">
+              <button class="btn-tiny" onclick="insertSarahTemplate()">
+                <span class="material-symbols-outlined" style="font-size: 13px;">post_add</span> Insert Official Call Log Template
+              </button>
+              <button class="btn-tiny" onclick="clearSarahNotes()">
+                <span class="material-symbols-outlined" style="font-size: 13px;">delete</span> Clear Notes
+              </button>
+            </div>
+            <button class="ctrl-btn ctrl-emerald" onclick="downloadSarahNotes()" style="font-weight: 700; font-size: 0.82rem;">
+              <span class="material-symbols-outlined" style="font-size: 15px;">download</span> Save Notes to Disk (.md)
+            </button>
+          </div>
+        </div>
+
+        <!-- Section 4: Objection Handling Matrix -->
+        <div class="dossier-section-header" style="color: var(--accent-sky);">
+          <span class="material-symbols-outlined">shield</span>
+          <span>Objection Handling Matrix (Instant Conversational Counter-Strategies)</span>
+        </div>
+
+        <table class="objection-table">
+          <thead>
+            <tr>
+              <th style="width: 38%;">If Sarah Says...</th>
+              <th style="width: 62%;">Apex Conversational Counter-Move</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color: var(--accent-gold); font-weight: 600;">
+                <span style="display: inline-block; padding: 0.15rem 0.45rem; background: rgba(245, 158, 11, 0.15); border-radius: 4px; font-size: 0.75rem; margin-bottom: 0.25rem;">BLACKOUT OBJECTION</span><br>
+                "The solicitation is in a quiet / blackout period."
+              </td>
+              <td style="color: var(--text-primary);">
+                "Understood Sarah. As SB Advocate, could you confirm when the public vendor list will be posted, and confirm whether primes are subject to the standard 25% SB subcontracting mandate?"
+              </td>
+            </tr>
+            <tr>
+              <td style="color: var(--accent-gold); font-weight: 600;">
+                <span style="display: inline-block; padding: 0.15rem 0.45rem; background: rgba(56, 189, 248, 0.15); color: var(--accent-sky); border-radius: 4px; font-size: 0.75rem; margin-bottom: 0.25rem;">VEHICLE OBJECTION</span><br>
+                "This is going out through a CMAS / Leveraged MSA vehicle."
+              </td>
+              <td style="color: var(--text-primary);">
+                "That is exactly why we're calling. We are pre-positioning Apex Consulting Services LLC to be the designated 25% SB partner for CMAS primes who need our 15-year EAMS expertise and GenieFlow database architecture to satisfy their mandate."
+              </td>
+            </tr>
+            <tr>
+              <td style="color: var(--accent-gold); font-weight: 600;">
+                <span style="display: inline-block; padding: 0.15rem 0.45rem; background: rgba(16, 185, 129, 0.15); color: var(--accent-emerald); border-radius: 4px; font-size: 0.75rem; margin-bottom: 0.25rem;">EMAIL DEFLECTION</span><br>
+                "Send me an email with your info."
+              </td>
+              <td style="color: var(--text-primary);">
+                "Sending it over immediately to DIRAdvocate@dir.ca.gov with our SOW breakdown, 15-year trainer profile, and live prototype URL. When should I follow up to confirm you received it?"
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      `;
+      document.getElementById('modalOverlay').style.display = 'flex';
+    }
+
+    function copyTextSnippet(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.createElement('div');
+        toast.style.position = 'fixed';
+        toast.style.bottom = '20px';
+        toast.style.right = '20px';
+        toast.style.background = 'var(--accent-emerald)';
+        toast.style.color = '#fff';
+        toast.style.padding = '0.5rem 1rem';
+        toast.style.borderRadius = '6px';
+        toast.style.fontWeight = '600';
+        toast.style.fontSize = '0.85rem';
+        toast.style.zIndex = '100000';
+        toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+        toast.innerText = '✓ Text copied to clipboard';
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2200);
+      });
+    }
+
+    function saveSarahNotes(val) {
+      localStorage.setItem('cscr_sarah_rodriguez_notes', val);
+      const indicator = document.getElementById('notesAutoSaveIndicator');
+      if (indicator) {
+        indicator.innerText = '✓ Saved ' + new Date().toLocaleTimeString();
+        indicator.style.color = 'var(--accent-emerald)';
+      }
+    }
+
+    function insertSarahTemplate() {
+      const template = `================================================================================
+DIR ADVOCATE CALL LOG — APEX CONSULTING SERVICES LLC
+================================================================================
+Date & Time of Call: ${new Date().toLocaleString()}
+Sarah Rodriguez Status (Answered / Voicemail / Scheduled Callback): 
+
+KEY PROCUREMENT TIMELINES:
+- RFO Release Target Date: 
+- Pre-Bid Conference Date: 
+- Vendor Question Deadline: 
+- Final Submittal Deadline: 
+
+CONTRACT VEHICLE CONFIRMATION:
+- Procurement Vehicle (CMAS / MSA / Leveraged RFP / SB Option): 
+- Mandatory SB Subcontracting Percentage (25% / Other): 
+- Prime Vendors Expressing Interest (Deloitte / CGI / Carahsoft / Other): 
+
+DIR INTERNAL CONTACTS REVEALED:
+- DWC Project Manager / Lead: 
+- DIR Contracting Officer / Analyst: 
+
+NOTES & ACTION ITEMS:
+[ ] 1. Email formal Proposal Package & Prototype Link to DIRAdvocate@dir.ca.gov
+[ ] 2. Request inclusion on Cal eProcure Bidders Ad Board for Event #0000038812
+[ ] 3. Follow-up phone call / email date: 
+================================================================================
+`;
+      const textarea = document.getElementById('sarahNotesTextarea');
+      if (textarea) {
+        textarea.value = template + (textarea.value ? "\n\n" + textarea.value : "");
+        saveSarahNotes(textarea.value);
+      }
+    }
+
+    function clearSarahNotes() {
+      if (confirm("Are you sure you want to clear your Sarah Rodriguez call notes?")) {
+        const textarea = document.getElementById('sarahNotesTextarea');
+        if (textarea) {
+          textarea.value = '';
+          saveSarahNotes('');
+        }
+      }
+    }
+
+    function downloadSarahNotes() {
+      const textarea = document.getElementById('sarahNotesTextarea');
+      const content = textarea ? textarea.value : '';
+      if (!content.trim()) {
+        alert("Please enter some notes before saving to disk.");
+        return;
+      }
+      const blob = new Blob([content], { type: 'text/markdown;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      const dateStr = new Date().toISOString().split('T')[0];
+      a.href = url;
+      a.download = `EAMS_BID_0000038812_SARAH_RODRIGUEZ_NOTES_${dateStr}.md`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function closeModal() {
+      document.getElementById('modalOverlay').style.display = 'none';
+      const modalCard = document.querySelector('#modalOverlay .modal-card');
+      if (modalCard) modalCard.classList.remove('modal-xl');
+    }
+
+    function closeSbCalcModal() {
+      document.getElementById('sbCalcModal').style.display = 'none';
+    }
+
+    function openSbCalcModal() {
+      document.getElementById('sbCalcModal').style.display = 'flex';
+      calculatePreference();
+    }
+
+    function handleBackdropClick(e) {
+      if (e.target.classList.contains('modal-overlay')) {
+        closeModal();
+        closeSbCalcModal();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeModal();
+        closeSbCalcModal();
+      }
+    });
+
+    /* -------------------------------------------------------------
+       5% Small Business Preference Bid Calculator
+    ------------------------------------------------------------- */
+    function calculatePreference() {
+      const compBid = parseFloat(document.getElementById('inpCompetitorBid').value) || 0;
+      const yourBid = parseFloat(document.getElementById('inpYourSbBid').value) || 0;
+
+      // California Gov. Code § 14838: 5% of lowest non-SB bid, capped at $50,000
+      const rawPreference = compBid * 0.05;
+      const preferenceDeduction = Math.min(50000, rawPreference);
+      const evaluatedCompPrice = compBid - preferenceDeduction;
+
+      const sbWins = yourBid <= (compBid + preferenceDeduction);
+
+      const resultBox = document.getElementById('calcResultBox');
+      if (sbWins) {
+        resultBox.style.background = 'rgba(16, 185, 129, 0.12)';
+        resultBox.style.borderColor = 'rgba(16, 185, 129, 0.4)';
+        resultBox.innerHTML = `
+          <div style="font-size: 0.95rem; font-weight: 800; color: var(--accent-emerald); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.4rem;">
+            <span><span class="material-symbols-outlined" style="font-size:16px;">military_tech</span></span> WINNING BID SCENARIO (GOV. CODE § 14838 APPLIED)
+          </div>
+          <div style="font-size: 0.85rem; color: var(--text-primary); line-height: 1.6;">
+            • Competitor Non-SB Bid: <strong>$${compBid.toLocaleString()}</strong><br>
+            • Mandatory 5% SB Preference Deduction: <strong style="color: var(--accent-emerald);">-$${preferenceDeduction.toLocaleString()}</strong> ${rawPreference > 50000 ? '(Capped at $50,000 State Max)' : ''}<br>
+            • Your Certified SB Bid: <strong>$${yourBid.toLocaleString()}</strong><br>
+            <div style="margin-top: 0.6rem; padding: 0.6rem; background: rgba(0,0,0,0.2); border-radius: 6px; font-weight: 600;">
+              ✨ Result: California state procurement law awards this contract to YOUR entity, and the state will pay you your FULL bid amount of <strong>$${yourBid.toLocaleString()}</strong>!
+            </div>
+          </div>
+        `;
+      } else {
+        resultBox.style.background = 'rgba(244, 63, 94, 0.12)';
+        resultBox.style.borderColor = 'rgba(244, 63, 94, 0.4)';
+        resultBox.innerHTML = `
+          <div style="font-size: 0.95rem; font-weight: 800; color: var(--accent-rose); margin-bottom: 0.5rem;">
+            ⚠️ Competitor Non-SB Bid Spread Exceeds 5% Allowance
+          </div>
+          <div style="font-size: 0.85rem; color: var(--text-primary); line-height: 1.6;">
+            • Competitor Bid: $${compBid.toLocaleString()}<br>
+            • Maximum 5% Preference Allowance: $${preferenceDeduction.toLocaleString()}<br>
+            • Your Bid: $${yourBid.toLocaleString()} (Spread is $${(yourBid - compBid).toLocaleString()})<br>
+            <div style="margin-top: 0.5rem; color: var(--text-muted); font-size: 0.8rem;">
+              Tip: Lower your bid by <strong>$${Math.round(yourBid - compBid - preferenceDeduction).toLocaleString()}</strong> to fall within the statutory 5% preference victory zone!
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    /* -------------------------------------------------------------
+       CSV Export with Bids, Amounts, Contacts, and Status
+    ------------------------------------------------------------- */
+    function exportBidsToCSV() {
+      const headers = [
+        "Event ID", 
+        "Solicitation Title", 
+        "Department", 
+        "Procurement Type", 
+        "Target Proposed Bid", 
+        "Statutory Cap / Budget", 
+        "Closing Date", 
+        "Contact Analyst", 
+        "Contact Email", 
+        "Contact Phone", 
+        "Completion Readiness", 
+        "Cal eProcure Link"
+      ];
+      
+      const rows = BIDS_DATA.map(b => {
+        const { count, total, pct } = calculateProgress(b.id);
+        return [
+          `"${b.id}"`,
+          `"${b.title.replace(/"/g, '""')}"`,
+          `"${b.department.replace(/"/g, '""')}"`,
+          `"${b.type}"`,
+          `"${b.targetBid}"`,
+          `"${b.statutoryCap}"`,
+          `"${b.dueDate}"`,
+          `"${b.contact.name.replace(/"/g, '""')}"`,
+          `"${b.contact.email}"`,
+          `"${b.contact.phone}"`,
+          `"${pct}% (${count}/${total} tasks)"`,
+          `"${b.link}"`
+        ];
+      });
+
+      const csvContent = "data:text/csv;charset=utf-8," + [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `cal_eprocure_bids_tracker_${new Date().toISOString().slice(0, 10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    /* -------------------------------------------------------------
+       1-Click Copy on Formal Letters
+    ------------------------------------------------------------- */
+    function copyModalCode() {
+      const codeEl = document.querySelector('#modalBody pre.modal-code');
+      const btn = document.getElementById('btnCopyModal');
+      if (codeEl && btn) {
+        navigator.clipboard.writeText(codeEl.innerText).then(() => {
+          const originalText = btn.innerText;
+          btn.innerText = '✅ Copied to Clipboard!';
+          btn.style.background = 'var(--accent-emerald)';
+          btn.style.color = '#000';
+          setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.background = '';
+            btn.style.color = '';
+          }, 2000);
+        });
+      }
+    }
+
+    /* -------------------------------------------------------------
+       Light / Dark Mode Synchronization
+    ------------------------------------------------------------- */
+    function initTheme() {
+      const savedTheme = localStorage.getItem('genieflow_theme') || localStorage.getItem('cscr_radar_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      updateThemeButton(savedTheme);
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('genieflow_theme', next);
+      localStorage.setItem('cscr_radar_theme', next);
+      updateThemeButton(next);
+    }
+
+    function updateThemeButton(theme) {
+      const btn = document.getElementById('themeToggleBtn');
+      if (btn) {
+        btn.innerHTML = theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+      }
+    }
+
+    // Initialize on load
+    initTheme();
+    renderBids(BIDS_DATA);
+  </script>
+</body>
+</html>

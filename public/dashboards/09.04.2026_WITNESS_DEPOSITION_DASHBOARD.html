@@ -1,0 +1,2642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DEPO COMMAND CENTER | NICOLL PERDOMO (ADJ22473506)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0d1117;
+      --card-bg: #161b22;
+      --card-border: #30363d;
+      --header-bg: #161b22;
+      --nav-bg: #12161c;
+      --search-bg: rgba(13, 17, 23, 0.88);
+      --text-main: #f0f6fc;
+      --text-muted: #8b949e;
+      --q-bg: #1a202c;
+      --q-border: #2d3748;
+      --q-hover: #1e2636;
+      --accent-blue: #58a6ff;
+      --accent-blue-bg: rgba(88, 166, 255, 0.12);
+      --accent-emerald: #3fb950;
+      --accent-emerald-bg: rgba(63, 185, 80, 0.12);
+      --accent-red: #f85149;
+      --accent-red-bg: rgba(248, 81, 73, 0.12);
+      --accent-amber: #d29922;
+      --accent-amber-bg: rgba(210, 153, 34, 0.12);
+      --accent-purple: #bc8cff;
+      --accent-purple-bg: rgba(188, 140, 255, 0.12);
+      --scratch-header: #1c2128;
+      --scratch-bg: #161b22;
+      --scratch-txt: #0d1117;
+    }
+
+    [data-theme="light"] {
+      --bg-dark: #f6f8fa;
+      --card-bg: #ffffff;
+      --card-border: #d0d7de;
+      --header-bg: #ffffff;
+      --nav-bg: #f3f4f6;
+      --search-bg: rgba(246, 248, 250, 0.88);
+      --text-main: #1f2328;
+      --text-muted: #656d76;
+      --q-bg: #f8fafc;
+      --q-border: #e2e8f0;
+      --q-hover: #edf2f7;
+      --accent-blue: #0969da;
+      --accent-blue-bg: rgba(9, 105, 218, 0.1);
+      --accent-emerald: #1a7f37;
+      --accent-emerald-bg: rgba(26, 127, 55, 0.1);
+      --accent-red: #cf222e;
+      --accent-red-bg: rgba(207, 34, 46, 0.1);
+      --accent-amber: #9a6700;
+      --accent-amber-bg: rgba(154, 103, 0, 0.1);
+      --accent-purple: #8250df;
+      --accent-purple-bg: rgba(130, 80, 223, 0.1);
+      --scratch-header: #eaeef2;
+      --scratch-bg: #ffffff;
+      --scratch-txt: #f6f8fa;
+    }
+
+    body, nav, main, header, .card, .question-item, input, textarea {
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.5;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* TOP HUD BAR */
+    header {
+      background-color: var(--header-bg);
+      border-bottom: 1px solid var(--card-border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+      z-index: 100;
+    }
+
+    .case-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .badge-lead {
+      background: linear-gradient(135deg, #1f6feb, #388bfd);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text-main);
+    }
+
+    .case-meta {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: flex;
+      gap: 14px;
+      margin-top: 2px;
+    }
+
+    .case-meta span strong {
+      color: var(--text-main);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .progress-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+    }
+
+    .progress-bar-bg {
+      width: 130px;
+      height: 8px;
+      background-color: #21262d;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #2ea043, #3fb950);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      font-size: 11.5px;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent-emerald);
+    }
+
+    
+    /* BUTTONS - HIGH CONTRAST & ACCESSIBLE IN LIGHT & DARK MODE */
+    .btn {
+      background-color: var(--card-bg);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease-in-out;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+
+    [data-theme="dark"] .btn {
+      background-color: #21262d;
+      color: #f0f6fc;
+      border-color: #363c46;
+    }
+    [data-theme="dark"] .btn:hover {
+      background-color: #30363d;
+      border-color: #8b949e;
+      color: #ffffff;
+    }
+
+    [data-theme="light"] .btn {
+      background-color: #ffffff;
+      color: #1f2328;
+      border-color: #d0d7de;
+      box-shadow: 0 1px 3px rgba(31, 35, 40, 0.12);
+    }
+    [data-theme="light"] .btn:hover {
+      background-color: #f6f8fa;
+      border-color: #0969da;
+      color: #0969da;
+    }
+
+    /* Primary Blue Buttons */
+    .btn-popout, .btn-zoom-connect {
+      background: linear-gradient(135deg, #1f6feb, #0969da) !important;
+      color: #ffffff !important;
+      border-color: #0969da !important;
+      font-weight: 700 !important;
+      box-shadow: 0 2px 4px rgba(9, 105, 218, 0.3) !important;
+    }
+    .btn-popout:hover, .btn-zoom-connect:hover {
+      background: linear-gradient(135deg, #388bfd, #1f6feb) !important;
+      transform: translateY(-1px);
+    }
+
+    /* Radar Toggle Button */
+    .btn-radar-toggle {
+      background: var(--accent-purple-bg) !important;
+      color: var(--accent-purple) !important;
+      border-color: var(--accent-purple) !important;
+      font-weight: 700 !important;
+    }
+    .btn-radar-toggle:hover {
+      background: var(--accent-purple) !important;
+      color: #ffffff !important;
+    }
+
+    /* Danger Button */
+    .btn-danger {
+      background: var(--accent-red-bg) !important;
+      color: var(--accent-red) !important;
+      border-color: rgba(248, 81, 73, 0.3) !important;
+    }
+    .btn-danger:hover {
+      background: var(--accent-red) !important;
+      color: #ffffff !important;
+    }
+
+
+    .btn-danger {
+      color: var(--accent-red);
+      border-color: rgba(248, 81, 73, 0.4);
+    }
+
+    .btn-danger:hover {
+      background-color: var(--accent-red-bg);
+    }
+
+    /* MAIN CONTAINER */
+    .app-body {
+      display: flex;
+      flex: 1;
+      height: calc(100vh - 65px);
+      overflow: hidden;
+    }
+
+    /* SIDEBAR NAVIGATION */
+    nav {
+      width: 280px;
+      background-color: var(--nav-bg);
+      border-right: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow-y: auto;
+    }
+
+    .nav-group {
+      padding: 14px 16px 6px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 16px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      border-left: 3px solid transparent;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .nav-item:hover {
+      background-color: rgba(255, 255, 255, 0.03);
+      color: var(--text-main);
+    }
+
+    .nav-item.active {
+      background-color: var(--accent-blue-bg);
+      color: var(--accent-blue);
+      border-left-color: var(--accent-blue);
+      font-weight: 600;
+    }
+
+    .nav-pill {
+      font-size: 10.5px;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-weight: 600;
+      margin-left: auto;
+    }
+
+    .pill-manzano { background-color: rgba(88, 166, 255, 0.2); color: #58a6ff; }
+    .pill-romero { background-color: rgba(188, 140, 255, 0.2); color: #bc8cff; }
+    .pill-trap { background-color: rgba(248, 81, 73, 0.2); color: #f85149; }
+
+    /* CONTENT VIEW */
+    main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 32px 100px;
+      scroll-behavior: smooth;
+    }
+
+    /* SEARCH & FILTER BAR */
+    .search-filter-bar {
+      position: sticky;
+      top: 0;
+      background: var(--search-bg);
+      backdrop-filter: blur(12px);
+      padding: 12px 0 16px;
+      z-index: 50;
+      display: flex;
+      gap: 12px;
+    }
+
+    .search-input {
+      flex: 1;
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      outline: none;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px rgba(88, 166, 255, 0.15);
+    }
+
+    /* CARD COMPONENTS */
+    .card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .card-header h2 {
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: -8px;
+      margin-bottom: 14px;
+    }
+
+    /* STRATEGIC CALLOUT BOXES */
+    .trap-banner {
+      background: linear-gradient(90deg, rgba(248, 81, 73, 0.12), rgba(248, 81, 73, 0.04));
+      border-left: 4px solid var(--accent-red);
+      padding: 14px 16px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 16px;
+      font-size: 13px;
+    }
+
+    .trap-banner strong {
+      color: var(--accent-red);
+      display: block;
+      margin-bottom: 4px;
+      font-size: 13.5px;
+    }
+
+    .tip-banner {
+      background: linear-gradient(90deg, rgba(88, 166, 255, 0.12), rgba(88, 166, 255, 0.04));
+      border-left: 4px solid var(--accent-blue);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 16px;
+      font-size: 12.5px;
+    }
+
+    .tip-banner strong {
+      color: var(--accent-blue);
+    }
+
+    /* QUESTION ROWS */
+    .question-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .question-item {
+      background-color: var(--q-bg);
+      border: 1px solid var(--q-border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      transition: all 0.15s;
+    }
+
+    .question-item:hover {
+      border-color: #4a5568;
+      background-color: #1e2636;
+    }
+
+    .question-item.asked {
+      background-color: rgba(63, 185, 80, 0.06);
+      border-color: rgba(63, 185, 80, 0.35);
+      opacity: 0.65;
+    }
+
+    .question-item.asked .q-text {
+      text-decoration: line-through;
+      color: #94a3b8;
+    }
+
+    .q-checkbox {
+      margin-top: 3px;
+      width: 17px;
+      height: 17px;
+      cursor: pointer;
+      accent-color: var(--accent-emerald);
+    }
+
+    .q-body {
+      flex: 1;
+    }
+
+    .q-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    .badge-danger { background: var(--accent-red-bg); color: var(--accent-red); }
+    .badge-info { background: var(--accent-blue-bg); color: var(--accent-blue); }
+    .badge-amber { background: var(--accent-amber-bg); color: var(--accent-amber); }
+    .badge-purple { background: var(--accent-purple-bg); color: var(--accent-purple); }
+
+    .q-text {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--text-main);
+      line-height: 1.45;
+    }
+
+    .q-notes {
+      font-size: 11.5px;
+      color: #94a3b8;
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    .q-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-left: 8px;
+    }
+
+    .copy-btn {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      border-radius: 5px;
+      padding: 4px 8px;
+      font-size: 11px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      color: var(--text-main);
+      border-color: var(--accent-blue);
+      background-color: var(--accent-blue-bg);
+    }
+
+    /* LIVE SCRATCHPAD DRAWER */
+    .scratchpad-container {
+      position: fixed;
+      bottom: 0;
+      right: 32px;
+      width: 440px;
+      background: var(--scratch-bg);
+      border: 1px solid var(--card-border);
+      border-bottom: none;
+      border-radius: 12px 12px 0 0;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+      z-index: 999;
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .scratchpad-container.collapsed {
+      transform: translateY(calc(100% - 42px));
+    }
+
+    .scratchpad-header {
+      padding: 10px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      background: var(--scratch-header);
+      border-radius: 12px 12px 0 0;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .scratchpad-body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .scratchpad-textarea {
+      width: 100%;
+      height: 180px;
+      background: var(--scratch-txt);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 10px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      resize: none;
+      outline: none;
+    }
+
+    .scratchpad-textarea:focus {
+      border-color: var(--accent-blue);
+    }
+
+    .scratchpad-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* PRINT STYLES */
+    @media print {
+      body {
+        overflow: visible;
+        height: auto;
+        background: #fff;
+        color: #000;
+      }
+      nav, header, .search-filter-bar, .scratchpad-container, .copy-btn {
+        display: none !important;
+      }
+      main {
+        padding: 0;
+      }
+      .card {
+        border: 1px solid #ccc;
+        background: #fff;
+        color: #000;
+        page-break-inside: avoid;
+        box-shadow: none;
+      }
+      .question-item {
+        background: #fff;
+        border: 1px solid #ddd;
+        color: #000;
+      }
+      .q-text { color: #000; }
+    }
+  
+    /* ==================================================== */
+    /* 🎙️ LIVE LISTENER & AI CO-COUNSEL DOCK */
+    /* ==================================================== */
+    .live-listener-dock {
+      background: var(--card-bg);
+      border-bottom: 2px solid var(--accent-blue);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      position: sticky;
+      top: 0;
+      z-index: 80;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .dock-header {
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(88, 166, 255, 0.04);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .dock-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .dock-pill {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 20px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dock-pill.idle {
+      background: rgba(139, 148, 158, 0.15);
+      color: var(--text-muted);
+      border: 1px solid var(--card-border);
+    }
+
+    .dock-pill.listening {
+      background: rgba(63, 185, 80, 0.2);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(63, 185, 80, 0.4);
+      animation: pulse-border 1.5s infinite;
+    }
+
+    @keyframes pulse-border {
+      0% { box-shadow: 0 0 0 0 rgba(63, 185, 80, 0.4); }
+      70% { box-shadow: 0 0 0 8px rgba(63, 185, 80, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(63, 185, 80, 0); }
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .dock-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-listener {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      font-size: 12.5px;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-mic-start {
+      background: linear-gradient(135deg, #238636, #2ea043);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .btn-mic-start:hover {
+      background: linear-gradient(135deg, #2ea043, #3fb950);
+      transform: translateY(-1px);
+    }
+
+    .btn-zoom-connect {
+      background: linear-gradient(135deg, #1f6feb, #388bfd);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .btn-zoom-connect:hover {
+      background: linear-gradient(135deg, #388bfd, #58a6ff);
+      transform: translateY(-1px);
+    }
+
+    .btn-stop {
+      background: rgba(248, 81, 73, 0.15);
+      color: var(--accent-red);
+      border: 1px solid rgba(248, 81, 73, 0.3);
+    }
+    .btn-stop:hover {
+      background: var(--accent-red);
+      color: #fff;
+    }
+
+    .dock-body {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 16px;
+      padding: 14px 24px;
+      max-height: 280px;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+    }
+
+    .dock-body.collapsed {
+      display: none;
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .transcript-pane, .ai-followup-pane {
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-dark);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      overflow: hidden;
+      height: 250px;
+    }
+
+    .pane-header {
+      padding: 8px 12px;
+      background: var(--card-bg);
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--text-muted);
+    }
+
+    .pane-content {
+      flex: 1;
+      padding: 12px;
+      overflow-y: auto;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .transcript-box {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-main);
+      white-space: pre-wrap;
+    }
+
+    .transcript-line {
+      margin-bottom: 8px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+    }
+
+    .transcript-time {
+      color: var(--text-muted);
+      font-size: 10px;
+      margin-right: 6px;
+    }
+
+    .transcript-keyword {
+      background: rgba(210, 153, 34, 0.25);
+      color: #e3b341;
+      padding: 1px 4px;
+      border-radius: 3px;
+      font-weight: 600;
+    }
+
+    .ai-followup-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ai-card {
+      background: var(--card-bg);
+      border-left: 4px solid var(--accent-purple);
+      border-top: 1px solid var(--card-border);
+      border-right: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      padding: 10px 12px;
+      border-radius: 0 6px 6px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      animation: slide-in 0.25s ease-out;
+    }
+
+    @keyframes slide-in {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .ai-card.trap {
+      border-left-color: var(--accent-red);
+    }
+
+    .ai-card.lockdown {
+      border-left-color: var(--accent-amber);
+    }
+
+    .ai-card.impeach {
+      border-left-color: var(--accent-blue);
+    }
+
+    .ai-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .ai-badge {
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .ai-badge.trap { background: rgba(248, 81, 73, 0.2); color: var(--accent-red); }
+    .ai-badge.lockdown { background: rgba(210, 153, 34, 0.2); color: var(--accent-amber); }
+    .ai-badge.impeach { background: rgba(88, 166, 255, 0.2); color: var(--accent-blue); }
+
+    .ai-card-q {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.4;
+    }
+
+    .ai-card-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .ai-action-btn {
+      font-size: 10.5px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--card-border);
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .ai-action-btn:hover {
+      color: var(--text-main);
+      border-color: var(--accent-blue);
+      background: var(--accent-blue-bg);
+    }
+
+    .ai-action-btn.insert {
+      color: var(--accent-emerald);
+      border-color: rgba(63, 185, 80, 0.3);
+      background: rgba(63, 185, 80, 0.08);
+    }
+    .ai-action-btn.insert:hover {
+      background: var(--accent-emerald);
+      color: #fff;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- TOP HEADER HUD -->
+  <header>
+    <div class="case-title">
+      <span class="badge-lead">WCAB DEPO HUD</span>
+      <div>
+        <h1>NICOLL PERDOMO v. VESTA FOODSERVICE / L.A. SPECIALTY PRODUCE</h1>
+        <div class="case-meta">
+          <span>WCAB: <strong>ADJ22473506</strong></span>
+          <span>Claim: <strong>265022111</strong></span>
+          <span>DOI: <strong>CT 03/19/2025 – 03/18/2026</strong></span>
+          <span>Def Atty: <strong>Edmond A. Polatschek, Esq. (CW Law)</strong></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <div class="progress-container">
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <span class="progress-text" id="progressText">0% ASKED (0/62)</span>
+      </div>
+
+      <!-- POP-OUT & EXPAND CONTROLS -->
+      <button class="btn btn-listener btn-zoom-connect" onclick="popOutRadar()" class="btn btn-popout" title="Pop out Live AI Listener onto your 2nd screen">
+        ↗️ Pop Out to Screen 2
+      </button>
+      <button class="btn" onclick="toggleDockCollapse()" class="btn btn-radar-toggle" id="btnHeaderDockToggle" title="Toggle embedded AI dock">
+        🎙️ AI Radar (Toggle)
+      </button>
+
+      <button class="btn" id="themeToggleBtn" onclick="toggleTheme()" title="Toggle Light/Dark Mode" style="font-weight: 600;">
+        ☀️ Light Mode
+      </button>
+      <button class="btn btn-danger" onclick="resetQuestions()" title="Reset all checkboxes">
+        🔄 Reset
+      </button>
+      <button class="btn" onclick="window.print()" title="Print script">
+        🖨️ Print
+      </button>
+    </div>
+  </header>
+
+  <!-- 🎙️ LIVE DEPOSITION LISTENER & AI CO-COUNSEL DOCK -->
+  <div class="live-listener-dock" id="listenerDock" style="display: none;">
+    <div class="dock-header">
+      <div class="dock-title-group">
+        <span class="dock-pill idle" id="listenerPill">
+          <span class="pulse-dot"></span>
+          <span id="listenerStatusText">AI RADAR: STANDBY</span>
+        </span>
+        <span style="font-size: 13px; font-weight: 700; color: var(--text-main);">
+          🎙️ Live Depo Listener & Cross-Exam Generator
+        </span>
+        <span style="font-size: 11px; color: var(--text-muted); margin-left: 4px;">
+          (Detects witness evasions, pallet jack / weight admissions, and generates instant follow-ups)
+        </span>
+      </div>
+
+      <div class="dock-controls">
+        <button class="btn-listener btn-mic-start" id="btnStartMic" onclick="toggleMicListening()">
+          <span>🎙️ Room Mic</span>
+        </button>
+        <button class="btn-listener btn-zoom-connect" id="btnStartZoom" onclick="connectZoomAudio()">
+          <span>💻 Zoom / Depo App Audio</span>
+        </button>
+        <button class="btn-listener btn-stop" id="btnStopListen" onclick="stopListening()" style="display: none;">
+          <span>⏹️ Stop</span>
+        </button>
+        <button class="btn" onclick="toggleDockCollapse()" id="btnDockToggle" style="font-size: 11px; padding: 4px 8px;">
+          ▼ Minimize
+        </button>
+      </div>
+    </div>
+
+    <div class="dock-body collapsed" id="dockBody" class="dock-body collapsed">
+      <!-- LEFT: TRANSCRIPT STREAM -->
+      <div class="transcript-pane">
+        <div class="pane-header">
+          <span>📝 Live Rolling Testimony Feed</span>
+          <div>
+            <button class="ai-action-btn" onclick="clearTranscript()">Clear</button>
+            <button class="ai-action-btn" onclick="copyTranscript()">Copy</button>
+          </div>
+        </div>
+        <div class="pane-content" id="transcriptScroll">
+          <div class="transcript-box" id="transcriptBox">
+            <div style="color: var(--text-muted); font-style: italic; padding: 10px 0;">
+              Click <strong>"🎙️ Room Mic"</strong> or <strong>"💻 Zoom / Depo App Audio"</strong> above to begin listening. As the witness or defense attorney speaks, words will stream here and AI will automatically build instant follow-up questions...
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: AI DYNAMIC FOLLOW-UPS -->
+      <div class="ai-followup-pane">
+        <div class="pane-header">
+          <span style="color: var(--accent-purple);">⚡ Dynamic Follow-Up Queue (<span id="followupCount">0</span>)</span>
+          <div>
+            <button class="ai-action-btn" onclick="clearFollowups()">Clear All</button>
+          </div>
+        </div>
+        <div class="pane-content">
+          <div class="ai-followup-list" id="aiFollowupList">
+            <div style="color: var(--text-muted); font-size: 12px; font-style: italic; text-align: center; padding: 30px 10px;">
+              Waiting for testimony... When the witness speaks, AI will generate real-time trap questions, lock-down evasions, and impeachment angles here.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- MAIN INTERFACE -->
+  <div class="app-body">
+
+    <!-- LEFT SIDEBAR -->
+    <nav>
+      <div class="nav-group">Deposition Schedule</div>
+      <a class="nav-item active" onclick="scrollToSection('sec-overview')">
+        <span>⚡ Strategic Gameplan</span>
+      </a>
+      <a class="nav-item" onclick="scrollToSection('sec-manzano')">
+        <span>👤 Martin Manzano</span>
+        <span class="nav-pill pill-manzano">10:00 AM</span>
+      </a>
+      <a class="nav-item" onclick="scrollToSection('sec-romero')">
+        <span>👤 Jennifer Romero</span>
+        <span class="nav-pill pill-romero">11:30 AM</span>
+      </a>
+
+      <div class="nav-group">Examination Phases</div>
+      <a class="nav-item" onclick="scrollToSection('phase-1')">
+        <span>1. Oath & Misrep (1871.4)</span>
+        <span class="nav-pill pill-trap">MANDATORY</span>
+      </a>
+      <a class="nav-item" onclick="scrollToSection('phase-2')">
+        <span>2. Background & Usurper</span>
+      </a>
+      <a class="nav-item" onclick="scrollToSection('phase-3')">
+        <span>3. Supervision of Nicole</span>
+      </a>
+      <a class="nav-item" onclick="scrollToSection('phase-4')">
+        <span>4. Floor Reality vs Job Desc</span>
+        <span class="nav-pill pill-trap">600 LB PALLET</span>
+      </a>
+            <a class="nav-item" onclick="scrollToSection('phase-4b')">
+        <span>4B. Pallet Jacks & Weights</span>
+        <span class="nav-pill pill-trap">7 TONS/DAY</span>
+      </a>
+<a class="nav-item" onclick="scrollToSection('phase-5')">
+        <span>5. Injury Notice & LC 5401</span>
+        <span class="nav-pill pill-trap">NO DWC-1</span>
+      </a>
+      <a class="nav-item" onclick="scrollToSection('phase-6')">
+        <span>6. Polatschek & Investigators</span>
+      </a>
+      <a class="nav-item" onclick="scrollToSection('phase-7')">
+        <span>7. Closing Catch-All</span>
+      </a>
+    </nav>
+
+    <!-- CENTER CONTENT -->
+    <main id="mainScroll">
+
+      <!-- SEARCH BAR -->
+      <div class="search-filter-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="🔍 Search questions by keyword (e.g. 'pallet', 'doctor', 'Polatschek', 'DWC-1', 'quota', 'lifting')..." oninput="filterQuestions()">
+      </div>
+
+      <!-- SECTION: STRATEGIC OVERVIEW -->
+      <section id="sec-overview" class="card">
+        <div class="card-header">
+          <h2>🎯 Strategic Master Objectives & Legal Traps</h2>
+        </div>
+        <div class="trap-banner">
+          <strong>CORE OBJECTIVE: DESTROY DEFENSE COMPENSABILITY DISPUTE</strong>
+          TriStar denied this claim on 04/15/2026 for "lack of medical evidence to support CT." We will prove through these two witnesses that Nicole was an Order Puller performing grueling physical labor, that the employer failed to give her a DWC-1 form, failed to offer a clinic, and that defense counsel Edmond Polatschek issued a blind denial without ever investigating.
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px;">
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 12px; border-radius: 8px;">
+            <span style="color: #58a6ff; font-weight: 700; font-size: 13px;">10:00 AM: MARTIN MANZANO</span>
+            <p style="font-size: 12px; color: #cbd5e1; margin-top: 4px;">
+              Warehouse Lead / Direct Floor Supervisor. Sees the actual floor reality: 40-60 lb crates, cold room (34°F-45°F), and 600-1,000+ lb manual pallet jacks. Trap him on Nicole's verbal complaints on the floor and passing the buck to Jennifer.
+            </p>
+          </div>
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--card-border); padding: 12px; border-radius: 8px;">
+            <span style="color: #bc8cff; font-weight: 700; font-size: 13px;">11:30 AM: JENNIFER ROMERO</span>
+            <p style="font-size: 12px; color: #cbd5e1; margin-top: 4px;">
+              HR / Operations Manager. Recipient of direct injury report. Nail her on mandatory compliance with <strong>Labor Code § 5401</strong> (failure to issue DWC-1 within 24 hours) and issuing disciplinary termination warnings instead of sending Nicole to an MPN clinic.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 1: ADMONITIONS & MISREPRESENTATION WARNING -->
+      <section id="phase-1" class="card">
+        <div class="card-header">
+          <h2>⚖️ Phase 1: Admonitions, "Not Here to Trick You," & Criminal Warning</h2>
+        </div>
+        <div class="card-subtitle">Establish ground rules, the objection protocol, and the Insurance Code § 1871.4 criminal oath.</div>
+
+        <div class="tip-banner">
+          <strong>CRITICAL ADMONITION:</strong> Even if defense counsel Edmond Polatschek objects, the witness MUST answer unless instructed not to answer based on attorney-client privilege.
+        </div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Preliminary</span>
+              <div class="q-text">Please state your full legal name, date of birth, and home address for the record.</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Competency</span>
+              <div class="q-text">Are you currently taking any medication, alcohol, or substance that would affect your ability to understand my questions or answer truthfully today?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-amber">Tone Setter</span>
+              <div class="q-text">My name is Frank Ureno from the Law Offices of Arnulfo Gutierrez, representing Nicole Perdomo. I want to make one thing clear right at the outset: <strong>I am not here to trick you, trap you, or confuse you.</strong> I am simply here to gather accurate, truthful facts regarding Ms. Perdomo's job duties, her daily work activities, and the events leading up to this claim. Do you understand that?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Ground Rules</span>
+              <div class="q-text">Since the court reporter is transcribing every word, please give audible verbal answers—words like "yes" or "no." Nods, gestures, or "uh-huh" cannot be recorded clearly. Is that fair?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Ground Rules</span>
+              <div class="q-text">Please wait until I finish my question before answering, and I will wait until you finish speaking before asking the next question. Do not guess or speculate. If you don't know, simply say "I don't know."</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Objection Protocol</span>
+              <div class="q-text">Mr. Polatschek is present representing your employer and the insurance carrier. During this deposition, he may make objections for the record. <strong>Under California law, even if Mr. Polatschek objects, you are still required to answer my question</strong>, UNLESS he explicitly instructs you on the record not to answer based on an attorney-client privilege. Do you understand that?</div>
+              <div class="q-notes">Locks in that defense objections do not excuse witness from giving an answer!</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Criminal Misrepresentation Warning</span>
+              <div class="q-text">You were just placed under oath by the court reporter. Are you aware that under <strong>California Insurance Code § 1871.4 and Labor Code § 5401</strong>, making any knowingly false, misleading, or fraudulent statement in a workers' compensation proceeding is a criminal offense punishable by substantial fines and imprisonment in state prison?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Duty to Truth</span>
+              <div class="q-text">Do you understand that your legal obligation today is to provide 100% complete and truthful testimony under penalty of perjury, regardless of whether it helps or hurts your employer?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 2: WITNESS BACKGROUND & USURPER LOCK-IN -->
+      <section id="phase-2" class="card">
+        <div class="card-header">
+          <h2>🏢 Phase 2: Witness Background, Title & Authority ("Usurper" Lock-In)</h2>
+        </div>
+        <div class="card-subtitle">Establish who employs them, their chain of command, and their authority to accept injury reports.</div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Employer</span>
+              <div class="q-text">Who is your current employer? How long have you worked for them?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Title</span>
+              <div class="q-text">What is your current job title, and what was your job title between March 2025 and March 2026?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-amber">Corporate Entity</span>
+              <div class="q-text">What entity operates the facility at 13527 Orden Dr., Santa Fe Springs, CA? Is it Vesta Foodservice? L.A. Specialty Produce Co., Inc.? Or another company?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-amber">Agency Transition</span>
+              <div class="q-text">Does your company utilize temporary staffing agencies like Talent Wave Staffing, and how do agency workers transition to direct hire?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Authority / Usurper</span>
+              <div class="q-text">What is your scope of authority? Do you have authority to direct work on the warehouse floor, discipline workers, and accept reports of injury?</div>
+              <div class="q-notes">Establishes that notice to this witness binds the employer under LC § 5402!</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Chain of Command</span>
+              <div class="q-text">Who is your direct supervisor? Who do you report to on a daily basis?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 3: SUPERVISION OF NICOLE PERDOMO -->
+      <section id="phase-3" class="card">
+        <div class="card-header">
+          <h2>👥 Phase 3: Relationship & Supervision of Nicole Perdomo</h2>
+        </div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">First Contact</span>
+              <div class="q-text">When did you first meet or have contact with Nicole Perdomo (also known as Nicoll Perdomo)?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Direct Supervision</span>
+              <div class="q-text">Did you personally supervise Ms. Perdomo? What shift did she work, and what were her daily hours?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Observation</span>
+              <div class="q-text">How often did you observe her working on the warehouse floor on a daily basis? Did you work on the floor near her, or in an office?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Co-Supervisors</span>
+              <div class="q-text">How many employees were working in her department, and who were the other leads or supervisors on that shift?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 4: FLOOR REALITY VS JOB DESCRIPTION -->
+      <section id="phase-4" class="card">
+        <div class="card-header">
+          <h2>📦 Phase 4: Demolishing the Job Analysis & Revealing Floor Reality</h2>
+        </div>
+        <div class="card-subtitle">Lock in 40–60 lb crate lifting, cold temperatures (34°F-45°F), and 600–1,000+ lb manual pallet jacks.</div>
+
+        <div class="trap-banner">
+          <strong>THE JOB ANALYSIS TRAP:</strong> Defense wants to rely on a generic HR paper job description. Make the witness admit: (1) they didn't write it; (2) they didn't measure weights; (3) produce crates routinely weigh 40-60 lbs; (4) pallet jacks were MANUAL and weighed 600-1,000+ lbs when loaded!
+        </div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Title & Role</span>
+              <div class="q-text">Ms. Perdomo's official job title was Order Puller / Selector, correct? What department did she work in?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-amber">Cold Environment</span>
+              <div class="q-text">Describe the warehouse environment. Is it a refrigerated cooler or cold room? Is the temperature kept between 34°F and 45°F?</div>
+              <div class="q-notes">Cold temperature exacerbates muscular strain and joint stiffness!</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Flooring</span>
+              <div class="q-text">Are the floors solid concrete? Was Ms. Perdomo required to wear steel-toe boots?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Confronting Exhibit 1</span>
+              <div class="q-text">[HANDING EXHIBIT 1 - EMPLOYER'S JOB DESCRIPTION] Take a look at Exhibit 1. Have you seen this document before? Did you write it? Did you ever measure the exact weights or physical movements listed here?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">HR vs Floor Reality</span>
+              <div class="q-text">Isn't it true that what is typed on paper in an HR office often fails to reflect the true physical reality of working on the warehouse floor during peak rush hours?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Heavy Products</span>
+              <div class="q-text">What products does the facility store and distribute? Fresh produce, bulk vegetables, fruits, crates, sacks of potatoes, and sacks of onions?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-amber">Weight Specifics</span>
+              <div class="q-text">What is the weight of a standard box of produce, like apples or oranges? 35 to 45 lbs? And what is the weight of a 50 lb sack of onions or potatoes? 50 lbs, correct?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-amber">Heavy Crates</span>
+              <div class="q-text">What is the weight of a crate of wet cabbage or melons? 40 to 60 lbs? And did Ms. Perdomo have to lift these boxes and sacks by hand repeatedly throughout her shift?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Production Quotas</span>
+              <div class="q-text">Was there a production quota or speed metric, such as picks per hour? What happened if an Order Puller failed to meet their picking quota?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Rapid Ergonomics</span>
+              <div class="q-text">So to meet her quota, Ms. Perdomo had to move fast, lift continuously, bend down to bottom rack levels, and lift overhead, correct? Isn't it true she regularly lifted items weighing up to 50 and 60 pounds throughout her shift?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-purple">Manual Pallet Jack</span>
+              <div class="q-text">How did Order Pullers move the orders once pulled? Did Ms. Perdomo use an electric pallet jack or a <strong>manual hydraulic pallet jack</strong>?</div>
+              <div class="q-notes">Establish that she had to use MANUAL pallet jacks!</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">600+ Pound Pallet Trap</span>
+              <div class="q-text">How much does an empty wooden pallet weigh? 35 to 50 lbs? When an Order Puller stacks 15, 20, or 30 boxes of produce onto a pallet, what is the total weight of that loaded pallet? <strong>Between 600 and 1,000+ pounds, correct?</strong></div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Physical Pulling Forces</span>
+              <div class="q-text">When using a manual pallet jack, to get a 600 to 1,000-pound pallet rolling on concrete, the worker has to physically lean their whole body weight forward, jerk with their arms, twist their torso, and push through their legs and back, correct?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Stuck Wheels</span>
+              <div class="q-text">Have you ever manually pulled a 600-pound pallet jack yourself? What happens when a wheel gets caught in a crack or debris on the floor? Does it jerk the worker's arms, shoulder, and back?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Observation of Nicole</span>
+              <div class="q-text">Did you ever see Ms. Perdomo manually pulling these heavy loaded pallet jacks? Did you ever stop her and say, "Don't pull that, it's too heavy"?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- PHASE 4B: METICULOUS PALLET JACK, ORDER BUILDING, UNPACKING & PRODUCE WEIGHTS -->
+      <section id="phase-4b" class="card">
+        <div class="card-header">
+          <h2>🔬 Detailed Deep-Dive: Pallet Jacks, Order Building, Unpacking & Produce Weights</h2>
+        </div>
+        <div class="card-subtitle">Meticulous line of questioning on pallet jack mechanics, lifting posture, tier-stacking, case splitting, and exact box weights.</div>
+
+        <div class="trap-banner">
+          <strong>CUMULATIVE TONNAGE CALCULATION:</strong>
+          350 cases/day × 40 lbs average = <strong>14,000 POUNDS (7 TONS) PER DAY</strong>! Over a 5-day week, that is <strong>70,000 POUNDS (35 TONS) PER WEEK</strong> lifted by hand, PLUS pulling 1,000-pound manual pallet jacks on concrete!
+        </div>
+
+        <h3 style="font-size: 14px; color: #58a6ff; margin: 16px 0 8px;">1. Anatomy of Order Pulling: Empty Pallet & Setup</h3>
+        <div class="question-list">
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Shift Start</span>
+              <div class="q-text">Let's walk through an Order Puller's shift minute-by-minute. When Ms. Perdomo started her shift, how did she receive her work assignments? Printed pick sheet, or digital RF scanner gun?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-amber">Empty Pallet Weight</span>
+              <div class="q-text">To begin an order, doesn't she have to locate an empty wooden pallet from a stack 10 to 15 pallets high, and physically pull or slide a <strong>35 to 50-pound wooden GMA pallet</strong> onto the floor?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Forks Insertion</span>
+              <div class="q-text">Once that 40-pound pallet is on the floor, she has to manually guide and push the heavy steel forks of a pallet jack under the pallet openings, correct?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+        </div>
+
+        <h3 style="font-size: 14px; color: #58a6ff; margin: 20px 0 8px;">2. Manual Pallet Jack Operating Mechanics & Dynamic Forces</h3>
+        <div class="question-list">
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Manual vs Electric</span>
+              <div class="q-text">Isn't it true that electric motorized ride-on jacks were prioritized for forklift operators or senior male leads, and Order Pullers like Ms. Perdomo routinely had to use <strong>manual hydraulic pump jacks</strong>?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Hydraulic Pumping</span>
+              <div class="q-text">To raise a pallet off the ground with a manual jack, the worker must pump the metal handle up and down 10 to 15 times using their arms, shoulders, and chest, correct?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Weight Progression</span>
+              <div class="q-text">As the order progresses from aisle to aisle, by the middle of the order with 15 to 20 boxes, the pallet weighs <strong>500 to 700 pounds</strong>, and by completion with 30 to 45 cases, the pallet weighs <strong>between 900 and 1,500 pounds</strong>, correct?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Starting Inertia</span>
+              <div class="q-text">To break the dead stop inertia of a 1,000-pound manual pallet jack on concrete, the worker has to physically lean their whole body forward, dig their boots into the floor, grip the metal T-bar handle with both hands, jerk backward, and strain through their lower back, knees, and shoulders, correct?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">No Brakes on Pallet Jack</span>
+              <div class="q-text"><strong>There are no hand brakes on a manual pallet jack, correct?</strong> To stop a rolling 1,000-pound pallet jack, the worker must physically plant their feet on the concrete, lean backward, and absorb the momentum directly through their knees, hips, and lumbar spine, correct?</div>
+              <div class="q-notes">Catastrophic joint and lumbar compression loading!</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Turning Torque</span>
+              <div class="q-text">When making a sharp 90-degree turn into an aisle with a 1,000-pound load, doesn't the worker have to violently twist their torso, shoulders, and wrists against the metal steering handle?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Floor Debris / Sudden Stop</span>
+              <div class="q-text">When a small pallet jack wheel rolls over a wood splinter, fallen produce, or a concrete crack, the jack suddenly jams dead in its tracks, violently whipping and yanking the worker's arms, rotator cuffs, and cervical spine, correct? Have you seen that happen?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+        </div>
+
+        <h3 style="font-size: 14px; color: #58a6ff; margin: 20px 0 8px;">3. Building Pallets: Bottom Deep Squats vs Top Overhead Stacking</h3>
+        <div class="question-list">
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Pallet Stacking Rules</span>
+              <div class="q-text">In warehouse distribution, 'building' a pallet requires placing the heaviest, densest boxes on the bottom tier so the pallet doesn't tip over in the delivery truck, correct?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Bottom Tier Posture</span>
+              <div class="q-text">To place a 50-pound sack or crate on the bottom tier, the worker must bend completely at the waist, deep squat with knees bent, reach down to within inches of the floor, and set down a 50-pound load, correct?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Top Tier Overhead Lifting (5'2" Worker)</span>
+              <div class="q-text">A finished produce pallet is stacked 5 to 6 feet high. Ms. Perdomo is approximately 5 feet 2 inches tall. To stack 35 to 45-pound boxes on the 5th and 6th tiers, <strong>she had to lift 40-pound boxes completely above her head and hyperextend her neck and shoulders repeatedly, correct?</strong></div>
+              <div class="q-notes">Severe cervical and rotator cuff impingement trauma!</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-amber">Manual Stretch-Wrapping</span>
+              <div class="q-text">Once an order was built, did Ms. Perdomo have to manually shrink-wrap the pallet by holding a heavy roll of plastic wrap, walking backward in circles 8 to 12 times, bending to the floor and stretching on tiptoes while pulling with tight torque?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+        </div>
+
+        <h3 style="font-size: 14px; color: #58a6ff; margin: 20px 0 8px;">4. Unpacking, Breaking Down & Case Splitting Produce</h3>
+        <div class="question-list">
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Breaking Down Pallets</span>
+              <div class="q-text">In addition to building outgoing pallets, did Order Pullers have to 'unpack' or break down bulk pallets arriving from growers by de-stacking cases and transferring them onto picking shelves?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-amber">Case Splitting & Culling</span>
+              <div class="q-text">Did Ms. Perdomo perform 'case splitting'—opening heavy glued cartons, cutting strapping with a box cutter, lifting out produce to repack into custom order sizes, and sorting out damaged produce?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+        </div>
+
+        <h3 style="font-size: 14px; color: #58a6ff; margin: 20px 0 8px;">5. Meticulous Produce Weight Audit (Item-by-Item Breakdown)</h3>
+        <div class="question-list">
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">50 lb Sacks</span>
+              <div class="q-text">What is the weight of a standard burlap sack or mesh bag of bulk russet potatoes, red potatoes, yellow onions, or bulk carrots? <strong>It is exactly 50 pounds, correct?</strong></div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-amber">40-45 lb Apple / Citrus Boxes</span>
+              <div class="q-text">What is the weight of a standard cardboard carton of apples, pears, oranges, or grapefruit? Isn't that between <strong>40 and 45 pounds per box</strong>?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-amber">40-60 lb Melons & Cabbage</span>
+              <div class="q-text">What is the weight of a wire-bound crate of cantaloupes, honeydews, or green/red cabbage? Between <strong>40 and 55 pounds</strong>? And individual watermelon cartons weigh <strong>50 to 60 pounds</strong>, correct?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">45-55 lb Wet-Pack Celery & Broccoli (The Ice Factor)</span>
+              <div class="q-text">Fresh celery and broccoli are packed in crushed ice to stay fresh, correct? When packed with ice, doesn't that carton weigh <strong>between 45 and 55 pounds</strong>? And as the ice melts, does the water soak into the cardboard, making boxes soggy, cold, and slippery to hold, while dripping onto the floor?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">40 lb Bananas & 25 lb Tomatoes</span>
+              <div class="q-text">A standard box of bananas weighs <strong>40 pounds</strong>, and bulk loose tomato cartons weigh <strong>25 to 30 pounds</strong>, correct?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+        </div>
+
+        <h3 style="font-size: 14px; color: #58a6ff; margin: 20px 0 8px;">6. Total Daily Tonnage: The Math That Destroys Defense</h3>
+        <div class="question-list">
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Picks Per Shift</span>
+              <div class="q-text">An Order Puller typically picks between 250 and 500 cases during an 8-hour shift, correct?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">14,000 LBS PER DAY (7 TONS)</span>
+              <div class="q-text">If an Order Puller pulls an average of 350 cases per shift, and the average case weighs 40 pounds: 350 cases × 40 lbs = <strong>14,000 pounds of freight lifted by hand every single day, correct?</strong></div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">35 TONS PER WEEK</span>
+              <div class="q-text">Over a 5-day week, that equals <strong>70,000 pounds—or 35 TONS—of produce manually lifted</strong>, not even including pulling 1,000-pound pallet jacks! Knowing that Ms. Perdomo lifted 7 tons a day in a cold room, how can anyone claim this job did not subject her body to severe continuous trauma?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- PHASE 5: INJURY REPORTING & LC 5401 DERELICTION -->
+      <section id="phase-5" class="card">
+        <div class="card-header">
+          <h2>🚨 Phase 5: Injury Notice, "Stringing Her Along," & Failure to Offer Care</h2>
+        </div>
+        <div class="card-subtitle">Lock down verbal notice, lack of DWC-1 claim form, and failure to offer an MPN doctor.</div>
+
+        <div class="trap-banner">
+          <strong>LABOR CODE § 5401 & § 5402 HAMMER:</strong> The employer is required by law to provide a DWC-1 form within 1 working day of notice and authorize medical treatment. When Nicole complained, they gave no form and offered no doctor!
+        </div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Verbal Pain Complaints</span>
+              <div class="q-text">During the time Ms. Perdomo worked there, did she ever come to you and say she was in physical pain? Did she tell you her back was hurting? Did she tell you her knees or shoulders were hurting?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Exhaustion & Heavy Work</span>
+              <div class="q-text">Did she ever complain that the work was too heavy, or that she was feeling physically exhausted and sore? Did she tell you she was having trouble pulling pallet jacks because of physical pain?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Direct 2-3 Month Notice</span>
+              <div class="q-text">Nicole Perdomo has testified under oath that approximately 2 to 3 months before she stopped working, she specifically informed you that her body, including her back and legs, was in severe pain from the job. Did that conversation take place?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-amber">Response to Complaints</span>
+              <div class="q-text">Did she ask for assistance or lighter duties? What did you say to her? Did you tell her words to the effect of: "We're short-staffed, just keep working" or "It's just a strain, you'll be fine"?</div>
+              <div class="q-notes">Establishes employer stringing the worker along!</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Absence Records</span>
+              <div class="q-text">Are you aware company records show multiple absences starting May 2025 where Ms. Perdomo reported being "sick" or "not feeling well"? Did you ever ask her why she wasn't feeling well, or if it was related to physical strain from pulling orders?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">NO DWC-1 CLAIM FORM</span>
+              <div class="q-text"><strong>When Ms. Perdomo informed you of her pain, did you provide her with a Workers' Compensation Claim Form (Form DWC-1)?</strong></div>
+              <div class="q-notes">Statutory violation of Labor Code § 5401!</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">NO DOCTOR OFFERED</span>
+              <div class="q-text"><strong>Did you give her the option to see a workers' compensation doctor? Did you offer to send her to the company's designated occupational clinic?</strong></div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-amber">No Examination</span>
+              <div class="q-text">Did you personally examine her, or have someone in the first aid department or HR look at her? Did you tell her she had the legal right to file a workers' comp claim?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Company Policy Breach</span>
+              <div class="q-text">Isn't it company policy that whenever an employee reports physical pain caused by job duties, you must immediately provide a claim form and authorize medical treatment? Why was that policy not followed with Ms. Perdomo?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 6: POLATSCHEK DENIAL & INVESTIGATORS -->
+      <section id="phase-6" class="card">
+        <div class="card-header">
+          <h2>🛑 Phase 6: Edmond Polatschek Defense Denial & Private Investigators</h2>
+        </div>
+        <div class="card-subtitle">Expose the lack of pre-denial investigation and uncover all recorded statements/interviews.</div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Denial Basis</span>
+              <div class="q-text">On April 15, 2026, TriStar Risk Management formally denied Ms. Perdomo's claim, claiming "lack of medical evidence to support a continuous trauma work injury." Did you make that decision to deny? Who at Vesta or L.A. Specialty Produce made that decision?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">No Adjuster Contact</span>
+              <div class="q-text">Did anyone from TriStar—specifically claims examiner Nora Nieto—contact you before April 15, 2026, to ask about Ms. Perdomo's daily lifting duties or pallet jack pulling?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Blind Denial Trap</span>
+              <div class="q-text">If no one asked you about her daily lifting duties before April 15, 2026, <strong>on what factual basis could anyone claim that her job duties did not cause physical injury?</strong></div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-purple">Edmond Polatschek Contact</span>
+              <div class="q-text">Do you know who Edmond Polatschek is? Have you spoken with Mr. Polatschek, who is sitting right across from us? When did you first speak with him regarding Nicole Perdomo's case?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-purple">Deposition Prep</span>
+              <div class="q-text">Did you speak with Mr. Polatschek before or after the claim was denied on April 15, 2026? Did you meet to prepare for today? What documents, job descriptions, or medical records did he show you?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Private Investigators</span>
+              <div class="q-text">Did any private investigator, insurance investigator, or field adjuster ever interview you about Nicole Perdomo? What was their name? When did the interview occur? Was it recorded?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Written Statement</span>
+              <div class="q-text">Did you sign any written declaration or statement for that investigator? Did you review that statement before testifying today?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">On-the-Record Demand</span>
+              <div class="q-text"><strong>[ON THE RECORD DEMAND TO DEFENSE COUNSEL]:</strong> "Mr. Polatschek, we formally demand on the record the immediate production of any and all written statements, interview notes, or audio recordings taken from this witness by any investigator or claims representative."</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 7: CLOSING CATCH-ALL -->
+      <section id="phase-7" class="card">
+        <div class="card-header">
+          <h2>📝 Phase 7: Concluding Catch-All & Closing</h2>
+        </div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Electronic Communications</span>
+              <div class="q-text">Are there any emails, text messages, WhatsApp messages, or written notes between you and Ms. Perdomo, or between you and other supervisors regarding her complaints?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Catch-All</span>
+              <div class="q-text">Is there any fact, document, or conversation that you have not mentioned today that would bear upon whether Ms. Perdomo's physical complaints were caused by her work at Vesta?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-info">Full Understanding</span>
+              <div class="q-text">Have you understood every question I asked you today, and do you wish to change or correct any answer you gave?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SPECIFIC: MARTIN MANZANO -->
+      <section id="sec-manzano" class="card">
+        <div class="card-header">
+          <h2>👤 Witness 1 Focus: Martin Manzano (10:00 AM)</h2>
+        </div>
+        <div class="tip-banner">
+          <strong>MARTIN'S VULNERABILITIES:</strong> Floor lead. Saw the 40-60 lb lifting and 600+ lb manual pallet jacks in cold temperatures. If Nicole complained, did Martin tell her to *"go talk to Jennifer in the office"*? That locks in employer notice!
+        </div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Floor Lead Observation</span>
+              <div class="q-text">Mr. Manzano, you spent the majority of your shift directly on the warehouse floor observing order pullers, correct? You saw Nicole lifting crates and pulling pallet jacks daily, correct?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">The "Pass-the-Buck" Trap</span>
+              <div class="q-text">When Nicole told you her back and body were hurting from pulling orders, didn't you tell her: <strong>"Go talk to Jennifer in the office"</strong>?</div>
+              <div class="q-notes">If YES: Notice is 100% admitted! If NO: He admits he ignored her!</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-amber">Defective Pallet Jacks</span>
+              <div class="q-text">Were the manual pallet jacks in the warehouse ever sticking, having worn wheels, or lacking hydraulic fluid, making them even harder to pull?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SPECIFIC: JENNIFER ROMERO -->
+      <section id="sec-romero" class="card">
+        <div class="card-header">
+          <h2>👤 Witness 2 Focus: Jennifer Romero (11:30 AM)</h2>
+        </div>
+        <div class="tip-banner">
+          <strong>JENNIFER'S VULNERABILITIES:</strong> HR / Operations Manager. Responsible for injury reports and worker compensation. Nicole came to her office to complain. Jennifer failed to issue a DWC-1 form, failed to send to an MPN clinic, and issued termination warnings instead!
+        </div>
+
+        <div class="question-list">
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">HR Legal Duty</span>
+              <div class="q-text">Ms. Romero, as an HR / Operations Manager, you are fully trained that under California Labor Code § 5401, you are legally required to provide a DWC-1 claim form within 24 hours whenever an employee reports work-related pain, correct?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">The Office Meeting</span>
+              <div class="q-text">Nicole Perdomo came to your office and told you she was physically unable to continue pulling heavy orders due to severe pain in her back, neck, and knees. What did you write down? Where is that incident report?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-danger">Disciplinary Warnings vs Clinic</span>
+              <div class="q-text">Company records show a warning of termination on 10/30/2025 and a letter on 04/13/2026 for not showing up. <strong>Isn't it true Nicole stopped showing up because she was physically incapacitated by the pain from this job, and instead of sending her to a doctor, you threatened her with termination?</strong></div>
+              <div class="q-notes">Lays the evidentiary foundation for a Labor Code § 132a Retaliation claim!</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+
+          <div class="question-item">
+            <input type="checkbox" class="q-checkbox" onchange="toggleQuestion(this)">
+            <div class="q-body">
+              <span class="q-badge badge-purple">Adjuster Collusion</span>
+              <div class="q-text">Did you supply the watered-down written job description to TriStar adjuster Nora Nieto to give her an excuse to deny Ms. Perdomo's claim?</div>
+            </div>
+            <div class="q-actions"><button class="copy-btn" onclick="copyQ(this)">Copy</button></div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FLOATING LIVE SCRATCHPAD / DEPO NOTES -->
+  <div class="scratchpad-container collapsed" id="scratchpad">
+    <div class="scratchpad-header" onclick="toggleScratchpad()">
+      <span>📝 Live Depo Notes & Scratchpad</span>
+      <span id="scratchToggleIcon">▲ Expand</span>
+    </div>
+    <div class="scratchpad-body">
+      <textarea id="scratchText" class="scratchpad-textarea" placeholder="Type notes during the live deposition here (witness answers, impeachment admissions, timestamps)..." oninput="saveNotes()"></textarea>
+      <div class="scratchpad-footer">
+        <span id="saveStatus">Auto-saved locally</span>
+        <div>
+          <button class="btn" style="padding: 3px 8px; font-size: 11px;" onclick="copyNotes()">📋 Copy Notes</button>
+          <button class="btn btn-danger" style="padding: 3px 8px; font-size: 11px;" onclick="clearNotes()">🗑️ Clear</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // LocalStorage Keys
+    
+    // Theme Management (Light / Dark)
+    const LS_THEME = 'perdomo_depo_theme';
+
+    function initTheme() {
+      const savedTheme = localStorage.getItem(LS_THEME) || 'dark';
+      applyTheme(savedTheme);
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      localStorage.setItem(LS_THEME, next);
+    }
+
+    function applyTheme(theme) {
+      const btn = document.getElementById('themeToggleBtn');
+      if (theme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        if (btn) btn.innerHTML = '🌙 Dark Mode';
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        if (btn) btn.innerHTML = '☀️ Light Mode';
+      }
+    }
+
+    const LS_CHECKED = 'perdomo_depo_checked_questions';
+    const LS_NOTES = 'perdomo_depo_scratch_notes';
+
+    // State
+    let checkedMap = {};
+
+    function init() {
+      // Load checked states
+      try {
+        const savedChecked = localStorage.getItem(LS_CHECKED);
+        if (savedChecked) {
+          checkedMap = JSON.parse(savedChecked);
+        }
+      } catch (e) {
+        checkedMap = {};
+      }
+
+      // Apply checked states
+      const checkboxes = document.querySelectorAll('.q-checkbox');
+      checkboxes.forEach((cb, idx) => {
+        cb.dataset.qid = idx;
+        if (checkedMap[idx]) {
+          cb.checked = true;
+          cb.closest('.question-item').classList.add('asked');
+        }
+      });
+
+      // Load scratch notes
+      const savedNotes = localStorage.getItem(LS_NOTES);
+      if (savedNotes) {
+        document.getElementById('scratchText').value = savedNotes;
+      }
+
+      updateProgress();
+    }
+
+    function toggleQuestion(cb) {
+      const qid = cb.dataset.qid;
+      const item = cb.closest('.question-item');
+      if (cb.checked) {
+        item.classList.add('asked');
+        checkedMap[qid] = true;
+      } else {
+        item.classList.remove('asked');
+        delete checkedMap[qid];
+      }
+      localStorage.setItem(LS_CHECKED, JSON.stringify(checkedMap));
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const all = document.querySelectorAll('.q-checkbox');
+      const checked = document.querySelectorAll('.q-checkbox:checked');
+      const total = all.length;
+      const done = checked.length;
+      const pct = total > 0 ? Math.round((done / total) * 100) : 0;
+
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressText').innerText = `${pct}% ASKED (${done}/${total})`;
+    }
+
+    function resetQuestions() {
+      if (confirm('Are you sure you want to reset all asked question checkmarks?')) {
+        checkedMap = {};
+        localStorage.removeItem(LS_CHECKED);
+        document.querySelectorAll('.q-checkbox').forEach(cb => {
+          cb.checked = false;
+          cb.closest('.question-item').classList.remove('asked');
+        });
+        updateProgress();
+      }
+    }
+
+    function copyQ(btn) {
+      const text = btn.closest('.question-item').querySelector('.q-text').innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.innerText;
+        btn.innerText = 'Copied!';
+        btn.style.color = 'var(--accent-emerald)';
+        setTimeout(() => {
+          btn.innerText = orig;
+          btn.style.color = '';
+        }, 1200);
+      });
+    }
+
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+      // Update sidebar active state
+      document.querySelectorAll('nav .nav-item').forEach(item => item.classList.remove('active'));
+      const activeItem = Array.from(document.querySelectorAll('nav .nav-item')).find(item => item.getAttribute('onclick').includes(id));
+      if (activeItem) activeItem.classList.add('active');
+    }
+
+    function filterQuestions() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const items = document.querySelectorAll('.question-item');
+      items.forEach(item => {
+        const text = item.innerText.toLowerCase();
+        if (text.includes(query)) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    function toggleScratchpad() {
+      const pad = document.getElementById('scratchpad');
+      const icon = document.getElementById('scratchToggleIcon');
+      if (pad.classList.contains('collapsed')) {
+        pad.classList.remove('collapsed');
+        icon.innerText = '▼ Collapse';
+      } else {
+        pad.classList.add('collapsed');
+        icon.innerText = '▲ Expand';
+      }
+    }
+
+    function saveNotes() {
+      const text = document.getElementById('scratchText').value;
+      localStorage.setItem(LS_NOTES, text);
+      const status = document.getElementById('saveStatus');
+      status.innerText = 'Saved ' + new Date().toLocaleTimeString();
+    }
+
+    function copyNotes() {
+      const text = document.getElementById('scratchText').value;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Depo notes copied to clipboard!');
+      });
+    }
+
+    function clearNotes() {
+      if (confirm('Clear scratchpad notes?')) {
+        document.getElementById('scratchText').value = '';
+        localStorage.removeItem(LS_NOTES);
+        document.getElementById('saveStatus').innerText = 'Cleared';
+      }
+    }
+
+    
+    /* ==================================================== */
+    /* 🎙️ LIVE LISTENER & AI CO-COUNSEL LOGIC */
+    /* ==================================================== */
+    let recognition = null;
+    let isListening = false;
+    let captureStream = null;
+    let audioContext = null;
+    let transcriptLines = [];
+    let followups = [];
+
+    // Legal keywords for real-time highlighting
+    const KEYWORDS = [
+      "pallet", "pallets", "jack", "electric", "manual", "broke", "broken",
+      "weight", "heavy", "lbs", "pounds", "50", "40", "30", "scale",
+      "never", "always", "nobody", "alone", "solo", "two people", "team lift",
+      "training", "manual", "rule", "safety", "reported", "injury", "hurt",
+      "doctor", "supervisor", "manager", "don't recall", "do not recall",
+      "not sure", "someone else", "shift", "aisle", "produce", "vesta", "box", "boxes"
+    ];
+
+    // Interrogation Pattern Matchers for Dynamic Follow-up Generation
+    const PATTERNS = [
+      {
+        regex: /(don't recall|do not recall|don't remember|not sure|can't remember|couldn't say)/i,
+        badge: "LOCK-DOWN EVASION",
+        type: "lockdown",
+        questions: [
+          "Who at Vesta Foodservice would possess written records or knowledge regarding that fact?",
+          "Did you review any shift logs, dispatch records, or timecards before testifying today to refresh your memory?",
+          "Does a written employer document exist that would confirm whether that occurred?"
+        ]
+      },
+      {
+        regex: /(pallet jack|jack|broken|malfunction|didn't work|out of order|dead battery)/i,
+        badge: "PALLET JACK ADMISSION",
+        type: "trap",
+        questions: [
+          "When a pallet jack broke down during a shift, workers still had to complete order picking on schedule, correct?",
+          "Did management ever shut down operations until working pallet jacks were delivered, or did employees pull pallets manually?",
+          "Where are the maintenance logs documenting every repair request for manual and electric pallet jacks in 2025 and 2026?"
+        ]
+      },
+      {
+        regex: /(heavy|weight|50 lbs|40 lbs|pounds|over 50|weighed|bulk)/i,
+        badge: "WEIGHT & ERGONOMIC TRAP",
+        type: "trap",
+        questions: [
+          "You do not personally weigh each loaded produce box before a selector lifts it, correct?",
+          "Produce pallets frequently contain watermelon crates or potato sacks exceeding 50 lbs, true?",
+          "Isn't it true that during high-volume rush hours, selectors are pressured to pick alone without waiting for team lifts?"
+        ]
+      },
+      {
+        regex: /(always|never|every time|mandatory|policy|two people|team lift)/i,
+        badge: "IMPEACHMENT WEDGE",
+        type: "impeach",
+        questions: [
+          "Show me where in the employee handbook or safety manual that rule is written down.",
+          "Were you personally supervising Ms. Perdomo for all 8 hours of her shift every single workday?",
+          "You cannot state under oath that she never had to lift or pull a heavy load alone, can you?"
+        ]
+      },
+      {
+        regex: /(didn't report|never told me|didn't know|no complaint)/i,
+        badge: "NOTICE & KNOWLEDGE TRAP",
+        type: "trap",
+        questions: [
+          "Isn't it true that workers often continue working through pain out of fear of losing their job or being disciplined?",
+          "Did you ever conduct an ergonomic evaluation of her workstations after she mentioned back or neck soreness?",
+          "Who is the designated workers' compensation coordinator at Vesta Foodservice that handles DWC-1 claim forms?"
+        ]
+      }
+    ];
+
+    
+    /* ==================================================== */
+    /* 🚀 POP-OUT SCREEN 2 & CROSS-SCREEN SYNC */
+    /* ==================================================== */
+    const syncChannel = new BroadcastChannel('depo_hud_sync');
+
+    syncChannel.onmessage = (event) => {
+      const data = event.data;
+      if (data.type === 'INSERT_QUESTION') {
+        insertQuestionToHUD(data.text, data.badge);
+      }
+    };
+
+    function popOutRadar() {
+      // Hide embedded dock on Screen 1 so Screen 1 has 100% full vertical height
+      const dock = document.getElementById('listenerDock');
+      if (dock) dock.style.display = 'none';
+
+      const w = 980;
+      const h = 820;
+      const left = window.screen.availWidth ? window.screen.availWidth + 40 : 1000;
+      const top = 40;
+
+      const popWin = window.open(
+        '09.04.2026_DEPO_AI_RADAR_SCREEN_2.html',
+        'DepoRadarScreen2',
+        `width=${w},height=${h},left=${left},top=${top},menubar=no,status=no,toolbar=no,scrollbars=yes,resizable=yes`
+      );
+
+      if (!popWin) {
+        alert("Pop-up blocked! Please click the pop-up icon in your browser address bar and select 'Always allow pop-ups'.");
+      }
+    }
+
+    function toggleDockCollapse() {
+      const dock = document.getElementById('listenerDock');
+      const body = document.getElementById('dockBody');
+      const btn = document.getElementById('btnDockToggle');
+      const btnHdr = document.getElementById('btnHeaderDockToggle');
+      
+      if (!dock) return;
+
+      if (dock.style.display === 'none' || body.classList.contains('collapsed')) {
+        dock.style.display = 'block';
+        body.classList.remove('collapsed');
+        if (btn) btn.innerText = '▼ Minimize';
+        if (btnHdr) btnHdr.innerText = '🎙️ Hide AI Radar';
+      } else {
+        dock.style.display = 'none';
+        body.classList.add('collapsed');
+        if (btn) btn.innerText = '▲ Expand AI Dock';
+        if (btnHdr) btnHdr.innerText = '🎙️ AI Radar (Toggle)';
+      }
+    }
+
+    function initSpeechEngine() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) {
+        alert("Speech Recognition API is supported in Google Chrome, Microsoft Edge, and Brave. Please open this HUD in Chrome or Edge for live transcription.");
+        return null;
+      }
+      const rec = new SpeechRecognition();
+      rec.continuous = true;
+      rec.interimResults = true;
+      rec.lang = 'en-US';
+
+      rec.onstart = () => {
+        isListening = true;
+        updateListenerUI(true, "LISTENING (LIVE SPEECH)");
+      };
+
+      rec.onresult = (event) => {
+        let interimText = '';
+        for (let i = event.resultIndex; i < event.results.length; ++i) {
+          const phrase = event.results[i][0].transcript;
+          if (event.results[i].isFinal) {
+            handleFinalTranscript(phrase);
+          } else {
+            interimText += phrase;
+          }
+        }
+        if (interimText) {
+          renderInterimTranscript(interimText);
+        }
+      };
+
+      rec.onerror = (event) => {
+        console.warn("Speech recognition error:", event.error);
+        if (event.error === 'not-allowed') {
+          alert("Microphone permission denied. Please click the camera/mic icon in the browser address bar and allow microphone access.");
+          stopListening();
+        }
+      };
+
+      rec.onend = () => {
+        if (isListening) {
+          // Auto-restart if continuous connection desired
+          try { rec.start(); } catch(e) {}
+        } else {
+          updateListenerUI(false, "STANDBY");
+        }
+      };
+
+      return rec;
+    }
+
+    function toggleMicListening() {
+      if (isListening) {
+        stopListening();
+        return;
+      }
+      if (!recognition) {
+        recognition = initSpeechEngine();
+      }
+      if (recognition) {
+        try {
+          recognition.start();
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }
+
+    // Connect Zoom / Depo App Tab Audio via getDisplayMedia
+    async function connectZoomAudio() {
+      try {
+        if (isListening) stopListening();
+
+        // Request system / tab audio
+        captureStream = await navigator.mediaDevices.getDisplayMedia({
+          video: true,
+          audio: {
+            echoCancellation: false,
+            noiseSuppression: false,
+            autoGainControl: false
+          }
+        });
+
+        const audioTracks = captureStream.getAudioTracks();
+        if (audioTracks.length === 0) {
+          alert("No audio track detected! When the sharing window pops up, please make sure you check 'Share system audio' or select the Zoom tab with audio.");
+          captureStream.getTracks().forEach(t => t.stop());
+          return;
+        }
+
+        // Web Audio routing & speech recognition
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const source = audioContext.createMediaStreamSource(captureStream);
+        
+        // Also run speech recognition on the local audio environment
+        if (!recognition) recognition = initSpeechEngine();
+        if (recognition) {
+          try { recognition.start(); } catch(e){}
+        }
+
+        updateListenerUI(true, "ZOOM / DEPO AUDIO CONNECTED");
+
+        captureStream.getVideoTracks().forEach(track => {
+          track.onended = () => stopListening();
+        });
+
+      } catch (err) {
+        console.warn("Display media cancelled or failed:", err);
+      }
+    }
+
+    function stopListening() {
+      isListening = false;
+      if (recognition) {
+        try { recognition.stop(); } catch(e) {}
+      }
+      if (captureStream) {
+        captureStream.getTracks().forEach(t => t.stop());
+        captureStream = null;
+      }
+      if (audioContext) {
+        try { audioContext.close(); } catch(e) {}
+        audioContext = null;
+      }
+      updateListenerUI(false, "STANDBY");
+    }
+
+    function updateListenerUI(active, text) {
+      const pill = document.getElementById('listenerPill');
+      const statusText = document.getElementById('listenerStatusText');
+      const btnStartMic = document.getElementById('btnStartMic');
+      const btnStartZoom = document.getElementById('btnStartZoom');
+      const btnStop = document.getElementById('btnStopListen');
+
+      if (active) {
+        pill.className = "dock-pill listening";
+        statusText.innerText = text;
+        btnStartMic.style.display = "none";
+        btnStartZoom.style.display = "none";
+        btnStop.style.display = "flex";
+      } else {
+        pill.className = "dock-pill idle";
+        statusText.innerText = "AI RADAR: STANDBY";
+        btnStartMic.style.display = "flex";
+        btnStartZoom.style.display = "flex";
+        btnStop.style.display = "none";
+      }
+    }
+
+    function handleFinalTranscript(text) {
+      const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      transcriptLines.push({ time: timeStr, text: text.trim() });
+
+      renderTranscript();
+      analyzeTestimonyForFollowups(text);
+    }
+
+    function renderInterimTranscript(interim) {
+      const box = document.getElementById('transcriptBox');
+      const existing = transcriptLines.map(line => {
+        return `<div class="transcript-line"><span class="transcript-time">[${line.time}]</span> ${highlightKeywords(line.text)}</div>`;
+      }).join('');
+
+      box.innerHTML = existing + `<div class="transcript-line" style="color: var(--text-muted); font-style: italic;"><span class="transcript-time">[Listening...]</span> ${highlightKeywords(interim)}</div>`;
+      
+      const scrollPane = document.getElementById('transcriptScroll');
+      scrollPane.scrollTop = scrollPane.scrollHeight;
+    }
+
+    function renderTranscript() {
+      const box = document.getElementById('transcriptBox');
+      if (transcriptLines.length === 0) {
+        box.innerHTML = `<div style="color: var(--text-muted); font-style: italic; padding: 10px 0;">No testimony recorded yet. Start listening above...</div>`;
+        return;
+      }
+      box.innerHTML = transcriptLines.map(line => {
+        return `<div class="transcript-line"><span class="transcript-time">[${line.time}]</span> ${highlightKeywords(line.text)}</div>`;
+      }).join('');
+
+      const scrollPane = document.getElementById('transcriptScroll');
+      scrollPane.scrollTop = scrollPane.scrollHeight;
+    }
+
+    function highlightKeywords(str) {
+      let escaped = str.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      KEYWORDS.forEach(kw => {
+        const regex = new RegExp(`\\b(${kw})\\b`, "gi");
+        escaped = escaped.replace(regex, `<span class="transcript-keyword">$1</span>`);
+      });
+      return escaped;
+    }
+
+    // Dynamic Legal Interrogation AI Engine
+    function analyzeTestimonyForFollowups(text) {
+      PATTERNS.forEach(pat => {
+        if (pat.regex.test(text)) {
+          // Select a pertinent follow-up question
+          const qText = pat.questions[Math.floor(Math.random() * pat.questions.length)];
+          // Avoid immediate duplicates
+          if (!followups.some(f => f.text === qText)) {
+            addFollowupCard({
+              badge: pat.badge,
+              type: pat.type,
+              text: qText,
+              trigger: text.trim()
+            });
+          }
+        }
+      });
+    }
+
+    function addFollowupCard(item) {
+      followups.unshift(item);
+      if (followups.length > 8) followups.pop(); // keep top 8 most recent
+      renderFollowups();
+    }
+
+    function renderFollowups() {
+      const container = document.getElementById('aiFollowupList');
+      const count = document.getElementById('followupCount');
+      count.innerText = followups.length;
+
+      if (followups.length === 0) {
+        container.innerHTML = `<div style="color: var(--text-muted); font-size: 12px; font-style: italic; text-align: center; padding: 30px 10px;">Waiting for testimony... When the witness speaks, AI will generate real-time trap questions, lock-down evasions, and impeachment angles here.</div>`;
+        return;
+      }
+
+      container.innerHTML = followups.map((f, idx) => {
+        return `
+          <div class="ai-card ${f.type}">
+            <div class="ai-card-top">
+              <span class="ai-badge ${f.type}">⚡ ${f.badge}</span>
+              <span style="font-size: 10px; color: var(--text-muted);">Live Suggested</span>
+            </div>
+            <div class="ai-card-q">"${f.text}"</div>
+            <div class="ai-card-actions">
+              <button class="ai-action-btn" onclick="copyTextDirect('${escapeForJs(f.text)}')">📋 Copy</button>
+              <button class="ai-action-btn insert" onclick="insertQuestionToHUD('${escapeForJs(f.text)}', '${f.badge}')">➕ Add to HUD</button>
+              <button class="ai-action-btn" onclick="dismissFollowup(${idx})">✕ Dismiss</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function dismissFollowup(idx) {
+      followups.splice(idx, 1);
+      renderFollowups();
+    }
+
+    function clearFollowups() {
+      followups = [];
+      renderFollowups();
+    }
+
+    function clearTranscript() {
+      if (confirm("Clear live transcript history?")) {
+        transcriptLines = [];
+        renderTranscript();
+      }
+    }
+
+    function copyTranscript() {
+      const allText = transcriptLines.map(l => `[${l.time}] ${l.text}`).join('\n');
+      navigator.clipboard.writeText(allText).then(() => {
+        alert("Live deposition transcript copied to clipboard!");
+      });
+    }
+
+    function copyTextDirect(str) {
+      navigator.clipboard.writeText(str).then(() => {
+        alert("Follow-up question copied to clipboard!");
+      });
+    }
+
+    function insertQuestionToHUD(qText, badge) {
+      // Find active question list or insert at top of current phase
+      const qList = document.querySelector('.question-list');
+      if (qList) {
+        const newId = 'q-live-' + Date.now();
+        const item = document.createElement('div');
+        item.className = 'question-item';
+        item.id = newId;
+        item.innerHTML = `
+          <input type="checkbox" class="q-checkbox" onchange="toggleQ('${newId}')">
+          <div class="q-body">
+            <span class="q-badge" style="background: rgba(188, 140, 255, 0.2); color: #bc8cff;">⚡ LIVE CO-COUNSEL: ${badge}</span>
+            <p class="q-text" style="font-weight: 700; color: var(--accent-blue);">${qText}</p>
+          </div>
+          <button class="copy-btn" onclick="copyQ(this)">Copy</button>
+        `;
+        qList.insertBefore(item, qList.firstChild);
+        item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        item.style.boxShadow = "0 0 15px rgba(88, 166, 255, 0.6)";
+        setTimeout(() => { item.style.boxShadow = ""; }, 2000);
+        updateProgress();
+      }
+    }
+
+    function escapeForJs(str) {
+      return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+    }
+
+    window.onload = () => { initTheme(); init(); };
+  </script>
+</body>
+</html>

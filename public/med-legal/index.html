@@ -1,0 +1,2342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SutraFlow: Work Comp Reference (2026 Sovereign Edition)</title>
+    <!-- Modern Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #111827;
+            --bg-card: rgba(17, 24, 39, 0.75);
+            --bg-hover: #1f2937;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-accent: rgba(212, 175, 55, 0.3);
+            --gold: #d4af37;
+            --gold-light: #f3e5ab;
+            --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f3e5ab 50%, #aa7c11 100%);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --accent-blue: #38bdf8;
+            --accent-green: #34d399;
+            --accent-red: #f87171;
+            --accent-purple: #c084fc;
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+            --radius-lg: 12px;
+            --radius-md: 8px;
+            --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Light Theme Toggle */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-hover: #f1f5f9;
+            --border: #e2e8f0;
+            --border-accent: rgba(217, 119, 6, 0.35);
+            --gold: #b45309;
+            --gold-light: #b45309;
+            --gold-gradient: linear-gradient(135deg, #d97706 0%, #b45309 50%, #92400e 100%);
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #64748b;
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Light Mode High-Contrast Overrides */
+        [data-theme="light"] .hero-banner {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+            border: 1px solid #cbd5e1 !important;
+            border-left: 6px solid #d97706 !important;
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06) !important;
+        }
+        [data-theme="light"] .hero-banner::after {
+            background: radial-gradient(circle, rgba(217, 119, 6, 0.1) 0%, transparent 70%);
+        }
+        [data-theme="light"] .hero-banner h1 {
+            color: #0f172a !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.5px;
+        }
+        [data-theme="light"] .hero-banner p {
+            color: #334155 !important;
+            font-weight: 500 !important;
+        }
+        [data-theme="light"] .tab-btn {
+            color: #475569;
+        }
+        [data-theme="light"] .tab-btn:hover {
+            color: #0f172a;
+            background: #f1f5f9;
+        }
+        [data-theme="light"] .tab-btn.active {
+            color: #ffffff !important;
+            background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+            box-shadow: 0 4px 12px rgba(180, 83, 9, 0.25);
+        }
+        [data-theme="light"] .nav-item.active {
+            background: rgba(217, 119, 6, 0.12);
+            color: #92400e;
+            font-weight: 700;
+            border-left: 3px solid #d97706;
+        }
+        [data-theme="light"] .rule-hammer {
+            background: #f8fafc;
+            border-left: 3px solid #d97706;
+            color: #334155;
+        }
+        [data-theme="light"] .rule-title {
+            color: #0f172a;
+        }
+        [data-theme="light"] .division-heading {
+            color: #92400e !important;
+        }
+        [data-theme="light"] .copy-btn {
+            color: #b45309;
+            border-color: #cbd5e1;
+        }
+        [data-theme="light"] .copy-btn:hover {
+            background: #b45309;
+            color: #ffffff;
+        }
+        [data-theme="light"] .pleading-box {
+            background: #0f172a;
+            color: #4ade80;
+            border-color: #334155;
+        }
+        [data-theme="light"] .calc-panel {
+            background: #ffffff;
+            border-color: #cbd5e1;
+        }
+        [data-theme="light"] .calc-results {
+            background: #f8fafc;
+            border-color: #e2e8f0;
+        }
+        [data-theme="light"] .fee-value {
+            background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #374151;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold);
+        }
+
+        /* Header Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0.85rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-cluster {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand-logo {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: var(--gold-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #111;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .brand-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .btn {
+            padding: 0.55rem 1.1rem;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: 1px solid transparent;
+        }
+
+        .btn-gold {
+            background: var(--gold-gradient);
+            color: #111;
+            border: none;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
+        }
+        .btn-gold:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        .btn-secondary:hover {
+            background: var(--bg-hover);
+            border-color: var(--gold);
+        }
+
+        /* App Container */
+        .app-container {
+            display: flex;
+            flex: 1;
+            max-width: 1750px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        
+        /* Resizable & Collapsible Sidebar Styles */
+        :root {
+            --sidebar-width: 380px;
+        }
+
+        aside {
+            width: var(--sidebar-width);
+            min-width: 260px;
+            max-width: 720px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 1.25rem 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            height: calc(100vh - 65px);
+            position: sticky;
+            top: 65px;
+            overflow-y: auto;
+            transition: transform 0.25s ease, opacity 0.2s ease, width 0.05s linear;
+            flex-shrink: 0;
+            z-index: 40;
+        }
+
+        aside.collapsed {
+            width: 0 !important;
+            min-width: 0 !important;
+            max-width: 0 !important;
+            padding: 0 !important;
+            border-right: none !important;
+            overflow: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+
+        /* Sidebar Drag Resizer */
+        .sidebar-resizer {
+            width: 6px;
+            cursor: col-resize;
+            background: transparent;
+            transition: background 0.2s, box-shadow 0.2s;
+            position: sticky;
+            top: 65px;
+            height: calc(100vh - 65px);
+            z-index: 50;
+            flex-shrink: 0;
+        }
+        .sidebar-resizer:hover, .sidebar-resizer.resizing {
+            background: var(--gold);
+            box-shadow: 0 0 12px rgba(212, 175, 55, 0.6);
+        }
+
+        /* Floating Sidebar Toggle Button (when collapsed) */
+        .floating-sidebar-toggle {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 1000;
+            background: var(--bg-secondary);
+            border: 1px solid var(--gold);
+            color: var(--gold-light);
+            border-radius: 50px;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.85rem;
+            font-weight: 700;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(212, 175, 55, 0.3);
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .floating-sidebar-toggle:hover {
+            background: var(--gold);
+            color: #111;
+            transform: translateY(-2px);
+        }
+
+        /* Sidebar Header Bar */
+        .sidebar-header-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .sidebar-header-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--gold-light);
+            text-transform: uppercase;
+        }
+        .sidebar-tool-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            border-radius: var(--radius-md);
+            padding: 0.3rem 0.55rem;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .sidebar-tool-btn:hover {
+            color: var(--text-primary);
+            border-color: var(--gold);
+            background: var(--bg-hover);
+        }
+
+        /* Sidebar Mode Toggle (TOC vs List Order) */
+        .sidebar-mode-toggle {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 3px;
+            gap: 3px;
+        }
+        .mode-btn {
+            padding: 0.45rem 0.6rem;
+            border-radius: 6px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            white-space: nowrap;
+        }
+        .mode-btn:hover {
+            color: var(--text-primary);
+        }
+        .mode-btn.active {
+            background: var(--gold-gradient);
+            color: #111;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.25);
+        }
+
+        /* Width Preset Controls */
+        .width-preset-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            padding: 0.1rem 0;
+        }
+        .width-preset-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.68rem;
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 3px;
+            transition: var(--transition);
+        }
+        .width-preset-btn:hover {
+            color: var(--gold);
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        /* TOC Tree Styles */
+        .toc-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+        .toc-division {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .toc-division:hover {
+            border-color: rgba(212, 175, 55, 0.25);
+        }
+        .toc-division.active {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.04);
+        }
+
+        .toc-div-header {
+            padding: 0.6rem 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+            transition: var(--transition);
+            gap: 0.5rem;
+        }
+        .toc-div-header:hover {
+            background: var(--bg-hover);
+        }
+        .toc-chevron {
+            font-size: 0.7rem;
+            color: var(--gold);
+            transition: transform 0.2s ease;
+            width: 14px;
+            display: inline-block;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .toc-division.expanded .toc-chevron {
+            transform: rotate(90deg);
+        }
+
+        .toc-div-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            overflow: hidden;
+        }
+        .toc-div-number {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .toc-div-title {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: normal;
+            line-height: 1.25;
+            word-break: break-word;
+        }
+        .toc-div-badge {
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 0.15rem 0.45rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+        .toc-division.expanded .toc-div-badge {
+            background: rgba(212, 175, 55, 0.2);
+            color: var(--gold-light);
+        }
+
+        .toc-div-chapters {
+            display: none;
+            flex-direction: column;
+            border-top: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.15);
+            padding: 0.35rem 0.45rem;
+            gap: 0.25rem;
+        }
+        .toc-division.expanded .toc-div-chapters {
+            display: flex;
+        }
+
+        .toc-chapter-item {
+            padding: 0.45rem 0.65rem;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            border-left: 2px solid transparent;
+        }
+        .toc-chapter-item:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+            border-left-color: var(--gold);
+            transform: translateX(2px);
+        }
+        .toc-chapter-item.active {
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--gold-light);
+            font-weight: 600;
+            border-left-color: var(--gold);
+        }
+        .toc-ch-id {
+            font-size: 0.65rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--gold);
+            font-weight: 700;
+        }
+        .toc-ch-title {
+            line-height: 1.3;
+            white-space: normal;
+        }
+        .toc-ch-code {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Sequential List Order Styles */
+        .list-order-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .list-chapter-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 0.65rem 0.8rem;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+            position: relative;
+        }
+        .list-chapter-card:hover {
+            background: var(--bg-hover);
+            border-color: var(--gold);
+            transform: translateX(2px);
+        }
+        .list-chapter-card.active {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.12);
+        }
+        .list-ch-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+        .list-ch-num-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: #111;
+            background: var(--gold-gradient);
+            padding: 0.15rem 0.45rem;
+            border-radius: 4px;
+        }
+        .list-ch-div-badge {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .list-ch-title {
+            font-size: 0.83rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            line-height: 1.3;
+        }
+        .list-ch-codes {
+            font-size: 0.7rem;
+            color: var(--gold-light);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Card Highlight Pulse Animation */
+        @keyframes cardPulseAnimation {
+            0% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.9);
+                border-color: var(--gold);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 0 30px 8px rgba(212, 175, 55, 0.6);
+                border-color: var(--gold-light);
+                transform: scale(1.02);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+                border-color: var(--border-accent);
+                transform: scale(1);
+            }
+        }
+        .card-highlight-pulse {
+            animation: cardPulseAnimation 2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+
+        .nav-search {
+            position: relative;
+        }
+        .nav-search input {
+            width: 100%;
+            padding: 0.75rem 2.2rem 0.75rem 2.5rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        .nav-search input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+        .nav-search-icon {
+            position: absolute;
+            left: 0.85rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .clear-search-btn {
+            position: absolute;
+            right: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: none;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+        .clear-search-btn:hover {
+            color: var(--accent-red);
+            background: rgba(239, 68, 68, 0.15);
+        }
+
+        .quick-chips-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+        .search-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+        }
+        .chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .chip:hover {
+            border-color: var(--gold);
+            color: var(--gold-light);
+            background: rgba(212, 175, 55, 0.1);
+        }
+        [data-theme="light"] .chip {
+            background: #f1f5f9;
+            color: #475569;
+            border-color: #cbd5e1;
+        }
+        [data-theme="light"] .chip:hover {
+            background: #fef3c7;
+            color: #92400e;
+            border-color: #d97706;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .nav-tree {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .nav-item {
+            padding: 0.65rem 0.85rem;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-item:hover {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+        .nav-item.active {
+            background: rgba(212, 175, 55, 0.15);
+            color: var(--gold-light);
+            font-weight: 600;
+            border-left: 3px solid var(--gold);
+        }
+
+        /* Main Workspace */
+        main {
+            flex: 1;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 1400px;
+        }
+
+        /* Tab Bar */
+        .tab-bar {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            padding: 0.65rem 1.25rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+        .tab-btn:hover {
+            color: var(--text-primary);
+            background: var(--bg-hover);
+        }
+        .tab-btn.active {
+            color: #111;
+            background: var(--gold-gradient);
+        }
+
+        /* Tab Content Panes */
+        .tab-pane {
+            display: none;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .tab-pane.active {
+            display: flex;
+        }
+
+        /* Banner Card */
+        .hero-banner {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border: 1px solid var(--border-accent);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+        .hero-banner::after {
+            content: "";
+            position: absolute;
+            right: -50px;
+            bottom: -50px;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero-banner h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.85rem;
+            color: var(--gold-light);
+        }
+        .hero-banner p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            max-width: 900px;
+        }
+
+        /* Interactive Omnisearch Filter Bar */
+        .omni-filter-bar {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.25rem;
+        }
+        .filter-pill {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 0.45rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .filter-pill:hover {
+            border-color: var(--gold);
+            color: var(--text-primary);
+        }
+        .filter-pill.active {
+            background: var(--gold-gradient);
+            color: #111;
+            border-color: transparent;
+            box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+        }
+        [data-theme="light"] .filter-pill.active {
+            background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+            color: #ffffff;
+        }
+
+        mark.hl {
+            background: rgba(212, 175, 55, 0.35);
+            color: #fde68a;
+            border-radius: 2px;
+            padding: 0 2px;
+            font-weight: 700;
+        }
+        [data-theme="light"] mark.hl {
+            background: #fef08a;
+            color: #854d0e;
+        }
+
+        /* Interactive Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .rule-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: var(--transition);
+            backdrop-filter: blur(8px);
+        }
+        .rule-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--border-accent);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .rule-badge-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .badge-old {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--accent-red);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 0.25rem 0.65rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .badge-new {
+            background: rgba(52, 211, 153, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(52, 211, 153, 0.3);
+            padding: 0.25rem 0.65rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .rule-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .rule-hammer {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--gold);
+            padding: 0.75rem 1rem;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .rule-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            padding-top: 0.75rem;
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--gold-light);
+            font-size: 0.75rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            user-select: none;
+        }
+        .copy-btn:hover {
+            background: var(--gold);
+            color: #111;
+        }
+        .copy-btn.copied {
+            background: rgba(16, 185, 129, 0.2) !important;
+            border-color: #10b981 !important;
+            color: #10b981 !important;
+            font-weight: 700 !important;
+        }
+        [data-theme="light"] .copy-btn.copied {
+            background: rgba(16, 185, 129, 0.2) !important;
+            border-color: #059669 !important;
+            color: #059669 !important;
+        }
+
+        .toast-notification {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #0f172a;
+            color: #f8fafc;
+            border: 1px solid #10b981;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(16, 185, 129, 0.25);
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 999999;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            pointer-events: none;
+            max-width: 440px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .toast-notification.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Calculator View */
+        .calc-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-accent);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .calc-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+        .form-group select, .form-group input {
+            padding: 0.85rem 1rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+        }
+        .form-group select:focus, .form-group input:focus {
+            border-color: var(--gold);
+        }
+
+        .calc-results {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .fee-display {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+        .fee-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+        .fee-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .calc-breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            padding-top: 1rem;
+        }
+
+        /* Pleading Output Box */
+        .pleading-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent-green);
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        /* Print Media Styles */
+        @media print {
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                font-size: 10pt;
+            }
+            header, aside, .tab-bar, .nav-controls, .btn, .copy-btn, .search-chips, .omni-filter-bar {
+                display: none !important;
+            }
+            main {
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+            .app-container {
+                display: block !important;
+            }
+            .tab-pane {
+                display: block !important;
+                page-break-after: always;
+            }
+            .rule-card {
+                border: 1px solid #ccc !important;
+                background: #fff !important;
+                color: #000 !important;
+                page-break-inside: avoid;
+                margin-bottom: 1rem;
+            }
+            .hero-banner {
+                background: #f8fafc !important;
+                border: 1px solid #000 !important;
+                color: #000 !important;
+            }
+            .hero-banner h1 {
+                color: #000 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="brand-cluster">
+            <div class="brand-logo">⚖</div>
+            <div>
+                <div class="brand-title">SUTRAFLOW: WORK COMP REFERENCE</div>
+                <div class="brand-subtitle">2026 Sovereign Edition • California WCAB & Medical-Legal Practice Suite</div>
+            </div>
+        </div>
+        <div class="nav-controls">
+            <button class="btn btn-secondary" onclick="toggleTheme()">🌓 Theme</button>
+            <button class="btn btn-secondary" onclick="window.print()">🖨 Print / Save to PDF</button>
+        </div>
+    </header>
+
+    <!-- Sovereign Legal & AI Research Disclaimer Banner -->
+    <div class="disclaimer-banner" style="background: rgba(212, 175, 55, 0.08); border-bottom: 1px solid var(--border); padding: 0.45rem 1.5rem; font-size: 0.72rem; color: var(--text-muted); display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+        <div>
+            <strong style="color: var(--gold);">⚠️ PRACTITIONER NOTICE:</strong> This reference system is synthesized in part with AI-assisted legal intelligence. Provided strictly as a research and educational tool. Final verification rests solely with the practicing representative. Independently verify all citations before formal WCAB filing.
+        </div>
+        <div style="font-size: 0.68rem; opacity: 0.85; white-space: nowrap; font-weight: 600; letter-spacing: 0.5px;">SUTRAFLOW OS</div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+                <!-- Sidebar Navigation -->
+        <aside id="suiteSidebar">
+            <!-- Sidebar Header Bar -->
+            <div class="sidebar-header-bar">
+                <div class="sidebar-header-title">Treatise Reference</div>
+                <div style="display: flex; gap: 0.35rem; align-items: center;">
+                    <button class="sidebar-tool-btn" onclick="toggleSidebar()" title="Collapse Sidebar (Ctrl+B)">
+                        <span>◀</span> Collapse
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search Input -->
+            <div class="nav-search">
+                <span class="nav-search-icon">🔍</span>
+                <input type="text" id="searchInput" placeholder="Search rules, cases, LC §§, chapters..." oninput="doOmnisearch()" onkeyup="doOmnisearch()">
+                <button id="clearSearchBtn" class="clear-search-btn" onclick="clearSearch()" title="Clear Search">✕</button>
+            </div>
+
+            <!-- Dynamic Recent Searches -->
+            <div class="quick-chips-container">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.25rem;">
+                    <div class="section-label" style="font-size: 0.65rem; margin-bottom: 0;">🕒 RECENT SEARCHES:</div>
+                    <button id="clearRecentBtn" onclick="clearRecentSearches()" style="background: none; border: none; color: var(--text-muted); font-size: 0.65rem; cursor: pointer; text-decoration: underline; padding: 0;">Clear</button>
+                </div>
+                <div class="search-chips" id="recentSearchesChips">
+                    <!-- Populated dynamically via JS from localStorage -->
+                </div>
+            </div>
+
+            <!-- View Mode Switcher: TOC Tree vs Sequential List Order -->
+            <div class="sidebar-mode-toggle">
+                <button class="mode-btn active" id="btnModeToc" onclick="setSidebarMode('toc')" title="View expandable Divisions & Subjects like Table of Contents">
+                    <span>📚</span> Subject TOC
+                </button>
+                <button class="mode-btn" id="btnModeList" onclick="setSidebarMode('list')" title="View all chapters in sequential list order">
+                    <span>📋</span> List Order
+                </button>
+            </div>
+
+            <!-- TOC Quick Actions & Sub-bar -->
+            <div id="tocControlsBar" style="display: flex; align-items: center; justify-content: space-between; margin-top: 0.15rem;">
+                <div class="section-label" style="margin-bottom: 0; font-size: 0.68rem;" id="navCountLabel">11 Divisions • 34 Chapters</div>
+                <div style="display: flex; gap: 0.3rem;">
+                    <button class="sidebar-tool-btn" style="padding: 0.15rem 0.4rem; font-size: 0.68rem;" onclick="expandAllDivisions()" title="Expand All Divisions">Expand All</button>
+                    <button class="sidebar-tool-btn" style="padding: 0.15rem 0.4rem; font-size: 0.68rem;" onclick="collapseAllDivisions()" title="Collapse All Divisions">Collapse All</button>
+                </div>
+            </div>
+
+            <!-- Width Presets -->
+            <div class="width-preset-bar">
+                <span>Width:</span>
+                <div style="display: flex; gap: 0.25rem;">
+                    <button class="width-preset-btn" onclick="setSidebarWidth(280)">280px</button>
+                    <button class="width-preset-btn" onclick="setSidebarWidth(380)">380px</button>
+                    <button class="width-preset-btn" onclick="setSidebarWidth(520)">520px</button>
+                </div>
+            </div>
+
+            <!-- Tree TOC Container (Expandable Accordion) -->
+            <div class="toc-container" id="navTree">
+                <!-- Injected dynamically: Divisions with expandable chapters -->
+            </div>
+
+            <!-- Sequential List Container (Flat 1 to N Order) -->
+            <div class="list-order-container" id="navListOrder" style="display: none;">
+                <!-- Injected dynamically: Sequential flat list of chapters -->
+            </div>
+        </aside>
+
+        <!-- Sidebar Resizer Handle -->
+        <div class="sidebar-resizer" id="sidebarResizer" title="Drag to resize sidebar (260px - 720px) • Double-click for wide view"></div>
+
+        <!-- Floating Button to Re-expand Sidebar when Collapsed -->
+        <button id="floatingSidebarToggle" class="floating-sidebar-toggle" onclick="toggleSidebar()">
+            <span>📖</span> Expand Table of Contents
+        </button>
+
+        <!-- Main Workspace -->
+        <main>
+            <!-- Navigation Tabs -->
+            <div class="tab-bar">
+                <button class="tab-btn active" data-tab="crosswalk" onclick="switchTab('crosswalk', this)">📋 Rule Crosswalk (8 CCR)</button>
+                <button class="tab-btn" data-tab="calculator" onclick="switchTab('calculator', this)">🧮 8 CCR § 9795 Fee Calculator</button>
+                <button class="tab-btn" data-tab="caselaw" onclick="switchTab('caselaw', this)">⚖ Controlling En Banc Precedents</button>
+                <button class="tab-btn" data-tab="traps" onclick="switchTab('traps', this)">⚡ Sanctions & Defense Traps</button>
+                <button class="tab-btn" data-tab="divisions" onclick="switchTab('divisions', this)">📖 Master Chapters & Tactics</button>
+                <button class="tab-btn" id="omniTabBtn" data-tab="omnisearch" onclick="switchTab('omnisearch', this)" style="display: none; background: linear-gradient(135deg, #d97706 0%, #b45309 100%); color: #fff;">🔍 Search Results (<span id="omniTotalCount">0</span>)</button>
+            </div>
+
+            <!-- Tab 1: Concordance Crosswalk -->
+            <div id="tab-crosswalk" class="tab-pane active">
+                <div class="hero-banner">
+                    <h1>Active 8 CCR Regulatory Concordance Matrix</h1>
+                    <p>Cross-reference legacy pre-2020 Workers' Compensation Appeals Board rules directly to the modern active 2026 regulations. Use the tactical "Hammers" below to dismiss defense objections and enforce statutory penalties.</p>
+                </div>
+
+                <div class="card-grid" id="crosswalkGrid">
+                    <!-- Injected dynamically -->
+                </div>
+            </div>
+
+            <!-- Tab 2: 8 CCR § 9795 Calculator -->
+            <div id="tab-calculator" class="tab-pane">
+                <div class="hero-banner">
+                    <h1>2026 Medical-Legal Fee Schedule Calculator</h1>
+                    <p>Calculate compliant fees under <strong>8 CCR § 9795</strong> (effective April 2021 through 2026). Generates total statutory billing and copy-ready Attestation Declarations under 8 CCR § 9795(c).</p>
+                </div>
+
+                <div class="calc-panel">
+                    <div class="calc-inputs">
+                        <div class="form-group">
+                            <label>Evaluation Billing Code</label>
+                            <select id="calcCode" onchange="updateCalc()">
+                                <option value="201">ML 201 — Comprehensive Medical-Legal Evaluation ($2,015.00)</option>
+                                <option value="202">ML 202 — Follow-up Evaluation ($1,315.00)</option>
+                                <option value="203">ML 203 — Supplemental Medical-Legal Evaluation ($650.00)</option>
+                                <option value="204">ML 204 — Medical-Legal Testimony / Deposition ($455.00/hr)</option>
+                                <option value="205">ML 205 — Review of Records / Deposition Prep ($455.00/hr)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Total Record Review Pages Received</label>
+                            <input type="number" id="calcPages" value="450" min="0" oninput="updateCalc()">
+                        </div>
+
+                        <div class="form-group" id="hoursGroup" style="display: none;">
+                            <label>Deposition / Record Review Hours</label>
+                            <input type="number" id="calcHours" value="2.5" step="0.5" min="0" oninput="updateCalc()">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Additional Expenses (e.g. Certified Interpreter / Records Cost)</label>
+                            <input type="number" id="calcAdditional" value="0.00" step="10" min="0" oninput="updateCalc()">
+                        </div>
+                    </div>
+
+                    <div class="calc-results">
+                        <div class="fee-display">
+                            <span class="fee-label">Total Statutory Medical-Legal Fee</span>
+                            <span class="fee-value" id="totalFeeDisplay">$2,765.00</span>
+                        </div>
+
+                        <div class="calc-breakdown" id="feeBreakdown">
+                            <!-- Injected dynamically -->
+                        </div>
+
+                        <div>
+                            <div class="section-label" style="margin-bottom: 0.5rem;">Mandatory Statutory Attestation Declaration</div>
+                            <div class="pleading-box" id="attestationBox">
+                                <!-- Populated dynamically -->
+                            </div>
+                            <button class="btn btn-secondary" style="margin-top: 0.75rem; width: 100%; justify-content: center;" onclick="copyAttestation(this)">📋 Copy Attestation Declaration</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Controlling En Banc Precedents -->
+            <div id="tab-caselaw" class="tab-pane">
+                <div class="hero-banner">
+                    <h1>Controlling En Banc & Supreme Court Precedents</h1>
+                    <p>Instant access to foundational California Workers' Compensation authorities from <em>McAllister</em> to <em>Colamonico</em>, <em>Mercado</em>, and <em>DPR Construction</em>. One-click citations formatted for California pleading paper.</p>
+                </div>
+
+                <div class="card-grid" id="caselawGrid">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Tab 4: Sanctions & Defense Traps -->
+            <div id="tab-traps" class="tab-pane">
+                <div class="hero-banner">
+                    <h1>The En Banc Sanctions & Defense Traps Playbook</h1>
+                    <p>Step-by-step procedural roadmaps to exploit common carrier procedural blunders and secure attorney's fees under Labor Code §§ 5813 and 5814.5.</p>
+                </div>
+
+                <div class="card-grid" id="trapsGrid">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Tab 5: Master Divisions -->
+            <div id="tab-divisions" class="tab-pane">
+                <div class="hero-banner">
+                    <h1>The 11 Master Divisions & Tactical Chapters</h1>
+                    <p>Comprehensive tactical procedures for handling injury causation, medical discovery, pre-trial conferences, and appellate writs.</p>
+                </div>
+
+                <div id="divisionsList" style="display: flex; flex-direction: column; gap: 2rem;">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+
+            <!-- Tab 6: Unified Omnisearch Results -->
+            <div id="tab-omnisearch" class="tab-pane">
+                <div class="hero-banner" id="omniBanner">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                        <div>
+                            <h1 id="omniHeading">Global Search Results</h1>
+                            <p id="omniSubheading">Searching across all 65 Precedents, 11 Regulatory Rules, 14 Defense Traps, and 99 Practice Chapters.</p>
+                        </div>
+                        <button class="btn btn-secondary" onclick="clearSearch()">✕ Clear Search</button>
+                    </div>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="omni-filter-bar">
+                    <button class="filter-pill active" data-filter="all" onclick="filterOmniCategory('all', this)">All Results (<span id="countAll">0</span>)</button>
+                    <button class="filter-pill" data-filter="cases" onclick="filterOmniCategory('cases', this)">⚖ Case Law (<span id="countCases">0</span>)</button>
+                    <button class="filter-pill" data-filter="rules" onclick="filterOmniCategory('rules', this)">📋 8 CCR Rules (<span id="countRules">0</span>)</button>
+                    <button class="filter-pill" data-filter="traps" onclick="filterOmniCategory('traps', this)">⚡ Defense Traps (<span id="countTraps">0</span>)</button>
+                    <button class="filter-pill" data-filter="chapters" onclick="filterOmniCategory('chapters', this)">📖 Chapters & Tactics (<span id="countChapters">0</span>)</button>
+                </div>
+
+                <!-- Results Grid -->
+                <div id="omniResultsGrid" class="card-grid">
+                    <!-- Injected dynamically in real time -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Embedded Master Data -->
+    <script>
+        const concordanceRules = [{"old_rule": "8 CCR \u00a7 10451.1", "new_rule": "8 CCR \u00a7 10786", "title": "Determination of Medical-Legal Expense Disputes & 60-Day Waiver", "hammer": "The 60-Day Default Waiver: Carrier waives all affirmative defenses (e.g., false history, post-term bar) if it fails to file a Petition for Determination within 60 days of provider's objection.", "authority": "Colamonico v. Secure Transportation (2019) 84 CCC 1059 (En Banc); LC \u00a7 4622"}, {"old_rule": "8 CCR \u00a7\u00a7 10750 / 10751", "new_rule": "8 CCR \u00a7 10803(b)", "title": "Record of Proceedings Maintained in Adjudication File", "hammer": "The C&R Evidentiary Admission: All medical reports filed in EAMS as of the OACAR approval date are automatically deemed admitted into evidence as a matter of law.", "authority": "8 CCR \u00a7 10803(b); LC \u00a7 5703"}, {"old_rule": "8 CCR \u00a7\u00a7 10608 / 10616", "new_rule": "8 CCR \u00a7 10635", "title": "Ongoing Duty to Serve Medical Reports", "hammer": "The 10-Day Service Duty: Parties must serve medical reports within 10 calendar days of receipt. Defense cannot withhold prior accident records and then claim PTP/QME report lacks substantial evidence.", "authority": "8 CCR \u00a7 10635; Hardesty v. McCord (1976) 41 CCC 111 (En Banc)"}, {"old_rule": "8 CCR \u00a7 10622", "new_rule": "8 CCR \u00a7 10670", "title": "Documentary Evidence & Pre-Trial Exclusion (DPR Construction Strict Cutoff)", "hammer": "Exclusion of Unlisted Evidence: Evidence not listed on the PTCS or served prior to MSC is excluded. Under DPR Construction (2025), Section 5502(d)(3) closure is jurisdictional and strictly NOT subject to harmless error review.", "authority": "DPR Construction v. WCAB (McClanahan) (2025) 107 Cal.App.5th ___; Rucker (2000); LC \u00a7 5502(d)(3)"}, {"old_rule": "8 CCR \u00a7\u00a7 10563 / 10563.1", "new_rule": "8 CCR \u00a7 10752", "title": "Appearances Required & Unlimited Settlement Authority", "hammer": "Settlement Authority Mandate: Defense adjusters and counsel must have immediate full settlement authority at MSC and hearings. Failure triggers mandatory sanctions under LC \u00a7 5813.", "authority": "8 CCR \u00a7 10752; LC \u00a7 5813; 8 CCR \u00a7 10421"}, {"old_rule": "8 CCR \u00a7 10770.1", "new_rule": "8 CCR \u00a7 10875", "title": "Lien Conferences and Lien Trials", "hammer": "Lien Conference Appearance Mandate: Defendants must appear with full authority. Failure to appear triggers dismissal of objections and fee awards.", "authority": "8 CCR \u00a7 10875; LC \u00a7 4903.05"}, {"old_rule": "8 CCR \u00a7 10507", "new_rule": "8 CCR \u00a7 10605", "title": "Service Extension of Time (+5 Calendar Days)", "hammer": "Service by Mail/Fax/Email: Adds 5 calendar days for actions required within California. Critical for calculating EOR response deadlines and 25-day Reconsideration windows.", "authority": "8 CCR \u00a7 10605; LC \u00a7 5316; CCP \u00a7 1013"}, {"old_rule": "8 CCR \u00a7\u00a7 10870 / 10882", "new_rule": "8 CCR \u00a7 10700", "title": "Approval of Compromise and Release & Settlements", "hammer": "Approval Standards: Eliminates blanket unpleaded waivers and enforces adequate consideration under LC \u00a7 5001.", "authority": "8 CCR \u00a7 10700; LC \u00a7 5001; Camarena (1983) 48 CCC 53"}, {"old_rule": "8 CCR \u00a7 10349", "new_rule": "8 CCR \u00a7 10832", "title": "Notices of Intention (NOI) and Orders after NOI", "hammer": "Due Process Response Window: Requires specific objection and offer of proof within designated timeframe before WCJ can execute adverse orders.", "authority": "8 CCR \u00a7 10832"}, {"old_rule": "8 CCR \u00a7 10453", "new_rule": "8 CCR \u00a7 10788", "title": "Petition for Automatic Reassignment of Judge", "hammer": "Peremptory WCJ Strike: Must be filed within 5 days of notice of hearing before a regular judge. Automatic assignment upon timely filing.", "authority": "8 CCR \u00a7 10788; LC \u00a7 5310"}, {"old_rule": "8 CCR \u00a7 10582.5", "new_rule": "8 CCR \u00a7 10888", "title": "Dismissal of Inactive Lien Claims", "hammer": "Lien Preservation: Defense cannot obtain dismissal without formal Notice of Intention and verification of service.", "authority": "8 CCR \u00a7 10888; LC \u00a7 4903.5"}];
+        const caseLawData = [{"category": "AOE / COE & Causation", "authority": "Labor Code \u00a7 3600, \u00a7 3202.5", "name": "McAllister v. Workmen's Comp. App. Bd.", "citation": "(1968) 69 Cal.2d 408, 33 CCC 660", "court": "California Supreme Court", "year": "1968", "holding": "Proof of industrial causation requires only 'reasonable medical probability' (more likely than not), not absolute scientific certainty or mathematical precision.", "quote": "\"The applicant need only establish the reasonable probability of industrial causation. He is not required to prove causation with scientific certainty.\""}, {"category": "AOE / COE & Contributing Cause", "authority": "Labor Code \u00a7 3600, \u00a7 4663", "name": "South Coast Framing, Inc. v. WCAB (Clark)", "citation": "(2015) 61 Cal.4th 291, 80 CCC 489", "court": "California Supreme Court", "year": "2015", "holding": "Industrial causation requires only that employment be a contributing cause among others. Even a nominal industrial contribution (under 10%) triggers full joint & several liability.", "quote": "\"In workers' compensation law, an employee is entitled to compensation for an injury if the employment is a contributing cause of the injury... even if the industrial contribution is small.\""}, {"category": "AOE / COE & Liberal Construction", "authority": "Labor Code \u00a7 3202, \u00a7 3600", "name": "Lundberg v. Workmen's Comp. App. Bd.", "citation": "(1968) 69 Cal.2d 436, 33 CCC 656", "court": "California Supreme Court", "year": "1968", "holding": "Under Labor Code \u00a7 3202, all reasonable doubts as to whether an injury arose out of and occurred in the course of employment must be resolved in favor of the injured worker.", "quote": "\"Where the employee's work activities contribute to the disabling pathology, and there is doubt as to whether the injury is industrial, Labor Code section 3202 mandates that all doubts be resolved in favor of the employee.\""}, {"category": "AOE / COE & Cumulative Trauma", "authority": "Labor Code \u00a7 3208.1, \u00a7 3600", "name": "Gillette v. Workmen's Comp. Appeals Bd.", "citation": "(1971) 20 Cal.App.3d 312, 36 CCC 570", "court": "Court of Appeal (3rd Dist.)", "year": "1971", "holding": "Cumulative trauma / repetitive micro-trauma occurring gradually over time is fully compensable even without a specific traumatic event.", "quote": "\"An injury may be cumulative and occur gradually over a period of time where repetitive physical work activities aggregate to produce pathology.\""}, {"category": "AOE / COE & Date of Cumulative Injury", "authority": "Labor Code \u00a7 5405, \u00a7 5412", "name": "Western Growers Ins. Co. v. WCAB (Austin)", "citation": "(1993) 16 Cal.App.4th 227, 58 CCC 323", "court": "Court of Appeal (5th Dist.)", "year": "1993", "holding": "The date of a cumulative injury under LC \u00a7 5412 is the concurrence of disability and knowledge that disability was work-related. Two separate periods of disability from continuous work constitute two separate injuries.", "quote": "\"The date of a cumulative injury is that date upon which the employee first suffered disability therefrom and either knew, or in the exercise of reasonable diligence should have known, that such disability was caused by present or prior employment.\""}, {"category": "AOE / COE Presumptions (90-Day Rule)", "authority": "Labor Code \u00a7 5402(b)", "name": "State Compensation Ins. Fund v. WCAB (Welcher)", "citation": "(1995) 31 Cal.App.4th 90, 60 CCC 27", "court": "Court of Appeal (3rd Dist.)", "year": "1995", "holding": "If liability is not rejected within 90 days after the claim form is filed, the injury is presumed compensable; evidence discoverable during the 90 days with reasonable diligence is strictly barred.", "quote": "\"The presumption of compensability is mandatory and requires the exclusion of all evidence which could have been obtained by the employer within the initial 90-day period with the exercise of reasonable diligence.\""}, {"category": "AOE / COE Presumptions (COVID Outbreak)", "authority": "Labor Code \u00a7 3212.88 (SB 1159)", "name": "Statutory Workplace Outbreak Presumption", "citation": "Cal. Lab. Code \u00a7 3212.88", "court": "California Statute / WCAB Precedent", "year": "2020", "holding": "Creates a rebuttable presumption of industrial causation for employees testing positive within 14 days of working during an active workplace outbreak. Defendant has only 45 days to reject liability.", "quote": "\"If liability is not rejected within 45 days after the claim is filed, the injury shall be presumed compensable. This presumption is rebuttable only by evidence discovered subsequent to the 45-day period.\""}, {"category": "Burden of Proof & Affirmative Issues", "authority": "Labor Code \u00a7 5705, Evid. Code \u00a7 500", "name": "Roesch v. De Mota", "citation": "(1944) 24 Cal.2d 563", "court": "California Supreme Court", "year": "1944", "holding": "The party holding the affirmative of an issue bears the burden of proof. If that party fails to produce substantial evidence, the court has a mandatory duty to rule against them.   Waiver always rests upon intent. Waiver is the intentional relinquishment of a known right after knowledge of the facts. (Wienke v. Smith, 179 Cal. 220, 226 [176 P. 42]; 25 Cal.Jur. 926.) [3b]", "quote": "\"The burden of proof rests upon the party holding the affirmative of the issue... where the party with the burden fails to sustain it, the court must enter judgment against that party.\""}, {"category": "Burden of Proof for Lien Claimants", "authority": "Labor Code \u00a7 5705, Evid. Code \u00a7 500", "name": "Zenith Insurance Co. v. WCAB (Capi)", "citation": "(2006) 138 Cal.App.4th 373, 71 CCC 374", "court": "Court of Appeal (2nd Dist.)", "year": "2006", "holding": "Lien claimants bear the burden of proving industrial injury and reasonable medical necessity by a preponderance of the evidence, 'standing in the shoes' of the injured worker.", "quote": "\"Under Labor Code section 5705 and Evidence Code section 500, a lien claimant has the burden of proving all elements necessary to establish its claim for reimbursement.\""}, {"category": "Frivolous Litigation & Lien Proof Standard", "authority": "Labor Code \u00a7 3202.5, \u00a7 5705, \u00a7 5813", "name": "Tito Torres v. AJC Sandblasting", "citation": "(2012) 77 Cal.Comp.Cases 1113", "court": "WCAB Appeals Board En Banc", "year": "2012", "holding": "Proceeding to trial without evidence or with evidence utterly incapable of meeting the burden of proof is frivolous and bad faith under LC \u00a7 5813, justifying monetary sanctions and attorney's fees.", "quote": "\"Proceeding to trial without any evidence or with evidence that is utterly incapable of meeting its burden of proof is frivolous and constitutes bad faith within the meaning of section 5813 justifying an award of sanctions, attorney's fees and costs.\""}, {"category": "Sanctions for Fabricated Citations", "authority": "Labor Code \u00a7 5813, 8 CCR \u00a7 10421", "name": "Arias v. WCAB (Medland Medical)", "citation": "ADJ16902178 (WCAB Panel Decision)", "court": "WCAB Panel Decision", "year": "2024", "holding": "Submitting a pleading or petition containing a fabricated or hallucinated legal citation is sanctionable under LC \u00a7 5813 to protect judicial integrity, even if committed without intent to deceive.", "quote": "\"The inclusion of a false or non-existent legal citation in a petition presented to the Appeals Board constitutes bad-faith, frivolous litigation conduct warranting sanctions under Labor Code section 5813.\""}, {"category": "Utilization Review (UR) & IMR Jurisdiction", "authority": "Labor Code \u00a7 4610, \u00a7 4610.5, 8 CCR \u00a7 9792.9.1", "name": "State Compensation Ins. Fund v. WCAB (Dubon) (Dubon II)", "citation": "(2014) 79 Cal.Comp.Cases 1298", "court": "WCAB Appeals Board En Banc", "year": "2014", "holding": "If a Utilization Review (UR) decision is untimely or procedurally defective, the UR is void, IMR does not apply, and the WCAB has exclusive jurisdiction to decide medical necessity based on substantial evidence.", "quote": "\"When a utilization review decision is untimely and therefore invalid, the dispute over medical necessity is not subject to IMR, and the WCAB has jurisdiction to determine the medical necessity of the requested treatment based on substantial medical evidence.\""}, {"category": "Utilization Review Timeframe Strictness", "authority": "Labor Code \u00a7 4610(g)(1), 8 CCR \u00a7 9792.9.1", "name": "Bodam v. San Bernardino County / Dept. of Social Services", "citation": "(2014) 79 Cal.Comp.Cases 977", "court": "WCAB Appeals Board En Banc", "year": "2014", "holding": "UR statutory time limits (5 business days / 14 calendar days from RFA) are mandatory and strictly construed. An untimely UR decision is legally void and cannot be cured.", "quote": "\"The timeframes in Labor Code section 4610 are mandatory... an untimely utilization review decision is invalid and ineffective to deny the requested medical treatment.\""}, {"category": "UR Notice & Communication Rules", "authority": "Labor Code \u00a7 4610, 8 CCR \u00a7 9792.9.1(e)", "name": "Castillo v. State of California", "citation": "(2014) 79 Cal.Comp.Cases 1090", "court": "WCAB Appeals Board En Banc", "year": "2014", "holding": "UR decision must be communicated to the treating physician by telephone or fax within 24 hours of the decision and written notice served within 2 business days. Failure invalidates the UR.", "quote": "\"Failure to communicate the UR decision to the treating physician within the mandatory regulatory timeframe renders the UR denial legally defective and of no force or effect.\""}, {"category": "Post-UR Dispute Resolution & QME Primacy", "authority": "Labor Code \u00a7 4600, \u00a7 4062", "name": "Willette v. Au Electric Corp.", "citation": "(2004) 69 Cal.Comp.Cases 1298", "court": "WCAB Appeals Board En Banc", "year": "2004", "holding": "Established the mandatory procedure for resolving medical disputes when UR does not approve care; panel QME reporting must consider both PTP and UR reports; authority to award 24-hour attendant care.", "quote": "\"When faced with differing medical opinions from the Panel QME, treating physician, and UR physician... the WCJ or Appeals Board need not rely on the opinion of a particular physician but evaluates substantial evidence.\""}, {"category": "Unilateral Termination of Ongoing Care Barred", "authority": "Labor Code \u00a7 4610, \u00a7 4600", "name": "Patterson v. The Oaks Farm", "citation": "(2014) 79 Cal.Comp.Cases 910", "court": "WCAB Appeals Board En Banc", "year": "2014", "holding": "A defendant cannot unilaterally submit ongoing, previously authorized medical treatment (e.g. home care, medication) to UR to terminate it without demonstrating a change in medical circumstances.", "quote": "\"An employer cannot unilaterally terminate medical treatment that has been previously authorized and provided without showing a change in the employee's medical condition.\""}, {"category": "Self-Procured Medical Care Reimbursement", "authority": "Labor Code \u00a7 4600, \u00a7 4603.2", "name": "McCoy v. Industrial Acc. Comm'n", "citation": "(1966) 64 Cal.2d 82, 31 CCC 93", "court": "California Supreme Court", "year": "1966", "holding": "When an employer or carrier fails, neglects, or refuses seasonably to provide reasonable medical care, the employee may self-procure treatment outside the network at the employer's expense.", "quote": "\"If the employer has notice of the injury and fails or refuses to provide treatment, the employee may procure it himself and the employer is liable for the reasonable expense incurred.\""}, {"category": "Admissibility of Non-MPN Medical Reports", "authority": "Labor Code \u00a7 4600, \u00a7 4605, \u00a7 4616", "name": "Valdez v. Workers' Comp. Appeals Bd.", "citation": "(2013) 57 Cal.4th 1231, 78 CCC 1209", "court": "California Supreme Court", "year": "2013", "holding": "Medical reports from non-MPN treating physicians obtained under LC \u00a7 4605 are admissible in WCAB proceedings and can constitute substantial medical evidence.", "quote": "\"Reports prepared by non-MPN treating physicians are admissible in proceedings before the WCAB... the Legislature did not intend to make non-MPN medical reports inadmissible.\""}, {"category": "MPN Failure of Access Standards", "authority": "Labor Code \u00a7 4616, 8 CCR \u00a7 9767.5", "name": "Boeing Co. v. WCAB (Hansen)", "citation": "(2015) 80 Cal.Comp.Cases 1338", "court": "Court of Appeal / WCAB Significant Panel", "year": "2015", "holding": "If an MPN fails to satisfy statutory geographic access standards or fails to provide an active, accurate physician directory upon request, the employee is legally entitled to treat outside the MPN.", "quote": "\"Failure of the employer's MPN to meet access standards or provide an updated physician directory permits the employee to select a treating physician outside of the network.\""}, {"category": "MPN Defense Inapplicable to Med-Legal", "authority": "Labor Code \u00a7 4620, 8 CCR \u00a7 9793", "name": "Warren Brower v. David Jones Construction", "citation": "(2014) 79 Cal.Comp.Cases 550", "court": "WCAB Appeals Board En Banc", "year": "2014", "holding": "Employer MPNs have zero jurisdiction over medical-legal evaluations obtained by applicant's attorney to prove a contested claim under LC \u00a7 4060. MPN restrictions do not apply.", "quote": "\"An employer or insurer has no authority under the MPN statutes to restrict an injured worker's attorney from selecting a medical-legal evaluator on a contested claim under Labor Code section 4060.\""}, {"category": "Spousal Home Health Care Liens", "authority": "Labor Code \u00a7 4600", "name": "Henson v. Workmen's Comp. Appeals Bd.", "citation": "(1972) 27 Cal.App.3d 452, 37 CCC 564", "court": "Court of Appeal (4th Dist.)", "year": "1972", "holding": "An injured worker's spouse who provides extraordinary nursing and attendant care that would otherwise require hired professional nursing or institutionalization is entitled to reasonable reimbursement under LC \u00a7 4600.", "quote": "\"The employer is liable for the reasonable value of nursing care provided by the wife where the employer had notice of the need for such services... the employer cannot escape liability merely because the care was rendered by a family member.\""}, {"category": "Domestic Services as Prescribed Medical Care", "authority": "Labor Code \u00a7 4600", "name": "Smyers v. Workers' Comp. Appeals Bd.", "citation": "(1984) 157 Cal.App.3d 914, 49 CCC 454", "court": "Court of Appeal (1st Dist.)", "year": "1984", "holding": "Housekeeping, cleaning, and domestic services are reimbursable medical care under LC \u00a7 4600 when prescribed by a doctor to prevent medical complications, infection, or physical aggravation.", "quote": "\"Housekeeping services are reimbursable as medical treatment under Labor Code section 4600 when they are medically necessary to cure or relieve the effects of the injury.\""}, {"category": "Apportionment Substantial Evidence", "authority": "Labor Code \u00a7 4663, \u00a7 4664", "name": "Escobedo v. Marshalls", "citation": "(2005) 70 Cal.Comp.Cases 604", "court": "WCAB Appeals Board En Banc", "year": "2005", "holding": "To constitute substantial medical evidence on apportionment, a doctor must explain the exact nature of the apportioned pathology, how and why it causes permanent disability, and state exact percentages.", "quote": "\"A medical report is not substantial evidence on apportionment unless it explains how and why a particular non-industrial condition causes permanent disability... bare percentages without reasoned medical explanation are legally invalid.\""}, {"category": "Apportionment 'Formula C' Calculation", "authority": "Labor Code \u00a7 4663, \u00a7 4664", "name": "Brodie v. Workers' Comp. Appeals Bd.", "citation": "(2007) 40 Cal.4th 1313, 72 CCC 565", "court": "California Supreme Court", "year": "2007", "holding": "Establishes 'Formula C' as the controlling method for calculating permanent disability indemnity dollar awards after non-industrial apportionment under SB 899.", "quote": "\"Apportionment under SB 899 requires calculating the percentage of permanent disability directly caused by the industrial injury and awarding the dollar value corresponding to that percentage.\""}, {"category": "AMA Guides Rebuttal (Almaraz/Guzman)", "authority": "Labor Code \u00a7 4660, 8 CCR \u00a7 9805", "name": "Almaraz v. Envtl. Recovery / Guzman v. Milpitas Unified", "citation": "(2009) 74 Cal.Comp.Cases 1084 (Almaraz/Guzman II)", "court": "WCAB Appeals Board En Banc", "year": "2009", "holding": "The AMA Guides 5th Edition rating is rebuttable. An evaluating physician may utilize any chapter, table, or analogy within the four corners of the Guides that most accurately reflects true impairment.", "quote": "\"A physician may offer an alternative rating based on the four corners of the AMA Guides if the standard rating does not accurately reflect the employee's whole person impairment.\""}, {"category": "100% PTD (Vocational Infeasibility)", "authority": "Labor Code \u00a7 4660, \u00a7 4662", "name": "LeBoeuf v. Workers' Comp. Appeals Bd.", "citation": "(1983) 34 Cal.3d 234, 48 CCC 587", "court": "California Supreme Court", "year": "1983", "holding": "An injured worker is 100% permanently and totally disabled (PTD) when industrial injuries prevent the worker from being educated, retrained, or benefiting from vocational rehabilitation.", "quote": "\"The employee's inability to participate in vocational rehabilitation due to the industrial injury is a critical factor establishing 100% total permanent disability.\""}, {"category": "Post-SB 899 Vocational Rebuttal", "authority": "Labor Code \u00a7 4660, \u00a7 4662", "name": "Contra Costa County v. WCAB (Dahl)", "citation": "(2015) 233 Cal.App.4th 223, 80 CCC 99", "court": "Court of Appeal (1st Dist.)", "year": "2015", "holding": "Reaffirming LeBoeuf standard post-SB 899: An employee can rebut a scheduled PD rating and prove 100% PTD by showing an inability to compete in the labor market due to industrial physical limitations.", "quote": "\"A scheduled permanent disability rating under the 2005 PDRS may be rebutted by showing that the employee is not amenable to vocational rehabilitation under LeBoeuf.\""}, {"category": "Multiple Injuries Apportionment", "authority": "Labor Code \u00a7 4663, \u00a7 4664", "name": "Nunes v. State of California / Dept. of Motor Vehicles", "citation": "(2023) 88 Cal.Comp.Cases 741 & 88 CCC 894", "court": "WCAB Appeals Board En Banc", "year": "2023", "holding": "Reporting physicians must apportion permanent disability between separate, distinct industrial injuries before applying the Combined Values Chart (CVC), unless reporting proves inexorably intertwined disability.", "quote": "\"A physician must evaluate and determine apportionment to other injuries before combining multiple impairments under the rating schedule.\""}, {"category": "Asymptomatic Pre-existing Pathology Apportionment", "authority": "Labor Code \u00a7 4663", "name": "City of Petaluma v. WCAB (Lindh)", "citation": "(2018) 29 Cal.App.5th 1175, 83 CCC 1869", "court": "Court of Appeal (1st Dist.)", "year": "2018", "holding": "Apportionment to pre-existing, asymptomatic genetic or underlying disease pathology is legally permissible under LC \u00a7 4663 if the medical expert establishes that the pathology directly caused a percentage of disability.", "quote": "\"Labor Code section 4663 requires apportionment to causation of disability, which includes pre-existing, non-industrial pathology that directly causes permanent disability even if asymptomatic prior to injury.\""}, {"category": "Catastrophic Injury Exception", "authority": "Labor Code \u00a7 4660.1(c)(2)(B)", "name": "Wilson v. State of California, Cal Fire", "citation": "(2019) 84 Cal.Comp.Cases 393", "court": "WCAB Appeals Board En Banc", "year": "2019", "holding": "Defines what constitutes a 'catastrophic injury' under LC \u00a7 4660.1(c)(2)(B). A catastrophic injury lifts the statutory bar on secondary psychiatric, sleep, and sexual dysfunction ratings, adding them directly to the PD rating.", "quote": "\"Whether an injury is catastrophic under Labor Code section 4660.1(c)(2)(B) is evaluated based on the intensity and seriousness of treatment, ultimate outcome, severity of physical impairment, and impact on activities of daily living.\""}, {"category": "Violent Act (Mechanical Crushing Force)", "authority": "Labor Code \u00a7 4660.1(c)(2)(A)", "name": "Daniel Guerrero v. Ramcast Steel Fabrication", "citation": "(2017) 82 Cal.Comp.Cases 1222", "court": "WCAB Panel Decision", "year": "2017", "holding": "A crushing accident caused by heavy industrial machinery constitutes a 'violent act' under LC \u00a7 4660.1(c)(2)(A), qualifying for the statutory exception allowing permanent psychiatric disability ratings.", "quote": "\"An injury resulting from a mechanical crushing force by heavy machinery qualifies as a 'violent act' under Labor Code section 4660.1(c)(2)(A), permitting an award of permanent psychiatric disability.\""}, {"category": "Violent Act (No Criminal Actor Required)", "authority": "Labor Code \u00a7 4660.1(c)(2)(A)", "name": "Deborah Larsen v. Securitas Security Services", "citation": "(2016) 81 Cal.Comp.Cases 770", "court": "WCAB Panel Decision", "year": "2016", "holding": "A 'violent act' under LC \u00a7 4660.1(c)(2)(A) does not require criminal intent or a criminal perpetrator; extreme kinetic physical force or vehicular collision suffices.", "quote": "\"A 'violent act' under Labor Code section 4660.1(c)(2)(A) does not require criminal intent or a third-party perpetrator; it encompasses injuries caused by strong or violent physical force.\""}, {"category": "Unreasonable Delay Penalty Standard", "authority": "Labor Code \u00a7 5814", "name": "Kerley v. Workmen's Comp. App. Bd.", "citation": "(1971) 4 Cal.3d 223, 36 CCC 152", "court": "California Supreme Court", "year": "1971", "holding": "The only satisfactory excuse for delay or non-payment of compensation is the existence of 'genuine doubt from a medical or legal standpoint as to liability.' The burden of proving genuine doubt is on the employer.", "quote": "\"The only satisfactory excuse for delay in payment of disability benefits is 'genuine doubt from a medical or legal standpoint as to liability for benefits'... the burden is on the employer to present substantial evidence of such doubt.\""}, {"category": "Penalty Cap & Multipliers", "authority": "Labor Code \u00a7 5814", "name": "County of San Luis Obispo v. WCAB (Barnes)", "citation": "(2005) 133 Cal.App.4th 641, 70 CCC 1247", "court": "Court of Appeal (2nd Dist.)", "year": "2005", "holding": "Under post-SB 899 LC \u00a7 5814, unreasonable delay penalties are 25% of the delayed amount up to a $10,000 maximum per separate, distinct act of unreasonable delay.", "quote": "\"Section 5814 authorizes a penalty of up to 25 percent of the amount unreasonably delayed, not to exceed $10,000, for each separate and distinct act of delay.\""}, {"category": "Mandatory Attorney Fees on Delayed Pay", "authority": "Labor Code \u00a7 5814.5", "name": "Ramirez v. Drive Financial Services", "citation": "(2008) 73 Cal.Comp.Cases 1324", "court": "WCAB Appeals Board En Banc", "year": "2008", "holding": "When an employee successfully enforces payment of unreasonably delayed compensation under LC \u00a7 5814 against an unreasonable employer, the WCAB must award reasonable attorney's fees under LC \u00a7 5814.5.", "quote": "\"Labor Code section 5814.5 mandates an award of reasonable attorney's fees incurred in enforcing the payment of delayed compensation against an unreasonable employer or insurer.\""}, {"category": "Attorney Fees on Delayed Ancillary Benefits", "authority": "Labor Code \u00a7 5814.5", "name": "Purvis Cowens v. ABC Unified School District", "citation": "ADJ13906645 (WCAB Decision on Recon)", "court": "WCAB Panel Decision", "year": "2022", "holding": "Attorney's fees under LC \u00a7 5814.5 apply not only to delayed indemnity but also to unreasonable delays in providing ancillary medical benefits and medical transportation.", "quote": "\"An unreasonable delay in providing medical transportation or ancillary benefits triggers entitlement to statutory penalties under section 5814 and attorney's fees under section 5814.5.\""}, {"category": "Mandatory 7% Statutory Interest", "authority": "Labor Code \u00a7 5800", "name": "Myers v. Workers' Comp. Appeals Bd.", "citation": "(1971) 20 Cal.App.3d 120, 36 CCC 568", "court": "Court of Appeal (1st Dist.)", "year": "1971", "holding": "Interest at the rate of 7% per annum accrues automatically on all delayed indemnity and medical compensation from the date payment became due under LC \u00a7 5800.", "quote": "\"Interest under Labor Code section 5800 is mandatory and runs from the date when each installment of compensation becomes due and payable.\""}, {"category": "Mandatory Duty to Pay upon QME Finding", "authority": "Labor Code \u00a7 4063", "name": "Mandatory Duty to Pay on QME Report", "citation": "Cal. Lab. Code \u00a7 4063", "court": "California Statute", "year": "1993", "holding": "When an agreed or qualified medical evaluator issues a formal evaluation resolving an issue requiring payment of benefits, the employer must immediately pay those benefits. Blanket refusal is a violation of law.", "quote": "\"If a formal medical evaluation from an agreed medical evaluator or a qualified medical evaluator resolves any issue so as to require an immediate payment of compensation or benefits, the employee shall be paid that compensation or benefits by the employer or the insurance carrier.\""}, {"category": "Additional QME Specialty Panels", "authority": "Labor Code \u00a7 4062.2, 8 CCR \u00a7 37.1", "name": "Navarro v. City of Montebello", "citation": "(2014) 79 Cal.Comp.Cases 418", "court": "WCAB Appeals Board En Banc", "year": "2014", "holding": "A party is entitled to an additional QME panel in a different medical specialty when the existing QME recommends evaluation in another specialty or when a distinct condition falls outside the existing QME's expertise.", "quote": "\"The Medical Unit may issue an additional panel QME in a different specialty when substantial medical evidence establishes that the injured worker has sustained an injury involving a distinct medical specialty.\""}, {"category": "Representation Voids Unrepresented QME Panel", "authority": "Labor Code \u00a7 4062.1, \u00a7 4062.2", "name": "Romero v. Costco Wholesale", "citation": "(2007) 72 Cal.Comp.Cases 824", "court": "WCAB Appeals Board En Banc", "year": "2007", "holding": "When an unrepresented worker retains counsel after a QME panel is issued under LC \u00a7 4062.1 but before an evaluation occurs, the unrepresented panel is void and the parties must proceed under represented panel rules (LC \u00a7 4062.2).", "quote": "\"When an unrepresented employee retains counsel prior to the medical evaluation, the unrepresented QME panel process is terminated and the parties must initiate the represented panel process under Labor Code section 4062.2.\""}, {"category": "Duty to Develop the Medical Record", "authority": "Labor Code \u00a7 5701, \u00a7 5906", "name": "Kuykendall v. Workers' Comp. Appeals Bd.", "citation": "(2000) 79 Cal.App.4th 396, 65 CCC 264", "court": "Court of Appeal (2nd Dist.)", "year": "2000", "holding": "The WCAB and WCJ have an affirmative statutory duty to fully develop the medical record when the existing record is inadequate or incomplete, rather than rendering a 'take nothing' decision against the injured worker.", "quote": "\"The Board has wide discretion and an affirmative duty to develop the record where the medical evidence is insufficient, ambiguous, or lacks foundation, to achieve substantial justice.\""}, {"category": "Judge's Authority to Order Medical Exam", "authority": "Labor Code \u00a7 5701, \u00a7 5906", "name": "Tyler v. Workers' Comp. Appeals Bd.", "citation": "(1997) 56 Cal.App.4th 389, 62 CCC 924", "court": "Court of Appeal (2nd Dist.)", "year": "1997", "holding": "The WCJ possesses broad inherent statutory authority under LC \u00a7\u00a7 5701 and 5906 to order the taking of further medical evidence or appoint an independent medical evaluator whenever necessary to determine the truth.", "quote": "\"The workers' compensation judge has the authority to order the taking of further medical evidence or appoint an independent medical evaluator where existing reporting is unsatisfactory.\""}, {"category": "Due Process in Record Development", "authority": "Labor Code \u00a7 5701, U.S. Const. 14th Amend.", "name": "McClune v. Workers' Comp. Appeals Bd.", "citation": "(1998) 62 Cal.App.4th 1117, 63 CCC 261", "court": "Court of Appeal (4th Dist.)", "year": "1998", "holding": "Due process requires that when medical evidence is ambiguous or incomplete, the WCJ must develop the record rather than cutting off the injured worker's right to prove compensability.", "quote": "\"Due process requires that the parties be provided a full and fair opportunity to present evidence, and the Board has an obligation to order development of the record to determine industrial causation.\""}, {"category": "Remote Witness Testimony & Virtual Trials", "authority": "8 CCR \u00a7 10817, Labor Code \u00a7 5700", "name": "Perez v. Santa Ana Unified School District", "citation": "(2023) 88 Cal.Comp.Cases 1", "court": "WCAB Appeals Board En Banc", "year": "2023", "holding": "The WCAB has broad discretion to permit electronic and remote video testimony of injured workers, witnesses, and physicians upon a showing of good cause under 8 CCR \u00a7 10817.", "quote": "\"The Appeals Board has the authority and discretion to order that a trial or hearing proceed electronically via video conference upon a showing of good cause.\""}, {"category": "Medical-Legal Expenses & 60-Day Waiver", "authority": "Labor Code \u00a7 4620, \u00a7 4622, 8 CCR \u00a7 10786(f)", "name": "Spectrum Medical Group / 8 CCR \u00a7 10786 Precedent", "citation": "8 CCR \u00a7 10786(f)", "court": "DWC / WCAB Regulatory Rule", "year": "2023", "holding": "Under 8 CCR \u00a7 10786(f), if a defendant fails to file a Petition for Determination of Medical-Legal Expenses within 60 days of receiving a timely Objection to EOR, all non-threshold defense objections are waived as a matter of law.", "quote": "\"If the employer fails to file a petition within 60 days of service of the provider's objection, all objections to the billing other than threshold issues are deemed waived.\""}, {"category": "Medical-Legal Contested Claim Standard", "authority": "Labor Code \u00a7 4620, \u00a7 4621", "name": "Ashley Colamonico v. Secure Transportation", "citation": "(2019) 84 Cal.Comp.Cases 1059", "court": "WCAB Appeals Board En Banc", "year": "2019", "holding": "To establish liability for medical-legal expenses under LC \u00a7 4620: (1) a contested claim must exist at the time of evaluation; (2) expenses must be incurred to prove or disprove the contested claim; and (3) services must be reasonable and necessary.", "quote": "\"Medical-legal expenses are reimbursable when incurred for the purpose of proving or disproving a contested claim, provided the services were reasonable and necessary at the time rendered.\""}, {"category": "Med-Legal Reimbursement Regardless of Success", "authority": "Labor Code \u00a7 4620, \u00a7 4621", "name": "Subsequent Injuries Fund v. IAC (Roberson)", "citation": "(1963) 59 Cal.2d 842, 28 CCC 143", "court": "California Supreme Court", "year": "1963", "holding": "A workers' compensation claimant (and medical-legal provider) is entitled to reimbursement for medical-legal expenses reasonably incurred to prove a claim regardless of whether the claimant ultimately prevails.", "quote": "\"An employee is entitled to reimbursement for medical-legal expenses reasonably and necessarily incurred to prove a contested claim whether he is successful or not.\""}, {"category": "Tolling of SOL for Failure to Give Notice", "authority": "Labor Code \u00a7 5402, \u00a7 5405", "name": "Kaiser Foundation Hospitals v. WCAB (Martin)", "citation": "(1985) 39 Cal.3d 57, 50 CCC 507", "court": "California Supreme Court", "year": "1985", "holding": "An employer's failure to provide statutory notices of workers' compensation rights under LC \u00a7 5402 tolls the statute of limitations for the filing of medical provider claims/liens until notice is given.", "quote": "\"The statute of limitations for filing a claim or lien is tolled where the employer fails to notify the employee of his workers' compensation rights upon receiving notice of injury.\""}, {"category": "No Unauthorized Reduction of Valid Liens", "authority": "Labor Code \u00a7 4903, \u00a7 4906", "name": "Kaiser Foundation Hospitals v. WCAB (Keifer)", "citation": "(1974) 13 Cal.3d 20, 39 CCC 857", "court": "California Supreme Court", "year": "1974", "holding": "The WCAB has no authority to reduce the amount of a valid medical lien or award a compromised fraction of the lien without an evidentiary hearing and statutory basis.", "quote": "\"The Board has no statutory authority to reduce the amount of a valid lien for medical services without a full evidentiary hearing and legal justification.\""}, {"category": "Medical Report Basis for C&R Adequacy", "authority": "8 CCR \u00a7 10803(b), Labor Code \u00a7 5001", "name": "Brenda Gonzalez v. Insource Staffing", "citation": "ADJ20228986 (WCAB Decision on Recon)", "court": "WCAB Panel Decision", "year": "2026", "holding": "Where a medical provider's report was relied upon to establish the adequacy of a Compromise & Release settlement, the defendant is equitably estopped from denying the industrial compensability of that provider's services.", "quote": "\"When a medical report serves as the foundation for the Court's approval of a Compromise and Release, the defendant cannot subsequently disclaim the industrial basis of that provider's treatment.\""}, {"category": "Settlement Allocations & Zero-MSA Formula", "authority": "Labor Code \u00a7 5001", "name": "Hartman v. WCAB / Sciarotta v. WCAB", "citation": "Hartman / Sciarotta Settlement Doctrine", "court": "Court of Appeal / WCAB Practice Standard", "year": "1985", "holding": "Establishes the formula for lifetime allocation of Compromise and Release settlement proceeds across the injured worker's remaining life expectancy to minimize or eliminate Social Security Disability / Medicare offset.", "quote": "\"Settlement proceeds in a Compromise and Release may be allocated over the injured worker's statistical life expectancy to calculate monthly amortization for federal benefit offsets.\""}, {"category": "132a Discrimination Shield", "authority": "Labor Code \u00a7 132a", "name": "Judson Steel Corp. v. Workers' Comp. Appeals Bd.", "citation": "(1978) 22 Cal.3d 658, 43 CCC 1205", "court": "California Supreme Court", "year": "1978", "holding": "Labor Code \u00a7 132a prohibits an employer from discharging, threatening to discharge, or discriminating against an employee in any manner because the employee filed or declared an intent to file a workers' compensation claim.", "quote": "\"Section 132a serves as a broad shield protecting employees from retaliation for exercising their rights under the workers' compensation laws.\""}, {"category": "132a Prima Facie Case & Business Necessity", "authority": "Labor Code \u00a7 132a", "name": "Department of Rehabilitation v. WCAB (Lauher)", "citation": "(2003) 30 Cal.4th 1281, 68 CCC 831", "court": "California Supreme Court", "year": "2003", "holding": "To establish a prima facie case under LC \u00a7 132a, an employee must prove disadvantage caused by the industrial injury or claim. The employer may defend by proving 'business necessity.'", "quote": "\"An employee must show that he or she suffered some disadvantage or detriment caused by the employer's discriminatory act... the employer can avoid liability by proving real and reasonable business necessity.\""}, {"category": "Serious & Willful Misconduct (S&W)", "authority": "Labor Code \u00a7 4553", "name": "Mercer-Fraser Co. v. Industrial Acc. Com.", "citation": "(1953) 40 Cal.2d 102, 18 CCC 3", "court": "California Supreme Court", "year": "1953", "holding": "Serious and Willful Misconduct under LC \u00a7 4553 requires proving that the employer intentionally committed an act with knowledge that serious injury was a probable result, or with reckless disregard.", "quote": "\"Serious and willful misconduct is not mere negligence or gross negligence; it involves intentional conduct with knowledge that serious injury is likely to result.\""}, {"category": "Employer Duty on Meal & Rest Periods", "authority": "Labor Code \u00a7 512, IWC Wage Orders", "name": "Brinker Restaurant Corp. v. Superior Court", "citation": "(2012) 53 Cal.4th 1004", "court": "California Supreme Court", "year": "2012", "holding": "An employer satisfies its obligation to provide a 30-minute meal period by relieving the employee of all duty, relinquishing control over activities, and permitting them to leave the premises.", "quote": "\"An employer's duty with respect to meal periods is to provide them by relieving the employee of all duty and relinquishing control over how the employee spends the time.\""}, {"category": "Shifting Burden of Proof for Missing Records", "authority": "Labor Code \u00a7 1174, \u00a7 1194", "name": "Hernandez v. Mendoza", "citation": "(1988) 199 Cal.App.3d 721", "court": "Court of Appeal (2nd Dist.)", "year": "1988", "holding": "When an employer fails to keep accurate time and wage records as required by law, the employee's credible approximation of hours worked shifts the burden of proof to the employer.", "quote": "\"Where the employer fails to maintain accurate employment records, the employee satisfies his burden of proof by producing sufficient evidence to show the amount and extent of that work as a matter of just and reasonable inference.\""}, {"category": "5-Year TTD Cap & Reopening Jurisdiction", "authority": "Labor Code \u00a7 4656, \u00a7 5410, \u00a7 5804", "name": "Nickelsberg v. Workers' Comp. Appeals Bd.", "citation": "(1991) 54 Cal.3d 288, 56 CCC 476", "court": "California Supreme Court", "year": "1991", "holding": "The WCAB lacks jurisdiction to award temporary total disability (TTD) indemnity more than five years after the date of injury unless a timely petition to reopen for new and further disability was filed within five years under LC \u00a7 5410.", "quote": "\"Labor Code section 4656 establishes a strict limitation on temporary disability indemnity... the Board cannot award temporary disability beyond the five-year period absent a timely petition to reopen.\""}, {"category": "Discovery Cutoff & Evidence Exclusion", "authority": "Labor Code \u00a7 5502(d)(3), 8 CCR \u00a7 10670", "name": "DPR Construction et al. v. WCAB (McClanahan)", "citation": "(2025) 107 Cal.App.5th ___ [2025 Cal. App. LEXIS 378]", "court": "Court of Appeal (Third Appellate Dist.)", "year": "2025", "holding": "Discovery strictly closes at the MSC under LC \u00a7 5502(d)(3). Admitting evidence not listed on the Pre-Trial Conference Statement exceeds WCAB jurisdiction and is strictly NOT SUBJECT TO HARMLESS ERROR ANALYSIS. Lack of prejudice cannot excuse failure to list evidence.", "quote": "\"Disregard of the statutory procedural mechanisms for resolving workers\u2019 compensation cases is inappropriate... Such disregard is not subject to harmless error analysis... The absence of prejudice cannot be the deciding factor.\""}, {"category": "AOE / COE & Vulnerability (Take Employee As You Find Him)", "authority": "Labor Code \u00a7 3600, \u00a7 3202", "name": "Lamb v. Workmen's Comp. Appeals Bd.", "citation": "(1974) 11 Cal.3d 274, 39 CCC 310", "court": "California Supreme Court", "year": "1974", "holding": "The employer takes the employee as he finds him (take the client/applicant as you find them). Industry takes the employee as it finds him. A pre-existing pathology or idiosyncratic predisposition does not preclude compensation where employment activities light up, aggravate, or accelerate the condition.", "quote": "\"Industry takes the employee as it finds him. A person suffering from a pre-existing disease who is disabled by an abnormal strain or condition in his work is entitled to compensation even though a normal employee would not have been so disabled.\""}, {"category": "AOE / COE & Susceptibility (Eggshell Applicant)", "authority": "Labor Code \u00a7 3600, \u00a7 4663", "name": "Ballard v. Workmen's Comp. App. Bd.", "citation": "(1971) 3 Cal.3d 832, 36 CCC 34", "court": "California Supreme Court", "year": "1971", "holding": "An employer takes the employee subject to his condition when he enters the employment; even if the employee is uniquely or unusually susceptible to injury or addiction from prescribed medications, full compensation is awarded without apportionment.", "quote": "\"An employer takes the employee as he finds him at the time of employment. The employer may be held liable for disability resulting from the aggravation of a preexisting condition or idiosyncratic susceptibility.\""}, {"category": "AOE / COE & Dormant Pathology (Lighting Up)", "authority": "Labor Code \u00a7 3600, \u00a7 4663", "name": "Tanenbaum v. Industrial Acc. Com.", "citation": "(1935) 4 Cal.2d 615", "court": "California Supreme Court", "year": "1935", "holding": "Where employment activity lights up or activates a previously dormant, non-disabling pre-existing pathology, the resulting disability is industrial. Apportionment is only permitted if the pre-existing pathology was independently producing disability prior to industrial aggravation.", "quote": "\"The acceleration, aggravation, or 'lighting up' of a pre-existing disease or condition by work constitutes an industrial injury.\""}, {"category": "Bad-Faith Litigation & Scattershot Objections Sanctions", "authority": "Labor Code \u00a7 5813, 8 CCR \u00a7 10421", "name": "Super Wash Express v. WCAB (Garcia)", "citation": "(2009) 74 Cal.Comp.Cases 1459", "court": "WCAB Appeals Board / Panel Precedent", "year": "2009", "holding": "Filing blanket, scattershot, or boilerplate objections and petitions without an evidentiary foundation or without conducting a reasonable investigation is frivolous and in bad faith under Labor Code \u00a7 5813, justifying monetary sanctions and applicant attorney's fees.", "quote": "\"Asserting scattershot and blanket defense objections without factual verification or evidence constitutes bad-faith, frivolous tactics warranting sanctions under section 5813.\""}, {"category": "Discovery Abuse & Scattershot Privilege Assertions Barred", "authority": "Labor Code \u00a7 5710, Evid. Code \u00a7 917", "name": "Martin v. Workers' Comp. Appeals Bd.", "citation": "(1997) 59 Cal.App.4th 333, 62 CCC 1500", "court": "Court of Appeal (2nd Dist.)", "year": "1997", "holding": "Carriers cannot assert blanket or scattershot claims of attorney-client or work-product privilege to suppress discoverable claim logs and investigation notes. Defendants are mandated to provide an itemized privilege log.", "quote": "\"Blanket, scattershot assertions of privilege are prohibited; a party asserting privilege must specify each individual document and the specific legal ground for withholding it.\""}, {"category": "No Apportionment of Temporary Disability or Medical Treatment", "authority": "Labor Code \u00a7 4600, \u00a7 4650", "name": "Granado v. Workmen's Comp. App. Bd.", "citation": "(1968) 69 Cal.2d 399, 33 CCC 647", "court": "California Supreme Court", "year": "1968", "holding": "Temporary disability indemnity (TTD) and medical treatment (Labor Code \u00a7 4600) cannot be apportioned to non-industrial conditions. Even where permanent disability is apportioned, medical care and TTD are 100% the carrier's responsibility.", "quote": "\"There can be no apportionment of temporary disability or medical care; the employer is liable for the full cost of medical treatment and full temporary disability so long as employment is a contributing cause.\""}, {"category": "Attendant Care & Medical Treatment Scope", "authority": "Labor Code \u00a7 4600", "name": "Braewood Convalescent Hospital v. WCAB (Bolton)", "citation": "(1983) 34 Cal.3d 159, 48 CCC 566", "court": "California Supreme Court", "year": "1983", "holding": "Medical treatment under Labor Code \u00a7 4600 broadly encompasses any treatment reasonably required to cure or relieve, including medically supervised weight reduction, attendant nursing care, and out-of-pocket lodging/travel expenses.", "quote": "\"The employer must provide all treatment reasonably required to cure or relieve the employee from the effects of the injury, including attendant home care and specialized programs.\""}];
+        const defenseTraps = [{"name": "The Defective UR / Dubon Invalidation", "code": "LC \u00a7 4610, 8 CCR \u00a7 9792.9.1", "case": "Dubon II / Bodam / Castillo (En Banc)", "blunder": "Carrier/UR issues denial late (over 5 business days from complete RFA) or fails to telephone/fax requesting doctor within 24 hours of decision.", "remedy": "UR decision is legally void; IMR does NOT apply; WCAB Judge has full jurisdiction to award requested medical treatment based on PTP report.", "roadmap": "1. Subpoena UR fax logs & RFA receipt timestamp.\n2. File DOR on Expedited Medical Treatment.\n3. Request finding of invalid UR under Dubon II."}, {"name": "The 90-Day Liability Presumption Trap", "code": "Labor Code \u00a7 5402(b)", "case": "Welcher (1995) 31 Cal.App.4th 90", "blunder": "Carrier delays decision on DWC-1 claim form past 90 days without issuing written Notice of Denial.", "remedy": "Injury is presumed compensable AOE/COE. All evidence discoverable within the 90 days is EXCLUDED at trial.", "roadmap": "1. File Motion in Limine on Day of Trial.\n2. Exclude defense QMEs, sub-rosa video, and witness declarations obtained after 90 days."}, {"name": "The 45-Day COVID Outbreak Default", "code": "Labor Code \u00a7 3212.88", "case": "Statutory COVID Outbreak Rule", "blunder": "Carrier fails to reject liability within 45 days for employee who tested positive during active workplace outbreak.", "remedy": "Industrial causation is presumed by law. Carrier barred from introducing prior discoverable evidence.", "roadmap": "1. Establish outbreak via employer COVID tracker/PMQ depo.\n2. Prove positive PCR within 14 days of work.\n3. Move for compensability finding."}, {"name": "Frivolous Defense Trial Sanctions", "code": "LC \u00a7 5813, 8 CCR \u00a7 10421", "case": "Tito Torres (2012) 77 CCC 1113 (En Banc)", "blunder": "Defense counsel pushes matter to trial without substantial medical evidence, asserting baseless or contradicted defenses.", "remedy": "Monetary sanctions + full reasonable attorney's fees + costs awarded against carrier and defense attorney jointly/severally.", "roadmap": "1. Serve 10-day Meet & Confer letter under 8 CCR \u00a7 10761.\n2. File Petition for Sanctions under LC \u00a7 5813.\n3. Attach Exhibit 1 itemized time declaration."}, {"name": "Fabricated Citation / AI Hallucination Trap", "code": "LC \u00a7 5813, 8 CCR \u00a7 10421", "case": "Arias v. WCAB (ADJ16902178)", "blunder": "Opposing counsel (or sloppy practitioner) submits brief with fake, hallucinated, or modified citations.", "remedy": "Direct monetary sanction against attorney/representative for bad-faith litigation conduct to preserve judicial integrity.", "roadmap": "1. Cross-reference opposing brief citations against official Lexis/Cal.Comp.Cases.\n2. File Objection & Request for Sanctions under Arias/Torres."}, {"name": "Unreasonable Delay Penalty Multiplier", "code": "Labor Code \u00a7 5814, \u00a7 5814.5", "case": "Kerley (1971) / Barnes (2005) / Ramirez", "blunder": "Carrier delays TTD, PD, or medical mileage without genuine medical or legal doubt.", "remedy": "25% penalty up to $10,000 per separate act of delay + mandatory attorney's fees under LC \u00a7 5814.5.", "roadmap": "1. Send formal demand with 10-day cure.\n2. Calculate exact 25% penalty on all delayed sums.\n3. File LC \u00a7 5814 petition + \u00a7 5814.5 fee petition."}, {"name": "Duty to Pay upon QME Finding", "code": "Labor Code \u00a7 4063", "case": "LC \u00a7 4063 Statutory Mandate", "blunder": "State Panel QME issues report finding industrial injury/disability; carrier maintains blanket denial.", "remedy": "Direct statutory violation; eliminates genuine legal doubt; triggers maximum \u00a7 5814 penalties and sanctions.", "roadmap": "1. Serve QME report with formal demand under LC \u00a7 4063.\n2. If unpaid within 14 days, file \u00a7 5814 penalty petition."}, {"name": "The Belated / Unlisted Exhibit Trap (DPR Strict Bar)", "code": "LC \u00a7 5502(d)(3), 8 CCR \u00a7 10670", "case": "DPR Construction v. WCAB (McClanahan) (2025)", "blunder": "Carrier dumps unlisted medical records, MPN letters, or investigation reports on FileNet after the MSC or on the eve of trial.", "remedy": "Immediate mandatory exclusion of evidence. Annulment of any award relying on unlisted evidence. Harmless error and lack of prejudice defenses are legally barred.", "roadmap": "1. Object on the record at trial.\n2. Cite DPR Construction (2025) holding that Section 5502(d)(3) is jurisdictional and NOT subject to harmless error.\n3. Demand order excluding exhibit and striking defense reliance."}, {"name": "The MSC Discovery Cutoff Trap / DPR Construction Hammer", "code": "Labor Code \u00a7 5502(d)(3), 8 CCR \u00a7 10670", "case": "DPR Construction et al. v. WCAB (McClanahan) (2025)", "blunder": "Carrier attempts to introduce unlisted medical reports, surveillance, or personnel records at trial, arguing absence of prejudice or harmless error.", "remedy": "Evidence is strictly inadmissible. Section 5502(d)(3) discovery closure is jurisdictional and strictly NOT SUBJECT TO HARMLESS ERROR ANALYSIS. Lack of prejudice cannot excuse carrier failure to list evidence on PTCS.", "roadmap": "1. Object immediately on the record at trial call under LC \u00a7 5502(d)(3).\n2. Cite DPR Construction (2025) and McKenzie (1999).\n3. State: 'Admitting unlisted exhibits exceeds Board jurisdiction and cannot be excused by harmless error or lack of prejudice.'\n4. Move to exclude exhibit with prejudice."}, {"name": "The Scattershot & Boilerplate Defense Objection Trap", "code": "Labor Code \u00a7 5813, 8 CCR \u00a7 10421", "case": "Super Wash Express v. WCAB (Garcia) (2009); Martin (1997)", "blunder": "Carrier files shotgun, scattershot objections to DOR, medical treatment, or DOR trial without verifying factual basis or conducting reasonable investigation.", "remedy": "Sanctions up to $2,500 payable to State General Fund plus mandatory applicant attorney's fees under LC \u00a7 5813 and 8 CCR \u00a7 10421.", "roadmap": "1. Issue 10-day safe harbor meet-and-confer demanding defense withdraw scattershot objections or provide evidence.\n2. Subpoena claims adjuster investigation notes.\n3. File Petition for Sanctions and Attorney's Fees under LC \u00a7 5813 citing Super Wash Express."}, {"name": "The Lien Inactive Dismissal Trap (Mandatory Notice of Intention)", "code": "8 CCR \u00a7 10888, Labor Code \u00a7 4903.5", "case": "8 CCR \u00a7 10888 Regulatory Precedent", "blunder": "Carrier moves to dismiss lien for lack of prosecution without serving formal Notice of Intention or without proving proper service of trial notices.", "remedy": "Dismissal order is void for violation of due process. Lien is reinstated with statutory interest running under LC \u00a7 5800.", "roadmap": "1. File Petition for Reconsideration within 25 days under 8 CCR \u00a7 10888.\n2. Establish lack of statutory 10-day Notice of Intention.\n3. Demand reinstatement and setting for Lien Conference."}];
+        const masterDivisions = [{"number": "I", "title": "Injury Causation & Compensability", "chapters": [{"id": "ch1", "title": "Cumulative Trauma & Progressive Conditions", "codes": "LC \u00a7\u00a7 3208.1, 5412, 5500.5", "key_cases": "Beveridge; Collett; Western Growers", "summary": "Establishing cumulative trauma date of injury (first concurrence of disability and knowledge). Defeating carrier statute of limitations defenses."}, {"id": "ch2", "title": "Compensable Consequences & Vulnerability (Take Employee As You Find Him)", "codes": "LC \u00a7\u00a7 3600, 4663", "key_cases": "Lamb; Ballard; Tanenbaum; South Coast Framing", "summary": "Industry takes the employee as it finds him. Pre-existing susceptibility or dormant pathology does not defeat industrial causation where work lights up the condition."}, {"id": "ch3", "title": "Psychiatric Injury Thresholds & 6-Month Bar", "codes": "LC \u00a7 3208.3", "key_cases": "Lockheed Martin; Rolda; Verga", "summary": "Meeting the predominant cause (51%) standard vs violent act/catastrophic injury (35%-40%) thresholds. Overcoming the 6-month employment bar."}]}, {"number": "II", "title": "Medical Treatment & Utilization Review (UR)", "codes": "LC \u00a7\u00a7 4600, 4610, 4610.5", "chapters": [{"id": "ch4", "title": "Defective UR & The Dubon / Bodam Invalidation Hammer", "codes": "LC \u00a7 4610, 8 CCR \u00a7 9792.9.1", "key_cases": "Dubon II (En Banc); Bodam; Castillo", "summary": "If UR decision is issued late or fails statutory service rules, UR is legally VOID. Jurisdiction reverts directly to the WCJ to award treatment without IMR."}, {"id": "ch5", "title": "Medical Provider Network (MPN) Invalidation & Free Choice", "codes": "LC \u00a7 4616, 8 CCR \u00a7 9767.12", "key_cases": "Valdez (Supreme Court); Knight", "summary": "Neglecting statutory MPN notices or failing to provide 3 physician choices allows Applicant to treat outside MPN at defense expense."}, {"id": "ch6", "title": "Medical Treatment Expenses & Attendant Care", "codes": "LC \u00a7\u00a7 4600, 4603.2", "key_cases": "Braewood (Supreme Court); Granado; Henson", "summary": "No apportionment of medical care. Employer is liable for full cost of treatment including weight reduction, home health, attendant care, and medical mileage."}]}, {"number": "III", "title": "QME & AME Medical-Legal Evaluations", "codes": "LC \u00a7\u00a7 4060, 4061, 4062, 4062.1, 4062.2, 4062.3", "chapters": [{"id": "ch7", "title": "LC \u00a7 4062.3 Communication vs. Information & Panel Striking", "codes": "LC \u00a7 4062.3, 8 CCR \u00a7 35", "key_cases": "Maxham (En Banc); Alvarez; Suon", "summary": "Prohibits ex parte communication and unserved advocacy letters. Strict separation between permissible communication and factual information."}, {"id": "ch8", "title": "Replacement Panels & Deposition Non-Compliance", "codes": "8 CCR \u00a7\u00a7 31.1, 31.5, 34", "key_cases": "Navarro; Romero; Cortina", "summary": "Striking evaluators who fail to issue timely reports within 30 days or refuse reasonable deposition scheduling."}, {"id": "ch9", "title": "Additional Panel QMEs Across Multiple Specialties", "codes": "LC \u00a7 4062.2, 8 CCR \u00a7 31.7", "key_cases": "Navarro (En Banc); Covarrubias Motion Practice", "summary": "Securing separate panels in psychology, neurology, and internal medicine where PTP requests consultations outside original orthopedic specialty."}]}, {"number": "IV", "title": "Permanent Disability, Rating & Apportionment", "codes": "LC \u00a7\u00a7 4660, 4660.1, 4663, 4664", "chapters": [{"id": "ch10", "title": "Apportionment & Overcoming Pre-Existing Pathology", "codes": "LC \u00a7 4663", "key_cases": "Mercado (2020); Lindh; Escobedo", "summary": "Carrier cannot apportion to asymptomatic non-disabling pathology. Doctor must establish causation of permanent disability, not causation of pathology."}, {"id": "ch11", "title": "Combined Values Chart (CVC) vs. Synergistic Rating (Kite)", "codes": "1997 / 2005 PDRS, AMA Guides", "key_cases": "Kite (En Banc); Hegglin; Athens", "summary": "When multiple disabilities overlap synergistically, rating must add disabilities rather than mechanically deflate them via the Combined Values Chart."}, {"id": "ch12", "title": "100% Permanent Total Disability & LeBoeuf Vocational Inability", "codes": "LC \u00a7 4662", "key_cases": "LeBoeuf; Ogilvie; Dahl", "summary": "Establishing 100% permanent disability where medical conditions preclude vocational retraining, even if medical AMA rating is below 100%."}]}, {"number": "V", "title": "Discovery, Depositions & Attorney's Fees (LC \u00a7 5710)", "codes": "LC \u00a7\u00a7 5710, 5307, 5708", "chapters": [{"id": "ch13", "title": "Applicant Depositions & Mandatory 5710 Attorney Fees", "codes": "LC \u00a7 5710", "key_cases": "Mitchell; City of Petaluma; Ferguson", "summary": "Defense carrier must pay reasonable attorney fees for defending employee deposition. Petitions for 5710 fees, interest, and costs."}, {"id": "ch14", "title": "Subpoenas, Motions to Quash & Scattershot Privilege Log", "codes": "LC \u00a7 130, 8 CCR \u00a7 10670", "key_cases": "Martin (Court of Appeal); Hardesty; Allison", "summary": "Blanket, scattershot assertions of privilege are barred. Eliminates trial by ambush; carriers must provide itemized privilege logs."}, {"id": "ch15", "title": "Petitions to Compel Discovery & Sanctions", "codes": "LC \u00a7 5813, 8 CCR \u00a7 10421", "key_cases": "Super Wash Express (Garcia); Hearn; Munoz", "summary": "Sanctioning scattershot defense denials and compelling unredacted claims logs."}]}, {"number": "VI", "title": "Settlements, Compromise & Release (C&R) & Liens", "codes": "LC \u00a7\u00a7 5000, 5001, 5002, 4903", "chapters": [{"id": "ch16", "title": "Compromise & Release Adequacy & Evidentiary Admission", "codes": "LC \u00a7 5001, 8 CCR \u00a7 10803(b)", "key_cases": "Camarena; Brenda Gonzalez v. Insource Staffing", "summary": "Medical reports relied upon for C&R approval are deemed admitted into evidence as a matter of law, estopping subsequent denial."}, {"id": "ch17", "title": "Medicare Set-Aside (MSA) & Lifetime Sciarotta Allocations", "codes": "42 U.S.C. \u00a7 1395y(b)", "key_cases": "Sciarotta; Hartman Formula", "summary": "Amortizing settlement proceeds over remaining life expectancy to eliminate federal offsets and protect future medical benefits."}, {"id": "ch18", "title": "Resolving Medical Treatment & Copy Service Liens at Settlement", "codes": "LC \u00a7 4903, 8 CCR \u00a7 10700", "key_cases": "Kaiser v. Keifer; Zenith (Capi); Gregory Formula", "summary": "No unauthorized judicial reduction of valid medical liens without evidentiary hearing. Handling hold harmless clauses."}]}, {"number": "VII", "title": "Pre-Trial, MSC & Discovery Cutoff (DPR Construction Strict Cutoff)", "codes": "LC \u00a7 5502(d)(3), 8 CCR \u00a7 10670", "chapters": [{"id": "ch19", "title": "MSC Discovery Closure & The DPR Construction Strict Mandate", "codes": "LC \u00a7 5502(d)(3), 8 CCR \u00a7 10670", "key_cases": "DPR Construction v. WCAB (McClanahan) (2025) 107 Cal.App.5th ___; McKenzie", "summary": "Discovery strictly closes at the MSC. Late or unlisted evidence is inadmissible. The Court of Appeal held Section 5502(d)(3) closure is jurisdictional and strictly NOT SUBJECT TO HARMLESS ERROR ANALYSIS. Defense lack of prejudice arguments are barred."}, {"id": "ch20", "title": "Pre-Trial Conference Statement (PTCS) Strategy", "codes": "8 CCR \u00a7 10670", "key_cases": "Rucker (Court of Appeal); County of Sacramento", "summary": "Locking in defense exhibits and witnesses; barring unlisted defenses and preserving sanctions claims."}, {"id": "ch21", "title": "Continuances, Orders Taking Off Calendar (OTOC) & Good Cause", "codes": "8 CCR \u00a7 10744", "key_cases": "Brown; City of Los Angeles", "summary": "Defeating defense delay tactics; strict standards for showing good cause."}]}, {"number": "VIII", "title": "Trial, Evidence & Duty to Develop Record", "codes": "LC \u00a7\u00a7 5700, 5701, 5703, 5708", "chapters": [{"id": "ch22", "title": "Constitutional Due Process Duty to Develop Record", "codes": "LC \u00a7\u00a7 5701, 5906", "key_cases": "Tyler; McClune; Kuykendall", "summary": "When medical evidence is incomplete, judge cannot simply rule against injured worker; judge has a mandatory duty to develop the record."}, {"id": "ch23", "title": "Trial Procedures, Witness Exclusion & Cross-Examination", "codes": "8 CCR \u00a7 10818, LC \u00a7 5708", "key_cases": "Martinez; Fremont", "summary": "Rules of direct examination, cross-examining QMEs, and excluding defense surprise surveillance video."}, {"id": "ch24", "title": "Automatic Admission of Medical Evidence on File", "codes": "8 CCR \u00a7 10803(b)", "key_cases": "Rule 10803(b) Mandate", "summary": "Eliminating defense technical admission objections when medical reports are in EAMS prior to award approval."}]}, {"number": "IX", "title": "Penalties, Attorney's Fees & Sanctions", "codes": "LC \u00a7\u00a7 5814, 5814.5, 5813, 5800", "chapters": [{"id": "ch25", "title": "Mandatory 25% Penalties for Unreasonable Delay (LC \u00a7 5814)", "codes": "LC \u00a7 5814", "key_cases": "Kerley; Gallamore; Christian; Ramirez", "summary": "Mandatory 25% penalty up to $10,000 for unreasonable delay in indemnity or medical treatment. Genuine doubt defense strictly audited."}, {"id": "ch26", "title": "Separate Attorney's Fees for Enforcing Penalties (LC \u00a7 5814.5)", "codes": "LC \u00a7 5814.5", "key_cases": "Ramirez (En Banc); Purvis Cowens", "summary": "When employee enforces payment of compensation subsequent to an award, carrier must pay applicant's attorney fees for bringing the petition."}, {"id": "ch27", "title": "Sanctions for Scattershot & Bad-Faith Litigation Tactics (LC \u00a7 5813)", "codes": "LC \u00a7 5813, 8 CCR \u00a7 10421", "key_cases": "Super Wash Express (Garcia); Tito Torres; Arias", "summary": "Up to $2,500 sanction payable to General Fund plus attorney's fees for scattershot objections, bad-faith denials, or fabricated citations."}]}, {"number": "X", "title": "Post-Award Proceedings, Reconsideration & Writs", "codes": "LC \u00a7\u00a7 5900, 5903, 5950", "chapters": [{"id": "ch28", "title": "Petitions for Reconsideration: Standards & 25-Day Window", "codes": "LC \u00a7\u00a7 5900, 5903, 8 CCR \u00a7 10605", "key_cases": "LeVesque; Lamb; Braewood", "summary": "Filing within 20 + 5 days. Substantial evidence standard and challenging erroneous legal conclusions."}, {"id": "ch29", "title": "Petitions for Removal of Non-Final Orders", "codes": "LC \u00a7 5310, 8 CCR \u00a7 10955", "key_cases": "Cortez; Hamilton", "summary": "Showing irreparable harm or substantial prejudice to overturn procedural or discovery orders prior to trial."}, {"id": "ch30", "title": "Petitions for Writ of Review in Court of Appeal", "codes": "LC \u00a7 5950", "key_cases": "California Appellate Rules", "summary": "Filing within 45 days of denial of Reconsideration. Appellate review standards and fee recovery under LC \u00a7 5801."}]}, {"number": "XI", "title": "Medical-Legal Fee Schedule & Lien Litigation", "codes": "LC \u00a7\u00a7 4620, 4621, 4622, 4903, 8 CCR \u00a7 9795", "chapters": [{"id": "ch31", "title": "The Active Medical-Legal Fee Schedule (8 CCR \u00a7 9795)", "codes": "8 CCR \u00a7 9795", "key_cases": "Colamonico; Spectrum Medical", "summary": "Flat-fee codes (ML 201 $2,015; ML 202 $1,315; ML 203 $650) plus $3.00/page record review and mandatory declarations."}, {"id": "ch32", "title": "The 60-Day Medical-Legal Default Waiver Hammer (8 CCR \u00a7 10786)", "codes": "8 CCR \u00a7 10786, LC \u00a7 4622", "key_cases": "Colamonico (En Banc)", "summary": "Complete waiver of affirmative defenses if carrier does not file a Petition for Determination within 60 days of EOR objection."}, {"id": "ch33", "title": "Copy Service Liens & Subpoena Fee Schedule", "codes": "8 CCR \u00a7 9980 et seq.", "key_cases": "Otis; Pacific Coast", "summary": "Flat fee $180 up to 500 pages + page rates. Defeating carrier failure-to-serve objections."}, {"id": "ch34", "title": "Lien Conferences, Lien Trials & Defense Burden of Proof", "codes": "8 CCR \u00a7 10875, 8 CCR \u00a7 10888, LC \u00a7 4903, \u00a7 5705", "key_cases": "Zenith v. WCAB (Capi); Tito Torres; Keifer; Henson", "summary": "Defending and enforcing medical and medical-legal liens. Carrier cannot obtain dismissal without formal 10-day Notice of Intention under 8 CCR \u00a7 10888."}]}];
+
+        // Global Search State
+        let activeOmniFilter = 'all';
+        let currentSearchQuery = '';
+        let lastActiveTab = 'crosswalk';
+        let cachedOmniMatches = {
+            cases: [],
+            rules: [],
+            traps: [],
+            chapters: []
+        };
+
+        // Initialize App
+        document.addEventListener('DOMContentLoaded', () => {
+            renderConcordance();
+            renderCaseLaw();
+            renderTraps();
+            renderDivisions();
+            renderNavTree();
+            updateCalc();
+            renderRecentSearches();
+        });
+
+        function switchTab(tabId, clickedBtn) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            
+            const targetPane = document.getElementById('tab-' + tabId);
+            if (targetPane) targetPane.classList.add('active');
+
+            if (clickedBtn) {
+                clickedBtn.classList.add('active');
+            } else {
+                const btn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`) || 
+                            Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick') && b.getAttribute('onclick').includes(tabId));
+                if (btn) btn.classList.add('active');
+            }
+            
+            if (tabId !== 'omnisearch') {
+                lastActiveTab = tabId;
+            }
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            document.documentElement.setAttribute('data-theme', current === 'light' ? 'dark' : 'light');
+        }
+
+        // Dynamic Recent Searches Storage & Rendering
+        const RECENT_SEARCHES_KEY = 'wcab_recent_searches_history';
+        const DEFAULT_RECENT_SEARCHES = ['DPR Construction', 'take applicant as you find them', 'lien', 'Escobedo', 'Dubon', 'scattershot'];
+
+        function getRecentSearches() {
+            try {
+                const raw = localStorage.getItem(RECENT_SEARCHES_KEY);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+                }
+            } catch(e) {}
+            return DEFAULT_RECENT_SEARCHES;
+        }
+
+        function saveRecentSearch(term) {
+            if (!term || typeof term !== 'string') return;
+            const clean = term.trim();
+            if (clean.length < 2) return;
+            let list = getRecentSearches();
+            list = list.filter(item => item.toLowerCase() !== clean.toLowerCase());
+            list.unshift(clean);
+            if (list.length > 8) list = list.slice(0, 8);
+            try {
+                localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(list));
+            } catch(e) {}
+            renderRecentSearches();
+        }
+
+        function clearRecentSearches() {
+            try {
+                localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify([]));
+            } catch(e) {}
+            renderRecentSearches();
+        }
+
+        function renderRecentSearches() {
+            const container = document.getElementById('recentSearchesChips');
+            const clearBtn = document.getElementById('clearRecentBtn');
+            if (!container) return;
+            const list = getRecentSearches();
+            if (list.length === 0) {
+                container.innerHTML = '<span style="font-size: 0.72rem; color: var(--text-muted); font-style: italic; padding: 0.25rem 0;">No recent searches</span>';
+                if (clearBtn) clearBtn.style.display = 'none';
+                return;
+            }
+            if (clearBtn) clearBtn.style.display = 'inline-block';
+            container.innerHTML = list.map(item => `
+                <button class="chip" onclick="quickSearch('${escapeHtmlAttr(item)}')">🕒 ${escapeHtmlAttr(item)}</button>
+            `).join('');
+        }
+
+        // Quick Search Chip Handler
+        function quickSearch(phrase) {
+            const input = document.getElementById('searchInput');
+            input.value = phrase;
+            saveRecentSearch(phrase);
+            doOmnisearch();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Clear Search Handler
+        function clearSearch() {
+            const input = document.getElementById('searchInput');
+            input.value = '';
+            document.getElementById('clearSearchBtn').style.display = 'none';
+            document.getElementById('omniTabBtn').style.display = 'none';
+            currentSearchQuery = '';
+            switchTab(lastActiveTab || 'crosswalk');
+            renderNavTree();
+        }
+
+        // Text Matching Utility
+        function normalizeText(txt) {
+            return String(txt || '')
+                .toLowerCase()
+                .replace(/[^a-zA-Z0-9]/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        function textMatches(haystack, query) {
+            if (!haystack || !query) return false;
+            const h = normalizeText(haystack);
+            const rawTokens = query.toLowerCase().split(/\s+/).filter(t => t.length > 0);
+            
+            // Check full phrase match first
+            const normalizedQ = normalizeText(query);
+            if (h.includes(normalizedQ)) return true;
+
+            // Check individual token presence
+            return rawTokens.every(tok => {
+                const cleanTok = normalizeText(tok);
+                return cleanTok ? h.includes(cleanTok) : true;
+            });
+        }
+
+        function escapeHtmlAttr(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
+
+        function highlightMatch(text, query) {
+            if (!query || !text) return text || '';
+            const terms = query.split(/\s+/).filter(t => t.length > 1);
+            if (terms.length === 0) return text;
+            try {
+                const escaped = terms.map(t => t.replace(/[^a-zA-Z0-9]/g, '')).filter(t => t.length > 1);
+                if (escaped.length === 0) return text;
+                const regex = new RegExp('(' + escaped.join('|') + ')', 'gi');
+                return String(text).replace(regex, '<mark class="hl">$1</mark>');
+            } catch(e) {
+                return text;
+            }
+        }
+
+        // Fluid Omnisearch Engine
+        let searchDebounceTimer = null;
+        function doOmnisearch() {
+            const input = document.getElementById('searchInput');
+            const q = input.value.trim();
+            const clearBtn = document.getElementById('clearSearchBtn');
+            clearBtn.style.display = q.length > 0 ? 'block' : 'none';
+
+            if (q.length === 0) {
+                clearSearch();
+                return;
+            }
+
+            clearTimeout(searchDebounceTimer);
+            if (q.length >= 2) {
+                searchDebounceTimer = setTimeout(() => {
+                    saveRecentSearch(q);
+                }, 750);
+            }
+
+            currentSearchQuery = q;
+            const activePane = document.querySelector('.tab-pane.active')?.id.replace('tab-', '');
+            if (activePane && activePane !== 'omnisearch') {
+                lastActiveTab = activePane;
+            }
+
+            // Show and switch to Omnisearch Tab
+            const omniBtn = document.getElementById('omniTabBtn');
+            omniBtn.style.display = 'inline-flex';
+            switchTab('omnisearch', omniBtn);
+
+            // Filter Across All 4 Data Stores
+            cachedOmniMatches.cases = caseLawData.filter(c => {
+                const s = `${c.name} ${c.citation} ${c.category} ${c.authority} ${c.holding} ${c.quote} ${c.court} ${c.year}`;
+                return textMatches(s, q);
+            });
+
+            cachedOmniMatches.rules = concordanceRules.filter(r => {
+                const s = `${r.old_rule} ${r.new_rule} ${r.title} ${r.hammer} ${r.authority}`;
+                return textMatches(s, q);
+            });
+
+            cachedOmniMatches.traps = defenseTraps.filter(t => {
+                const s = `${t.name} ${t.code} ${t.case} ${t.blunder} ${t.remedy} ${t.roadmap}`;
+                return textMatches(s, q);
+            });
+
+            cachedOmniMatches.chapters = [];
+            masterDivisions.forEach(d => {
+                d.chapters.forEach(c => {
+                    const s = `Division ${d.number} ${d.title} ${d.codes || ''} ${c.title} ${c.codes || ''} ${c.key_cases || ''} ${c.summary || ''}`;
+                    if (textMatches(s, q)) {
+                        cachedOmniMatches.chapters.push({
+                            ...c,
+                            divisionNumber: d.number,
+                            divisionTitle: d.title
+                        });
+                    }
+                });
+            });
+
+            const total = cachedOmniMatches.cases.length + cachedOmniMatches.rules.length + cachedOmniMatches.traps.length + cachedOmniMatches.chapters.length;
+
+            // Update Counts in UI
+            document.getElementById('omniTotalCount').innerText = total;
+            document.getElementById('countAll').innerText = total;
+            document.getElementById('countCases').innerText = cachedOmniMatches.cases.length;
+            document.getElementById('countRules').innerText = cachedOmniMatches.rules.length;
+            document.getElementById('countTraps').innerText = cachedOmniMatches.traps.length;
+            document.getElementById('countChapters').innerText = cachedOmniMatches.chapters.length;
+
+            document.getElementById('omniHeading').innerText = `${total} Result${total === 1 ? '' : 's'} for "${q}"`;
+            document.getElementById('omniSubheading').innerText = `Instant matches across ${cachedOmniMatches.cases.length} Precedents, ${cachedOmniMatches.rules.length} 8 CCR Rules, ${cachedOmniMatches.traps.length} Defense Traps, and ${cachedOmniMatches.chapters.length} Practice Chapters.`;
+
+            // Filter nav tree in sidebar
+            renderNavTree(q);
+
+            // Render Omnisearch Cards
+            renderOmniCards(q);
+        }
+
+        function filterOmniCategory(cat, btn) {
+            activeOmniFilter = cat;
+            document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderOmniCards(currentSearchQuery);
+        }
+
+        function renderOmniCards(q) {
+            const grid = document.getElementById('omniResultsGrid');
+            const cat = activeOmniFilter;
+            let cards = [];
+
+            // Case Law Cards
+            if (cat === 'all' || cat === 'cases') {
+                cachedOmniMatches.cases.forEach(c => {
+                    cards.push(`
+                        <div class="rule-card">
+                            <div class="rule-badge-row">
+                                <span class="badge-new">⚖ CASE PRECEDENT • ${c.category}</span>
+                                <span class="badge-old">${c.year} • ${c.court}</span>
+                            </div>
+                            <div class="rule-title">${highlightMatch(c.name, q)}</div>
+                            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--gold-light);">
+                                ${highlightMatch(c.citation, q)} • ${highlightMatch(c.authority, q)}
+                            </div>
+                            <div class="rule-hammer">${highlightMatch(c.holding, q)}</div>
+                            ${c.quote ? `<div style="font-style: italic; font-size: 0.8rem; color: var(--text-muted);">${highlightMatch(c.quote, q)}</div>` : ''}
+                            <div class="rule-footer">
+                                <span>Official Precedent</span>
+                                <button class="copy-btn" data-cite="${escapeHtmlAttr(c.name + ' ' + c.citation)}" onclick="copyFromBtn(this)">📋 Copy Cite</button>
+                            </div>
+                        </div>
+                    `);
+                });
+            }
+
+            // Regulatory Rules Cards
+            if (cat === 'all' || cat === 'rules') {
+                cachedOmniMatches.rules.forEach(r => {
+                    cards.push(`
+                        <div class="rule-card">
+                            <div class="rule-badge-row">
+                                <span class="badge-old">${highlightMatch(r.old_rule, q)} (Legacy)</span>
+                                <span style="color: var(--text-muted); font-size: 0.8rem;">➔</span>
+                                <span class="badge-new">${highlightMatch(r.new_rule, q)} (Active 2026)</span>
+                            </div>
+                            <div class="rule-title">${highlightMatch(r.title, q)}</div>
+                            <div class="rule-hammer">${highlightMatch(r.hammer, q)}</div>
+                            <div class="rule-footer">
+                                <span>Authority: ${highlightMatch(r.authority, q)}</span>
+                                <button class="copy-btn" data-cite="${escapeHtmlAttr(r.new_rule + ' [formerly ' + r.old_rule + ']; ' + r.authority)}" onclick="copyFromBtn(this)">📋 Copy Cite</button>
+                            </div>
+                        </div>
+                    `);
+                });
+            }
+
+            // Defense Traps Cards
+            if (cat === 'all' || cat === 'traps') {
+                cachedOmniMatches.traps.forEach(t => {
+                    cards.push(`
+                        <div class="rule-card">
+                            <div class="rule-badge-row">
+                                <span class="badge-old" style="background: rgba(239, 68, 68, 0.2); color: #f87171;">DEFENSE TRAP</span>
+                                <span class="badge-new">${highlightMatch(t.code, q)}</span>
+                            </div>
+                            <div class="rule-title">${highlightMatch(t.name, q)}</div>
+                            <div style="font-size: 0.85rem; color: var(--accent-red);">
+                                <strong>Carrier Blunder:</strong> ${highlightMatch(t.blunder, q)}
+                            </div>
+                            <div class="rule-hammer" style="border-left-color: var(--accent-green);">
+                                <strong>Statutory Consequence:</strong> ${highlightMatch(t.remedy, q)}
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--text-secondary); white-space: pre-line;">
+                                <strong>Roadmap:</strong>
+${highlightMatch(t.roadmap, q)}
+                            </div>
+                            <div class="rule-footer">
+                                <span>Precedent: ${highlightMatch(t.case, q)}</span>
+                                <button class="copy-btn" data-cite="${escapeHtmlAttr(t.code + '; ' + t.case)}" onclick="copyFromBtn(this)">📋 Copy Cite</button>
+                            </div>
+                        </div>
+                    `);
+                });
+            }
+
+            // Chapters Cards
+            if (cat === 'all' || cat === 'chapters') {
+                cachedOmniMatches.chapters.forEach(ch => {
+                    cards.push(`
+                        <div class="rule-card">
+                            <div class="rule-badge-row">
+                                <span class="badge-new">📖 DIVISION ${ch.divisionNumber} • PRACTICE CHAPTER</span>
+                                <span class="badge-old">${highlightMatch(ch.codes, q)}</span>
+                            </div>
+                            <div class="rule-title">${highlightMatch(ch.title, q)}</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted);">Div. ${ch.divisionNumber}: ${ch.divisionTitle}</div>
+                            <div class="rule-hammer">${highlightMatch(ch.summary, q)}</div>
+                            <div class="rule-footer">
+                                <span>Key Cases: ${highlightMatch(ch.key_cases, q)}</span>
+                                <button class="copy-btn" onclick="jumpToDivision('${ch.divisionNumber}')">📖 View Division</button>
+                            </div>
+                        </div>
+                    `);
+                });
+            }
+
+            if (cards.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 3rem 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 1.25rem;">
+                        <div style="font-size: 3rem;">🔍</div>
+                        <h2 style="font-family: 'Cinzel', serif; color: var(--gold-light);">No Direct Matches Found for "${q}"</h2>
+                        <p style="color: var(--text-secondary); max-width: 600px;">Try searching broader legal topics, section numbers without symbols, or click any of the popular litigation doctrine shortcuts below:</p>
+                        <div class="search-chips" style="justify-content: center; max-width: 700px;">
+                            <button class="chip" onclick="quickSearch('DPR Construction')">🚨 DPR Construction (LC § 5502)</button>
+                            <button class="chip" onclick="quickSearch('take applicant as you find them')">👤 Take Applicant As You Find Them (Lamb)</button>
+                            <button class="chip" onclick="quickSearch('scattershot')">⚡ Scattershot Defense Objections (Garcia)</button>
+                            <button class="chip" onclick="quickSearch('lien')">📋 Liens & 60-Day Waiver (8 CCR § 10786)</button>
+                            <button class="chip" onclick="quickSearch('Dubon')">⏱ Untimely UR Hammer (Dubon II)</button>
+                            <button class="chip" onclick="quickSearch('Escobedo')">📊 Apportionment (Escobedo / Brodie)</button>
+                            <button class="chip" onclick="quickSearch('100% PTD')">🏆 100% Total Disability (LeBoeuf)</button>
+                            <button class="chip" onclick="quickSearch('5814')">💰 5814 Penalties & 5814.5 Fees</button>
+                        </div>
+                    </div>
+                `;
+            } else {
+                grid.innerHTML = cards.join('');
+            }
+        }
+
+        function renderConcordance() {
+            const grid = document.getElementById('crosswalkGrid');
+            grid.innerHTML = concordanceRules.map(r => `
+                <div class="rule-card" data-search="${r.old_rule} ${r.new_rule} ${r.title} ${r.hammer}">
+                    <div class="rule-badge-row">
+                        <span class="badge-old">${r.old_rule} (Legacy)</span>
+                        <span style="color: var(--text-muted); font-size: 0.8rem;">➔</span>
+                        <span class="badge-new">${r.new_rule} (Active 2026)</span>
+                    </div>
+                    <div class="rule-title">${r.title}</div>
+                    <div class="rule-hammer">${r.hammer}</div>
+                    <div class="rule-footer">
+                        <span>Authority: ${r.authority}</span>
+                        <button class="copy-btn" data-cite="${escapeHtmlAttr(r.new_rule + ' [formerly ' + r.old_rule + ']; ' + r.authority)}" onclick="copyFromBtn(this)">📋 Copy Cite</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderCaseLaw() {
+            const grid = document.getElementById('caselawGrid');
+            grid.innerHTML = caseLawData.map(c => `
+                <div class="rule-card" data-search="${c.name} ${c.citation} ${c.category} ${c.authority} ${c.holding}">
+                    <div class="rule-badge-row">
+                        <span class="badge-new">${c.category}</span>
+                        <span class="badge-old">${c.year} • ${c.court}</span>
+                    </div>
+                    <div class="rule-title">${c.name}</div>
+                    <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--gold-light);">${c.citation} • ${c.authority}</div>
+                    <div class="rule-hammer">${c.holding}</div>
+                    ${c.quote ? `<div style="font-style: italic; font-size: 0.8rem; color: var(--text-muted);">"${c.quote}"</div>` : ''}
+                    <div class="rule-footer">
+                        <span>Official Precedent</span>
+                        <button class="copy-btn" data-cite="${escapeHtmlAttr(c.name + ' ' + c.citation)}" onclick="copyFromBtn(this)">📋 Copy Cite</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderTraps() {
+            const grid = document.getElementById('trapsGrid');
+            grid.innerHTML = defenseTraps.map(t => `
+                <div class="rule-card" data-search="${t.name} ${t.code} ${t.case} ${t.blunder}">
+                    <div class="rule-badge-row">
+                        <span class="badge-old" style="background: rgba(239, 68, 68, 0.2); color: #f87171;">DEFENSE TRAP</span>
+                        <span class="badge-new">${t.code}</span>
+                    </div>
+                    <div class="rule-title">${t.name}</div>
+                    <div style="font-size: 0.85rem; color: var(--accent-red);"><strong>Triggering Carrier Blunder:</strong> ${t.blunder}</div>
+                    <div class="rule-hammer" style="border-left-color: var(--accent-green);">
+                        <strong>Statutory Consequence:</strong> ${t.remedy}
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); white-space: pre-line;"><strong>Roadmap:</strong>
+${t.roadmap}</div>
+                    <div class="rule-footer">
+                        <span>Precedent: ${t.case}</span>
+                        <button class="copy-btn" data-cite="${escapeHtmlAttr(t.code + '; ' + t.case)}" onclick="copyFromBtn(this)">📋 Copy Cite</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderDivisions() {
+            const container = document.getElementById('divisionsList');
+            container.innerHTML = masterDivisions.map(d => `
+                <div id="division-${d.number}" style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem;">
+                        <h2 class="division-heading" style="font-family: 'Cinzel', serif; color: var(--gold-light);">DIVISION ${d.number}: ${d.title}</h2>
+                        ${d.codes ? `<span class="badge-new">${d.codes}</span>` : ''}
+                    </div>
+                    <div class="card-grid" style="grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));">
+                        ${d.chapters.map(c => `
+                            <div class="rule-card" id="card-${c.id}" style="padding: 1.25rem;">
+                                <div style="font-weight: 700; color: var(--text-primary);">${c.title}</div>
+                                <div style="font-size: 0.75rem; color: var(--gold); font-family: 'JetBrains Mono', monospace;">${c.codes}</div>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary);">${c.summary}</div>
+                                <div class="rule-footer" style="padding-top: 0.5rem;">
+                                    <span>Key Cases: ${c.key_cases}</span>
+                                    <button class="copy-btn" data-cite="${escapeHtmlAttr(c.title + ' [' + c.codes + ']')}" onclick="copyFromBtn(this)">📋 Copy Cite</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        
+        // Sidebar State & Management
+        let currentSidebarMode = localStorage.getItem('suite_sidebar_mode') || 'toc';
+        let expandedDivisions = JSON.parse(localStorage.getItem('suite_expanded_divisions') || '["I"]');
+
+        function setSidebarMode(mode) {
+            currentSidebarMode = mode;
+            localStorage.setItem('suite_sidebar_mode', mode);
+
+            const btnToc = document.getElementById('btnModeToc');
+            const btnList = document.getElementById('btnModeList');
+            const navTree = document.getElementById('navTree');
+            const navListOrder = document.getElementById('navListOrder');
+            const tocControls = document.getElementById('tocControlsBar');
+
+            if (mode === 'toc') {
+                if (btnToc) btnToc.classList.add('active');
+                if (btnList) btnList.classList.remove('active');
+                if (navTree) navTree.style.display = 'flex';
+                if (navListOrder) navListOrder.style.display = 'none';
+                if (tocControls) tocControls.style.display = 'flex';
+            } else {
+                if (btnToc) btnToc.classList.remove('active');
+                if (btnList) btnList.classList.add('active');
+                if (navTree) navTree.style.display = 'none';
+                if (navListOrder) navListOrder.style.display = 'flex';
+                if (tocControls) tocControls.style.display = 'none';
+            }
+
+            renderNavTree(document.getElementById('searchInput')?.value.trim());
+        }
+
+        function toggleSidebar() {
+            const aside = document.getElementById('suiteSidebar');
+            const resizer = document.getElementById('sidebarResizer');
+            const floatBtn = document.getElementById('floatingSidebarToggle');
+            if (!aside) return;
+
+            const isCollapsed = aside.classList.toggle('collapsed');
+            localStorage.setItem('suite_sidebar_collapsed', isCollapsed);
+
+            if (resizer) resizer.style.display = isCollapsed ? 'none' : 'block';
+            if (floatBtn) floatBtn.style.display = isCollapsed ? 'inline-flex' : 'none';
+        }
+
+        function setSidebarWidth(w) {
+            const aside = document.getElementById('suiteSidebar');
+            if (!aside) return;
+            aside.style.width = w + 'px';
+            localStorage.setItem('suite_sidebar_width', w);
+            showToast('Sidebar width set to ' + w + 'px');
+        }
+
+        function initSidebarResizer() {
+            const aside = document.getElementById('suiteSidebar');
+            const resizer = document.getElementById('sidebarResizer');
+            if (!aside || !resizer) return;
+
+            let isResizing = false;
+
+            resizer.addEventListener('mousedown', function(e) {
+                isResizing = true;
+                document.body.style.cursor = 'col-resize';
+                document.body.style.userSelect = 'none';
+                resizer.classList.add('resizing');
+            });
+
+            document.addEventListener('mousemove', function(e) {
+                if (!isResizing) return;
+                const containerRect = document.querySelector('.app-container').getBoundingClientRect();
+                let newWidth = e.clientX - containerRect.left;
+                if (newWidth < 260) newWidth = 260;
+                if (newWidth > 720) newWidth = 720;
+                aside.style.width = newWidth + 'px';
+                localStorage.setItem('suite_sidebar_width', newWidth);
+            });
+
+            document.addEventListener('mouseup', function() {
+                if (isResizing) {
+                    isResizing = false;
+                    document.body.style.cursor = '';
+                    document.body.style.userSelect = '';
+                    resizer.classList.remove('resizing');
+                }
+            });
+
+            resizer.addEventListener('dblclick', function() {
+                const curW = parseInt(aside.style.width) || 380;
+                const targetW = curW > 450 ? 340 : 540;
+                setSidebarWidth(targetW);
+            });
+
+            // Restore saved width
+            const savedW = localStorage.getItem('suite_sidebar_width');
+            if (savedW) {
+                aside.style.width = savedW + 'px';
+            }
+
+            // Restore collapsed state
+            const savedCollapsed = localStorage.getItem('suite_sidebar_collapsed');
+            if (savedCollapsed === 'true') {
+                aside.classList.add('collapsed');
+                if (resizer) resizer.style.display = 'none';
+                const floatBtn = document.getElementById('floatingSidebarToggle');
+                if (floatBtn) floatBtn.style.display = 'inline-flex';
+            }
+        }
+
+        function toggleDivisionExpand(divNum, event) {
+            if (event) event.stopPropagation();
+            const divEl = document.getElementById('toc-div-' + divNum);
+            if (!divEl) return;
+
+            const isExpanded = divEl.classList.toggle('expanded');
+            if (isExpanded) {
+                if (!expandedDivisions.includes(divNum)) expandedDivisions.push(divNum);
+            } else {
+                expandedDivisions = expandedDivisions.filter(n => n !== divNum);
+            }
+            localStorage.setItem('suite_expanded_divisions', JSON.stringify(expandedDivisions));
+        }
+
+        function expandAllDivisions() {
+            masterDivisions.forEach(d => {
+                const el = document.getElementById('toc-div-' + d.number);
+                if (el) el.classList.add('expanded');
+                if (!expandedDivisions.includes(d.number)) expandedDivisions.push(d.number);
+            });
+            localStorage.setItem('suite_expanded_divisions', JSON.stringify(expandedDivisions));
+            showToast('All divisions expanded');
+        }
+
+        function collapseAllDivisions() {
+            masterDivisions.forEach(d => {
+                const el = document.getElementById('toc-div-' + d.number);
+                if (el) el.classList.remove('expanded');
+            });
+            expandedDivisions = [];
+            localStorage.setItem('suite_expanded_divisions', JSON.stringify(expandedDivisions));
+            showToast('All divisions collapsed');
+        }
+
+        function jumpToChapter(chId, divNum) {
+            // Switch to Master Chapters & Tactics tab
+            switchTab('divisions');
+
+            // Open parent division if not already expanded
+            const divEl = document.getElementById('toc-div-' + divNum);
+            if (divEl && !divEl.classList.contains('expanded')) {
+                divEl.classList.add('expanded');
+                if (!expandedDivisions.includes(divNum)) expandedDivisions.push(divNum);
+                localStorage.setItem('suite_expanded_divisions', JSON.stringify(expandedDivisions));
+            }
+
+            // Highlight in sidebar
+            document.querySelectorAll('.toc-chapter-item, .list-chapter-card').forEach(el => el.classList.remove('active'));
+            const tocItem = document.getElementById('toc-ch-' + chId);
+            if (tocItem) tocItem.classList.add('active');
+            const listItem = document.getElementById('list-ch-' + chId);
+            if (listItem) listItem.classList.add('active');
+
+            // Scroll to the card in main view
+            setTimeout(() => {
+                const card = document.getElementById('card-' + chId);
+                if (card) {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    card.classList.remove('card-highlight-pulse');
+                    // Force reflow for animation restart
+                    void card.offsetWidth;
+                    card.classList.add('card-highlight-pulse');
+                } else {
+                    // Fallback to division header
+                    const divTarget = document.getElementById('division-' + divNum);
+                    if (divTarget) divTarget.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 50);
+        }
+
+        function renderNavTree(filterQuery) {
+            const navTree = document.getElementById('navTree');
+            const navListOrder = document.getElementById('navListOrder');
+            const q = filterQuery ? filterQuery.toLowerCase() : '';
+
+            // 1. Render TOC Tree View
+            if (navTree) {
+                navTree.innerHTML = masterDivisions.map((d) => {
+                    let divisionMatching = false;
+                    let matchingChaptersCount = 0;
+
+                    const chapterItemsHtml = d.chapters.map(c => {
+                        const s = `${d.title} ${c.title} ${c.codes || ''} ${c.key_cases || ''} ${c.summary || ''}`.toLowerCase();
+                        const isMatch = !q || s.includes(q);
+                        if (isMatch && q) matchingChaptersCount++;
+
+                        return `
+                            <div class="toc-chapter-item" id="toc-ch-${c.id}" onclick="jumpToChapter('${c.id}', '${d.number}')" style="${q && !isMatch ? 'display: none;' : ''}">
+                                <div style="display: flex; align-items: center; justify-content: space-between;">
+                                    <span class="toc-ch-id">${c.id.toUpperCase().replace('CH', 'Ch. ')}</span>
+                                    ${c.codes ? `<span class="toc-ch-code">${c.codes.split(',')[0]}</span>` : ''}
+                                </div>
+                                <div class="toc-ch-title">${highlightQuery(c.title, q)}</div>
+                            </div>
+                        `;
+                    }).join('');
+
+                    if (q) {
+                        divisionMatching = d.title.toLowerCase().includes(q) || matchingChaptersCount > 0;
+                    }
+
+                    // Auto-expand if active search matches this division
+                    const isExpanded = q ? divisionMatching : expandedDivisions.includes(d.number);
+
+                    return `
+                        <div class="toc-division ${isExpanded ? 'expanded' : ''}" id="toc-div-${d.number}" style="${q && !divisionMatching ? 'opacity: 0.35;' : ''}">
+                            <div class="toc-div-header" onclick="toggleDivisionExpand('${d.number}', event)">
+                                <span class="toc-chevron">▶</span>
+                                <div class="toc-div-info">
+                                    <span class="toc-div-number">Division ${d.number}</span>
+                                    <span class="toc-div-title" title="${d.title}">${highlightQuery(d.title, q)}</span>
+                                </div>
+                                <span class="toc-div-badge" onclick="jumpToDivision('${d.number}'); event.stopPropagation();" title="Jump to Division in Main View">
+                                    ${q && matchingChaptersCount > 0 ? matchingChaptersCount + ' match' : d.chapters.length + ' ch'}
+                                </span>
+                            </div>
+                            <div class="toc-div-chapters" id="chapters-div-${d.number}">
+                                ${chapterItemsHtml}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // 2. Render Sequential List Order View
+            if (navListOrder) {
+                let sequentialIndex = 1;
+                const allChapters = [];
+                masterDivisions.forEach(d => {
+                    d.chapters.forEach(c => {
+                        allChapters.push({
+                            ...c,
+                            divNumber: d.number,
+                            divTitle: d.title,
+                            seqIndex: sequentialIndex++
+                        });
+                    });
+                });
+
+                const listCardsHtml = allChapters.map(c => {
+                    const s = `Chapter ${c.seqIndex} Division ${c.divNumber} ${c.divTitle} ${c.title} ${c.codes || ''} ${c.key_cases || ''} ${c.summary || ''}`.toLowerCase();
+                    const isMatch = !q || s.includes(q);
+
+                    return `
+                        <div class="list-chapter-card" id="list-ch-${c.id}" onclick="jumpToChapter('${c.id}', '${c.divNumber}')" style="${q && !isMatch ? 'display: none;' : ''}">
+                            <div class="list-ch-top">
+                                <span class="list-ch-num-badge">Ch. ${c.seqIndex}</span>
+                                <span class="list-ch-div-badge">Div. ${c.divNumber}</span>
+                            </div>
+                            <div class="list-ch-title">${highlightQuery(c.title, q)}</div>
+                            ${c.codes ? `<div class="list-ch-codes">${highlightQuery(c.codes, q)}</div>` : ''}
+                        </div>
+                    `;
+                }).join('');
+
+                navListOrder.innerHTML = listCardsHtml;
+            }
+        }
+
+        function highlightQuery(text, q) {
+            return highlightMatch(text, q);
+        }
+
+        function jumpToDivision(divNum, navItem) {
+            switchTab('divisions');
+            document.querySelectorAll('.nav-item, .toc-division').forEach(el => el.classList.remove('active'));
+            const divEl = document.getElementById('toc-div-' + divNum);
+            if (divEl) {
+                divEl.classList.add('active', 'expanded');
+                if (!expandedDivisions.includes(divNum)) expandedDivisions.push(divNum);
+                localStorage.setItem('suite_expanded_divisions', JSON.stringify(expandedDivisions));
+            }
+            const target = document.getElementById('division-' + divNum);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Fee Schedule Calculator
+        function updateCalc() {
+            const code = document.getElementById('calcCode').value;
+            const pages = parseInt(document.getElementById('calcPages').value) || 0;
+            const hours = parseFloat(document.getElementById('calcHours').value) || 0;
+            const additional = parseFloat(document.getElementById('calcAdditional').value) || 0;
+
+            const hoursGroup = document.getElementById('hoursGroup');
+            if (code === '204' || code === '205') {
+                hoursGroup.style.display = 'flex';
+            } else {
+                hoursGroup.style.display = 'none';
+            }
+
+            let baseFee = 0;
+            let pageFee = 0;
+            let hourlyFee = 0;
+
+            if (code === '201') baseFee = 2015.00;
+            else if (code === '202') baseFee = 1315.00;
+            else if (code === '203') baseFee = 650.00;
+            else if (code === '204' || code === '205') {
+                hourlyFee = hours * 455.00;
+            }
+
+            if (pages > 200 && (code === '201' || code === '202' || code === '203')) {
+                pageFee = (pages - 200) * 3.00;
+            }
+
+            const total = baseFee + pageFee + hourlyFee + additional;
+            document.getElementById('totalFeeDisplay').innerText = '$' + total.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+            document.getElementById('feeBreakdown').innerHTML = `
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Base Evaluation Fee (ML ${code}):</span>
+                    <strong>$${baseFee.toFixed(2)}</strong>
+                </div>
+                ${pageFee > 0 ? `
+                <div style="display: flex; justify-content: space-between; color: var(--accent-green);">
+                    <span>Record Review Pages (${pages - 200} excess pgs @ $3.00/pg):</span>
+                    <strong>+$${pageFee.toFixed(2)}</strong>
+                </div>` : ''}
+                ${hourlyFee > 0 ? `
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Hourly Fee (${hours} hrs @ $455/hr):</span>
+                    <strong>+$${hourlyFee.toFixed(2)}</strong>
+                </div>` : ''}
+                ${additional > 0 ? `
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Additional Certified Expenses:</span>
+                    <strong>+$${additional.toFixed(2)}</strong>
+                </div>` : ''}
+            `;
+
+            // Update Attestation Text
+            document.getElementById('attestationBox').innerText = 
+`DECLARATION AND ATTESTATION UNDER 8 CCR § 9795(c)
+I declare under penalty of perjury under the laws of the State of California that:
+1. I received and reviewed a total of ${pages} pages of records in connection with this evaluation under code ML ${code}.
+2. Of these, ${Math.max(0, pages - 200)} pages exceed the 200-page threshold and are billed at $3.00 per page ($${pageFee.toFixed(2)}).
+3. The total fee claimed for this comprehensive medical-legal service is $${total.toFixed(2)} in accordance with the Official Medical-Legal Fee Schedule (8 CCR § 9795).
+Executed in the State of California.`;
+        }
+
+        function copyAttestation(btn) {
+            const text = document.getElementById('attestationBox').innerText;
+            copyText(text, btn);
+        }
+
+        function copyFromBtn(btn) {
+            if (!btn) return;
+            const txt = btn.getAttribute('data-cite');
+            copyText(txt, btn);
+        }
+
+        function copyText(txt, btn) {
+            if (!txt) return;
+
+            let success = false;
+            // Primary method: invisible textarea + execCommand (works 100% reliably in local file:/// and iframe contexts)
+            try {
+                const ta = document.createElement('textarea');
+                ta.value = txt;
+                ta.setAttribute('readonly', '');
+                ta.style.position = 'fixed';
+                ta.style.top = '-9999px';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.focus();
+                ta.select();
+                success = document.execCommand('copy');
+                document.body.removeChild(ta);
+            } catch (e) {
+                success = false;
+            }
+
+            // Secondary method: navigator.clipboard API fallback
+            if (!success && navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(txt).then(() => {
+                    showCopyFeedback(btn, txt);
+                }).catch(() => {
+                    prompt('Copy citation manually:', txt);
+                });
+                return;
+            }
+
+            showCopyFeedback(btn, txt);
+        }
+
+        function showCopyFeedback(btn, txt) {
+            if (btn) {
+                const origHtml = btn.getAttribute('data-orig-html') || btn.innerHTML;
+                if (!btn.getAttribute('data-orig-html')) {
+                    btn.setAttribute('data-orig-html', origHtml);
+                }
+                btn.innerHTML = '✓ Copied!';
+                btn.classList.add('copied');
+                
+                setTimeout(() => {
+                    btn.innerHTML = btn.getAttribute('data-orig-html') || '📋 Copy Cite';
+                    btn.classList.remove('copied');
+                }, 2200);
+            }
+
+            showToast('✓ Copied to clipboard: ' + (txt.length > 55 ? txt.substring(0, 55) + '...' : txt));
+        }
+
+        function showToast(msg) {
+            let t = document.getElementById('toastNotification');
+            if (!t) {
+                t = document.createElement('div');
+                t.id = 'toastNotification';
+                t.className = 'toast-notification';
+                document.body.appendChild(t);
+            }
+            t.innerHTML = msg;
+            t.classList.add('show');
+            clearTimeout(window.__toastTimeout);
+            window.__toastTimeout = setTimeout(() => {
+                t.classList.remove('show');
+            }, 2600);
+        }
+    
+        // Initialize Resizer & Mode on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initSidebarResizer();
+            setSidebarMode(currentSidebarMode);
+        });
+        // Also run immediately in case DOM is already parsed
+        initSidebarResizer();
+        setSidebarMode(currentSidebarMode);
+
+        // Keyboard Shortcut: '[' or 'Ctrl+B' to toggle sidebar
+        document.addEventListener('keydown', function(e) {
+            if ((e.key === '[' && !['INPUT', 'TEXTAREA'].includes(e.target.tagName)) || (e.ctrlKey && e.key.toLowerCase() === 'b')) {
+                e.preventDefault();
+                toggleSidebar();
+            }
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GenieFlow AI — Sovereign Litigation, Dual-Rate Invoicing & Meeting HUD</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --bg-surface: #0e131f;
+      --bg-card: rgba(16, 22, 34, 0.85);
+      --bg-card-hover: rgba(24, 33, 52, 0.95);
+      --border-color: rgba(56, 189, 248, 0.15);
+      --border-glow: rgba(56, 189, 248, 0.4);
+      --accent-cyan: #00f2fe;
+      --accent-blue: #4facfe;
+      --accent-gold: #f59e0b;
+      --accent-red: #ef4444;
+      --accent-green: #10b981;
+      --accent-purple: #a855f7;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --input-bg: rgba(15, 23, 42, 0.9);
+      --header-shadow: rgba(0, 0, 0, 0.5);
+      --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      --font-ui: 'Outfit', sans-serif;
+      --font-mono: 'Fira Code', monospace;
+    }
+
+    [data-theme="light"] {
+      --bg-dark: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --border-color: #cbd5e1;
+      --border-glow: #0284c7;
+      --accent-cyan: #0284c7;
+      --accent-blue: #2563eb;
+      --accent-gold: #d97706;
+      --accent-red: #dc2626;
+      --accent-green: #059669;
+      --accent-purple: #7c3aed;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --input-bg: #f8fafc;
+      --header-shadow: rgba(0, 0, 0, 0.06);
+      --card-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 10% 10%, rgba(79, 172, 254, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 90%, rgba(168, 85, 247, 0.06) 0%, transparent 40%);
+      color: var(--text-main);
+      font-family: var(--font-ui);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    /* Top Navigation */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      margin-bottom: 20px;
+      box-shadow: var(--header-shadow);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: #fff;
+      box-shadow: 0 0 16px rgba(0, 242, 254, 0.3);
+    }
+
+    .brand-title h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+    }
+
+    .brand-title p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .theme-toggle-btn {
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .theme-toggle-btn:hover {
+      border-color: var(--accent-cyan);
+    }
+
+    /* Navigation Tabs */
+    .tab-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+      background: var(--bg-card);
+    }
+
+    .tab-btn.active {
+      background: var(--bg-card);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+      box-shadow: 0 4px 15px rgba(0, 242, 254, 0.15);
+    }
+
+    .tab-badge {
+      background: var(--accent-cyan);
+      color: #000;
+      padding: 2px 7px;
+      border-radius: 10px;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .tab-pane {
+      display: none;
+    }
+
+    .tab-pane.active {
+      display: block;
+    }
+
+    /* Controls Bar */
+    .controls-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 260px;
+      max-width: 450px;
+    }
+
+    .search-box input {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 10px 14px 10px 38px;
+      border-radius: 10px;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      font-family: var(--font-ui);
+      outline: none;
+    }
+
+    .search-box input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 12px rgba(0, 242, 254, 0.2);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .pill-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .pill-btn:hover, .pill-btn.active {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    /* Docket Grid */
+    .docket-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
+      gap: 18px;
+      margin-bottom: 30px;
+    }
+
+    .case-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: var(--card-shadow);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .case-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-glow);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      background: var(--bg-card-hover);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .adj-badge {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      padding: 4px 8px;
+      border-radius: 6px;
+      color: var(--accent-cyan);
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .clinic-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .clinic-medland {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: var(--accent-green);
+    }
+
+    .clinic-spectrum {
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      color: var(--accent-purple);
+    }
+
+    .applicant-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .task-type-badge {
+      display: inline-flex;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .type-recon { background: rgba(239, 68, 68, 0.15); color: var(--accent-red); border: 1px solid var(--accent-red); }
+    .type-response { background: rgba(56, 189, 248, 0.15); color: var(--accent-cyan); border: 1px solid var(--accent-cyan); }
+    .type-trial { background: rgba(245, 158, 11, 0.15); color: var(--accent-gold); border: 1px solid var(--accent-gold); }
+    .type-cost { background: rgba(168, 85, 247, 0.15); color: var(--accent-purple); border: 1px solid var(--accent-purple); }
+
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      border-top: 1px solid var(--border-color);
+      font-size: 0.82rem;
+    }
+
+    .notes-box {
+      background: var(--input-bg);
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin: 8px 0;
+      border-left: 3px solid var(--accent-cyan);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Card Action Quick Bar */
+    .card-quick-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .quick-link-btn {
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 5px 6px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      text-decoration: none;
+    }
+
+    .quick-link-btn:hover {
+      background: rgba(56, 189, 248, 0.15);
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .action-btn {
+      flex: 1;
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .action-btn:hover {
+      background: var(--accent-cyan);
+      color: #000;
+    }
+
+    /* Notes / Scratchpad Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 20px;
+    }
+
+    .notes-modal {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      width: 100%;
+      max-width: 650px;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    .notes-modal h3 {
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+
+    .notes-modal p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .notes-modal textarea {
+      width: 100%;
+      height: 220px;
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px;
+      color: var(--text-main);
+      font-family: var(--font-ui);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      outline: none;
+      resize: vertical;
+      margin-bottom: 16px;
+    }
+
+    .notes-modal textarea:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 12px rgba(0, 242, 254, 0.25);
+    }
+
+    .notes-modal-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Dual Rate & Invoicing System */
+    .billing-layout {
+      display: grid;
+      grid-template-columns: 380px 1fr;
+      gap: 20px;
+    }
+
+    .billing-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(12px);
+    }
+
+    .dual-rate-banner {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(56, 189, 248, 0.15));
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 18px;
+    }
+
+    .dual-rate-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .rate-comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      text-align: center;
+    }
+
+    .rate-box {
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px;
+    }
+
+    .rate-box .amt {
+      font-size: 1.15rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+    }
+
+    .rate-box .desc {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.74rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      padding: 8px 12px;
+      border-radius: 8px;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    .billing-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+
+    .billing-table th {
+      background: var(--input-bg);
+      padding: 10px;
+      text-align: left;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .billing-table td {
+      padding: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Modal / Printable Invoice Area */
+    .invoice-modal {
+      background: #ffffff;
+      color: #0f172a;
+      width: 100%;
+      max-width: 850px;
+      max-height: 90vh;
+      overflow-y: auto;
+      border-radius: 16px;
+      padding: 36px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    .inv-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 20px;
+      margin-bottom: 24px;
+    }
+
+    .inv-brand h2 {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }
+
+    .inv-brand p {
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+
+    .inv-meta {
+      text-align: right;
+    }
+
+    .inv-meta h3 {
+      font-size: 1.25rem;
+      color: #0284c7;
+      font-family: var(--font-mono);
+    }
+
+    .inv-meta p {
+      font-size: 0.82rem;
+      color: #64748b;
+    }
+
+    .inv-parties {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+      font-size: 0.88rem;
+    }
+
+    .inv-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+    }
+
+    .inv-table th {
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      padding: 10px 14px;
+      text-align: left;
+      border-bottom: 1px solid #cbd5e1;
+    }
+
+    .inv-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid #e2e8f0;
+      font-size: 0.88rem;
+      color: #1e293b;
+    }
+
+    .inv-totals {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 24px;
+    }
+
+    .totals-box {
+      width: 280px;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      font-size: 0.9rem;
+      color: #475569;
+    }
+
+    .total-row.grand {
+      border-top: 2px solid #0f172a;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #0f172a;
+      padding-top: 8px;
+    }
+
+    .modal-controls {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    /* Print Specific Styling */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      .invoice-modal, .invoice-modal * {
+        visibility: visible;
+      }
+      .invoice-modal {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+        box-shadow: none;
+        border-radius: 0;
+      }
+      .modal-controls {
+        display: none !important;
+      }
+      .modal-overlay {
+        background: transparent !important;
+        position: static !important;
+        padding: 0 !important;
+      }
+    }
+
+    /* Live Meeting HUD */
+    .meeting-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
+    }
+
+    .listen-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      height: 600px;
+    }
+
+    .listen-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .mic-status-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--accent-red);
+      border: 1px solid var(--accent-red);
+    }
+
+    .mic-status-badge.recording {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-green);
+      border-color: var(--accent-green);
+      animation: pulse 1.5s infinite;
+    }
+
+    .transcript-scroll {
+      flex: 1;
+      overflow-y: auto;
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .speech-entry {
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .speech-meta {
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--accent-cyan);
+      margin-bottom: 2px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .speaker-tag {
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: rgba(56, 189, 248, 0.2);
+    }
+
+    .listen-controls {
+      display: flex;
+      gap: 10px;
+    }
+
+    .rec-btn {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rec-btn.active {
+      background: linear-gradient(135deg, #10b981, #059669);
+    }
+
+    .keyword-radar {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .radar-tag {
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--bg-surface);
+      border: 1px solid var(--accent-cyan);
+      color: var(--text-main);
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      display: none;
+      z-index: 3000;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-logo">⚖️</div>
+      <div class="brand-title">
+        <h1>GenieFlow AI — Sovereign Litigation, Dual-Rate Invoicing & Meeting HUD</h1>
+        <p>Master Workstation Engine • Matter Scratchpads • Instant Live Audio Tagging</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn">
+        🌙 Dark Mode
+      </button>
+    </div>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab('docket', this)">
+      📋 Litigation Docket <span class="tab-badge" id="docketCount">10</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('billing', this)">
+      💰 Billing & Invoicing System <span class="tab-badge" id="billingCount">DUAL-RATE</span>
+    </button>
+    <button class="tab-btn" onclick="switchTab('meeting', this)">
+      🎙️ Live Meeting & Zoom Listener <span class="tab-badge" style="background:var(--accent-red); color:#fff;">LIVE</span>
+    </button>
+  </div>
+
+  <!-- TAB 1: LITIGATION DOCKET -->
+  <div id="pane-docket" class="tab-pane active">
+    <div class="controls-bar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search ADJ#, Client, Clinic, or Task..." onkeyup="filterDocket()" />
+      </div>
+
+      <div class="filter-pills">
+        <button class="pill-btn active" onclick="setClinicFilter('ALL', this)">All Clinics</button>
+        <button class="pill-btn" onclick="setClinicFilter('MEDLAND', this)">🏥 Medland</button>
+        <button class="pill-btn" onclick="setClinicFilter('SPECTRUM', this)">🔬 Spectrum</button>
+        <button class="pill-btn" onclick="setStatusFilter('ALL', this)">All Statuses</button>
+        <button class="pill-btn" onclick="setStatusFilter('PENDING', this)">⏳ Pending</button>
+        <button class="pill-btn" onclick="setStatusFilter('SENT', this)">✅ Sent</button>
+      </div>
+
+      <button class="action-btn" style="background:linear-gradient(135deg, var(--accent-cyan), var(--accent-blue)); color:#000; font-weight:800; padding:8px 18px; border-radius:10px; font-size:0.85rem; box-shadow: 0 4px 14px rgba(0, 242, 254, 0.35); cursor:pointer; white-space:nowrap; margin-left:auto;" onclick="openAddCaseModal()">
+        ➕ Add New Case
+      </button>
+    </div>
+
+    <div class="docket-grid" id="docketContainer"></div>
+  </div>
+
+  <!-- TAB 2: DUAL-RATE BILLING & INVOICING -->
+  <div id="pane-billing" class="tab-pane">
+    <div class="billing-layout">
+      <!-- Left: Input Panel & Dual Rate Analytics -->
+      <div class="billing-panel">
+        <div class="dual-rate-banner">
+          <div class="dual-rate-header">
+            <span>📊 Dual-Rate Analytics</span>
+            <span style="color:var(--accent-green); font-weight:800;">70+ Decisions Backed</span>
+          </div>
+          <div class="rate-comparison-grid">
+            <div class="rate-box">
+              <div class="amt" style="color:var(--accent-cyan);">$50.00/hr</div>
+              <div class="desc">Your Current Billed Rate</div>
+            </div>
+            <div class="rate-box">
+              <div class="amt" style="color:var(--accent-gold);">$125.00/hr</div>
+              <div class="desc">True Market Benchmark</div>
+            </div>
+          </div>
+          <div style="margin-top:10px; font-size:0.75rem; text-align:center; color:var(--text-muted)">
+            Value Delivered to Firm: <strong id="valUnlocked" style="color:var(--accent-green)">$2,625 Savings</strong>
+          </div>
+        </div>
+
+        <h3 style="margin-bottom:12px; font-size:1rem;">➕ Log Billable Activity</h3>
+
+        <div class="form-group">
+          <label>Target Entity / Client</label>
+          <select id="billEntity">
+            <option value="Medland Clinical & Legal Group">🏥 Medland Clinical & Legal Group</option>
+            <option value="Spectrum Health & Lien Management">🔬 Spectrum Health & Lien Management</option>
+            <option value="Rafols Law / WCAB Defense Group">⚖️ Rafols Law / WCAB Litigation</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Matter / Client (ADJ#)</label>
+          <select id="billMatter">
+            <option value="JUAN GARCIA QUINTERO (ADJ16478066)">JUAN GARCIA QUINTERO (ADJ16478066)</option>
+            <option value="YOLANDA RAMIREZ (ADJ20377197)">YOLANDA RAMIREZ (ADJ20377197)</option>
+            <option value="Maria Ibarra Murillo (ADJ19044910)">Maria Ibarra Murillo (ADJ19044910)</option>
+            <option value="Ernesto Vargas (ADJ20500568)">Ernesto Vargas (ADJ20500568)</option>
+            <option value="HECTOR VALDEZ (ADJ17098618)">HECTOR VALDEZ (ADJ17098618)</option>
+            <option value="GUSTAVO YOPIHUA COYOHUA (ADJ19166507)">GUSTAVO YOPIHUA COYOHUA (ADJ19166507)</option>
+            <option value="LAURA SOFIA BERNABE SALINAS (ADJ18424441)">LAURA SOFIA BERNABE SALINAS (ADJ18424441)</option>
+            <option value="ASHKAN KAKAVAND (ADJ16584718)">ASHKAN KAKAVAND (ADJ16584718)</option>
+            <option value="ANASTACIO ZAMUDIO SALINAS (ADJ16281423)">ANASTACIO ZAMUDIO SALINAS (ADJ16281423)</option>
+            <option value="SOFIA QUINTERO (ADJ17512715)">SOFIA QUINTERO (ADJ17512715)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Pleading / Activity Category</label>
+          <select id="billCategory">
+            <option value="Petition for Reconsideration (8 CCR § 10964)">Petition for Reconsideration (8 CCR § 10964)</option>
+            <option value="LC § 5813 Sanctions & Cost Petition">LC § 5813 Sanctions & Cost Petition</option>
+            <option value="Response to Defense Cost/Sanction Petition">Response to Defense Cost/Sanction Petition</option>
+            <option value="Trial Brief & Evidence Matrix Prep">Trial Brief & Evidence Matrix Prep</option>
+            <option value="LC § 5814 Penalty Audit & Filing">LC § 5814 Penalty Audit & Filing</option>
+            <option value="Deposition Cross-Exam HUD & Medical Review">Deposition Cross-Exam HUD & Medical Review</option>
+          </select>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+          <div class="form-group">
+            <label>Hours Spent</label>
+            <input type="number" id="billHours" value="3.0" step="0.5" />
+          </div>
+          <div class="form-group">
+            <label>Your Rate ($/hr)</label>
+            <input type="number" id="billRate" value="50" step="5" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Work Description / Pleading Detail</label>
+          <textarea id="billNotes" rows="2" placeholder="e.g. Legal drafting of petition, statutory legal research under 8 CCR § 10964..."></textarea>
+        </div>
+
+        <button class="action-btn" style="width:100%; padding:10px; background:var(--accent-cyan); color:#000; font-weight:700;" onclick="addBillingEntry()">
+          ➕ Add Billable Entry
+        </button>
+      </div>
+
+      <!-- Right: Ledger & Invoice Generator -->
+      <div class="billing-panel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+          <div>
+            <h3 style="font-size:1.1rem;">📑 Unbilled Ledger & Invoice Manager</h3>
+            <p style="font-size:0.75rem; color:var(--text-muted)">Filter by Entity and generate formal PDF Invoices with 1-click</p>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="action-btn" style="background:var(--accent-green); color:#000; font-weight:700;" onclick="openInvoiceModal()">
+              📄 Generate & Export PDF Invoice
+            </button>
+          </div>
+        </div>
+
+        <table class="billing-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Entity</th>
+              <th>Matter</th>
+              <th>Category</th>
+              <th>Hours</th>
+              <th>Your Bill ($50)</th>
+              <th>Market Val ($125)</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="billingLogBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: LIVE MEETING LISTENER -->
+  <div id="pane-meeting" class="tab-pane">
+    <div class="meeting-layout">
+      <div class="listen-box">
+        <div class="listen-header">
+          <div>
+            <h3 style="font-size:1.1rem;">🎙️ Live Speech-To-Text & Meeting Ear</h3>
+            <p style="font-size:0.78rem; color:var(--text-muted)" id="activeMatterTag">Active Client: All Matters</p>
+          </div>
+          <div class="mic-status-badge" id="micBadge">
+            <span id="micDot">🔴</span> <span id="micText">Mic Offline</span>
+          </div>
+        </div>
+
+        <div class="transcript-scroll" id="transcriptContainer">
+          <div style="color:var(--text-muted); text-align:center; padding:40px 0;">
+            Click <strong>"Start Listening"</strong> to capture live audio from your microphone or system sound.
+          </div>
+        </div>
+
+        <div class="listen-controls">
+          <button class="rec-btn" id="listenBtn" onclick="toggleListening()">
+            🎙️ Start Listening
+          </button>
+          <select id="speakerSelect" style="background:var(--input-bg); border:1px solid var(--border-color); color:var(--text-main); padding:8px 12px; border-radius:8px;">
+            <option value="Attorney">🗣️ Speaker: Attorney</option>
+            <option value="Client">👤 Speaker: Client</option>
+            <option value="Defense Adjuster">🏢 Speaker: Defense Adjuster</option>
+            <option value="WCJ Judge">⚖️ Speaker: WCJ Judge</option>
+            <option value="Doctor / AME">🩺 Speaker: Doctor / AME</option>
+          </select>
+          <button class="action-btn" onclick="copyTranscript()">📋 Copy Transcript</button>
+          <button class="action-btn" onclick="saveTranscriptToMatter()">💾 Save to Client Notes</button>
+          <button class="action-btn" onclick="clearTranscript()">🗑️ Clear</button>
+        </div>
+      </div>
+
+      <div class="keyword-radar">
+        <h3 style="font-size:1.05rem;">📡 Real-Time Legal Keyword Radar</h3>
+        <p style="font-size:0.75rem; color:var(--text-muted)">Automatically flags key statutory terms during conversation</p>
+
+        <div class="radar-tag">
+          <span>⚠️ <strong>LC § 5814 / Delay:</strong></span>
+          <span id="flag-delay" style="color:var(--accent-red); font-weight:700;">0 detected</span>
+        </div>
+        <div class="radar-tag">
+          <span>💰 <strong>Settlement / C&R:</strong></span>
+          <span id="flag-settlement" style="color:var(--accent-green); font-weight:700;">0 detected</span>
+        </div>
+        <div class="radar-tag">
+          <span>⚖️ <strong>Sanctions / Costs:</strong></span>
+          <span id="flag-sanctions" style="color:var(--accent-gold); font-weight:700;">0 detected</span>
+        </div>
+        <div class="radar-tag">
+          <span>🩺 <strong>Apportionment:</strong></span>
+          <span id="flag-apportionment" style="color:var(--accent-purple); font-weight:700;">0 detected</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOTES & SCRATCHPAD MODAL -->
+  <div class="modal-overlay" id="notesModal">
+    <div class="notes-modal">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div>
+          <h3 id="modalMatterName">Matter Scratchpad</h3>
+          <p id="modalMatterAdj">ADJ Number</p>
+        </div>
+        <span class="adj-badge" id="modalMatterClinic">MEDLAND</span>
+      </div>
+
+      <textarea id="modalScratchContent" placeholder="Enter case notes, facts, conversation bullet points, strategy, or pending follow-ups here..."></textarea>
+
+      <div class="notes-modal-footer">
+        <div style="display:flex; gap:8px;">
+          <button class="action-btn" onclick="saveMatterScratch()">💾 Save Notes</button>
+          <button class="action-btn" onclick="copyMatterScratch()">📋 Copy Notes</button>
+          <button class="action-btn" onclick="exportMatterMd()">📥 Export to Client Folder (.md)</button>
+        </div>
+        <button class="action-btn" style="background:#64748b; color:#fff;" onclick="closeNotesModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADD NEW CASE MODAL -->
+  <div class="modal-overlay" id="addCaseModal">
+    <div class="notes-modal" style="max-width: 580px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid var(--border-color); padding-bottom:12px;">
+        <h3 style="margin:0; font-size:1.3rem; display:flex; align-items:center; gap:8px;">
+          <span>⚖️</span> Add New Litigation Case
+        </h3>
+        <button class="quick-link-btn" style="padding:4px 8px; font-size:0.9rem;" onclick="closeAddCaseModal()">✕</button>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
+        <div class="form-group" style="grid-column: span 2;">
+          <label>Applicant / Client Name *</label>
+          <input type="text" id="newCaseName" placeholder="e.g. MARIA SANTOS" />
+        </div>
+
+        <div class="form-group">
+          <label>ADJ Number(s)</label>
+          <input type="text" id="newCaseAdj" placeholder="e.g. ADJ20377197" />
+        </div>
+
+        <div class="form-group">
+          <label>Clinic / Group</label>
+          <select id="newCaseClinic">
+            <option value="MEDLAND">🏥 MEDLAND</option>
+            <option value="SPECTRUM">🔬 SPECTRUM</option>
+            <option value="RAFOLS">⚖️ RAFOLS LAW</option>
+            <option value="OTHER">🏢 OTHER</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Pleading / Task Type</label>
+          <select id="newCaseType">
+            <option value="Cost & Sanction">📌 Cost & Sanction</option>
+            <option value="Recon">📌 Petition for Reconsideration</option>
+            <option value="Trial Brief">📌 Trial Brief & Evidence Matrix</option>
+            <option value="Response">📌 Response to Defense Petition</option>
+            <option value="Penalty § 5814">📌 LC § 5814 Penalty Audit</option>
+            <option value="Discovery Order">📌 Petition for Discovery Order</option>
+            <option value="132A Petition">📌 LC § 132a Discrimination</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Due Date</label>
+          <input type="text" id="newCaseDue" placeholder="e.g. ASAP, or 10/15/2026" value="ASAP" />
+        </div>
+
+        <div class="form-group">
+          <label>Initial Status</label>
+          <select id="newCaseStatus">
+            <option value="PENDING">⏳ Action Pending</option>
+            <option value="SENT">✅ Sent / Filed</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Sent Date (if Sent)</label>
+          <input type="text" id="newCaseSentDate" placeholder="e.g. 9/7/2026" />
+        </div>
+
+        <div class="form-group" style="grid-column: span 2;">
+          <label>Case Notes & Strategic Instructions</label>
+          <textarea id="newCaseNotes" rows="3" placeholder="Enter key facts, statutory citations, penalty targets, or court orders..."></textarea>
+        </div>
+      </div>
+
+      <div class="notes-modal-footer" style="margin-top:16px;">
+        <button class="action-btn" style="background:#64748b; color:#fff;" onclick="closeAddCaseModal()">Cancel</button>
+        <button class="action-btn" style="background:linear-gradient(135deg, var(--accent-cyan), var(--accent-blue)); color:#000; font-weight:800; padding:10px 24px;" onclick="submitNewCase()">
+          💾 Save Case to Docket
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INVOICE MODAL (FOR PDF EXPORT / PRINTING) -->
+  <div class="modal-overlay" id="invoiceModal">
+    <div class="invoice-modal">
+      <div class="inv-header">
+        <div class="inv-brand">
+          <h2>GENIEFLOW LEGAL CONSULTING</h2>
+          <p>California Workers' Compensation Pleadings & Litigation Consulting</p>
+          <p style="font-size:0.78rem; color:#64748b;">Specialized Hearing Rep & Legal Pleading Services • 70+ Decisions</p>
+        </div>
+        <div class="inv-meta">
+          <h3 id="invModalNum">GF-INV-2026-0906-01</h3>
+          <p id="invModalDate">Invoice Date: September 6, 2026</p>
+          <p>Payment Terms: Due upon receipt (Net 15)</p>
+        </div>
+      </div>
+
+      <div class="inv-parties">
+        <div>
+          <strong style="color:#64748b; font-size:0.75rem; text-transform:uppercase;">Billed To:</strong>
+          <h4 id="invModalEntity" style="font-size:1.05rem; margin:4px 0;">Medland Clinical & Legal Group</h4>
+          <p style="color:#64748b;">Attn: Managing Attorney / Accounts Payable</p>
+          <p style="color:#64748b;">California Workers' Compensation Practice</p>
+        </div>
+        <div style="text-align:right;">
+          <strong style="color:#64748b; font-size:0.75rem; text-transform:uppercase;">Remit Payment To:</strong>
+          <h4 style="font-size:1.05rem; margin:4px 0;">Legal Consulting Services</h4>
+          <p style="color:#64748b;">Direct Wire / Zelle / Check</p>
+          <p style="color:#64748b;">E-mail: frank@genieflowai.local</p>
+        </div>
+      </div>
+
+      <table class="inv-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Matter & ADJ#</th>
+            <th>Pleading / Deliverable</th>
+            <th>Hours</th>
+            <th>Rate</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="invModalTableBody"></tbody>
+      </table>
+
+      <div class="inv-totals">
+        <div class="totals-box">
+          <div class="total-row">
+            <span>Subtotal Billed:</span>
+            <strong id="invSubtotal">$0.00</strong>
+          </div>
+          <div class="total-row" style="color:#059669;">
+            <span>Market Benchmark Comparison:</span>
+            <span id="invMarketTotal">$0.00</span>
+          </div>
+          <div class="total-row grand">
+            <span>Total Due:</span>
+            <span id="invGrandTotal" style="color:#0284c7;">$0.00</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#f8fafc; border-left:4px solid #0284c7; padding:12px; border-radius:6px; font-size:0.78rem; color:#475569;">
+        <strong>Notice:</strong> All substantive legal research, brief drafting, and petition preparations conform to the California Labor Code (§ 4903, § 5813, § 5814) and the Rules of the Workers' Compensation Appeals Board (8 CCR § 10964).
+      </div>
+
+      <div class="modal-controls">
+        <button class="action-btn" style="background:#64748b; color:#fff;" onclick="closeInvoiceModal()">Close Preview</button>
+        <button class="action-btn" style="background:#0284c7; color:#fff; font-weight:700;" onclick="window.print()">🖨️ Print / Save as PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast">Notification</div>
+
+  <script>
+    // Theme Management
+    let currentTheme = localStorage.getItem("genieflow_theme") || "dark";
+    document.documentElement.setAttribute("data-theme", currentTheme);
+    updateThemeBtn();
+
+    function toggleTheme() {
+      currentTheme = currentTheme === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", currentTheme);
+      localStorage.setItem("genieflow_theme", currentTheme);
+      updateThemeBtn();
+    }
+
+    function updateThemeBtn() {
+      const btn = document.getElementById("themeBtn");
+      btn.innerHTML = currentTheme === "dark" ? "🌙 Dark Mode" : "☀️ Light Mode";
+    }
+
+    function switchTab(tabId, btn) {
+      document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.getElementById("pane-" + tabId).classList.add("active");
+      if (btn) btn.classList.add("active");
+    }
+
+    // Docket Data with Persistent Storage
+    let caseData = JSON.parse(localStorage.getItem("genieflow_cases_docket")) || [
+      { id: "1", adj: "ADJ16478066", name: "JUAN GARCIA QUINTERO", clinic: "MEDLAND", type: "Response", due: "ASAP", notes: "Response to defense petition for Cost & Sanction", sentDate: "7/14/2026", status: "SENT" },
+      { id: "2", adj: "ADJ20377197", name: "YOLANDA RAMIREZ", clinic: "SPECTRUM", type: "Recon", due: "ASAP", notes: "Petition for Reconsideration under 8 CCR § 10964", sentDate: "8/31/2026", status: "SENT" },
+      { id: "3", adj: "ADJ19044910 / RPM 24127", name: "Maria Ibarra Murillo", clinic: "SPECTRUM", type: "Trial Brief", due: "9/1/2026", notes: "Arbitration LT — Trial Brief & Evidence Matrix", sentDate: "8/30/2026", status: "SENT" },
+      { id: "4", adj: "ADJ20500568", name: "Ernesto Vargas", clinic: "MEDLAND", type: "Cost & Sanction", due: "9/7/2026", notes: "High priority cost & sanctions petition (Due Tomorrow)", sentDate: "8/31/2026", status: "SENT" },
+      { id: "5", adj: "ADJ17098618, ADJ17099802", name: "HECTOR VALDEZ", clinic: "MEDLAND", type: "Cost & Sanction", due: "10/1/2026", notes: "Dual ADJ consolidation review", sentDate: "7/11/2026", status: "SENT" },
+      { id: "6", adj: "ADJ19166507", name: "GUSTAVO YOPIHUA COYOHUA", clinic: "MEDLAND", type: "Cost & Sanction", due: "10/1/2026", notes: "Order not paid timely (Speak with Allen regarding penalty & interest)", sentDate: "", status: "PENDING" },
+      { id: "7", adj: "ADJ18424441", name: "LAURA SOFIA BERNABE SALINAS", clinic: "SPECTRUM", type: "Cost & Sanction", due: "10/13/2026", notes: "Spectrum lien costs & sanctions filing", sentDate: "", status: "PENDING" },
+      { id: "8", adj: "ADJ16584718, ADJ16584717", name: "ASHKAN KAKAVAND", clinic: "MEDLAND", type: "Cost & Sanction", due: "10/14/2026", notes: "Dual case petition for costs and sanctions", sentDate: "", status: "PENDING" },
+      { id: "9", adj: "ADJ16281423, ADJ16627277, ADJ16281424", name: "ANASTACIO ZAMUDIO SALINAS", clinic: "MEDLAND", type: "Cost & Sanction", due: "10/14/2026", notes: "Triple companion case petition", sentDate: "", status: "PENDING" },
+      { id: "10", adj: "ADJ17512715", name: "SOFIA QUINTERO", clinic: "SPECTRUM", type: "Cost & Sanction", due: "11/10/2026", notes: "Upcoming November docket cost petition", sentDate: "", status: "PENDING" }
+    ];
+
+    let currentClinic = "ALL";
+    let currentStatus = "ALL";
+    let activeCaseId = null;
+
+    function saveCases() {
+      localStorage.setItem("genieflow_cases_docket", JSON.stringify(caseData));
+      filterDocket();
+    }
+
+    function renderDocket(data) {
+      const container = document.getElementById("docketContainer");
+      container.innerHTML = "";
+
+      data.forEach(item => {
+        const typeClass = item.type.includes("Recon") ? "type-recon" :
+                          item.type.includes("Response") ? "type-response" :
+                          item.type.includes("Trial") ? "type-trial" : "type-cost";
+
+        const clinicClass = item.clinic === "MEDLAND" ? "clinic-medland" : "clinic-spectrum";
+        const isSent = item.status === "SENT";
+
+        const card = document.createElement("div");
+        card.className = "case-card";
+        card.innerHTML = `
+          <div>
+            <div class="card-top">
+              <span class="adj-badge" onclick="copyText('${item.adj}')" title="Click to copy ADJ#">${item.adj}</span>
+              <span class="clinic-tag ${clinicClass}">${item.clinic}</span>
+            </div>
+
+            <div class="applicant-name">${item.name}</div>
+            <div><span class="task-type-badge ${typeClass}">📌 ${item.type}</span></div>
+
+            <div class="meta-row">
+              <span style="color:var(--text-muted)">Due Date:</span>
+              <strong style="font-family:var(--font-mono); color:${item.due === 'ASAP' ? 'var(--accent-red)' : 'inherit'}">${item.due}</strong>
+            </div>
+
+            <div class="meta-row">
+              <span style="color:var(--text-muted)">Status:</span>
+              <strong style="color:${isSent ? 'var(--accent-green)' : 'var(--accent-gold)'}">
+                ${isSent ? `✓ Sent (${item.sentDate})` : '⏳ Action Pending'}
+              </strong>
+            </div>
+
+            <div class="notes-box">
+              <span>💬 ${item.notes || 'No active notes'}</span>
+              <button class="quick-link-btn" style="padding:2px 6px;" onclick="openNotesModal('${item.id}')">✏️ Edit</button>
+            </div>
+          </div>
+
+          <div>
+            <div class="card-quick-links">
+              <button class="quick-link-btn" onclick="openNotesModal('${item.id}')">📝 Scratchpad</button>
+              <button class="quick-link-btn" onclick="startMeetingForCase('${item.id}')">🎙️ Live Ear</button>
+              <button class="quick-link-btn" onclick="copyClientFolderLink('${item.name}')">📁 Folder Path</button>
+            </div>
+
+            <div class="card-actions">
+              <button class="action-btn" onclick="copyMatterPacket('${item.name}', '${item.adj}', '${item.type}')">📋 Copy Packet</button>
+              <button class="action-btn" onclick="toggleCaseStatus('${item.id}')">${isSent ? 'Mark Pending' : 'Mark Sent'}</button>
+              <button class="action-btn" style="background:rgba(239, 68, 68, 0.12); color:var(--accent-red); border-color:rgba(239, 68, 68, 0.3); padding:4px 8px;" onclick="deleteCase('${item.id}')" title="Delete Case">🗑️</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function filterDocket() {
+      const q = document.getElementById("searchInput").value.toLowerCase();
+      const filtered = caseData.filter(item => {
+        const matchSearch = item.name.toLowerCase().includes(q) || item.adj.toLowerCase().includes(q) || item.clinic.toLowerCase().includes(q) || item.type.toLowerCase().includes(q) || (item.notes && item.notes.toLowerCase().includes(q));
+        const matchClinic = (currentClinic === "ALL") || (item.clinic === currentClinic);
+        const matchStatus = (currentStatus === "ALL") || (item.status === currentStatus);
+        return matchSearch && matchClinic && matchStatus;
+      });
+      renderDocket(filtered);
+    }
+
+    function setClinicFilter(c, btn) {
+      currentClinic = c;
+      document.querySelectorAll('.filter-pills .pill-btn').forEach(b => {
+        if (b.innerText.includes('Medland') || b.innerText.includes('Spectrum') || b.innerText.includes('All Clinics')) b.classList.remove('active');
+      });
+      btn.classList.add('active');
+      filterDocket();
+    }
+
+    function setStatusFilter(s, btn) {
+      currentStatus = s;
+      document.querySelectorAll('.filter-pills .pill-btn').forEach(b => {
+        if (b.innerText.includes('Pending') || b.innerText.includes('Sent') || b.innerText.includes('All Statuses')) b.classList.remove('active');
+      });
+      btn.classList.add('active');
+      filterDocket();
+    }
+
+    function toggleCaseStatus(id) {
+      const item = caseData.find(c => c.id === id);
+      if (item) {
+        item.status = item.status === "SENT" ? "PENDING" : "SENT";
+        item.sentDate = item.status === "SENT" ? "9/6/2026" : "";
+        saveCases();
+        showToast(`Updated status for ${item.name}`);
+      }
+    }
+
+    // Add New Case Functions
+    function openAddCaseModal() {
+      document.getElementById("addCaseModal").style.display = "flex";
+      setTimeout(() => { document.getElementById("newCaseName").focus(); }, 50);
+    }
+
+    function closeAddCaseModal() {
+      document.getElementById("addCaseModal").style.display = "none";
+    }
+
+    function submitNewCase() {
+      const name = document.getElementById("newCaseName").value.trim();
+      const adj = document.getElementById("newCaseAdj").value.trim() || "ADJ PENDING";
+      const clinic = document.getElementById("newCaseClinic").value;
+      const type = document.getElementById("newCaseType").value;
+      const due = document.getElementById("newCaseDue").value.trim() || "ASAP";
+      const status = document.getElementById("newCaseStatus").value;
+      const sentDate = document.getElementById("newCaseSentDate").value.trim() || (status === "SENT" ? new Date().toLocaleDateString() : "");
+      const notes = document.getElementById("newCaseNotes").value.trim();
+
+      if (!name) {
+        alert("Please enter the Applicant / Client Name.");
+        return;
+      }
+
+      const newCase = {
+        id: String(Date.now()),
+        adj: adj,
+        name: name,
+        clinic: clinic,
+        type: type,
+        due: due,
+        notes: notes,
+        sentDate: sentDate,
+        status: status
+      };
+
+      caseData.unshift(newCase);
+      saveCases();
+      updateBillMatterDropdown();
+      closeAddCaseModal();
+      showToast(`Added ${name} to Docket!`);
+
+      // Clear fields
+      document.getElementById("newCaseName").value = "";
+      document.getElementById("newCaseAdj").value = "";
+      document.getElementById("newCaseNotes").value = "";
+      document.getElementById("newCaseSentDate").value = "";
+    }
+
+    function deleteCase(id) {
+      const item = caseData.find(c => c.id === id);
+      if (!item) return;
+      if (confirm(`Remove "${item.name}" (${item.adj}) from the docket?`)) {
+        caseData = caseData.filter(c => c.id !== id);
+        saveCases();
+        updateBillMatterDropdown();
+        showToast(`Removed ${item.name}`);
+      }
+    }
+
+    function updateBillMatterDropdown() {
+      const select = document.getElementById("billMatter");
+      if (!select) return;
+      const currentVal = select.value;
+      select.innerHTML = "";
+      caseData.forEach(c => {
+        const opt = document.createElement("option");
+        opt.value = `${c.name} (${c.adj})`;
+        opt.innerText = `${c.name} (${c.adj})`;
+        select.appendChild(opt);
+      });
+      if (currentVal && Array.from(select.options).some(o => o.value === currentVal)) {
+        select.value = currentVal;
+      }
+    }
+
+    // Matter Scratchpad Modal
+    function openNotesModal(id) {
+      activeCaseId = id;
+      const item = caseData.find(c => c.id === id);
+      if (!item) return;
+
+      document.getElementById("modalMatterName").innerText = item.name;
+      document.getElementById("modalMatterAdj").innerText = item.adj;
+      document.getElementById("modalMatterClinic").innerText = item.clinic;
+      document.getElementById("modalScratchContent").value = item.notes || "";
+      document.getElementById("notesModal").style.display = "flex";
+    }
+
+    function closeNotesModal() {
+      document.getElementById("notesModal").style.display = "none";
+    }
+
+    function saveMatterScratch() {
+      const item = caseData.find(c => c.id === activeCaseId);
+      if (item) {
+        item.notes = document.getElementById("modalScratchContent").value.trim();
+        saveCases();
+        showToast(`Saved scratchpad notes for ${item.name}!`);
+        closeNotesModal();
+      }
+    }
+
+    function copyMatterScratch() {
+      const txt = document.getElementById("modalScratchContent").value;
+      navigator.clipboard.writeText(txt);
+      showToast("Copied notes to clipboard!");
+    }
+
+    function exportMatterMd() {
+      const item = caseData.find(c => c.id === activeCaseId);
+      if (!item) return;
+
+      const content = `# Case Notes: ${item.name}\n\n- **ADJ#:** ${item.adj}\n- **Clinic:** ${item.clinic}\n- **Task:** ${item.type}\n- **Due Date:** ${item.due}\n- **Updated:** ${new Date().toLocaleDateString()}\n\n## Strategy & Conversation Notes:\n${document.getElementById("modalScratchContent").value}\n`;
+      
+      const blob = new Blob([content], { type: "text/markdown" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `CASE_NOTES_${item.name.replace(/\s+/g, '_')}.md`;
+      a.click();
+      showToast("Downloaded Markdown Case Note!");
+    }
+
+    function copyClientFolderLink(name) {
+      const path = `D:\\clients\\${name}`;
+      navigator.clipboard.writeText(path);
+      showToast(`Copied Client Folder Path: ${path}`);
+    }
+
+    function startMeetingForCase(id) {
+      const item = caseData.find(c => c.id === id);
+      if (!item) return;
+
+      activeCaseId = id;
+      document.getElementById("activeMatterTag").innerHTML = `Active Matter: <strong style="color:var(--accent-cyan);">${item.name} (${item.adj})</strong>`;
+      
+      // Switch tab
+      switchTab('meeting', document.querySelectorAll('.tab-btn')[2]);
+      
+      // Start listening
+      if (!isListening) {
+        toggleListening();
+      }
+      showToast(`Meeting Ear Active for ${item.name}!`);
+    }
+
+    function saveTranscriptToMatter() {
+      const text = document.getElementById("transcriptContainer").innerText;
+      if (activeCaseId) {
+        const item = caseData.find(c => c.id === activeCaseId);
+        if (item) {
+          item.notes = (item.notes ? item.notes + "\n\n" : "") + `[Live Audio Log ${new Date().toLocaleTimeString()}]:\n` + text;
+          saveCases();
+          showToast(`Appended transcript directly into ${item.name}'s scratchpad!`);
+          return;
+        }
+      }
+      navigator.clipboard.writeText(text);
+      showToast("Copied transcript to clipboard!");
+    }
+
+    // Billing & Invoicing Engine
+    let billingEntries = JSON.parse(localStorage.getItem("genieflow_billing_ledger")) || [
+      { id: 1, date: "9/5/2026", entity: "Medland Clinical & Legal Group", matter: "JUAN GARCIA QUINTERO (ADJ16478066)", cat: "Response to Defense Sanction Petition", hours: 4.0, rate: 50, marketRate: 125 },
+      { id: 2, date: "9/4/2026", entity: "Spectrum Health & Lien Management", matter: "YOLANDA RAMIREZ (ADJ20377197)", cat: "Petition for Reconsideration (8 CCR § 10964)", hours: 6.0, rate: 50, marketRate: 125 },
+      { id: 3, date: "9/2/2026", entity: "Spectrum Health & Lien Management", matter: "Maria Ibarra Murillo (ADJ19044910)", cat: "Trial Brief & Arbitration Evidence Matrix", hours: 5.5, rate: 50, marketRate: 125 },
+      { id: 4, date: "8/31/2026", entity: "Medland Clinical & Legal Group", matter: "Ernesto Vargas (ADJ20500568)", cat: "LC § 5813 Cost & Sanctions Petition", hours: 3.5, rate: 50, marketRate: 125 }
+    ];
+
+    function saveBilling() {
+      localStorage.setItem("genieflow_billing_ledger", JSON.stringify(billingEntries));
+      renderBillingLog();
+    }
+
+    function renderBillingLog() {
+      const tbody = document.getElementById("billingLogBody");
+      tbody.innerHTML = "";
+      let totalBilled = 0;
+      let totalMarket = 0;
+
+      billingEntries.forEach((b, idx) => {
+        const billedSum = b.hours * b.rate;
+        const marketSum = b.hours * (b.marketRate || 125);
+        totalBilled += billedSum;
+        totalMarket += marketSum;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${b.date}</td>
+          <td><small style="color:var(--text-muted)">${b.entity.split(' ')[0]}</small></td>
+          <td><strong>${b.matter.split(' ')[0]} ${b.matter.split(' ')[1] || ''}</strong></td>
+          <td>${b.cat}</td>
+          <td>${b.hours} hrs</td>
+          <td><strong style="color:var(--accent-cyan);">$${billedSum.toLocaleString()}</strong></td>
+          <td><span style="color:var(--accent-gold);">$${marketSum.toLocaleString()}</span></td>
+          <td><button class="action-btn" style="padding:2px 6px;" onclick="deleteBillEntry(${idx})">✕</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      const savings = totalMarket - totalBilled;
+      document.getElementById("valUnlocked").innerText = `$${savings.toLocaleString()} Firm Savings`;
+    }
+
+    function addBillingEntry() {
+      const entity = document.getElementById("billEntity").value;
+      const matter = document.getElementById("billMatter").value;
+      const cat = document.getElementById("billCategory").value;
+      const hours = parseFloat(document.getElementById("billHours").value) || 0;
+      const rate = parseFloat(document.getElementById("billRate").value) || 50;
+
+      if (hours <= 0) return;
+
+      const d = new Date();
+      const dateStr = `${d.getMonth()+1}/${d.getDate()}/${d.getFullYear()}`;
+
+      billingEntries.unshift({
+        id: Date.now(),
+        date: dateStr,
+        entity: entity,
+        matter: matter,
+        cat: cat,
+        hours: hours,
+        rate: rate,
+        marketRate: 125
+      });
+
+      saveBilling();
+      showToast("Added billable item to ledger!");
+    }
+
+    function deleteBillEntry(idx) {
+      billingEntries.splice(idx, 1);
+      saveBilling();
+    }
+
+    function openInvoiceModal() {
+      const selectedEntity = document.getElementById("billEntity").value;
+      const filtered = billingEntries.filter(b => b.entity === selectedEntity);
+
+      if (filtered.length === 0) {
+        alert("No billable items logged for " + selectedEntity);
+        return;
+      }
+
+      const d = new Date();
+      const entityPrefix = selectedEntity.includes("Medland") ? "MED" : selectedEntity.includes("Spectrum") ? "SPEC" : "GEN";
+      const invNum = `GF-INV-2026-${entityPrefix}-${String(Math.floor(Math.random()*900)+100)}`;
+
+      document.getElementById("invModalNum").innerText = invNum;
+      document.getElementById("invModalDate").innerText = `Invoice Date: ${d.toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' })}`;
+      document.getElementById("invModalEntity").innerText = selectedEntity;
+
+      const tbody = document.getElementById("invModalTableBody");
+      tbody.innerHTML = "";
+
+      let subtotal = 0;
+      let marketTotal = 0;
+
+      filtered.forEach(item => {
+        const lineTotal = item.hours * item.rate;
+        const lineMarket = item.hours * (item.marketRate || 125);
+        subtotal += lineTotal;
+        marketTotal += lineMarket;
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${item.date}</td>
+          <td><strong>${item.matter}</strong></td>
+          <td>${item.cat}</td>
+          <td>${item.hours.toFixed(1)} hrs</td>
+          <td>$${item.rate.toFixed(2)}/hr</td>
+          <td><strong>$${lineTotal.toFixed(2)}</strong></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById("invSubtotal").innerText = `$${subtotal.toFixed(2)}`;
+      document.getElementById("invMarketTotal").innerText = `$${marketTotal.toFixed(2)} (Standard Market)`;
+      document.getElementById("invGrandTotal").innerText = `$${subtotal.toFixed(2)}`;
+
+      document.getElementById("invoiceModal").style.display = "flex";
+    }
+
+    function closeInvoiceModal() {
+      document.getElementById("invoiceModal").style.display = "none";
+    }
+
+    // Speech Recognition
+    let isListening = false;
+    let recognition = null;
+    let flags = { delay: 0, settlement: 0, sanctions: 0, apportionment: 0 };
+
+    function initSpeechRecognition() {
+      if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        recognition = new SpeechRec();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = 'en-US';
+
+        recognition.onstart = function() {
+          isListening = true;
+          updateMicUI(true, "Listening Live");
+          showToast("🎙️ Microphone active: Listening...");
+        };
+
+        recognition.onresult = function(event) {
+          let interimText = '';
+          for (let i = event.resultIndex; i < event.results.length; ++i) {
+            if (event.results[i].isFinal) {
+              const finalText = event.results[i][0].transcript.trim();
+              if (finalText) {
+                appendTranscript(finalText);
+                scanKeywords(finalText);
+              }
+              removeInterimTranscript();
+            } else {
+              interimText += event.results[i][0].transcript;
+            }
+          }
+          if (interimText) {
+            updateInterimTranscript(interimText.trim());
+          }
+        };
+
+        recognition.onerror = function(event) {
+          console.warn("Speech recognition error:", event.error);
+          let msg = `Speech error: ${event.error}`;
+          if (event.error === 'not-allowed') {
+            msg = "⚠️ Mic Access Denied: Browsers block microphones on network IP (http://192.168.1.x) without HTTPS or localhost.";
+            alert("MICROPHONE BLOCKED BY BROWSER:\n\n" +
+                  "Chrome/Edge block microphones on network HTTP addresses (http://192.168.1.189) by default.\n\n" +
+                  "Solutions:\n" +
+                  "1. Open on the server directly via http://localhost:3000\n" +
+                  "2. Or in Chrome on your laptop, go to:\n   chrome://flags/#unsafely-treat-insecure-origin-as-secure\n" +
+                  "   Add 'http://192.168.1.189:3000' and click Relaunch.\n" +
+                  "3. If inside Remote Desktop, enable 'Record from this computer' in RDP Audio settings.");
+          } else if (event.error === 'audio-capture') {
+            msg = "⚠️ No Microphone Found: Verify your mic is connected, or enable audio recording in Remote Desktop settings.";
+            alert("NO MICROPHONE DETECTED:\n\nIf you are using Remote Desktop (RDP), Remote Audio Recording is disabled by default.\n\nFix: In Remote Desktop Connection options -> Local Resources tab -> Remote audio Settings -> check 'Record from this computer'.");
+          } else if (event.error === 'no-speech') {
+            return; // Normal silence timeout, no alert needed
+          }
+          showToast(msg);
+          updateMicUI(false, "Mic Error");
+          isListening = false;
+        };
+
+        recognition.onend = function() {
+          if (isListening) {
+            try { recognition.start(); } catch(e) { console.warn("Restart error:", e); }
+          } else {
+            updateMicUI(false, "Mic Offline");
+          }
+        };
+      }
+    }
+
+    initSpeechRecognition();
+
+    function updateMicUI(active, text) {
+      const btn = document.getElementById("listenBtn");
+      const badge = document.getElementById("micBadge");
+      const micText = document.getElementById("micText");
+      const micDot = document.getElementById("micDot");
+      if (active) {
+        btn.classList.add("active");
+        btn.innerHTML = "⏹️ Stop Listening";
+        badge.classList.add("recording");
+        micText.innerText = text || "Listening Live";
+        micDot.innerText = "🟢";
+      } else {
+        btn.classList.remove("active");
+        btn.innerHTML = "🎙️ Start Listening";
+        badge.classList.remove("recording");
+        micText.innerText = text || "Mic Offline";
+        micDot.innerText = "🔴";
+      }
+    }
+
+    function toggleListening() {
+      if (!recognition) {
+        initSpeechRecognition();
+        if (!recognition) {
+          alert("Speech Recognition is not supported in this browser. Please use Google Chrome, Microsoft Edge, or Brave.");
+          return;
+        }
+      }
+
+      if (isListening) {
+        isListening = false;
+        try { recognition.stop(); } catch(e) {}
+        updateMicUI(false, "Mic Offline");
+        removeInterimTranscript();
+      } else {
+        try {
+          recognition.start();
+        } catch(e) {
+          console.warn("Start error:", e);
+          // If already running or resetting
+          try {
+            recognition.stop();
+            setTimeout(() => { recognition.start(); }, 200);
+          } catch(err) {
+            alert("Could not start microphone: " + err.message);
+          }
+        }
+      }
+    }
+
+    function updateInterimTranscript(text) {
+      const container = document.getElementById("transcriptContainer");
+      if (container.children.length === 1 && container.children[0].innerText.includes("Click")) {
+        container.innerHTML = "";
+      }
+      let interim = document.getElementById("interimBubble");
+      if (!interim) {
+        interim = document.createElement("div");
+        interim.id = "interimBubble";
+        interim.className = "speech-entry";
+        interim.style.opacity = "0.7";
+        interim.style.fontStyle = "italic";
+        interim.style.borderColor = "var(--accent-cyan)";
+        container.appendChild(interim);
+      }
+      const speaker = document.getElementById("speakerSelect").value;
+      interim.innerHTML = `
+        <div class="speech-meta">
+          <span class="speaker-tag" style="background:var(--accent-cyan); color:#000;">${speaker} (transcribing...)</span>
+          <span>Live</span>
+        </div>
+        <div>${text} <span class="pulse-dot">...</span></div>
+      `;
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function removeInterimTranscript() {
+      const interim = document.getElementById("interimBubble");
+      if (interim) interim.remove();
+    }
+
+    function appendTranscript(text) {
+      const container = document.getElementById("transcriptContainer");
+      if (container.children.length === 1 && container.children[0].innerText.includes("Click")) {
+        container.innerHTML = "";
+      }
+
+      const speaker = document.getElementById("speakerSelect").value;
+      const now = new Date();
+      const timeStr = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+
+      const div = document.createElement("div");
+      div.className = "speech-entry";
+      div.innerHTML = `
+        <div class="speech-meta">
+          <span class="speaker-tag">${speaker}</span>
+          <span>${timeStr}</span>
+        </div>
+        <div>${text}</div>
+      `;
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    function scanKeywords(text) {
+      const lower = text.toLowerCase();
+      if (lower.includes("delay") || lower.includes("5814") || lower.includes("unreasonable")) {
+        flags.delay++;
+        document.getElementById("flag-delay").innerText = `${flags.delay} detected`;
+      }
+      if (lower.includes("settle") || lower.includes("c&r") || lower.includes("compromise")) {
+        flags.settlement++;
+        document.getElementById("flag-settlement").innerText = `${flags.settlement} detected`;
+      }
+      if (lower.includes("sanction") || lower.includes("cost") || lower.includes("5813")) {
+        flags.sanctions++;
+        document.getElementById("flag-sanctions").innerText = `${flags.sanctions} detected`;
+      }
+      if (lower.includes("apportion") || lower.includes("prior")) {
+        flags.apportionment++;
+        document.getElementById("flag-apportionment").innerText = `${flags.apportionment} detected`;
+      }
+    }
+
+    function copyTranscript() {
+      const container = document.getElementById("transcriptContainer");
+      navigator.clipboard.writeText(container.innerText);
+      showToast("Copied transcript to clipboard!");
+    }
+
+    function clearTranscript() {
+      document.getElementById("transcriptContainer").innerHTML = '<div style="color:var(--text-muted); text-align:center; padding:40px 0;">Click <strong>"Start Listening"</strong> to capture live audio.</div>';
+    }
+
+    function copyText(txt) {
+      navigator.clipboard.writeText(txt);
+      showToast(`Copied ${txt}`);
+    }
+
+    function copyMatterPacket(name, adj, type) {
+      const packet = `MATTER: ${name}\nADJ: ${adj}\nACTION NEEDED: ${type}\nGENIEFLOW STATUS: READY`;
+      navigator.clipboard.writeText(packet);
+      showToast(`Copied packet for ${name}!`);
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.innerText = msg;
+      t.style.display = "block";
+      setTimeout(() => { t.style.display = "none"; }, 2200);
+    }
+
+    // Init
+    filterDocket();
+    updateBillMatterDropdown();
+    renderBillingLog();
+  </script>
+</body>
+</html>

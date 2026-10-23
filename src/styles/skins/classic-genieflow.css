@@ -1,0 +1,105 @@
+/* ==========================================================================
+   SKIN: CLASSIC GENIEFLOW (Chi-Shimmer & Steel Gleam)
+   Preserved user classic design with raised glass bubbles & metallic gleam.
+   Supports both Light Mode and Dark Mode.
+   ========================================================================== */
+
+/* --- Light Mode (Classic Shimmer) --- */
+.theme-classic-genieflow,
+.theme-classic-genieflow.light,
+[data-skin="classic-genieflow"]:not(.dark) {
+  --bg-canvas: #f0f4f8;
+  --bg-paper: rgba(220, 225, 235, 0.78);
+  --bg-main: #f0f4f8;
+  --bg-surface: rgba(220, 225, 235, 0.78);
+  --bg-sidebar: rgba(220, 225, 235, 0.85);
+  --text-main: #1e293b;
+  --text-sub: #475569;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --border-glass: rgba(220, 225, 235, 0.5);
+  --accent-glow: rgba(37, 99, 235, 0.4);
+}
+
+/* Glassy Header & Sidebar for Classic Shimmer */
+.theme-classic-genieflow .glassy-header-bar,
+[data-skin="classic-genieflow"]:not(.dark) .glassy-header-bar {
+  background: rgba(220, 225, 235, 0.78) !important;
+  box-shadow: 0 4px 24px 0 rgba(220, 225, 235, 0.15), 0 1px 4px 0 rgba(34, 48, 74, 0.06) !important;
+  border-bottom: 1px solid rgba(220, 225, 235, 0.3) !important;
+  backdrop-filter: blur(14px) saturate(1.1) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(1.1) !important;
+}
+
+.theme-classic-genieflow .glassy-sidebar,
+[data-skin="classic-genieflow"]:not(.dark) .glassy-sidebar {
+  background: rgba(220, 225, 235, 0.85) !important;
+  box-shadow: 2px 0 24px 0 rgba(220, 225, 235, 0.12), 0 0 8px 0 rgba(34, 48, 74, 0.04) !important;
+  border-right: 1px solid rgba(220, 225, 235, 0.25) !important;
+  backdrop-filter: blur(16px) saturate(1.08) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(1.08) !important;
+}
+
+/* --- Dark Mode (Classic Blue-Steel & Shimmer Night) --- */
+.dark.theme-classic-genieflow,
+.dark[data-skin="classic-genieflow"],
+.theme-classic-genieflow.dark {
+  --bg-canvas: #0b1528;
+  --bg-paper: rgba(34, 48, 74, 0.75);
+  --bg-main: #0b1528;
+  --bg-surface: rgba(34, 48, 74, 0.75);
+  --bg-sidebar: rgba(34, 48, 74, 0.82);
+  --text-main: #f8fafc;
+  --text-sub: #cbd5e1;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --border-glass: rgba(60, 70, 90, 0.25);
+  --accent-glow: rgba(99, 102, 241, 0.35);
+}
+
+.dark.theme-classic-genieflow .glassy-header-bar,
+.dark[data-skin="classic-genieflow"] .glassy-header-bar {
+  background: rgba(34, 48, 74, 0.75) !important;
+  border-bottom: 1px solid rgba(60, 70, 90, 0.25) !important;
+}
+
+.dark.theme-classic-genieflow .glassy-sidebar,
+.dark[data-skin="classic-genieflow"] .glassy-sidebar {
+  background: rgba(34, 48, 74, 0.82) !important;
+  border-right: 1px solid rgba(60, 70, 90, 0.22) !important;
+}
+
+.dark.theme-classic-genieflow .glassy-header-btn,
+.dark[data-skin="classic-genieflow"] .glassy-header-btn {
+  background: rgba(34, 48, 74, 0.25) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+}
+
+/* --- Raised Glass Chat Bubbles (Classic GenieFlow) --- */
+.theme-classic-genieflow .glassy-bubble,
+[data-skin="classic-genieflow"] .glassy-bubble {
+  box-shadow: 0 16px 48px 0 rgba(34, 48, 74, 0.32), 0 4px 16px 0 rgba(34, 48, 74, 0.18) !important;
+  backdrop-filter: blur(24px) saturate(1.25) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(1.25) !important;
+  border-radius: 1.5rem !important;
+}
+
+.theme-classic-genieflow:not(.dark) .glassy-bubble.user,
+[data-skin="classic-genieflow"]:not(.dark) .glassy-bubble.user {
+  background: rgba(180, 220, 255, 0.60) !important;
+}
+
+.theme-classic-genieflow:not(.dark) .glassy-bubble.assistant,
+[data-skin="classic-genieflow"]:not(.dark) .glassy-bubble.assistant {
+  background: rgba(180, 190, 210, 0.60) !important;
+}
+
+.dark.theme-classic-genieflow .glassy-bubble.user,
+.dark[data-skin="classic-genieflow"] .glassy-bubble.user {
+  background: rgba(44, 80, 120, 0.80) !important;
+}
+
+.dark.theme-classic-genieflow .glassy-bubble.assistant,
+.dark[data-skin="classic-genieflow"] .glassy-bubble.assistant {
+  background: rgba(34, 48, 74, 0.80) !important;
+}

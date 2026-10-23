@@ -1,0 +1,127 @@
+/* 🧞‍♂️ Genie Command HUD - Shimmery Slate Extensions */
+
+.genie-hud-container {
+  background: radial-gradient(circle at center, rgba(15, 23, 42, 0.95) 0%, rgba(2, 6, 23, 1) 100%);
+  min-height: 100vh;
+  padding: 2rem;
+  color: #f1f5f9; /* slate-100 */
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Hexagonal Grid Overlay */
+.genie-hud-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(30deg, #0f172a 12%, transparent 12.5%, transparent 87%, #0f172a 87.5%, #0f172a),
+    linear-gradient(150deg, #0f172a 12%, transparent 12.5%, transparent 87%, #0f172a 87.5%, #0f172a),
+    linear-gradient(30deg, #0f172a 12%, transparent 12.5%, transparent 87%, #0f172a 87.5%, #0f172a),
+    linear-gradient(150deg, #0f172a 12%, transparent 12.5%, transparent 87%, #0f172a 87.5%, #0f172a),
+    linear-gradient(60deg, #1e293b 25%, transparent 25.5%, transparent 75%, #1e293b 75.5%, #1e293b),
+    linear-gradient(60deg, #1e293b 25%, transparent 25.5%, transparent 75%, #1e293b 75.5%, #1e293b);
+  background-size: 80px 140px;
+  background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+/* Cyber Glow Effects */
+.genie-glow-text {
+  text-shadow: 0 0 10px rgba(79, 70, 229, 0.6), 0 0 20px rgba(79, 70, 229, 0.4);
+}
+
+.genie-cyber-border {
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  box-shadow: inset 0 0 15px rgba(99, 102, 241, 0.05), 0 0 20px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+}
+
+/* Central Soul Pulse */
+.soul-core-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.soul-core-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: rgba(99, 102, 241, 0.6);
+  animation: spin 4s linear infinite;
+}
+
+.soul-core-ring.outer {
+  width: 100%;
+  height: 100%;
+  border-bottom-color: rgba(79, 70, 229, 0.4);
+}
+
+.soul-core-ring.inner {
+  width: 70%;
+  height: 70%;
+  border-right-color: rgba(129, 140, 248, 0.5);
+  animation-direction: reverse;
+  animation-duration: 3s;
+}
+
+.soul-core-pulse {
+  width: 40%;
+  height: 40%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.8) 0%, rgba(79, 70, 229, 0.2) 70%, transparent 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 40px rgba(99, 102, 241, 0.6);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.1); opacity: 1; }
+}
+
+/* Mission Feed Ticker */
+.mission-ticker {
+  max-height: 400px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
+}
+
+.mission-ticker::-webkit-scrollbar {
+  width: 4px;
+}
+
+.mission-ticker::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 2px;
+}
+
+/* Scanning Line Animation */
+.scanning-line {
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(to right, transparent, rgba(99, 102, 241, 0.5), transparent);
+  top: 0;
+  animation: scan 8s linear infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes scan {
+  from { top: 0; }
+  to { top: 100%; opacity: 0; }
+}
