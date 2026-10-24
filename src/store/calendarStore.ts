@@ -232,22 +232,50 @@ export const useCalendarStore = create<CalendarState>()(
       addEvent: (event) => {
         const state = get();
         const eventStart = event.start || (event as any).startDate;
-        const timeKey = eventStart
-          ? (typeof eventStart === 'string' ? new Date(eventStart).toISOString().slice(0, 16) : eventStart.toISOString().slice(0, 16))
-          : '';
-        const titleKey = (event.title || '').trim().toLowerCase();
+        const eventStartTime = eventStart ? new Date(eventStart).getTime() : 0;
+        const normTitle = (event.title || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+        const evEmail = (event as any).emailSource || event.sourceEmail;
+        const evGoogle = (event as any).googleEventId;
+        const evCase = (event.metadata?.caseNumber || (event as any).caseNumber || '').trim().toLowerCase();
 
-        // Prevent duplicate insertion if an event with the same title and timeKey already exists
+        // Prevent duplicate insertion using multi-factor identity matching
         const existing = state.events.find((e) => {
-          const s = e.start || e.startDate;
-          const existingTimeKey = s
-            ? (typeof s === 'string' ? new Date(s).toISOString().slice(0, 16) : s.toISOString().slice(0, 16))
-            : '';
-          return (e.title || '').trim().toLowerCase() === titleKey && existingTimeKey === timeKey;
+          // Check 1: Exact taskId match
+          if (event.taskId && e.taskId && e.taskId === event.taskId) return true;
+
+          // Check 2: Exact sourceEmail match
+          const eEmail = (e as any).emailSource || e.sourceEmail;
+          if (evEmail && eEmail && evEmail === eEmail) return true;
+
+          // Check 3: Exact googleEventId match
+          const eGoogle = (e as any).googleEventId;
+          if (evGoogle && eGoogle && evGoogle === eGoogle) return true;
+
+          // Check 4: Same WCAB case number + same eventType on the same calendar day
+          const eCase = (e.metadata?.caseNumber || (e as any).caseNumber || '').trim().toLowerCase();
+          const eStart = e.start || e.startDate;
+          const eStartTime = eStart ? new Date(eStart).getTime() : 0;
+          if (evCase && eCase && evCase === eCase && event.eventType && e.eventType && event.eventType === e.eventType) {
+            const sameDay = new Date(eventStartTime).toDateString() === new Date(eStartTime).toDateString();
+            if (sameDay) return true;
+          }
+
+          // Check 5: Normalized title match AND within 10-minute window
+          const eNormTitle = (e.title || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+          if (normTitle && eNormTitle && normTitle === eNormTitle) {
+            const diffMs = Math.abs(eventStartTime - eStartTime);
+            if (diffMs < 10 * 60 * 1000) return true;
+          }
+
+          return false;
         });
 
         if (existing) {
-          console.log('📅 CalendarStore: Prevented duplicate event:', event.title);
+          console.log('📅 CalendarStore: Prevented duplicate event:', event.title, 'Existing ID:', existing.id);
+          // If updates were provided, sync non-empty fields to existing event
+          if (event.completed !== undefined && event.completed !== existing.completed) {
+            get().updateEvent(existing.id, { completed: event.completed });
+          }
           return existing.id;
         }
 
@@ -284,19 +312,77 @@ export const useCalendarStore = create<CalendarState>()(
       deduplicateEvents: () => {
         let removed = 0;
         set((state) => {
-          const seen = new Set<string>();
+          const seenTaskIds = new Set<string>();
+          const seenEmails = new Set<string>();
+          const seenGoogleIds = new Set<string>();
+          const seenCaseDates = new Set<string>();
+          const seenTitleWindows: Array<{ normTitle: string; timestamp: number }> = [];
           const unique: CalendarEvent[] = [];
 
           for (const ev of state.events) {
-            const s = ev.start || ev.startDate;
-            const timeKey = s
-              ? (typeof s === 'string' ? new Date(s).toISOString().slice(0, 16) : s.toISOString().slice(0, 16))
-              : 'no-time';
-            const key = `${(ev.title || '').trim().toLowerCase()}_${timeKey}`;
-            if (seen.has(key)) {
+            let isDup = false;
+
+            // 1. Task ID deduplication
+            if (ev.taskId) {
+              if (seenTaskIds.has(ev.taskId)) {
+                isDup = true;
+              } else {
+                seenTaskIds.add(ev.taskId);
+              }
+            }
+
+            // 2. Email source deduplication
+            const emailId = (ev as any).emailSource || ev.sourceEmail;
+            if (!isDup && emailId) {
+              if (seenEmails.has(emailId)) {
+                isDup = true;
+              } else {
+                seenEmails.add(emailId);
+              }
+            }
+
+            // 3. Google Event ID deduplication
+            const googleId = (ev as any).googleEventId;
+            if (!isDup && googleId) {
+              if (seenGoogleIds.has(googleId)) {
+                isDup = true;
+              } else {
+                seenGoogleIds.add(googleId);
+              }
+            }
+
+            // 4. Case number + eventType on same day
+            const caseNum = (ev.metadata?.caseNumber || (ev as any).caseNumber || '').trim().toLowerCase();
+            const evStart = ev.start || ev.startDate;
+            const evStartTime = evStart ? new Date(evStart).getTime() : 0;
+            if (!isDup && caseNum && ev.eventType) {
+              const dayStr = new Date(evStartTime).toDateString();
+              const caseKey = `${caseNum}_${ev.eventType}_${dayStr}`;
+              if (seenCaseDates.has(caseKey)) {
+                isDup = true;
+              } else {
+                seenCaseDates.add(caseKey);
+              }
+            }
+
+            // 5. Normalized title + 10-minute window deduplication
+            if (!isDup) {
+              const normTitle = (ev.title || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+              if (normTitle) {
+                const matchWindow = seenTitleWindows.find(
+                  (item) => item.normTitle === normTitle && Math.abs(item.timestamp - evStartTime) < 10 * 60 * 1000
+                );
+                if (matchWindow) {
+                  isDup = true;
+                } else {
+                  seenTitleWindows.push({ normTitle, timestamp: evStartTime });
+                }
+              }
+            }
+
+            if (isDup) {
               removed++;
             } else {
-              seen.add(key);
               unique.push(ev);
             }
           }

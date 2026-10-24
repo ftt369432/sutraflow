@@ -42,6 +42,7 @@ const ProfilePage = lazy(() => import('./pages/ProfilePage'));
 const PlanManagementPage = lazy(() => import('./pages/PlanManagementPage'));
 const DashboardPage = lazy(() => import('./pages/DashboardPage'));
 const CalendarPage = lazy(() => import('./pages/CalendarPage'));
+const BulkCalendarManager = lazy(() => import('./pages/BulkCalendarManager').then(m => ({ default: m.BulkCalendarManager })));
 const PricingPage = lazy(() => import('./pages/PricingPage'));
 const DemoPage = lazy(() => import('./pages/DemoPage'));
 const AdminPage = lazy(() => import('./pages/AdminPage'));
@@ -61,12 +62,14 @@ const AutomationPage = lazy(() => import('./pages/AutomationPage'));
 const AssistantTriggerPage = lazy(() => import('./pages/AssistantTriggerPage'));
 const Settings = lazy(() => import('./pages/Settings'));
 const AssistantsPage = lazy(() => import('./pages/AssistantsPage'));
+const NotionTestPage = lazy(() => Promise.resolve({ default: () => <Navigate to="/workbench" replace /> }));
 const AssistantStorePage = lazy(() => import('./pages/AssistantStorePage'));
 const ConfigureSwarmPage = lazy(() => import('./pages/ConfigureSwarmPage'));
 const KnowledgeBasePage = lazy(() => import('./pages/KnowledgeBasePage'));
 const AIProcessingPage = lazy(() => import('./pages/AIProcessingPage'));
 const IntegrationHub = lazy(() => import('./components/integrations/IntegrationHub'));
 const AuthCallback = lazy(() => import('./pages/auth/AuthCallback'));
+const GmailTokenTest = lazy(() => Promise.resolve({ default: () => <Navigate to="/workbench" replace /> }));
 const GenieDriveDebug = lazy(() => import('./components/debug/GenieDriveDebug'));
 const DebugPage = lazy(() => import('./pages/DebugPage'));
 const CortexPage = lazy(() => import('./pages/CortexPage'));
@@ -450,6 +453,8 @@ const ProtectedAppRoutes = () => {
         <Route path="/email/folder/:accountId/:folderId/:messageId" element={<ProtectedRoute><ErrorBoundary><EmailDetailPage /></ErrorBoundary></ProtectedRoute>} />
 
         <Route path="/calendar" element={<ProtectedRoute><CalendarPage /></ProtectedRoute>} />
+        <Route path="/calendar/bulk" element={<ProtectedRoute><BulkCalendarManager /></ProtectedRoute>} />
+        <Route path="/bulk-calendar" element={<ProtectedRoute><BulkCalendarManager /></ProtectedRoute>} />
         {/* 🚀 Consolidated Workflow Demo - Redirect to Automation Hub with workflow-demo tab */}
         <Route path="/workflow-demo" element={<Navigate to="/automation" replace />} />
         <Route path="/enhancements" element={<ProtectedRoute><ErrorBoundary><EnhancementShowcase /></ErrorBoundary></ProtectedRoute>} />
@@ -457,7 +462,7 @@ const ProtectedAppRoutes = () => {
         <Route path="/drive" element={<ProtectedRoute><GenieDrivePage /></ProtectedRoute>} />
         <Route path="/knowledge" element={<ProtectedRoute><KnowledgeBasePage /></ProtectedRoute>} />
         <Route path="/knowledge/ai-processing" element={<ProtectedRoute><ErrorBoundary><AIProcessingPage /></ErrorBoundary></ProtectedRoute>} />
-        <Route path="/test/notion" element={<Navigate to="/workbench" replace />} />
+        <Route path="/test/notion" element={<ProtectedRoute><ErrorBoundary><NotionTestPage /></ErrorBoundary></ProtectedRoute>} />
         <Route path="/integrations" element={<ProtectedRoute><ErrorBoundary><IntegrationHub /></ErrorBoundary></ProtectedRoute>} />
         <Route path="/ai-assistant/*" element={<ProtectedRoute><AIAssistantPage /></ProtectedRoute>} />
         <Route path="/cortex" element={<ProtectedRoute><ErrorBoundary><CortexPage /></ErrorBoundary></ProtectedRoute>} />
@@ -494,7 +499,7 @@ const ProtectedAppRoutes = () => {
         <Route path="/settings" element={<ProtectedRoute><SettingsRedirect /></ProtectedRoute>} />
         <Route path="/assistants" element={<ProtectedRoute><AssistantsPage /></ProtectedRoute>} />
         <Route path="/assistant-triggers" element={<ProtectedRoute><AssistantTriggerPage /></ProtectedRoute>} />
-        <Route path="/test/gmail-token" element={<Navigate to="/workbench" replace />} />
+        <Route path="/test/gmail-token" element={<ProtectedRoute><ErrorBoundary><GmailTokenTest /></ErrorBoundary></ProtectedRoute>} />
         <Route path="/debug/drive" element={<ProtectedRoute><ErrorBoundary><GenieDriveDebug /></ErrorBoundary></ProtectedRoute>} />
         <Route path="/debug/email" element={<ProtectedRoute><ErrorBoundary><DebugPage /></ErrorBoundary></ProtectedRoute>} />
         <Route path="*" element={<Navigate to="/dashboard" />} />

@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { toast } from 'sonner';
 import {
   Calendar as CalendarIcon, ChevronLeft, ChevronRight,
   Plus, Search, Settings, X, Clock, MapPin, Users,
-  Zap, List, LayoutGrid, Trash2, CheckSquare, Square, Sparkles
+  Zap, List, LayoutGrid, Trash2, CheckSquare, Square, Sparkles,
+  RefreshCw, Layers
 } from 'lucide-react';
 import { useCalendarStore, CalendarEvent } from '../../store/calendarStore';
 import { EnhancedCalendarEventModal } from './EnhancedCalendarEventModal';
@@ -23,6 +26,7 @@ type ViewMode = 'month' | 'week' | 'agenda';
 interface Props { className?: string; }
 
 export function EnhancedCalendarView({ className = '' }: Props) {
+  const navigate                  = useNavigate();
   const [date, setDate]           = useState(new Date());
   const [view, setView]           = useState<ViewMode>('month');
   const [panelOpen, setPanelOpen] = useState(true);
@@ -36,7 +40,7 @@ export function EnhancedCalendarView({ className = '' }: Props) {
   });
   const [isResizingPanel, setIsResizingPanel] = useState(false);
 
-  const { events, addEvent, updateEvent, deleteEvent, deleteMultipleEvents, deduplicateEvents } = useCalendarStore();
+  const { events, addEvent, updateEvent, deleteEvent, deleteMultipleEvents, deduplicateEvents, syncTasksToCalendar } = useCalendarStore();
   const { isDark } = useTheme();
 
   // Mouse drag handler for Smart Panel resizing
@@ -142,8 +146,18 @@ export function EnhancedCalendarView({ className = '' }: Props) {
   };
 
   const handleDeduplicate = () => {
-    deduplicateEvents();
+    const count = deduplicateEvents();
+    if (count > 0) {
+      toast.success(`Cleaned ${count} duplicate calendar event${count > 1 ? 's' : ''}`);
+    } else {
+      toast.info('Calendar is clean — zero duplicate events found');
+    }
     setSelectedTodayIds([]);
+  };
+
+  const handleSyncTasks = () => {
+    syncTasksToCalendar();
+    toast.success('Active practice tasks and statutory deadlines synced to calendar');
   };
 
   // ─── Theme-Specific Styles ───────────────────────────────────────────────
@@ -269,6 +283,24 @@ export function EnhancedCalendarView({ className = '' }: Props) {
                 className={cn('pl-8 pr-3 py-1.5 text-xs rounded-lg border focus:outline-none w-52 transition-all', inputClass)}
               />
             </div>
+
+            <button
+              onClick={handleDeduplicate}
+              className={ghostBtn}
+              title="Detect and remove duplicate calendar entries"
+            >
+              <Sparkles className="h-3.5 w-3.5 text-amber-500" />
+              <span className="hidden sm:inline">Deduplicate</span>
+            </button>
+
+            <button
+              onClick={handleSyncTasks}
+              className={ghostBtn}
+              title="Sync active tasks and deadlines to calendar"
+            >
+              <Zap className="h-3.5 w-3.5 text-emerald-500" />
+              <span className="hidden sm:inline">Sync Tasks</span>
+            </button>
 
             <motion.button
               whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
@@ -549,8 +581,9 @@ export function EnhancedCalendarView({ className = '' }: Props) {
                 <div className="space-y-1.5">
                   {[
                     { icon: Plus, label: 'New Event', action: () => { setSelected(null); setShowModal(true); } },
-                    { icon: CalendarIcon, label: 'Sync Google Calendar', action: () => {} },
-                    { icon: Settings, label: 'Calendar Settings', action: () => {} },
+                    { icon: Sparkles, label: 'Clean & Deduplicate', action: handleDeduplicate },
+                    { icon: Zap, label: 'Sync Tasks & Deadlines', action: handleSyncTasks },
+                    { icon: List, label: 'Bulk Manager & Merge', action: () => navigate('/calendar/bulk') },
                   ].map(({ icon: Icon, label, action }) => (
                     <button key={label} onClick={action}
                       className={cn('w-full flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium border transition-all',

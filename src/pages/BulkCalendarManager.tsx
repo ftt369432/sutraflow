@@ -25,7 +25,10 @@ import {
   Upload,
   ArrowLeft,
   Eye,
-  Paperclip
+  Paperclip,
+  Scale,
+  Phone,
+  Sparkles
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Input } from '../components/ui/Input';
@@ -93,7 +96,7 @@ export function BulkCalendarManager() {
   const [loading, setLoading] = useState(true);
   const [duplicates, setDuplicates] = useState<string[]>([]);
   const [showDuplicatesOnly, setShowDuplicatesOnly] = useState(false);
-  const { events: storeEvents, deleteEvent: deleteStoreEvent } = useCalendarStore();
+  const { events: storeEvents, deleteMultipleEvents, deduplicateEvents, updateEvent } = useCalendarStore();
 
   useEffect(() => {
     loadCalendarEvents();
@@ -103,24 +106,40 @@ export function BulkCalendarManager() {
     setLoading(true);
     
     const mappedEvents: CalendarEvent[] = storeEvents.map((event) => {
-      const isDuplicate = storeEvents.some(
-        (other) => other.id !== event.id && (other.title.toLowerCase().trim() === event.title.toLowerCase().trim() || new Date(other.start).getTime() === new Date(event.start).getTime())
-      );
+      const isDuplicate = storeEvents.some((other) => {
+        if (other.id === event.id) return false;
+        // 1. Same task ID
+        if (event.taskId && other.taskId && event.taskId === other.taskId) return true;
+        // 2. Same source email
+        const evEmail = (event as any).emailSource || event.sourceEmail;
+        const othEmail = (other as any).emailSource || other.sourceEmail;
+        if (evEmail && othEmail && evEmail === othEmail) return true;
+        // 3. Same googleEventId
+        const evGoogle = (event as any).googleEventId;
+        const othGoogle = (other as any).googleEventId;
+        if (evGoogle && othGoogle && evGoogle === othGoogle) return true;
+        // 4. Same title (normalized) AND start within 10 minutes
+        const titleA = (event.title || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const titleB = (other.title || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const timeA = new Date(event.start || (event as any).startDate).getTime();
+        const timeB = new Date(other.start || (other as any).startDate).getTime();
+        return titleA.length > 0 && titleA === titleB && Math.abs(timeA - timeB) < 10 * 60 * 1000;
+      });
 
       return {
         id: event.id,
         title: event.title,
         description: event.description || 'Scheduled event',
-        startDate: new Date(event.start),
-        endDate: new Date(event.end),
+        startDate: new Date(event.start || (event as any).startDate),
+        endDate: new Date(event.end || (event as any).endDate),
         location: event.location || 'Local Office / Remote',
-        caseNumber: event.metadata?.caseNumber || 'WCAB-CASE',
-        hearingType: (event.eventType as any) || 'wcab',
+        caseNumber: event.metadata?.caseNumber || (event as any).caseNumber || 'WCAB-CASE',
+        hearingType: ((event as any).hearingType || event.eventType as any) || 'wcab',
         status: event.completed ? 'completed' : 'scheduled',
         notes: event.metadata?.notes,
         createdBy: 'user',
         tags: event.tags || [],
-        duplicateScore: isDuplicate ? 85 : 0
+        duplicateScore: isDuplicate ? 95 : 0
       };
     });
 
@@ -168,8 +187,8 @@ export function BulkCalendarManager() {
       return;
     }
     
-    toast.success(`Deleted ${selectedEvents.length} events`);
-    setEvents(prev => prev.filter(event => !selectedEvents.includes(event.id)));
+    deleteMultipleEvents(selectedEvents);
+    toast.success(`Deleted ${selectedEvents.length} event${selectedEvents.length > 1 ? 's' : ''}`);
     setSelectedEvents([]);
   };
 
@@ -180,7 +199,6 @@ export function BulkCalendarManager() {
     }
     
     toast.info(`Rescheduling ${selectedEvents.length} events...`);
-    // In production, open a date picker modal
   };
 
   const handleMergeDuplicates = () => {
@@ -190,26 +208,30 @@ export function BulkCalendarManager() {
       return;
     }
     
-    // Smart merge logic - keep the most recent with all attachments
+    // Keep primary event and merge notes & tags
     const primaryEvent = duplicateEvents.find(e => e.status === 'rescheduled') || duplicateEvents[0];
-    const mergedAttachments = duplicateEvents.flatMap(e => e.attachments || []);
+    const redundantIds = duplicateEvents.filter(e => e.id !== primaryEvent.id).map(e => e.id);
     const mergedNotes = duplicateEvents.map(e => e.notes).filter(Boolean).join('\n\n');
+    const mergedTags = [...new Set(duplicateEvents.flatMap(e => e.tags || []))];
     
-    const mergedEvent = {
-      ...primaryEvent,
-      attachments: Array.from(new Map(mergedAttachments.map(a => [a.id, a])).values()),
-      notes: mergedNotes,
-      tags: [...new Set(duplicateEvents.flatMap(e => e.tags || []))]
-    };
-    
-    // Remove duplicates and add merged event
-    setEvents(prev => [
-      ...prev.filter(event => !duplicates.includes(event.id)),
-      mergedEvent
-    ]);
+    deleteMultipleEvents(redundantIds);
+    updateEvent(primaryEvent.id, {
+      description: mergedNotes || primaryEvent.description,
+      tags: mergedTags
+    });
     
     setDuplicates([]);
-    toast.success('Duplicate events merged successfully');
+    setSelectedEvents([]);
+    toast.success(`Merged ${duplicateEvents.length} duplicate entries into master event`);
+  };
+
+  const handleAutoDeduplicate = () => {
+    const count = deduplicateEvents();
+    if (count > 0) {
+      toast.success(`Auto-deduplicated and purged ${count} duplicate events`);
+    } else {
+      toast.info('Calendar is already clean (0 duplicates detected)');
+    }
   };
 
   const getStatusColor = (status: string) => {
@@ -240,7 +262,7 @@ export function BulkCalendarManager() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Button onClick={() => navigate('/automation-dashboard')} variant="ghost" size="sm">
+            <Button onClick={() => navigate('/calendar')} variant="ghost" size="sm" title="Back to Sovereign Calendar">
               <ArrowLeft className="h-4 w-4" />
             </Button>
             <div>
@@ -249,6 +271,10 @@ export function BulkCalendarManager() {
             </div>
           </div>
           <div className="flex items-center gap-3">
+            <Button onClick={handleAutoDeduplicate} variant="shimmer-glass" className="shimmer-button-energy">
+              <Sparkles className="h-4 w-4 mr-2 text-amber-500" />
+              Auto-Clean Duplicates
+            </Button>
             <Button onClick={() => setShowDuplicatesOnly(!showDuplicatesOnly)} variant="shimmer-glass" className="shimmer-button-energy">
               <AlertTriangle className="h-4 w-4 mr-2" />
               Duplicates ({duplicates.length})
@@ -530,8 +556,4 @@ export function BulkCalendarManager() {
       </div>
     </div>
   );
-}
-
-// Import for Scale icon
-import Scale from 'lucide-react/dist/esm/icons/scale';
-import Phone from 'lucide-react/dist/esm/icons/phone'; 
+} 
