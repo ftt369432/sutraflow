@@ -548,6 +548,48 @@ export const UniversalWorkbenchPage: React.FC = () => {
     toast.info('Session deleted');
   };
 
+  const handleBatchDeleteSessions = (sessionIds: string[]) => {
+    if (sessionIds.length === 0) return;
+    const toDeleteSet = new Set(sessionIds);
+    let nextSessions = sessions.filter((s) => !toDeleteSet.has(s.id));
+
+    if (nextSessions.length === 0) {
+      const freshId = `session-${Date.now()}`;
+      const freshSession: WorkbenchSession = {
+        id: freshId,
+        title: 'New Investigation',
+        domainType: selectedDomain,
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+        messages: [],
+        generatedOutput: '',
+        liveThoughtSteps: []
+      };
+      nextSessions = [freshSession];
+      setSessions(nextSessions);
+      handleSelectSession(freshId);
+    } else if (toDeleteSet.has(activeSessionId)) {
+      setSessions(nextSessions);
+      handleSelectSession(nextSessions[0].id);
+    } else {
+      setSessions(nextSessions);
+    }
+
+    try {
+      localStorage.setItem('sutraflow_workbench_sessions', JSON.stringify(nextSessions));
+    } catch (e) {}
+    toast.info(`Deleted ${sessionIds.length} session${sessionIds.length === 1 ? '' : 's'}`);
+  };
+
+  const handleClearInactiveSessions = () => {
+    const nextSessions = sessions.filter((s) => s.id === activeSessionId);
+    setSessions(nextSessions);
+    try {
+      localStorage.setItem('sutraflow_workbench_sessions', JSON.stringify(nextSessions));
+    } catch (e) {}
+    toast.success('Purged inactive scratch sessions — active case preserved');
+  };
+
   const handleDuplicateSession = (sessionId: string) => {
     const target = sessions.find((s) => s.id === sessionId);
     if (!target) return;
@@ -1988,6 +2030,8 @@ The conformed professional document is ready in the **Synthesis Output** pane on
         onNewSession={handleNewSession}
         onDeleteSession={handleDeleteSession}
         onDuplicateSession={handleDuplicateSession}
+        onBatchDeleteSessions={handleBatchDeleteSessions}
+        onClearInactiveSessions={handleClearInactiveSessions}
       />
     </div>
   );
