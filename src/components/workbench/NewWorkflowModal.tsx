@@ -18,7 +18,7 @@ export const NewWorkflowModal: React.FC<NewWorkflowModalProps> = ({
 }) => {
   const [title, setTitle] = useState('');
   const [category, setCategory] = useState<string>('custom');
-  const [icon, setIcon] = useState('⚡');
+  const [icon, setIcon] = useState('zap');
   const [description, setDescription] = useState('');
   const [prompt, setPrompt] = useState('');
   const [isSaved, setIsSaved] = useState(false);
@@ -36,7 +36,7 @@ export const NewWorkflowModal: React.FC<NewWorkflowModalProps> = ({
       description: description.trim() || `User-created workflow: ${title.trim()}`,
       category,
       domain: activeDomainType,
-      icon: icon || '⚡',
+      icon: icon || 'zap',
       prompt: prompt.trim(),
       isCustom: true
     };
@@ -111,14 +111,15 @@ ${prompt.trim()}
                 onChange={(e) => setIcon(e.target.value)}
                 className="w-full h-8 px-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm focus:outline-none"
               >
-                <option value="⚡">⚡ Lightning</option>
-                <option value="📜">📜 Document</option>
-                <option value="⚖️">⚖️ Scale/Trial</option>
-                <option value="🩺">🩺 Medical</option>
-                <option value="🛡️">🛡️ Shield</option>
-                <option value="💰">💰 Money/Fee</option>
-                <option value="🔍">🔍 Audit/Scan</option>
-                <option value="🏛️">🏛️ Pleading</option>
+                <option value="zap">Lightning (Fast Task)</option>
+                <option value="scroll">Document / Brief</option>
+                <option value="scale">Legal / Court</option>
+                <option value="calc">Calculator / Rating</option>
+                <option value="stethoscope">Medical Analysis</option>
+                <option value="shield">Defense / Motion</option>
+                <option value="dollar">Fee / Lien Audit</option>
+                <option value="search">Investigation / Search</option>
+                <option value="landmark">Formal 28-Line Pleading</option>
               </select>
             </div>
             <div className="col-span-3">

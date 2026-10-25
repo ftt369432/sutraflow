@@ -23,6 +23,69 @@ import {
 import { StudioMessage, ThoughtTraceStep, ArtifactBadge } from './types';
 import { MarkdownMessage } from '../ai/MarkdownMessage';
 
+/**
+ * Safely extracts or parses work product artifact badges from a message.
+ */
+function extractArtifactBadges(msg: StudioMessage): ArtifactBadge[] {
+  if (!msg) return [];
+  const result: ArtifactBadge[] = [];
+  const seenPaths = new Set<string>();
+
+  // 1. Explicitly attached artifacts from sovereign orchestrator
+  if (msg.artifacts && Array.isArray(msg.artifacts)) {
+    for (const art of msg.artifacts) {
+      if (art && (art.path || art.name)) {
+        const key = art.path || art.name;
+        if (!seenPaths.has(key)) {
+          seenPaths.add(key);
+          result.push(art);
+        }
+      }
+    }
+  }
+
+  // 2. Fallback: Parse markdown content for generated deliverables/files
+  const content = msg.content || '';
+  if (content) {
+    // Match [Title](path/to/file.ext)
+    const mdLinkRegex = /\[([^\]]+)\]\(([^)]+\.(?:md|docx|pdf|txt))\)/gi;
+    let match: RegExpExecArray | null;
+    while ((match = mdLinkRegex.exec(content)) !== null) {
+      const title = match[1].trim();
+      const path = match[2].trim();
+      if (!seenPaths.has(path)) {
+        seenPaths.add(path);
+        const ext = path.split('.').pop()?.toLowerCase();
+        result.push({
+          id: `art-link-${result.length}`,
+          name: title || path.split(/[\\/]/).pop() || 'Work Product',
+          path,
+          type: ext === 'docx' ? 'docx' : ext === 'md' ? 'md' : 'text'
+        });
+      }
+    }
+
+    // Match backtick or raw paths like `AI_GENERATED_DOCS/filename.md` or `02_OUTPUT/filename.docx`
+    const pathRegex = /`?((?:[A-Za-z]:[\\/][^\s"'`]+|(?:AI_GENERATED_DOCS|02_OUTPUT)[\\/][^\s"'`]+)\.(?:md|docx|pdf|txt))`?/gi;
+    while ((match = pathRegex.exec(content)) !== null) {
+      const rawPath = match[1].trim();
+      if (!seenPaths.has(rawPath)) {
+        seenPaths.add(rawPath);
+        const fileName = rawPath.split(/[\\/]/).pop() || rawPath;
+        const ext = fileName.split('.').pop()?.toLowerCase();
+        result.push({
+          id: `art-path-${result.length}`,
+          name: fileName,
+          path: rawPath,
+          type: ext === 'docx' ? 'docx' : ext === 'md' ? 'md' : 'text'
+        });
+      }
+    }
+  }
+
+  return result;
+}
+
 interface WorkbenchChatFeedProps {
   messages: StudioMessage[];
   chatScrollRef: React.RefObject<HTMLDivElement | null>;
@@ -45,6 +108,19 @@ export const WorkbenchChatFeed: React.FC<WorkbenchChatFeedProps> = ({
   // Individual step expansion map (for behind-the-scenes deep inspection)
   const [expandedStepIds, setExpandedStepIds] = useState<Record<string, boolean>>({});
   const [copiedStepId, setCopiedStepId] = useState<string | null>(null);
+
+  const handleOpenArtifact = (art: ArtifactBadge) => {
+    window.dispatchEvent(
+      new CustomEvent('genieflow:open-artifact', {
+        detail: {
+          path: art.path,
+          title: art.name,
+          name: art.name,
+          type: art.type
+        }
+      })
+    );
+  };
 
   const toggleStep = (stepId: string) => {
     setExpandedStepIds((prev) => ({

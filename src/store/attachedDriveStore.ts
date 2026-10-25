@@ -63,7 +63,7 @@ export const useAttachedDriveStore = create<AttachedDriveState>()(
           let folderName = cleanPath.split('/').filter(Boolean).pop() || normalized;
           if (/^[a-zA-Z]:\/?$/.test(cleanPath)) {
             folderName = `Drive (${normalized.substring(0, 2).toUpperCase()})`;
-          } else if (cleanPath.toLowerCase().includes('google') || cleanPath.toLowerCase().includes('my drive')) {
+          } else if (cleanPath.toLowerCase().endsWith('my drive') || cleanPath.toLowerCase().includes('google drive') || cleanPath.toLowerCase() === 'g:/my drive') {
             folderName = `Google Drive (${normalized.substring(0, 2).toUpperCase()})`;
           }
 
@@ -415,17 +415,20 @@ export const useAttachedDriveStore = create<AttachedDriveState>()(
           if (Array.isArray(children)) {
             for (const child of children) {
               if (child.isFolder) {
-                const subFiles = await collectFiles(child);
-                results = results.concat(subFiles);
+                if (results.length < 25) {
+                  const subFiles = await collectFiles(child);
+                  results = results.concat(subFiles);
+                }
               } else {
                 results.push(child);
+                if (results.length >= 25) break;
               }
             }
           }
           return results;
         };
 
-        const folderFiles = await collectFiles(folderNode);
+        const folderFiles = (await collectFiles(folderNode)).slice(0, 25);
         if (folderFiles.length === 0) return 0;
 
         const folderFileIds = new Set(folderFiles.map(f => f.id));
@@ -571,49 +574,75 @@ export const useAttachedDriveStore = create<AttachedDriveState>()(
           await state.refreshGeneratedDocs();
         } catch {}
 
-        const hasMounted = state.drives.some(d =>
-          d.name.includes('Google') ||
-          d.name.includes('.GENIEFLOW_MASTER') ||
-          d.name.includes('G:')
+        // If a drive was erroneously mounted to only .GENIEFLOW_MASTER, purge it so full Google Drive root mounts
+        const hasMasterOnly = state.drives.some(d =>
+          d.rootPath?.includes('.GENIEFLOW_MASTER') && d.name.includes('Google Drive')
         );
-        if (hasMounted) return;
+        if (hasMasterOnly) {
+          console.log('[GenieDrive] Upgrading subfolder mount (.GENIEFLOW_MASTER) to full Google Drive root...');
+          set(s => ({
+            drives: s.drives.filter(d => !(d.rootPath?.includes('.GENIEFLOW_MASTER') && d.name.includes('Google Drive')))
+          }));
+        }
 
-        // 1. Check physical drive paths via sovereignFs
-        const candidatePaths = [
-          'G:\\My Drive\\.GENIEFLOW_MASTER',
-          'G:\\My Drive',
-          'G:\\',
-          'E:\\'
-        ];
-        for (const p of candidatePaths) {
+        const currentState = get();
+        const hasFullGDrive = currentState.drives.some(d =>
+          (d.rootPath === 'G:\\My Drive' || d.rootPath === 'G:\\') && (d.items?.length || 0) > 0
+        );
+        const hasTravelDrive = currentState.drives.some(d =>
+          d.rootPath === 'E:\\' && (d.items?.length || 0) > 0
+        );
+
+        // 1. Mount Google Drive root if not already mounted
+        if (!hasFullGDrive) {
+          const gdriveCandidates = ['G:\\My Drive', 'G:\\'];
+          for (const p of gdriveCandidates) {
+            try {
+              const res = await sovereignFs.listFiles({ path: p });
+              if (res?.success && Array.isArray(res.files) && res.files.length > 0) {
+                console.log(`🚀 [GenieDrive] Auto-mounting sovereign master Google Drive from: ${p}`);
+                await currentState.attachDriveFromFolderPath(p);
+                try {
+                  const currentLinked = JSON.parse(localStorage.getItem('genieflow_linked_drives') || '[]');
+                  if (!currentLinked.includes(p)) {
+                    localStorage.setItem('genieflow_linked_drives', JSON.stringify([...currentLinked, p]));
+                  }
+                } catch {}
+                break;
+              }
+            } catch {}
+          }
+        }
+
+        // 2. Mount Travel Drive E:\ if not already mounted
+        if (!hasTravelDrive) {
           try {
-            const res = await sovereignFs.listFiles({ path: p });
+            const res = await sovereignFs.listFiles({ path: 'E:\\' });
             if (res?.success && Array.isArray(res.files) && res.files.length > 0) {
-              console.log(`🚀 [GenieDrive] Auto-mounting sovereign master drive from: ${p}`);
-              await state.attachDriveFromFolderPath(p);
+              console.log(`🚀 [GenieDrive] Auto-mounting sovereign Travel Drive (E:\\)...`);
+              await currentState.attachDriveFromFolderPath('E:\\');
               try {
                 const currentLinked = JSON.parse(localStorage.getItem('genieflow_linked_drives') || '[]');
-                if (!currentLinked.includes(p)) {
-                  localStorage.setItem('genieflow_linked_drives', JSON.stringify([...currentLinked, p]));
+                if (!currentLinked.includes('E:\\')) {
+                  localStorage.setItem('genieflow_linked_drives', JSON.stringify([...currentLinked, 'E:\\']));
                 }
               } catch {}
-              return;
             }
           } catch {}
         }
 
-        // 2. Browser / Web environment: auto-attach Google Drive (G:\) if linked before or default sovereign workspace
+        // 3. Browser / Web environment fallback
         try {
           const linkedRaw = localStorage.getItem('genieflow_linked_drives');
           const linked = linkedRaw ? JSON.parse(linkedRaw) : ['gdrive'];
-          if (linked.includes('gdrive') || linked.some((p: string) => p.includes('G:') || p.includes('Google'))) {
+          if (!hasFullGDrive && (linked.includes('gdrive') || linked.some((p: string) => p.includes('G:') || p.includes('Google')))) {
             console.log(`🚀 [GenieDrive] Auto-mounting previously linked Google Drive (G:\\My Drive)...`);
-            await state.attachPreconfiguredDrive('gdrive');
+            await currentState.attachPreconfiguredDrive('gdrive');
             localStorage.setItem('genieflow_linked_drives', JSON.stringify(Array.from(new Set([...linked, 'gdrive']))));
           }
-          if (linked.includes('travel') || linked.some((p: string) => p.includes('E:') || p.includes('Travel'))) {
+          if (!hasTravelDrive && (linked.includes('travel') || linked.some((p: string) => p.includes('E:') || p.includes('Travel')))) {
             console.log(`🚀 [GenieDrive] Auto-mounting previously linked Travel Drive (E:\\)...`);
-            await state.attachPreconfiguredDrive('travel');
+            await currentState.attachPreconfiguredDrive('travel');
           }
         } catch (err) {
           console.warn('[GenieDrive] Web auto-mount fallback encountered:', err);
@@ -623,7 +652,7 @@ export const useAttachedDriveStore = create<AttachedDriveState>()(
     {
       name: 'genieflow-attached-drives',
       partialize: (state) => ({
-        pinnedFiles: state.pinnedFiles.map(p => ({
+        pinnedFiles: (state.pinnedFiles || []).slice(-20).map(p => ({
           id: p.id,
           name: p.name,
           path: p.path,

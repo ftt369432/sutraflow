@@ -639,6 +639,75 @@ def audit_case_chess_strategy(case_text_or_timeline: str, case_name: str = "Acti
         output.append(f"- **👉 ACTION:** Type `approve {m['move_id']}` to authorize filing and document compilation.")
     return _with_disclaimer("\n".join(output))
 
+@app.tool()
+def search_ceb_civil_practice(query: str, category: str = "all", max_results: int = 5) -> str:
+    """Search Continuing Education of the Bar (CEB) California Civil Discovery Practice and Civil Procedure Before Trial compendiums for procedural rules, checklists, forms, and CCP authorities."""
+    ceb_dir = _resolve_candidate_path([
+        os.path.join(BASE_DIR, "knowledge", "CEB_CALIFORNIA_CIVIL_PRACTICE"),
+        r"G:\My Drive\.GENIEFLOW_MASTER\knowledge\CEB_CALIFORNIA_CIVIL_PRACTICE",
+        r"I:\.genieflowai.brain\knowledge\CEB_CALIFORNIA_CIVIL_PRACTICE",
+        r"J:\My Drive\.GENIEFLOW_MASTER\knowledge\CEB_CALIFORNIA_CIVIL_PRACTICE",
+    ], os.path.join(BASE_DIR, "knowledge", "CEB_CALIFORNIA_CIVIL_PRACTICE"))
+    
+    if not os.path.exists(ceb_dir):
+        return f"CEB Civil Practice directory not found at {ceb_dir}."
+    
+    results = []
+    files_to_search = []
+    if category.lower() in ["discovery", "all"]:
+        disc_file = os.path.join(ceb_dir, "01_CEB_CIVIL_DISCOVERY_PRACTICE_COMPENDIUM.md")
+        if os.path.exists(disc_file):
+            files_to_search.append(("CEB Civil Discovery Practice", disc_file))
+    if category.lower() in ["civpro", "before_trial", "all"]:
+        civpro_file = os.path.join(ceb_dir, "02_CEB_CIVIL_PROCEDURE_BEFORE_TRIAL_COMPENDIUM.md")
+        if os.path.exists(civpro_file):
+            files_to_search.append(("CEB Civil Procedure Before Trial", civpro_file))
+            
+    q_words = [w.lower() for w in query.split() if len(w) > 2]
+    if not q_words:
+        q_words = [query.lower()]
+        
+    for source_title, fpath in files_to_search:
+        try:
+            with open(fpath, "r", encoding="utf-8") as f:
+                sections = f.read().split("### ")
+            for sec in sections[1:]:
+                header = sec.splitlines()[0] if sec.splitlines() else ""
+                sec_lower = sec.lower()
+                matches = sum(1 for w in q_words if w in sec_lower)
+                if matches > 0:
+                    score = matches
+                    if all(w in sec_lower for w in q_words):
+                        score += 5
+                    results.append((score, source_title, header, sec[:600]))
+        except Exception:
+            continue
+            
+    results.sort(key=lambda x: x[0], reverse=True)
+    if not results:
+        return f"No CEB Civil Practice sections found matching '{query}' in category '{category}'."
+        
+    output = [f"### 📘 CEB California Civil Practice Search Results for: '{query}' ({len(results[:max_results])} matches)\n"]
+    for idx, (sc, src, hdr, body) in enumerate(results[:max_results], 1):
+        clean_body = body.strip().replace("\n\n", "\n")
+        output.append(f"**[{idx}] {src} — {hdr}**\n```text\n{clean_body[:450]}...\n```\n")
+    return _with_disclaimer("\n".join(output))
+
 if __name__ == "__main__":
-    app.run()
+    import argparse
+    parser = argparse.ArgumentParser(description="Sutra Legal Research & Pleading MCP Server (Agentic Obsidian Hub)")
+    parser.add_argument("--transport", choices=["stdio", "sse", "streamable-http"], default=os.environ.get("MCP_TRANSPORT", "stdio"), help="Transport protocol (stdio, sse, or streamable-http)")
+    parser.add_argument("--host", default=os.environ.get("MCP_HOST", "0.0.0.0"), help="Host interface to bind (default: 0.0.0.0)")
+    parser.add_argument("--port", type=int, default=int(os.environ.get("MCP_PORT", "8000")), help="Port to listen on (default: 8000)")
+    args = parser.parse_args()
+
+    if args.transport == "sse":
+        print(f"[*] Starting Sutra-Legal-Hub on SSE transport at http://{args.host}:{args.port}/sse", file=sys.stderr)
+        app.run(transport="sse", host=args.host, port=args.port)
+    elif args.transport == "streamable-http":
+        print(f"[*] Starting Sutra-Legal-Hub on Streamable HTTP transport at http://{args.host}:{args.port}/mcp", file=sys.stderr)
+        app.run(transport="streamable-http", host=args.host, port=args.port)
+    else:
+        app.run(transport="stdio")
+
 

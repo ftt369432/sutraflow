@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Sparkles, Upload, FileText, CheckCircle2, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import { X, Sparkles, Upload, FileText, CheckCircle2, ArrowRight, ShieldCheck, Zap, Scale, Hammer, Stethoscope, BarChart3, Building2 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { genesisBrainService, GenesisOutput } from '../../services/genesis/GenesisBrainService';
 import { WorkflowItem } from './workflowData';
@@ -12,13 +12,24 @@ interface BrainGenesisModalProps {
 }
 
 const PRESET_DOMAINS = [
-  { id: 'civil_pi', label: 'Civil & Personal Injury Law', icon: '⚖️', standards: 'California Civil Code, CCP, Insurance Code § 790.03', placeholder: 'e.g. Sterling & Sterling Injury Attorneys' },
-  { id: 'general_contractor', label: 'General Contracting & Trades', icon: '👷', standards: 'CSLB Regulations, Mechanics Lien Law (Civil Code § 8000), OSHA', placeholder: 'e.g. Apex Commercial Builders Inc.' },
-  { id: 'medical_clinic', label: 'Medical Practice & Billing', icon: '🩺', standards: 'HIPAA Security Rule, CMS Billing Guidelines, CPT / ICD-10 Compliance', placeholder: 'e.g. Coastal Orthopedic Specialists' },
-  { id: 'tax_accounting', label: 'Tax Advisory & Accounting', icon: '📊', standards: 'Internal Revenue Code (IRC), GAAP Accounting, Treasury Regs', placeholder: 'e.g. Summit Wealth Advisory & Tax' },
-  { id: 'real_estate', label: 'Real Estate & Property Management', icon: '🏠', standards: 'California DRE Standards, RESPA, Civil Code § 1946 (Tenancy)', placeholder: 'e.g. Horizon Commercial Realty' },
-  { id: 'custom', label: 'Custom Enterprise / Agency', icon: '⚡', standards: 'General commercial contract principles and ethical trade rules', placeholder: 'e.g. Sovereign Operations Group' }
+  { id: 'civil_pi', label: 'Civil & Personal Injury Law', iconName: 'scale', standards: 'California Civil Code, CCP, Insurance Code § 790.03', placeholder: 'e.g. Sterling & Sterling Injury Attorneys' },
+  { id: 'general_contractor', label: 'General Contracting & Trades', iconName: 'hammer', standards: 'CSLB Regulations, Mechanics Lien Law (Civil Code § 8000), OSHA', placeholder: 'e.g. Apex Commercial Builders Inc.' },
+  { id: 'medical_clinic', label: 'Medical Practice & Billing', iconName: 'stethoscope', standards: 'HIPAA Security Rule, CMS Billing Guidelines, CPT / ICD-10 Compliance', placeholder: 'e.g. Coastal Orthopedic Specialists' },
+  { id: 'tax_accounting', label: 'Tax Advisory & Accounting', iconName: 'bar-chart-3', standards: 'Internal Revenue Code (IRC), GAAP Accounting, Treasury Regs', placeholder: 'e.g. Summit Wealth Advisory & Tax' },
+  { id: 'real_estate', label: 'Real Estate & Property Management', iconName: 'building', standards: 'California DRE Standards, RESPA, Civil Code § 1946 (Tenancy)', placeholder: 'e.g. Horizon Commercial Realty' },
+  { id: 'custom', label: 'Custom Enterprise / Agency', iconName: 'zap', standards: 'General commercial contract principles and ethical trade rules', placeholder: 'e.g. Sovereign Operations Group' }
 ];
+
+const renderDomainIcon = (iconName: string) => {
+  switch (iconName) {
+    case 'scale': return <Scale className="w-5 h-5 text-amber-500 mb-1.5" />;
+    case 'hammer': return <Hammer className="w-5 h-5 text-orange-500 mb-1.5" />;
+    case 'stethoscope': return <Stethoscope className="w-5 h-5 text-teal-500 mb-1.5" />;
+    case 'bar-chart-3': return <BarChart3 className="w-5 h-5 text-blue-500 mb-1.5" />;
+    case 'building': return <Building2 className="w-5 h-5 text-purple-500 mb-1.5" />;
+    default: return <Zap className="w-5 h-5 text-emerald-500 mb-1.5" />;
+  }
+};
 
 export const BrainGenesisModal: React.FC<BrainGenesisModalProps> = ({
   isOpen,
@@ -97,7 +108,7 @@ export const BrainGenesisModal: React.FC<BrainGenesisModalProps> = ({
       type: 'custom' as DomainType,
       title: result.businessName,
       organization: result.businessName,
-      icon: selectedDomain.icon || 'Briefcase',
+      icon: selectedDomain.iconName || 'Briefcase',
       standards: governingStandards || 'Deterministic sovereign reasoning.',
       deliverableFormat: `${selectedDomain.label} Master Document`,
       actionStarters: [result.workflowItem.title, 'Run Compliance Audit', 'Draft Deliverable']
@@ -114,8 +125,8 @@ export const BrainGenesisModal: React.FC<BrainGenesisModalProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50">
           <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500 text-lg">
-              ✨
+            <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500">
+              <Sparkles className="w-5 h-5" />
             </div>
             <div>
               <h2 className="text-base font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
@@ -157,7 +168,7 @@ export const BrainGenesisModal: React.FC<BrainGenesisModalProps> = ({
                             : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 bg-white dark:bg-slate-800/40'
                         }`}
                       >
-                        <span className="text-xl mb-1.5">{d.icon}</span>
+                        {renderDomainIcon(d.iconName)}
                         <span className="text-xs font-bold text-slate-800 dark:text-slate-200 line-clamp-1">{d.label}</span>
                       </button>
                     );

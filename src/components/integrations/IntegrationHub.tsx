@@ -31,7 +31,12 @@ import {
   Activity,
   Layers,
   Sparkles,
-  ArrowRight
+  ArrowRight,
+  Database,
+  Terminal,
+  Copy,
+  Server,
+  Smartphone
 } from 'lucide-react';
 import { useAddonStore } from '@/store/addonStore';
 import { useAttachedDriveStore } from '@/store/attachedDriveStore';
@@ -44,7 +49,7 @@ import { toast } from 'sonner';
 export interface ConnectorDefinition {
   id: string;
   name: string;
-  category: 'google' | 'productivity' | 'ai' | 'legal' | 'storage';
+  category: 'vault' | 'byok' | 'google' | 'productivity' | 'ai' | 'legal' | 'storage';
   categoryLabel: string;
   description: string;
   icon: React.ReactNode;
@@ -66,6 +71,37 @@ export interface ConnectorDefinition {
 }
 
 const CONNECTOR_REGISTRY: ConnectorDefinition[] = [
+  {
+    id: 'sutra-mcp-vault',
+    name: 'SutraFlow MCP Vault (Agentic Obsidian)',
+    category: 'vault',
+    categoryLabel: 'Memory & Brain Vault',
+    description: 'Universal Model Context Protocol (MCP) bridge exposing your local markdown vault, persistent client dossiers, and 25 deterministic tools over SSE (Port 8000) or sutraflow.us to Antigravity, Claude, Cursor, and any provider.',
+    icon: <Database className="w-6 h-6 text-cyan-500" />,
+    brandColor: 'bg-cyan-50 dark:bg-cyan-950/40 text-cyan-600 dark:text-cyan-400 border-cyan-200 dark:border-cyan-900',
+    requiresNetwork: false,
+    defaultStatus: 'connected',
+    configFields: [
+      {
+        key: 'mcp_port',
+        label: 'Local MCP Network Port',
+        type: 'text',
+        placeholder: '8000',
+        helperText: 'Port for local SSE and Streamable HTTP bridge (default: 8000).'
+      },
+      {
+        key: 'remote_tunnel_url',
+        label: 'Production Gateway / Remote URL',
+        type: 'text',
+        placeholder: 'https://sutraflow.us/mcp',
+        helperText: 'Public domain gateway endpoint for remote multi-device agent routing.'
+      }
+    ],
+    quickLink: {
+      label: 'SutraFlow Gateway (sutraflow.us)',
+      href: 'https://sutraflow.us'
+    }
+  },
   {
     id: 'google-drive',
     name: 'Google Drive (G:\\My Drive)',
@@ -252,6 +288,105 @@ const CONNECTOR_REGISTRY: ConnectorDefinition[] = [
         helperText: 'Configured in .env.local or custom token override.'
       }
     ]
+  },
+  {
+    id: 'anthropic-byok',
+    name: 'Anthropic Claude (BYOK)',
+    category: 'byok',
+    categoryLabel: 'Bring Your Own Key',
+    description: 'Direct API connection to Claude 3.7 Sonnet & Opus for autonomous legal reasoning with zero token throttling.',
+    icon: <Sparkles className="w-6 h-6 text-orange-500" />,
+    brandColor: 'bg-orange-50 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 border-orange-200 dark:border-orange-900',
+    requiresNetwork: true,
+    defaultStatus: 'unconfigured',
+    configFields: [
+      {
+        key: 'anthropic_api_key',
+        label: 'Anthropic API Key',
+        type: 'password',
+        placeholder: 'sk-ant-api03-...',
+        helperText: 'Your Anthropic API key from console.anthropic.com.'
+      }
+    ],
+    quickLink: {
+      label: 'Anthropic Console',
+      href: 'https://console.anthropic.com/settings/keys'
+    }
+  },
+  {
+    id: 'openai-byok',
+    name: 'OpenAI Frontier (BYOK)',
+    category: 'byok',
+    categoryLabel: 'Bring Your Own Key',
+    description: 'Direct API connection to GPT-4o, o1, and o3-mini for high-speed drafting and multimodal document forensics.',
+    icon: <Zap className="w-6 h-6 text-emerald-600" />,
+    brandColor: 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-900',
+    requiresNetwork: true,
+    defaultStatus: 'unconfigured',
+    configFields: [
+      {
+        key: 'openai_api_key',
+        label: 'OpenAI API Key',
+        type: 'password',
+        placeholder: 'sk-proj-...',
+        helperText: 'Your OpenAI developer API key.'
+      }
+    ],
+    quickLink: {
+      label: 'OpenAI API Keys',
+      href: 'https://platform.openai.com/api-keys'
+    }
+  },
+  {
+    id: 'groq-byok',
+    name: 'Groq LPU Inference (BYOK)',
+    category: 'byok',
+    categoryLabel: 'Bring Your Own Key',
+    description: 'Ultra-fast 500+ tok/s inference for Llama 3.3 70B for instantaneous ReAct loops and real-time legal drafting.',
+    icon: <Activity className="w-6 h-6 text-rose-500" />,
+    brandColor: 'bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-900',
+    requiresNetwork: true,
+    defaultStatus: 'unconfigured',
+    configFields: [
+      {
+        key: 'groq_api_key',
+        label: 'Groq API Key',
+        type: 'password',
+        placeholder: 'gsk_...',
+        helperText: 'Your high-throughput Groq Cloud token.'
+      }
+    ],
+    quickLink: {
+      label: 'Groq Cloud Console',
+      href: 'https://console.groq.com/keys'
+    }
+  },
+  {
+    id: 'whatsapp-bridge',
+    name: 'WhatsApp Mobile Superbrain',
+    category: 'productivity',
+    categoryLabel: 'Mobile & Messaging',
+    description: 'Direct phone bridge: dispatch case queries, voice notes, and document lookups from your mobile phone into the 4090 brain anywhere.',
+    icon: <Smartphone className="w-6 h-6 text-green-600" />,
+    brandColor: 'bg-green-50 dark:bg-green-950/40 text-green-700 dark:text-green-300 border-green-200 dark:border-green-900',
+    requiresNetwork: true,
+    defaultStatus: 'unconfigured',
+    configFields: [
+      {
+        key: 'whatsapp_phone',
+        label: 'Authorized Mobile Phone Number',
+        type: 'text',
+        placeholder: '+1 (555) 000-0000',
+        helperText: 'E.164 phone number authorized to query the sovereign brain.'
+      },
+      {
+        key: 'whatsapp_token',
+        label: 'Webhook Secret / Access Token',
+        type: 'password',
+        placeholder: 'wa_sec_...',
+        helperText: 'Twilio or Meta Cloud API authorization secret.'
+      }
+    ]
   }
 ];
 
@@ -267,6 +402,58 @@ export const IntegrationHub: React.FC = () => {
   const [showPassword, setShowPassword] = useState<Record<string, boolean>>({});
   const [modalTestResult, setModalTestResult] = useState<DiagnosticResult | null>(null);
   const [isModalTesting, setIsModalTesting] = useState(false);
+  const [mcpSnippetTab, setMcpSnippetTab] = useState<'claude' | 'antigravity' | 'cursor' | 'gateway'>('claude');
+  const [copiedSnippet, setCopiedSnippet] = useState(false);
+
+  const getMcpSnippet = (tab: string, port: string) => {
+    if (tab === 'claude') {
+      return JSON.stringify({
+        mcpServers: {
+          "sutraflow-agentic-obsidian": {
+            command: "npx",
+            args: ["-y", "mcp-remote", `http://127.0.0.1:${port}/sse`]
+          }
+        }
+      }, null, 2);
+    }
+    if (tab === 'antigravity') {
+      return JSON.stringify({
+        mcpServers: {
+          "sutraflow-agentic-obsidian": {
+            command: "python",
+            args: ["c:\\Users\\Ftt\\genieflowai\\src\\mcp_servers\\sutra_mcp_unified.py", "--transport", "stdio"],
+            url: `http://127.0.0.1:${port}/sse`
+          }
+        }
+      }, null, 2);
+    }
+    if (tab === 'cursor') {
+      return JSON.stringify({
+        mcpServers: {
+          "sutraflow-agentic-obsidian": {
+            url: `http://127.0.0.1:${port}/sse`
+          }
+        }
+      }, null, 2);
+    }
+    return JSON.stringify({
+      mcpServers: {
+        "sutraflow-cloud-vault": {
+          url: "https://sutraflow.us/mcp",
+          headers: {
+            "Authorization": "Bearer YOUR_SUTRAFLOW_TOKEN"
+          }
+        }
+      }
+    }, null, 2);
+  };
+
+  const copySnippet = (text: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedSnippet(true);
+    toast.success('MCP configuration copied to clipboard');
+    setTimeout(() => setCopiedSnippet(false), 2000);
+  };
 
   // Initialize diagnostics on mount
   useEffect(() => {
@@ -290,6 +477,21 @@ export const IntegrationHub: React.FC = () => {
   const testConnector = useCallback(async (connectorId: string): Promise<DiagnosticResult> => {
     let result: DiagnosticResult;
     switch (connectorId) {
+      case 'sutra-mcp-vault':
+        result = await connectorDiagnostics.testUniversalMcp(Number(configValues['mcp_port']) || 8000);
+        break;
+      case 'anthropic-byok':
+        result = await connectorDiagnostics.testAnthropic(networkSyncEnabled, configValues['anthropic_api_key']);
+        break;
+      case 'openai-byok':
+        result = await connectorDiagnostics.testOpenAI(networkSyncEnabled, configValues['openai_api_key']);
+        break;
+      case 'groq-byok':
+        result = await connectorDiagnostics.testGroq(networkSyncEnabled, configValues['groq_api_key']);
+        break;
+      case 'whatsapp-bridge':
+        result = await connectorDiagnostics.testWhatsApp(configValues['whatsapp_phone']);
+        break;
       case 'google-drive':
         result = await connectorDiagnostics.testGoogleDrive(configValues['gdrive_path']);
         break;
@@ -380,6 +582,18 @@ export const IntegrationHub: React.FC = () => {
       initialValues['gemini_api_key'] = localStorage.getItem('genieflow_gemini_key') || '';
     } else if (connector.id === 'nebius') {
       initialValues['nebius_api_key'] = localStorage.getItem('genieflow_nebius_key') || '';
+    } else if (connector.id === 'sutra-mcp-vault') {
+      initialValues['mcp_port'] = localStorage.getItem('genieflow_mcp_port') || '8000';
+      initialValues['remote_tunnel_url'] = 'https://sutraflow.us/mcp';
+    } else if (connector.id === 'anthropic-byok') {
+      initialValues['anthropic_api_key'] = localStorage.getItem('genieflow_anthropic_key') || '';
+    } else if (connector.id === 'openai-byok') {
+      initialValues['openai_api_key'] = localStorage.getItem('genieflow_openai_key') || '';
+    } else if (connector.id === 'groq-byok') {
+      initialValues['groq_api_key'] = localStorage.getItem('genieflow_groq_key') || '';
+    } else if (connector.id === 'whatsapp-bridge') {
+      initialValues['whatsapp_phone'] = localStorage.getItem('genieflow_whatsapp_phone') || '';
+      initialValues['whatsapp_token'] = localStorage.getItem('genieflow_whatsapp_token') || '';
     }
     setConfigValues(initialValues);
   };
@@ -409,6 +623,26 @@ export const IntegrationHub: React.FC = () => {
     } else if (cid === 'nebius') {
       const k = configValues['nebius_api_key']?.trim();
       if (k) localStorage.setItem('genieflow_nebius_key', k);
+    } else if (cid === 'sutra-mcp-vault') {
+      const port = configValues['mcp_port']?.trim() || '8000';
+      localStorage.setItem('genieflow_mcp_port', port);
+    } else if (cid === 'anthropic-byok') {
+      const k = configValues['anthropic_api_key']?.trim();
+      if (k) localStorage.setItem('genieflow_anthropic_key', k);
+      else localStorage.removeItem('genieflow_anthropic_key');
+    } else if (cid === 'openai-byok') {
+      const k = configValues['openai_api_key']?.trim();
+      if (k) localStorage.setItem('genieflow_openai_key', k);
+      else localStorage.removeItem('genieflow_openai_key');
+    } else if (cid === 'groq-byok') {
+      const k = configValues['groq_api_key']?.trim();
+      if (k) localStorage.setItem('genieflow_groq_key', k);
+      else localStorage.removeItem('genieflow_groq_key');
+    } else if (cid === 'whatsapp-bridge') {
+      const p = configValues['whatsapp_phone']?.trim();
+      const t = configValues['whatsapp_token']?.trim();
+      if (p) localStorage.setItem('genieflow_whatsapp_phone', p);
+      if (t) localStorage.setItem('genieflow_whatsapp_token', t);
     }
 
     toast.success(`${configModalConnector.name} configuration saved`);
@@ -431,6 +665,16 @@ export const IntegrationHub: React.FC = () => {
         res = await connectorDiagnostics.testGoogleDrive(configValues['gdrive_path']);
       } else if (cid === 'nebius') {
         res = await connectorDiagnostics.testNebius(true, configValues['nebius_api_key']);
+      } else if (cid === 'sutra-mcp-vault') {
+        res = await connectorDiagnostics.testUniversalMcp(Number(configValues['mcp_port']) || 8000);
+      } else if (cid === 'anthropic-byok') {
+        res = await connectorDiagnostics.testAnthropic(true, configValues['anthropic_api_key']);
+      } else if (cid === 'openai-byok') {
+        res = await connectorDiagnostics.testOpenAI(true, configValues['openai_api_key']);
+      } else if (cid === 'groq-byok') {
+        res = await connectorDiagnostics.testGroq(true, configValues['groq_api_key']);
+      } else if (cid === 'whatsapp-bridge') {
+        res = await connectorDiagnostics.testWhatsApp(configValues['whatsapp_phone']);
       } else {
         res = await testConnector(cid);
       }
@@ -611,10 +855,12 @@ export const IntegrationHub: React.FC = () => {
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
             {[
               { id: 'all', label: 'All Connectors' },
-              { id: 'google', label: 'Google & Workspace' },
-              { id: 'productivity', label: 'Productivity & Notes' },
-              { id: 'legal', label: 'Legal & Precedent' },
+              { id: 'vault', label: 'Brain Vault (Obsidian)' },
+              { id: 'byok', label: 'BYOK Models' },
+              { id: 'google', label: 'Google Workspace' },
               { id: 'ai', label: 'AI Inference' },
+              { id: 'legal', label: 'Legal & Precedent' },
+              { id: 'productivity', label: 'Productivity & Mobile' },
             ].map(tab => (
               <button
                 key={tab.id}
@@ -846,6 +1092,121 @@ export const IntegrationHub: React.FC = () => {
                       <li>Copy the <strong>Internal Integration Secret</strong> (<code className="font-mono text-[10px]">secret_...</code>) and paste above.</li>
                       <li>In Notion, open any case page or database, click <strong>•••</strong> → <strong>Connect to</strong>, and select your integration.</li>
                     </ol>
+                  </div>
+                )}
+
+                {/* SutraFlow Universal MCP Vault (Agentic Obsidian) Harness Generator */}
+                {configModalConnector.id === 'sutra-mcp-vault' && (
+                  <div className="p-4 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 rounded-xl space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Terminal className="w-4 h-4 text-cyan-500" />
+                        <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                          Connect Any AI Harness (Agentic Obsidian)
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-100 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300">
+                        Port {configValues['mcp_port'] || '8000'} | SSE / Stdio
+                      </span>
+                    </div>
+
+                    {/* Harness selector tabs */}
+                    <div className="flex items-center gap-1 p-1 bg-slate-200/60 dark:bg-slate-900/60 rounded-lg text-[11px]">
+                      {[
+                        { id: 'claude', label: 'Claude Desktop' },
+                        { id: 'antigravity', label: 'Antigravity IDE' },
+                        { id: 'cursor', label: 'Cursor / VS Code' },
+                        { id: 'gateway', label: 'sutraflow.us Cloud' },
+                      ].map(t => (
+                        <button
+                          key={t.id}
+                          type="button"
+                          onClick={() => setMcpSnippetTab(t.id as any)}
+                          className={`flex-1 py-1 px-1.5 rounded-md font-medium text-center transition-all cursor-pointer ${
+                            mcpSnippetTab === t.id
+                              ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-xs'
+                              : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'
+                          }`}
+                        >
+                          {t.label}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Code Snippet Box */}
+                    <div className="relative group">
+                      <pre className="p-3 bg-slate-900 text-slate-100 text-[11px] font-mono rounded-lg overflow-x-auto max-h-48 border border-slate-800">
+                        <code>{getMcpSnippet(mcpSnippetTab, configValues['mcp_port'] || '8000')}</code>
+                      </pre>
+                      <button
+                        type="button"
+                        onClick={() => copySnippet(getMcpSnippet(mcpSnippetTab, configValues['mcp_port'] || '8000'))}
+                        className="absolute top-2 right-2 px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-medium flex items-center gap-1 border border-slate-700 transition-colors cursor-pointer"
+                      >
+                        {copiedSnippet ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3 text-slate-300" />}
+                        <span>{copiedSnippet ? 'Copied' : 'Copy Config'}</span>
+                      </button>
+                    </div>
+
+                    <div className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center justify-between">
+                      <span>Launch locally: <code className="text-cyan-600 dark:text-cyan-400">START_SUTRA_MCP_SERVER.bat</code></span>
+                      <a href="https://sutraflow.us" target="_blank" rel="noreferrer" className="text-cyan-600 dark:text-cyan-400 hover:underline inline-flex items-center gap-0.5">
+                        <span>sutraflow.us docs</span>
+                        <ExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+                  </div>
+                )}
+
+                {/* Anthropic BYOK Guidance */}
+                {configModalConnector.id === 'anthropic-byok' && (
+                  <div className="p-3 bg-orange-50/60 dark:bg-orange-950/30 border border-orange-100 dark:border-orange-900/40 rounded-xl text-xs space-y-1.5 text-orange-900 dark:text-orange-200">
+                    <div className="font-semibold flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5 text-orange-500" />
+                      <span>Anthropic Claude API Setup:</span>
+                    </div>
+                    <p className="text-[11px] text-orange-800 dark:text-orange-300">
+                      Create your secret key at <a href="https://console.anthropic.com/settings/keys" target="_blank" rel="noreferrer" className="underline font-medium">console.anthropic.com/settings/keys</a>. Activates Claude 3.7 Sonnet & Opus with direct token billing.
+                    </p>
+                  </div>
+                )}
+
+                {/* OpenAI BYOK Guidance */}
+                {configModalConnector.id === 'openai-byok' && (
+                  <div className="p-3 bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/40 rounded-xl text-xs space-y-1.5 text-emerald-900 dark:text-emerald-200">
+                    <div className="font-semibold flex items-center gap-1.5">
+                      <Zap className="w-3.5 h-3.5 text-emerald-500" />
+                      <span>OpenAI Frontier Setup:</span>
+                    </div>
+                    <p className="text-[11px] text-emerald-800 dark:text-emerald-300">
+                      Generate a secret API key at <a href="https://platform.openai.com/api-keys" target="_blank" rel="noreferrer" className="underline font-medium">platform.openai.com/api-keys</a>. Powers GPT-4o, o1, and o3-mini reasoning.
+                    </p>
+                  </div>
+                )}
+
+                {/* Groq BYOK Guidance */}
+                {configModalConnector.id === 'groq-byok' && (
+                  <div className="p-3 bg-rose-50/60 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 rounded-xl text-xs space-y-1.5 text-rose-900 dark:text-rose-200">
+                    <div className="font-semibold flex items-center gap-1.5">
+                      <Activity className="w-3.5 h-3.5 text-rose-500" />
+                      <span>Groq LPU Inference Setup:</span>
+                    </div>
+                    <p className="text-[11px] text-rose-800 dark:text-rose-300">
+                      Create an API key at <a href="https://console.groq.com/keys" target="_blank" rel="noreferrer" className="underline font-medium">console.groq.com/keys</a>. Delivers ultra-low latency 500+ tok/s execution for Llama 3.3 70B.
+                    </p>
+                  </div>
+                )}
+
+                {/* WhatsApp Mobile Guidance */}
+                {configModalConnector.id === 'whatsapp-bridge' && (
+                  <div className="p-3 bg-green-50/60 dark:bg-green-950/30 border border-green-100 dark:border-green-900/40 rounded-xl text-xs space-y-1.5 text-green-900 dark:text-green-200">
+                    <div className="font-semibold flex items-center gap-1.5">
+                      <Smartphone className="w-3.5 h-3.5 text-green-600" />
+                      <span>Mobile Superbrain Routing:</span>
+                    </div>
+                    <p className="text-[11px] text-green-800 dark:text-green-300">
+                      Enter your authorized personal mobile number. Voice memos and text inquiries sent via WhatsApp or Signal will be processed directly against your 4090 brain vault.
+                    </p>
                   </div>
                 )}
 

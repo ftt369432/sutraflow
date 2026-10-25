@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   DomainProfile,
@@ -186,16 +186,22 @@ export const UniversalWorkbenchPage: React.FC = () => {
   const unpinFile = useAttachedDriveStore((state) => state.unpinFile);
   const clearPinnedFiles = useAttachedDriveStore((state) => state.clearPinnedFiles);
 
-  // Auto-clean any system files (desktop.ini, etc.) from pinned files on mount
+  // Auto-clean any system files (desktop.ini, etc.) from pinned files on mount and prune excessive pins
   useEffect(() => {
     const current = useAttachedDriveStore.getState().pinnedFiles || [];
     const isJunk = (name: string) => {
       const lower = (name || '').toLowerCase().trim();
-      return lower === 'desktop.ini' || lower === 'thumbs.db' || lower === '.ds_store' || lower.startsWith('~$');
+      return lower === 'desktop.ini' || lower === 'thumbs.db' || lower === '.ds_store' || lower.startsWith('~$') || lower.startsWith('._');
     };
-    if (current.some(p => isJunk(p.name))) {
+    const cleaned = current.filter(p => !isJunk(p.name));
+    if (cleaned.length > 15) {
+      console.warn(`[GenieDrive] Pruned ${cleaned.length - 8} stale pinned files to prevent prompt context bloat & cross-case bleed.`);
       useAttachedDriveStore.setState({
-        pinnedFiles: current.filter(p => !isJunk(p.name))
+        pinnedFiles: cleaned.slice(-8)
+      });
+    } else if (cleaned.length !== current.length) {
+      useAttachedDriveStore.setState({
+        pinnedFiles: cleaned
       });
     }
   }, []);
@@ -294,6 +300,16 @@ export const UniversalWorkbenchPage: React.FC = () => {
     if (raw === 'nebius') return 'nebius';
     return 'gemini';
   });
+  const [activeNebiusTier, setActiveNebiusTier] = useState<string>(
+    () => localStorage.getItem('genieflow_nebius_tier') || 'ultra'
+  );
+
+  const handleSelectNebiusTier = (tier: string) => {
+    setActiveNebiusTier(tier);
+    localStorage.setItem('genieflow_nebius_tier', tier);
+    toast.info(`Switched to Nebius Nemotron ${tier === 'nano' ? '30B Nano' : tier === 'super' ? '120B Super' : '550B Ultra'}`);
+  };
+
   const [showEngineDropdown, setShowEngineDropdown] = useState<boolean>(false);
   const [deepLoop, setDeepLoop] = useState<boolean>(() => localStorage.getItem('genieflow_deep_loop') !== 'off');
   const [activeRightTab, setActiveRightTab] = useState<RightTab>('deliverable');
@@ -395,7 +411,7 @@ export const UniversalWorkbenchPage: React.FC = () => {
 
   const handleApplyNotepadToEvidence = () => {
     if (!notepadText.trim()) return;
-    const separator = evidenceText ? '\n\n---\n### 📝 Practitioner Working Notes & Case Objectives\n' : '### 📝 Practitioner Working Notes & Case Objectives\n';
+    const separator = evidenceText ? '\n\n---\n### [PRACTITIONER NOTES] Working Notes & Case Objectives\n' : '### [PRACTITIONER NOTES] Working Notes & Case Objectives\n';
     const updatedEvidence = evidenceText + separator + notepadText;
     setEvidenceText(updatedEvidence);
     setActiveDocument({ name: attachedFileName || 'Workspace Notes & Evidence', content: updatedEvidence });
@@ -622,7 +638,10 @@ export const UniversalWorkbenchPage: React.FC = () => {
     useAttachedDriveStore.getState().autoMountSovereignDrives?.();
   }, []);
 
-  // 📡 Listen for agentic canvas document events & click-to-open artifact events to mount in the deliverable pane
+  // Listen for agentic canvas document events & click-to-open artifact events to mount in the deliverable pane
+  const handleSendMessageRef = useRef(handleSendMessage);
+  handleSendMessageRef.current = handleSendMessage;
+
   useEffect(() => {
     const handleCanvasCreated = (e: any) => {
       const doc = e.detail;
@@ -691,7 +710,11 @@ export const UniversalWorkbenchPage: React.FC = () => {
     const handleSetPrompt = (e: any) => {
       if (e.detail?.prompt) {
         setChatInput(e.detail.prompt);
-        toast.info('Loaded fast action into prompt');
+        if (e.detail.autoSubmit) {
+          handleSendMessageRef.current?.(e.detail.prompt);
+        } else {
+          toast.info('Loaded fast action into prompt');
+        }
       }
     };
 
@@ -909,19 +932,19 @@ export const UniversalWorkbenchPage: React.FC = () => {
           const kbSize = (loadedManifest.length / 1024).toFixed(1);
           const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
 
-          const manifestDebriefMd = `### 🕹️ MASTER MANIFEST UNPACKED (ZERO RESTRICTIONS)
+          const manifestDebriefMd = `### MASTER MANIFEST UNPACKED (ZERO RESTRICTIONS)
 
 **Source Node:** \`${resolvedPath}\`  
-**Size:** ${kbSize} KB (${lineCount.toLocaleString()} lines) | **DNA:** 🟢 \`SYNCED (Travel Drive E: ↔ Google Drive G: Master ↔ Local NVMe C:)\`  
+**Size:** ${kbSize} KB (${lineCount.toLocaleString()} lines) | **DNA:** \`[SYNCED] (Travel Drive E: ↔ Google Drive G: Master ↔ Local NVMe C:)\`  
 **Core Logic:** \`ACTIVE (v2.5.0 — Dual-Persona Sovereign Unified & Synced)\`
 
 ---
 
-#### ⚖️ Active System Personas & Captions
+#### Active System Personas & Captions
 - **Applicant Attorney Persona:** \`Law Offices of Arnulfo F. Gutierrez, Esq. (SBN 212260)\`
 - **Lien Claimant Persona:** \`Medland Medical Tustin\` | \`Spectrum Medical Group\` | \`RMS Medical Group\`
 
-#### 🚨 9 Cardinal System Rules Active
+#### Cardinal System Rules Active
 1. **The Sovereign Truth Mandate:** Never Lie, Never Assume, Verify Everything (100% Factual Accuracy).
 2. **The Sovereign Brain Workspace:** All work centralized within \`G:\\My Drive\\.GENIEFLOW_MASTER\` and \`E:\\.genieflowai.brain\`.
 3. **No Local C: Desktop Fragmentation:** Shared assets exclusively inside sovereign ecosystem.
@@ -932,14 +955,14 @@ export const UniversalWorkbenchPage: React.FC = () => {
 8. **Continuous RTX 4090 Training Mandate:** Unsloth QLoRA continuous learning pipeline active.
 9. **Agentic Creator & MCP Audit Standard:** Schema completeness & <1,500ms execution latency.
 
-#### 🗂️ Active Ecosystem Assets
+#### Active Ecosystem Assets
 - **Client Vaults:** 135+ Active Case Matters & Dossiers
 - **Unified Knowledge Base:** 145+ Authoritative Case Briefs & Grounding Records
 - **Pleading Standards:** California 28-Line Double-Spaced Legal Format
 
 ---
 
-> 📖 **Full Master Manifest Mounted:** The complete unconstrained \`MASTER_MANIFEST.md\` (${lineCount.toLocaleString()} lines) is now mounted in the **Deliverable Viewport** on the right for inspection, editing, or export.`;
+> **Full Master Manifest Mounted:** The complete unconstrained \`MASTER_MANIFEST.md\` (${lineCount.toLocaleString()} lines) is now mounted in the **Deliverable Viewport** on the right for inspection, editing, or export.`;
 
           setMessages((prev) =>
             prev.map((msg) =>
@@ -959,7 +982,7 @@ export const UniversalWorkbenchPage: React.FC = () => {
         } else {
           handleThoughtStep('Error: Could not locate MASTER_MANIFEST.md across attached drives...');
           const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-          const errorReply = `⚠️ **Could not unpack MASTER_MANIFEST.md**\n\nTried the following paths:\n${manifestCandidates.map((p) => `- \`${p}\``).join('\n')}\n\nPlease verify that Google Drive (G:) or Travel Drive (E:) is connected.`;
+          const errorReply = `**[ALERT] Could not unpack MASTER_MANIFEST.md**\n\nTried the following paths:\n${manifestCandidates.map((p) => `- \`${p}\``).join('\n')}\n\nPlease verify that Google Drive (G:) or Travel Drive (E:) is connected.`;
           setMessages((prev) =>
             prev.map((msg) =>
               msg.id === assistantMsgId
@@ -990,7 +1013,7 @@ export const UniversalWorkbenchPage: React.FC = () => {
           const title = `${activeProfile.title.replace(/\s+/g, '_')}_Deliverable`;
           await exportMarkdownToDocx(contentToExport, title);
           const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-          const docxReply = `📄 **Microsoft Word (.docx) Document Generated & Exported!**\n\nYour file \`${title}.docx\` has been compiled and downloaded.\n\n- **Source**: ${generatedOutput ? 'Synthesis Output' : notepadText ? 'Scratchpad Notes' : 'Active Evidence'}\n- **Length**: ${contentToExport.split('\n').length} lines\n- **Standard**: Official California Workers' Comp legal pleading format.`;
+          const docxReply = `**Microsoft Word (.docx) Document Generated & Exported!**\n\nYour file \`${title}.docx\` has been compiled and downloaded.\n\n- **Source**: ${generatedOutput ? 'Synthesis Output' : notepadText ? 'Scratchpad Notes' : 'Active Evidence'}\n- **Length**: ${contentToExport.split('\n').length} lines\n- **Standard**: Official California Workers' Comp legal pleading format.`;
 
           setMessages((prev) =>
             prev.map((msg) =>
@@ -1104,17 +1127,17 @@ export const UniversalWorkbenchPage: React.FC = () => {
         setActiveRightTab('deliverable');
 
         const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
-        const folderConfirmMd = `### 📂 Sovereign Workspace Physical Creation Confirmed: **${targetEntity}**
+        const folderConfirmMd = `### Sovereign Workspace Physical Creation Confirmed: **${targetEntity}**
 
 The dedicated business workspace has been physically initialized and verified across all 3 storage nodes with persistent memory:
 
 | Storage Node | Physical Location | Status |
 | :--- | :--- | :--- |
-| **Local NVMe** | \`C:\\Users\\Ftt\\genieflowai\\${targetEntity}\\\` | 🟢 Verified & Active |
-| **Google Drive Master** | \`G:\\My Drive\\.GENIEFLOW_MASTER\\${targetEntity}\\\` | 🟢 Synced |
-| **Sovereign Travel Drive** | \`E:\\${targetEntity}\\\` | 🟢 Synced |
+| **Local NVMe** | \`C:\\Users\\Ftt\\genieflowai\\${targetEntity}\\\` | [VERIFIED] Active |
+| **Google Drive Master** | \`G:\\My Drive\\.GENIEFLOW_MASTER\\${targetEntity}\\\` | [SYNCED] |
+| **Sovereign Travel Drive** | \`E:\\${targetEntity}\\\` | [SYNCED] |
 
-#### 📁 Standardized Directory Topology
+#### Standardized Directory Topology
 \`\`\`
 ${targetEntity}/
 ├── clients/          # Client dossiers, click-path logs, intake audits
@@ -1123,12 +1146,12 @@ ${targetEntity}/
 └── workflows/        # Reusable skill packages (.agents/workflows/)
 \`\`\`
 
-#### ⚡ Active Workspace Artifacts
-- 📄 **Master Launch Plan:** \`${targetEntity}_MASTER_PLAN.md\` *(Loaded in the Deliverable Pane on the right)*
-- 📊 **Command Center Dashboard:** \`dashboards/${targetEntity}_COMMAND_CENTER.html\`
-- 🛠️ **Forensic Workflow Skill:** \`workflows/agentify_business_audit.md\`
+#### Active Workspace Artifacts
+- **Master Launch Plan:** \`${targetEntity}_MASTER_PLAN.md\` *(Loaded in the Deliverable Pane on the right)*
+- **Command Center Dashboard:** \`dashboards/${targetEntity}_COMMAND_CENTER.html\`
+- **Forensic Workflow Skill:** \`workflows/agentify_business_audit.md\`
 
-#### 🚀 Next Action Objectives
+#### Next Action Objectives
 1. **[Launch Command Center Dashboard]**: Open \`dashboards/${targetEntity}_COMMAND_CENTER.html\` directly in any browser for offline tracking.
 2. **[Execute 48-Hour Business Audit]**: Select the **48-Hr Business Agentification Audit** pill above to analyze manual workflows.
 3. **[Auto-Extract Repetitive Tasks]**: Drop client process records or PDFs into active evidence to compile the first custom Skill manifest.`;
@@ -1179,13 +1202,13 @@ ${targetEntity}/
         if (lower.includes('dashboard')) {
           const navReply = `I located your active workspace dashboards:
 
-1. 📊 **[Executive Operations Dashboard](/dashboard)** — Your primary operational center, client dockets, and matter analytics.
-2. ⚡ **[Swarm Mission Control HQ](/hq)** — Real-time multi-agent execution, background task coordination, and sitreps.
-3. 🧠 **[Neural Cortex Hub](/cortex)** — Vector knowledge store, case law embeddings, and cross-document reasoning.
-4. 📁 **[SutraDrive Vault](/drive)** — Connected travel drives, Google Drive mirrors, and client files.
-5. ⚖️ **[SutraFlow Studios Workbench](/workbench)** — Active research, analysis, and deliverable workspace.
+1. **[Executive Operations Dashboard](/dashboard)** — Your primary operational center, client dockets, and matter analytics.
+2. **[Swarm Mission Control HQ](/hq)** — Real-time multi-agent execution, background task coordination, and sitreps.
+3. **[Neural Cortex Hub](/cortex)** — Vector knowledge store, case law embeddings, and cross-document reasoning.
+4. **[SutraDrive Vault](/drive)** — Connected travel drives, Google Drive mirrors, and client files.
+5. **[SutraFlow Studios Workbench](/workbench)** — Active research, analysis, and deliverable workspace.
 
-${lower.startsWith('open') || lower.startsWith('go to') ? `> 🚀 **Opening the Main Executive Dashboard now...**` : `Click any of the links above to open directly.`}`;
+${lower.startsWith('open') || lower.startsWith('go to') ? `> **Opening the Main Executive Dashboard now...**` : `Click any of the links above to open directly.`}`;
 
           setMessages((prev) =>
             prev.map((msg) =>
@@ -1238,10 +1261,10 @@ ${lower.startsWith('open') || lower.startsWith('go to') ? `> 🚀 **Opening the 
         if (matchingFiles.length > 0) {
           handleThoughtStep(`Located ${matchingFiles.length} matching files in connected drives...`);
           const fileListMd = matchingFiles.slice(0, 8).map((f, idx) => {
-            return `${idx + 1}. 📄 **${f.name}**\n   - Drive: \`${f.driveName || 'Connected Drive'}\`${f.path ? ` • Path: \`${f.path}\`` : ''}${f.preview ? `\n   - Preview: *${f.preview.slice(0, 100)}...*` : ''}`;
+            return `${idx + 1}. **${f.name}**\n   - Drive: \`${f.driveName || 'Connected Drive'}\`${f.path ? ` • Path: \`${f.path}\`` : ''}${f.preview ? `\n   - Preview: *${f.preview.slice(0, 100)}...*` : ''}`;
           }).join('\n\n');
 
-          const searchReply = `I searched your attached drives for **"${queryTerms}"** and located **${matchingFiles.length}** records:\n\n${fileListMd}\n\n💡 *Use the SutraDrive drawer on the left to inspect or attach any of these files directly into active evidence.*`;
+          const searchReply = `I searched your attached drives for **"${queryTerms}"** and located **${matchingFiles.length}** records:\n\n${fileListMd}\n\n*Use the SutraDrive drawer on the left to inspect or attach any of these files directly into active evidence.*`;
 
           setMessages((prev) =>
             prev.map((msg) =>
@@ -1290,8 +1313,9 @@ Provide a direct, authoritative research response citing applicable California L
       // INTENT 2: CONVERSATIONAL Q&A / EVIDENTIARY ANALYSIS
       // ==========================================
       if (!isExplicitDrafting) {
-        // 1. Gather all Pinned Files from SutraDrive (filtering out binary blobs that corrupt LLM context)
-        const storePinned = useAttachedDriveStore.getState().pinnedFiles || [];
+        // 1. Gather Pinned Files from SutraDrive (capped at 8 files max to prevent prompt context bloat & cross-case bleed)
+        const allStorePinned = useAttachedDriveStore.getState().pinnedFiles || [];
+        const storePinned = allStorePinned.slice(0, 8);
         const isBinaryFile = (name: string, content?: string) =>
           /\.(xlsx|xls|pdf|zip|exe|heic|db|png|jpg|jpeg|docx|doc)$/i.test(name) ||
           (content && (content.startsWith('PK\x03\x04') || content.startsWith('%PDF') || /[\x00-\x08\x0E-\x1F]/.test(content.slice(0, 200))));
@@ -1303,7 +1327,7 @@ Provide a direct, authoritative research response citing applicable California L
           return `### PINNED RECORD: ${p.name} (Source: ${p.path || 'SutraDrive'})\n${(p.content || '').slice(0, 24000)}`;
         });
 
-        // 2. Intelligent Auto-Discovery of Records
+        // 2. Intelligent Auto-Discovery of Records (Gated: only runs when user explicitly inquires about a file, case, or record)
         let autoDiscoveredContent = '';
         let autoDiscoveredName = '';
 
@@ -1330,71 +1354,87 @@ Provide a direct, authoritative research response citing applicable California L
 
         // Check if user is referencing any specific file or keyword from attached drives OR local AI_GENERATED_DOCS / 02_OUTPUT
         if (!autoDiscoveredContent) {
-          const rawTerms = trimmed
-            .replace(/^(do you see|check|inspect|audit|read|show me|find|where is|open|for|whats the case status for the hearing on this)\s+/i, '')
-            .split(/[\s,]+/)
-            .map((w) => w.replace(/[^a-zA-Z0-9_.-]/g, ''))
-            .filter((w) => w.length >= 4 && !['file', 'pinned', 'record', 'drive', 'master', 'please', 'there', 'what', 'have', 'case', 'status', 'hearing'].includes(w.toLowerCase()));
+          const isFileOrCaseQuery = /\b(file|document|record|dossier|exhibit|brief|petition|chavez|ramirez|valldovinos|vazquez|salan|munoz|diaz|anaya|gilliland|vicente|adj\d+|case|matter|client|contract|transcript)\b/i.test(trimmed) ||
+            /\.(md|txt|pdf|docx|doc|xlsx|json)/i.test(trimmed) ||
+            /^(do you see|check|inspect|audit|read|show me|find|where is|open|look up|review)\s+/i.test(trimmed);
 
-          if (rawTerms.length > 0) {
-            // First check local case dossier folders (e.g. AI_GENERATED_DOCS / 02_OUTPUT)
-            try {
-              for (const lDir of ['AI_GENERATED_DOCS', '02_OUTPUT']) {
-                if (autoDiscoveredContent) break;
-                const listRes = await sovereignFs.listFiles({ path: lDir });
-                if (listRes?.success && listRes.files) {
-                  for (const f of listRes.files) {
-                    if (rawTerms.some((term) => f.name.toLowerCase().includes(term.toLowerCase()))) {
-                      let targetFilePath = f.path;
-                      if (f.isDirectory) {
-                        const subRes = await sovereignFs.listFiles({ path: f.path });
-                        const docFile = subRes?.files?.find((sf) => sf.name.endsWith('.md') || sf.name.endsWith('.txt'));
-                        if (docFile) targetFilePath = docFile.path;
-                      }
-                      if (targetFilePath && (targetFilePath.endsWith('.md') || targetFilePath.endsWith('.txt'))) {
-                        const readRes = await sovereignFs.readFile({ path: targetFilePath });
-                        if (readRes?.success && readRes.content) {
-                          autoDiscoveredContent = readRes.content;
-                          autoDiscoveredName = `${f.name} (${targetFilePath})`;
-                          handleThoughtStep(`Auto-discovered local case dossier "${f.name}"...`);
-                          break;
+          if (isFileOrCaseQuery) {
+            const STOP_WORDS = new Set([
+              'some', 'other', 'names', 'name', 'chat', 'folders', 'folder', 'being', 'found',
+              'into', 'that', 'this', 'with', 'from', 'have', 'here', 'there', 'what', 'when',
+              'where', 'which', 'will', 'would', 'could', 'should', 'about', 'also', 'just',
+              'more', 'many', 'such', 'only', 'very', 'even', 'back', 'been', 'make', 'know',
+              'take', 'like', 'time', 'good', 'come', 'look', 'than', 'then', 'them', 'they',
+              'their', 'does', 'done', 'doing', 'tell', 'help', 'give', 'show', 'please',
+              'file', 'pinned', 'record', 'drive', 'master', 'case', 'status', 'hearing', 'status'
+            ]);
+
+            const rawTerms = trimmed
+              .replace(/^(do you see|check|inspect|audit|read|show me|find|where is|open|look up|review|for|whats the case status for the hearing on this)\s+/i, '')
+              .split(/[\s,]+/)
+              .map((w) => w.replace(/[^a-zA-Z0-9_.-]/g, ''))
+              .filter((w) => w.length >= 4 && !STOP_WORDS.has(w.toLowerCase()));
+
+            if (rawTerms.length > 0) {
+              // First check local case dossier folders (e.g. AI_GENERATED_DOCS / 02_OUTPUT)
+              try {
+                for (const lDir of ['AI_GENERATED_DOCS', '02_OUTPUT']) {
+                  if (autoDiscoveredContent) break;
+                  const listRes = await sovereignFs.listFiles({ path: lDir });
+                  if (listRes?.success && listRes.files) {
+                    for (const f of listRes.files) {
+                      if (rawTerms.some((term) => f.name.toLowerCase().includes(term.toLowerCase()))) {
+                        let targetFilePath = f.path;
+                        if (f.isDirectory) {
+                          const subRes = await sovereignFs.listFiles({ path: f.path });
+                          const docFile = subRes?.files?.find((sf) => sf.name.endsWith('.md') || sf.name.endsWith('.txt'));
+                          if (docFile) targetFilePath = docFile.path;
+                        }
+                        if (targetFilePath && (targetFilePath.endsWith('.md') || targetFilePath.endsWith('.txt'))) {
+                          const readRes = await sovereignFs.readFile({ path: targetFilePath });
+                          if (readRes?.success && readRes.content) {
+                            autoDiscoveredContent = readRes.content;
+                            autoDiscoveredName = `${f.name} (${targetFilePath})`;
+                            handleThoughtStep(`Auto-discovered local case dossier "${f.name}"...`);
+                            break;
+                          }
                         }
                       }
                     }
                   }
                 }
-              }
-            } catch (_) {}
+              } catch (_) {}
 
-            // Then check attached drives
-            if (!autoDiscoveredContent) {
-              const drives = useAttachedDriveStore.getState().drives || [];
-              for (const d of drives) {
-                if (autoDiscoveredContent) break;
-                const scanItems = (nodes: any[]): any => {
-                  for (const n of nodes) {
-                    if (!n.isFolder && rawTerms.some((term) => n.name.toLowerCase().includes(term.toLowerCase()))) {
-                      return n;
+              // Then check attached drives
+              if (!autoDiscoveredContent) {
+                const drives = useAttachedDriveStore.getState().drives || [];
+                for (const d of drives) {
+                  if (autoDiscoveredContent) break;
+                  const scanItems = (nodes: any[]): any => {
+                    for (const n of nodes) {
+                      if (!n.isFolder && rawTerms.some((term) => n.name.toLowerCase().includes(term.toLowerCase()))) {
+                        return n;
+                      }
+                      if (n.children) {
+                        const sub = scanItems(n.children);
+                        if (sub) return sub;
+                      }
                     }
-                    if (n.children) {
-                      const sub = scanItems(n.children);
-                      if (sub) return sub;
-                    }
+                    return null;
+                  };
+                  const matchedNode = d.items ? scanItems(d.items) : null;
+                  if (matchedNode && matchedNode.path) {
+                    try {
+                      handleThoughtStep(`Auto-locating attached record "${matchedNode.name}"...`);
+                      const res = await sovereignFs.readFile({ path: matchedNode.path });
+                      if (res?.success && res.content && !isBinaryFile(matchedNode.name, res.content)) {
+                        autoDiscoveredContent = res.content;
+                        autoDiscoveredName = `${matchedNode.name} (${matchedNode.path})`;
+                        handleThoughtStep(`Auto-loaded evidentiary content for ${matchedNode.name}...`);
+                        break;
+                      }
+                    } catch (_) {}
                   }
-                  return null;
-                };
-                const matchedNode = d.items ? scanItems(d.items) : null;
-                if (matchedNode && matchedNode.path) {
-                  try {
-                    handleThoughtStep(`Auto-locating attached record "${matchedNode.name}"...`);
-                    const res = await sovereignFs.readFile({ path: matchedNode.path });
-                    if (res?.success && res.content && !isBinaryFile(matchedNode.name, res.content)) {
-                      autoDiscoveredContent = res.content;
-                      autoDiscoveredName = `${matchedNode.name} (${matchedNode.path})`;
-                      handleThoughtStep(`Auto-loaded evidentiary content for ${matchedNode.name}...`);
-                      break;
-                    }
-                  } catch (_) {}
                 }
               }
             }
@@ -1426,7 +1466,7 @@ Provide a direct, authoritative research response citing applicable California L
         const conversationalPrompt = `${activeProfile.systemPrompt}
 
 ### SOVEREIGN STORAGE & ATTACHED ENVIRONMENT:
-- You operate with full visibility into the user's sovereign storage fabric (Google Drive Master G:\\My Drive\\.GENIEFLOW_MASTER, Travel Drive E:\\.genieflowai.brain, and Local NVMe Workspace C:\\Users\\Ftt\\genieflowai).
+- You operate with full visibility into the user's sovereign storage fabric (Google Drive Master G:\\My Drive, Travel Drive E:\\, and Local NVMe Workspace C:\\Users\\Ftt\\genieflowai).
 - Pinned Records in Active Context: ${storePinned.length > 0 ? storePinned.map((p) => `"${p.name}"`).join(', ') : 'None explicitly pinned (Auto-discovery active)'}
 - Auto-Discovered Records: ${autoDiscoveredName || 'None'}
 - Direct Directive: NEVER claim you cannot access Google Drive or local directories. If records are provided below, audit and cite them directly. If the user asks whether a record is pinned or visible, confirm its status and summarize its contents accurately.
@@ -1449,8 +1489,13 @@ ${activeProfile.type === 'legal' ? '- When referencing statutes or legal authori
         let answer = '';
         const hasNebius = !!nebiusTokenFactory.getApiKey();
         if (hasNebius && (activeEngine === 'nebius' || deepLoop)) {
-          handleThoughtStep('Streaming real-time reasoning & tokens via Nebius Nemotron Ultra...');
+          handleThoughtStep(
+            `Streaming real-time reasoning & tokens via Nebius Nemotron ${
+              activeNebiusTier === 'nano' ? 'Nano (30B)' : activeNebiusTier === 'super' ? 'Super (120B)' : 'Ultra (550B)'
+            }...`
+          );
           answer = await nebiusTokenFactory.generateText(conversationalPrompt, {
+            model: activeNebiusTier,
             temperature: 0.2,
             maxTokens: 8192,
             onToken: (delta) => {
@@ -1601,7 +1646,7 @@ ${activeProfile.type === 'legal' ? '- When referencing statutes or legal authori
             );
           }
 
-          const sovereignSummary = `### ✅ Sovereign Autonomous Execution Complete
+          const sovereignSummary = `### Sovereign Autonomous Execution Complete
 - **Domain:** ${activeProfile.title}
 - **Engine:** Sovereign Multi-Turn ReAct Cortex (24 Native Tools)
 - **Status:** Complete in ${thoughtDuration}
@@ -1609,7 +1654,7 @@ ${activeProfile.type === 'legal' ? '- When referencing statutes or legal authori
 ${resultText}
 
 ---
-💡 **Next Action & Suggested Output:** The full conformed legal work product is loaded in the **Deliverable Viewport** on the right. You can review, switch between artifact tabs, export to Word (\`.docx\`), or download as Markdown (\`.md\`).`;
+**Next Action & Suggested Output:** The full conformed legal work product is loaded in the **Deliverable Viewport** on the right. You can review, switch between artifact tabs, export to Word (\`.docx\`), or download as Markdown (\`.md\`).`;
 
           setMessages((prev) =>
             prev.map((msg) =>
@@ -1628,7 +1673,7 @@ ${resultText}
           toast.success('Sovereign ReAct execution completed!');
           return;
         } catch (reactErr: any) {
-          console.warn('⚠️ Sovereign ReAct cycle encountered error, falling back to agent runner:', reactErr);
+          console.warn('[SOVEREIGN-REACT] Sovereign ReAct cycle encountered error, falling back to agent runner:', reactErr);
           handleThoughtStep('Falling back to deterministic agent runner...', reactErr?.message);
         }
       }
@@ -1670,7 +1715,7 @@ ${resultText}
         recommendations: agentResult.auditReport.findings.filter(f => f.status === 'WARN').map(f => f.detail)
       });
 
-      const summaryMsg = `### ✅ Agent Execution Complete
+      const summaryMsg = `### Agent Execution Complete
 - **Domain:** ${activeProfile.title}
 - **Deliverable:** ${agentResult.findings.deliverableType}
 - **Subject:** **${agentResult.findings.subjectEntity}** ${agentResult.findings.identifier ? `(${agentResult.findings.identifier})` : ''}
@@ -1740,6 +1785,36 @@ The conformed professional document is ready in the **Synthesis Output** pane on
     window.print();
   };
 
+  const handleArtifactsChange = useCallback(
+    (
+      arts: Array<{ id: string; title: string; content: string; timestamp: string; diskPath?: string }>,
+      actId: string
+    ) => {
+      setSessionArtifacts((prev) => {
+        if (prev === arts) return prev;
+        if (
+          prev.length === arts.length &&
+          prev.every(
+            (p, i) =>
+              p.id === arts[i]?.id &&
+              p.content === arts[i]?.content &&
+              p.diskPath === arts[i]?.diskPath &&
+              p.title === arts[i]?.title
+          )
+        ) {
+          return prev;
+        }
+        return arts;
+      });
+      setActiveArtifactId((prev) => (prev === actId ? prev : actId));
+      const activeItem = arts.find((a) => a.id === actId);
+      if (activeItem?.diskPath) {
+        setSavedDiskPath((prev) => (prev === activeItem.diskPath ? prev : activeItem.diskPath));
+      }
+    },
+    []
+  );
+
   const activeProfile = profiles[activeDomainType];
 
   return (
@@ -1776,6 +1851,8 @@ The conformed professional document is ready in the **Synthesis Output** pane on
         layoutMode={layoutMode}
         setLayoutMode={setLayoutMode}
         activeEngine={activeEngine}
+        activeNebiusTier={activeNebiusTier}
+        onSelectNebiusTier={handleSelectNebiusTier}
         showEngineDropdown={showEngineDropdown}
         setShowEngineDropdown={setShowEngineDropdown}
         onSelectEngine={(eng) => {
@@ -1962,14 +2039,7 @@ The conformed professional document is ready in the **Synthesis Output** pane on
               activeSessionId={activeSessionId}
               initialArtifacts={sessionArtifacts}
               initialActiveArtifactId={activeArtifactId}
-              onArtifactsChange={(arts, actId) => {
-                setSessionArtifacts(arts);
-                setActiveArtifactId(actId);
-                const activeItem = arts.find((a) => a.id === actId);
-                if (activeItem?.diskPath) {
-                  setSavedDiskPath(activeItem.diskPath);
-                }
-              }}
+              onArtifactsChange={handleArtifactsChange}
             />
           </div>
         </div>
@@ -2004,7 +2074,7 @@ The conformed professional document is ready in the **Synthesis Output** pane on
           setActiveDomainType('custom');
           setSelectedWorkflowId(newWf.id);
           setChatInput(newWf.prompt);
-          toast.success(`⚡ Activated Brain for ${newProfile.title}! Loaded playbook: ${newWf.title}`);
+          toast.success(`Activated Brain for ${newProfile.title}! Loaded playbook: ${newWf.title}`);
         }}
       />
 

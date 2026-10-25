@@ -1,6 +1,39 @@
 import React, { useRef, useState, useEffect, useMemo } from 'react';
-import { ChevronLeft, ChevronRight, Plus, Sparkles, Trash2 } from 'lucide-react';
+import {
+  ChevronLeft, ChevronRight, Plus, Sparkles, Trash2,
+  Brain, Zap, Stethoscope, ShieldCheck, Scale, FileText,
+  ClipboardList, DollarSign, Search, Microscope, Scroll,
+  Landmark, BarChart3, TrendingUp, Receipt, Building2,
+  Dna, FlaskConical, Target, Rocket, Calculator, BookOpen, Workflow
+} from 'lucide-react';
 import { WorkflowItem, getWorkflowsForDomain, deleteCustomWorkflow } from './workflowData';
+
+export function renderWorkflowIcon(iconName: string, className = "w-3 h-3") {
+  const name = (iconName || '').toLowerCase().trim();
+  if (name.includes('brain') || name.includes('🧠')) return <Brain className={className} />;
+  if (name.includes('zap') || name.includes('⚡')) return <Zap className={className} />;
+  if (name.includes('stetho') || name.includes('🩺')) return <Stethoscope className={className} />;
+  if (name.includes('shield') || name.includes('🛡')) return <ShieldCheck className={className} />;
+  if (name.includes('scale') || name.includes('⚖')) return <Scale className={className} />;
+  if (name.includes('calc') || name.includes('rating')) return <Calculator className={className} />;
+  if (name.includes('clipboard') || name.includes('📋')) return <ClipboardList className={className} />;
+  if (name.includes('dollar') || name.includes('fee') || name.includes('💰')) return <DollarSign className={className} />;
+  if (name.includes('search') || name.includes('🔍')) return <Search className={className} />;
+  if (name.includes('microscope') || name.includes('🔬')) return <Microscope className={className} />;
+  if (name.includes('scroll') || name.includes('📜')) return <Scroll className={className} />;
+  if (name.includes('file') || name.includes('📝')) return <FileText className={className} />;
+  if (name.includes('landmark') || name.includes('pleading') || name.includes('🏛')) return <Landmark className={className} />;
+  if (name.includes('bar-chart') || name.includes('📊')) return <BarChart3 className={className} />;
+  if (name.includes('trending') || name.includes('📈')) return <TrendingUp className={className} />;
+  if (name.includes('receipt') || name.includes('🧾')) return <Receipt className={className} />;
+  if (name.includes('building') || name.includes('hospital') || name.includes('🏥') || name.includes('🏠')) return <Building2 className={className} />;
+  if (name.includes('dna') || name.includes('🧬')) return <Dna className={className} />;
+  if (name.includes('flask') || name.includes('🧪')) return <FlaskConical className={className} />;
+  if (name.includes('target') || name.includes('🎯')) return <Target className={className} />;
+  if (name.includes('rocket') || name.includes('🚀')) return <Rocket className={className} />;
+  if (name.includes('book')) return <BookOpen className={className} />;
+  return <Sparkles className={className} />;
+}
 
 interface DynamicWorkflowCarouselProps {
   onSelectWorkflow: (workflow: WorkflowItem) => void;
@@ -132,7 +165,9 @@ export const DynamicWorkflowCarousel: React.FC<DynamicWorkflowCarouselProps> = (
               }`}
               title={wf.description}
             >
-              <span className="text-xs leading-none">{wf.icon}</span>
+              <span className="shrink-0">
+                {renderWorkflowIcon(wf.icon, isSelected ? "w-3 h-3 text-white" : "w-3 h-3 text-slate-500 dark:text-slate-400")}
+              </span>
               <span className="truncate max-w-[160px]">{wf.title}</span>
 
               {wf.isCustom && (

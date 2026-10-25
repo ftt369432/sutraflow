@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json.schemastore.org/mcp.json",
+  "name": "sutraflow-legal-cloud",
+  "version": "2.0.0",
+  "description": "Deterministic California Workers' Comp PDRS Rating, Life Pension, OMFS Medical-Legal Schedules, Statutory Penalties & Pleading Generation MCP Engine.",
+  "main": "src/mcp_servers/legal_mcp.py",
+  "mcpServers": {
+    "sutraflow-agentic-obsidian": {
+      "command": "python",
+      "args": [
+        "src/mcp_servers/sutra_mcp_unified.py"
+      ],
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      },
+      "url": "http://127.0.0.1:8000/sse",
+      "remoteUrl": "https://sutraflow.us/mcp"
+    },
+    "sutra-legal": {
+      "command": "python",
+      "args": [
+        "src/mcp_servers/legal_mcp.py"
+      ],
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      }
+    },
+    "sutra-medical": {
+      "command": "python",
+      "args": [
+        "src/mcp_servers/medical_mcp.py"
+      ],
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      }
+    },
+    "sutra-finance": {
+      "command": "python",
+      "args": [
+        "src/mcp_servers/finance_mcp.py"
+      ],
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      }
+    },
+    "genieflow-legal": {
+      "command": "python",
+      "args": [
+        "src/mcp_servers/legal_mcp.py"
+      ],
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      }
+    },
+    "reddit-intent-radar": {
+      "command": "python",
+      "args": [
+        "03_APPS/reddit_intent_radar/radar_mcp.py"
+      ],
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      }
+    }
+  },
+  "tools": [
+    "search_courtlistener",
+    "search_local_case_law",
+    "search_med_legal_handbook",
+    "lookup_california_labor_code",
+    "depo_phone_transcript_analyze",
+    "sync_machine_environment",
+    "calculate_omfs_med_legal",
+    "lookup_icd10_code",
+    "calculate_lien_penalties_and_interest",
+    "calculate_entity_tax_optimization",
+    "search_ceb_civil_practice"
+  ]
+}

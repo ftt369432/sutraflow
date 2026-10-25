@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paperclip, Mic, MicOff, Send, X, FileText, HardDrive, Upload, Sparkles } from 'lucide-react';
+import { Paperclip, Mic, MicOff, Send, X, FileText, HardDrive, Upload, Sparkles, Pin } from 'lucide-react';
 import { Button } from '../ui/Button';
 
 interface WorkbenchPromptInputProps {
@@ -84,7 +84,7 @@ export const WorkbenchPromptInput: React.FC<WorkbenchPromptInputProps> = ({
 
             {cleanPinnedFiles.length === 1 && (
               <div className="flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-700 dark:text-amber-300 border border-amber-500/20 text-[11px] truncate">
-                <span>📌</span>
+                <Pin className="w-3 h-3 text-amber-500 shrink-0" />
                 <span className="font-semibold truncate max-w-[200px]">{cleanPinnedFiles[0].name}</span>
                 {onUnpinFile && (
                   <button
@@ -100,7 +100,7 @@ export const WorkbenchPromptInput: React.FC<WorkbenchPromptInputProps> = ({
 
             {cleanPinnedFiles.length > 1 && (
               <div className="flex items-center gap-1.5 text-amber-700 dark:text-amber-300 text-[11px] truncate">
-                <span className="shrink-0">📌</span>
+                <Pin className="w-3 h-3 text-amber-500 shrink-0" />
                 <span className="font-semibold">
                   {cleanPinnedFiles.length} files in active context
                 </span>

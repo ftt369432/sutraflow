@@ -65,17 +65,17 @@ class HeartbeatService {
     }
 
     constructor() {
-        // Restore autonomy state from localStorage (defaults to true for sovereign autonomy)
+        // Restore autonomy state from localStorage (defaults to false for clean reactive chat)
         try {
             const saved = localStorage.getItem('genieflow_autonomy_enabled');
             if (saved !== null) {
                 this.isAutonomous = saved !== 'false';
             } else {
-                this.isAutonomous = true;
-                localStorage.setItem('genieflow_autonomy_enabled', 'true');
+                this.isAutonomous = false;
+                localStorage.setItem('genieflow_autonomy_enabled', 'false');
             }
         } catch (e) {
-            this.isAutonomous = true;
+            this.isAutonomous = false;
             console.warn('💓 Heartbeat: Failed to restore autonomy state:', e);
         }
         console.log(`💓 Cortex Heartbeat initialized. Autonomy: ${this.isAutonomous ? 'ENABLED' : 'DISABLED'} | Pulse: ${this.pulsRateMs/1000}s | Soul throttle: ${this.soulThrottleMs/60000}min`);
@@ -332,10 +332,11 @@ class HeartbeatService {
                 return;
             } else {
                 // 🛑 SOUL THROTTLE & IDLE CONSERVATION:
-                // Only call Soul AI if there is an active mission, pending tasks, or a brand new user message.
+                // Only call Soul AI if there are actual pending tasks or a brand new user message.
                 // Do not hallucinate unsolicited background missions when the system is completely idle.
                 const isNewMessage = lastMessageId && lastMessageId !== this._lastProcessedMessageId;
-                if (!isNewMessage && !activeMission && pendingTaskCount === 0) {
+                const hasRealActiveMission = activeMission && activeMission.title !== 'New Autonomous Mission' && pendingTaskCount > 0;
+                if (!isNewMessage && !hasRealActiveMission && pendingTaskCount === 0) {
                     return;
                 }
 

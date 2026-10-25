@@ -19,7 +19,10 @@ import {
   Key,
   CheckCircle2,
   AlertTriangle,
-  X
+  X,
+  Lightbulb,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 import { RightTab } from './types';
 import { AnalystAuditReport } from '../../services/ai/ForensicAnalystLinter';
@@ -185,12 +188,43 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
     }
   }, [activeSessionId]);
 
-  // Sync active artifacts state back to parent session storage
+  // Store latest onArtifactsChange in ref to prevent infinite re-render loops from parent callback identity changes
+  const onArtifactsChangeRef = React.useRef(onArtifactsChange);
   React.useEffect(() => {
-    onArtifactsChange?.(artifacts, activeArtifactId);
-  }, [artifacts, activeArtifactId, onArtifactsChange]);
+    onArtifactsChangeRef.current = onArtifactsChange;
+  }, [onArtifactsChange]);
 
-  // 📡 Direct listener for agentic canvas document events to mount multiple artifacts with true filenames
+  const lastSyncedArtifactsRef = React.useRef<{ artifacts: any[]; activeId: string }>({
+    artifacts: [],
+    activeId: ''
+  });
+
+  // Sync active artifacts state back to parent session storage without triggering infinite loop
+  React.useEffect(() => {
+    const isSameLength = lastSyncedArtifactsRef.current.artifacts.length === artifacts.length;
+    const isSameId = lastSyncedArtifactsRef.current.activeId === activeArtifactId;
+    const isSameContent =
+      isSameLength &&
+      artifacts.every((a, i) => {
+        const prev = lastSyncedArtifactsRef.current.artifacts[i];
+        return (
+          prev &&
+          prev.id === a.id &&
+          prev.content === a.content &&
+          prev.diskPath === a.diskPath &&
+          prev.title === a.title
+        );
+      });
+
+    if (isSameId && isSameContent) {
+      return;
+    }
+
+    lastSyncedArtifactsRef.current = { artifacts, activeId: activeArtifactId };
+    onArtifactsChangeRef.current?.(artifacts, activeArtifactId);
+  }, [artifacts, activeArtifactId]);
+
+  // [CANVAS-LISTENER] Direct listener for agentic canvas document events to mount multiple artifacts with true filenames
   React.useEffect(() => {
     const handleCanvasCreated = (e: any) => {
       const doc = e.detail;
@@ -214,13 +248,27 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
         );
 
         if (existingIdx !== -1) {
+          const currentItem = prev[existingIdx];
+          const hasContentChange = currentItem.content.trim() !== cleanOutput.trim();
+          const hasTitleChange = docTitle && currentItem.title !== docTitle;
+          const hasPathChange = docPath && currentItem.diskPath !== docPath;
+
+          if (!hasContentChange && !hasTitleChange && !hasPathChange) {
+            if (activeArtifactId !== currentItem.id) {
+              setActiveArtifactId(currentItem.id);
+            }
+            return prev;
+          }
+
           const next = [...prev];
           next[existingIdx] = {
             ...next[existingIdx],
-            title: docTitle,
+            title: docTitle || next[existingIdx].title,
             content: cleanOutput,
             diskPath: docPath || next[existingIdx].diskPath,
-            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            timestamp: hasContentChange
+              ? new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+              : next[existingIdx].timestamp
           };
           setActiveArtifactId(next[existingIdx].id);
           return next;
@@ -352,6 +400,14 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
         (a) => (resolvedDiskPath && a.diskPath === resolvedDiskPath) || a.content.trim() === cleanOutput.trim()
       );
       if (existingMatch) {
+        const hasContentChange = existingMatch.content.trim() !== cleanOutput.trim();
+        const hasTitleChange = newTitle && existingMatch.title !== newTitle && !existingMatch.title.startsWith('Deliverable ');
+        const hasPathChange = resolvedDiskPath && existingMatch.diskPath !== resolvedDiskPath;
+
+        if (!hasContentChange && !hasTitleChange && !hasPathChange) {
+          return prev;
+        }
+
         return prev.map((a) =>
           a.id === existingMatch.id
             ? {
@@ -359,7 +415,9 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
                 title: a.title && !a.title.startsWith('Deliverable ') ? a.title : newTitle,
                 content: cleanOutput,
                 diskPath: resolvedDiskPath || a.diskPath,
-                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                timestamp: hasContentChange
+                  ? new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                  : a.timestamp
               }
             : a
         );
@@ -382,9 +440,13 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
   // Update diskPath on the active artifact if savedDiskPath changes
   React.useEffect(() => {
     if (savedDiskPath) {
-      setArtifacts((prev) =>
-        prev.map((a) => (a.id === activeArtifactId ? { ...a, diskPath: savedDiskPath } : a))
-      );
+      setArtifacts((prev) => {
+        const target = prev.find((a) => a.id === activeArtifactId);
+        if (target && target.diskPath === savedDiskPath) {
+          return prev;
+        }
+        return prev.map((a) => (a.id === activeArtifactId ? { ...a, diskPath: savedDiskPath } : a));
+      });
     }
   }, [savedDiskPath, activeArtifactId]);
 
@@ -687,7 +749,7 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
                     ? 'bg-white dark:bg-slate-800 text-slate-900 dark:text-white shadow-2xs font-semibold border border-slate-200 dark:border-slate-700'
                     : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 font-medium hover:bg-slate-200/50 dark:hover:bg-slate-800/50'
                 }`}
-                title={art.title}
+                title={art.diskPath ? `${art.title} (Saved: ${art.diskPath})` : art.title}
               >
                 <FileText className="w-3 h-3 text-slate-500 shrink-0" />
                 <span className="truncate max-w-[130px]">{art.title}</span>
@@ -734,28 +796,6 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
             )}
           </div>
           <div className="flex items-center gap-2">
-            {(activeDoc.diskPath || savedDiskPath) && (
-              <div 
-                className="flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-500/10 dark:bg-emerald-950/40 border border-emerald-500/30 text-[11px] text-emerald-700 dark:text-emerald-300 font-mono"
-                title={`Saved to disk: ${activeDoc.diskPath || savedDiskPath}`}
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="truncate max-w-[240px]">
-                  Saved: {(activeDoc.diskPath || savedDiskPath || '').split(/[\\/]/).pop()}
-                </span>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const p = activeDoc.diskPath || savedDiskPath || '';
-                    navigator.clipboard.writeText(p);
-                  }}
-                  className="hover:text-emerald-900 dark:hover:text-white transition cursor-pointer ml-0.5"
-                  title="Copy full disk path"
-                >
-                  <Copy className="w-2.5 h-2.5" />
-                </button>
-              </div>
-            )}
             <span className="text-[10px] text-slate-400 font-mono hidden sm:inline">
               Artifacts ({artifacts.length})
             </span>
@@ -782,12 +822,22 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
                         <span className="font-semibold text-slate-800 dark:text-slate-200">
                           Domain Swarm Quality Audit: {auditScore}/100
                         </span>
-                        <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
-                          ({isConformant ? '✓ Quote Guard & Compliance Verified' : 'Review Recommended'})
+                        <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono flex items-center gap-1">
+                          {isConformant ? (
+                            <>
+                              <Check className="w-3 h-3 text-emerald-500 inline" /> Quote Guard & Compliance Verified
+                            </>
+                          ) : (
+                            'Review Recommended'
+                          )}
                         </span>
                       </div>
-                      <span className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">
-                        {showAuditDetail ? 'Hide Checks ▲' : 'View Checks ▼'}
+                      <span className="text-[11px] text-slate-600 dark:text-slate-400 font-medium flex items-center gap-1">
+                        {showAuditDetail ? (
+                          <>Hide Checks <ChevronUp className="w-3 h-3" /></>
+                        ) : (
+                          <>View Checks <ChevronDown className="w-3 h-3" /></>
+                        )}
                       </span>
                     </button>
 
@@ -809,7 +859,10 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
                                 <div className="font-semibold text-slate-800 dark:text-slate-200">{check.title}</div>
                                 <div className="text-slate-500 dark:text-slate-400">{check.finding}</div>
                                 {check.recommendation && (
-                                  <div className="text-amber-700 dark:text-amber-400 text-[10px] italic">💡 {check.recommendation}</div>
+                                  <div className="text-amber-700 dark:text-amber-400 text-[10px] italic flex items-center gap-1">
+                                    <Lightbulb className="w-3 h-3 text-amber-500 shrink-0" />
+                                    <span>{check.recommendation}</span>
+                                  </div>
                                 )}
                               </div>
                             </div>
