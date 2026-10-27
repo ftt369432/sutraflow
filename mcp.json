@@ -5,7 +5,7 @@
   "description": "Deterministic California Workers' Comp PDRS Rating, Life Pension, OMFS Medical-Legal Schedules, Statutory Penalties & Pleading Generation MCP Engine.",
   "main": "src/mcp_servers/legal_mcp.py",
   "mcpServers": {
-    "sutraflow-agentic-obsidian": {
+    "sutraflow-sovereign-vault": {
       "command": "python",
       "args": [
         "src/mcp_servers/sutra_mcp_unified.py"

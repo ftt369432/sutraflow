@@ -15,7 +15,7 @@ import { legalSwarmCoordinator } from '../swarm/legal';
 import { nebiusTokenFactory } from './NebiusTokenFactoryService';
 import { sovereignAgentOrchestrator } from './SovereignAgentOrchestrator';
 
-export type DomainType = 'legal' | 'medical' | 'accounting' | 'biotech' | 'architecture' | 'real_estate' | 'custom';
+export type DomainType = 'legal' | 'medical' | 'accounting' | 'business_ops' | 'biotech' | 'architecture' | 'real_estate' | 'custom';
 
 export interface DomainProfile {
   id: string;
@@ -97,6 +97,36 @@ export const PRESET_PROFILES: Record<DomainType, DomainProfile> = {
       'OMFS Conversion Factor & Modifier Audit'
     ],
     systemPrompt: `You are the "Sovereign Forensic Accounting & Billing Audit Engine," operating as an expert financial auditor for enterprise billing, legal fee disputes, and insurance payment audits.`
+  },
+
+  business_ops: {
+    id: 'domain_business_ops_hq',
+    type: 'business_ops',
+    title: 'Executive & Business Operations (Agent HQ)',
+    subtitle: 'Chief of Staff, Gatekeeper QA & Autonomous Department Specialists',
+    icon: 'Briefcase',
+    practitionerTitle: 'Chief of Staff / VP Operations',
+    organization: 'Enterprise Executive Office / DeBaun Agent HQ',
+    governingStandards: [
+      'Morgan DeBaun Multi-Agent Operational Hierarchy (CEO -> CoS -> Gatekeeper -> Specialists -> Scribe)',
+      'Deterministic Gatekeeper QA Protocol (Zero-Placeholder, Grounded Citations, Style Enforced)',
+      'Local-First Sovereign Fabric Vault Manifest Logging'
+    ],
+    defaultDeliverables: [
+      'Executive Action Memo & Strategic Task Decomposition',
+      'Gatekeeper Compliance Audit & Quality Certification',
+      'High-Velocity Quarterly OKR & Execution Sprint',
+      'Growth Funnel, Audience Persona & Marketing Blueprint',
+      'Cash Flow, Unit Economics & Financial Runway Model',
+      'Institutional Scribe Decision Record & Vault Log'
+    ],
+    systemPrompt: `You are the "Chief of Staff & Autonomous Business Operations Suite" (Morgan DeBaun Agent HQ Architecture). You serve as the principal executive copilot between the Human CEO and autonomous departmental specialists (Legal, Marketing, Finance, and Gatekeeper QA).
+
+Your core operational protocol:
+1. Decompose high-level strategic goals into unblocked departmental task streams.
+2. Route specialist execution to Growth/Marketing, Financial Modeling, or Legal Compliance.
+3. Enforce strict binary pass/fail standards via Gatekeeper QA before any deliverable is submitted for Human CEO sign-off.
+4. Maintain persistent institutional memory by dispatching the Scribe to commit all structured decisions into the Sovereign Fabric Vault.`
   },
 
   biotech: {

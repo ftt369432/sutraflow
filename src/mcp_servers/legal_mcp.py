@@ -695,7 +695,7 @@ def search_ceb_civil_practice(query: str, category: str = "all", max_results: in
 
 if __name__ == "__main__":
     import argparse
-    parser = argparse.ArgumentParser(description="Sutra Legal Research & Pleading MCP Server (Agentic Obsidian Hub)")
+    parser = argparse.ArgumentParser(description="Sutra Legal Research & Pleading MCP Server (Sovereign Fabric Hub)")
     parser.add_argument("--transport", choices=["stdio", "sse", "streamable-http"], default=os.environ.get("MCP_TRANSPORT", "stdio"), help="Transport protocol (stdio, sse, or streamable-http)")
     parser.add_argument("--host", default=os.environ.get("MCP_HOST", "0.0.0.0"), help="Host interface to bind (default: 0.0.0.0)")
     parser.add_argument("--port", type=int, default=int(os.environ.get("MCP_PORT", "8000")), help="Port to listen on (default: 8000)")

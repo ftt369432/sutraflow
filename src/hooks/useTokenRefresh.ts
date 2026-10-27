@@ -218,11 +218,16 @@ export function useTokenRefresh() {
 
   // Auto-refresh on page load/reload
   useEffect(() => {
-    // Only refresh if we have a user (logged in)
+    const isSovereign = user?.id?.startsWith('sovereign-') || user?.app_metadata?.provider === 'mock';
+    if (isSovereign) {
+      console.log('🛡️ [TokenRefresh] Sovereign local operator session active — skipping cloud token refresh');
+      return;
+    }
+
+    // Only refresh if we have a real cloud user (logged in)
     if (user && session) {
       console.log('📱 [TokenRefresh] Page loaded with authenticated user, initiating token refresh');
       
-      // Delay slightly to allow other auth systems to initialize
       const timer = setTimeout(() => {
         refreshAllTokens();
       }, 1000);
@@ -235,9 +240,8 @@ export function useTokenRefresh() {
 
   // Periodic refresh (every 30 minutes)
   useEffect(() => {
-    if (!user) return;
-
-    // console.log('⏰ [TokenRefresh] Setting up periodic token refresh (30 minutes)');
+    const isSovereign = user?.id?.startsWith('sovereign-') || user?.app_metadata?.provider === 'mock';
+    if (!user || isSovereign) return;
     
     const interval = setInterval(() => {
       console.log('⏰ [TokenRefresh] Periodic refresh triggered');
@@ -249,7 +253,8 @@ export function useTokenRefresh() {
 
   // Refresh when returning to app (visibility change) - with debounce to prevent flickering
   useEffect(() => {
-    if (!user) return;
+    const isSovereign = user?.id?.startsWith('sovereign-') || user?.app_metadata?.provider === 'mock';
+    if (!user || isSovereign) return;
 
     let timeoutId: NodeJS.Timeout;
     let lastValidation = 0;

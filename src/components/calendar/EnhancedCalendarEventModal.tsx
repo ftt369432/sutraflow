@@ -42,8 +42,10 @@ const PRIORITY_STYLES_LIGHT: Record<string, string> = {
   urgent: 'bg-red-50 text-red-700 border-red-200',
 };
 
+const EMPTY_TASKS: TaskDefinition[] = [];
+
 export const EnhancedCalendarEventModal: React.FC<Props> = ({
-  event, isOpen, onClose, onSave, onDelete, existingTasks = []
+  event, isOpen, onClose, onSave, onDelete, existingTasks = EMPTY_TASKS
 }) => {
   const { isDark } = useTheme();
   const [editedEvent, setEditedEvent] = useState<CalendarEvent | null>(null);
@@ -54,12 +56,14 @@ export const EnhancedCalendarEventModal: React.FC<Props> = ({
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    if (event) {
+    if (isOpen && event) {
       setEditedEvent({ ...event });
       setTasks([...existingTasks]);
       setIsEditing(!event.id);
+    } else if (!isOpen) {
+      setEditedEvent(null);
     }
-  }, [event, existingTasks]);
+  }, [isOpen, event?.id, existingTasks]);
 
   if (!isOpen || !editedEvent) return null;
 

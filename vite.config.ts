@@ -292,15 +292,17 @@ export default defineConfig(({ mode }) => {
                 res.setHeader('Content-Type', 'application/json');
                 try {
                   const body = preParsed && typeof preParsed === 'object' ? preParsed : (raw ? JSON.parse(raw) : {});
-                  const targetPath = body.path || '';
+                  let targetPath = body.path || '';
                   if (!targetPath) {
                     res.statusCode = 400;
                     res.end(JSON.stringify({ success: false, error: 'Path required' }));
                     return;
                   }
+                  targetPath = path.resolve(targetPath);
                   fs.mkdirSync(targetPath, { recursive: true });
                   res.end(JSON.stringify({ success: true, path: targetPath }));
                 } catch (err: any) {
+                  console.error('[Vite FS API] /api/fs/mkdir failed:', err.message);
                   res.statusCode = 500;
                   res.end(JSON.stringify({ success: false, error: err.message }));
                 }
@@ -318,13 +320,14 @@ export default defineConfig(({ mode }) => {
                 res.setHeader('Content-Type', 'application/json');
                 try {
                   const body = preParsed && typeof preParsed === 'object' ? preParsed : (raw ? JSON.parse(raw) : {});
-                  const targetPath = body.path || '';
+                  let targetPath = body.path || '';
                   const content = body.content !== undefined ? body.content : '';
                   if (!targetPath) {
                     res.statusCode = 400;
                     res.end(JSON.stringify({ success: false, error: 'Path required' }));
                     return;
                   }
+                  targetPath = path.resolve(targetPath);
                   const parentDir = path.dirname(targetPath);
                   if (!fs.existsSync(parentDir)) {
                     fs.mkdirSync(parentDir, { recursive: true });
@@ -332,6 +335,7 @@ export default defineConfig(({ mode }) => {
                   fs.writeFileSync(targetPath, content, 'utf8');
                   res.end(JSON.stringify({ success: true, path: targetPath, size: Buffer.byteLength(content) }));
                 } catch (err: any) {
+                  console.error('[Vite FS API] /api/fs/write failed:', err.message);
                   res.statusCode = 500;
                   res.end(JSON.stringify({ success: false, error: err.message }));
                 }

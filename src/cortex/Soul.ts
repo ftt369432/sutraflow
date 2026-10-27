@@ -160,8 +160,8 @@ class Soul {
      */
     private async tryLoadFromMarkdown(soulId: string): Promise<boolean> {
         try {
-            const modules = import.meta.glob('../../cortex/souls/*.md', { query: '?raw', import: 'default', eager: true });
-            const matchingPath = Object.keys(modules).find(path => path.includes(`/${soulId}.md`));
+            const modules = import.meta.glob(['./souls/*.md', './souls/**/*.md', '../../cortex/souls/*.md', '../../cortex/souls/**/*.md'], { query: '?raw', import: 'default', eager: true });
+            const matchingPath = Object.keys(modules).find(path => path.endsWith(`/${soulId}.md`) || path.includes(`/${soulId}.md`));
 
             if (matchingPath && modules[matchingPath]) {
                 const content = modules[matchingPath] as string;

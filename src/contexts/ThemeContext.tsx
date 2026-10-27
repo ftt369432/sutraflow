@@ -29,7 +29,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('system');
   const [isDark, setIsDark] = useState(false);
-  const [currentSkinId, setCurrentSkinId] = useState<SkinId>('nous-obsidian');
+  const [currentSkinId, setCurrentSkinId] = useState<SkinId>('nous-onyx');
 
   // Find active skin definition
   const currentSkin = SKINS.find(s => s.id === currentSkinId) || SKINS[0];
@@ -81,7 +81,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // 1. Initialize Skin
     const savedSkin = localStorage.getItem('nous_skin') as SkinId;
-    const initialSkin = SKINS.some(s => s.id === savedSkin) ? savedSkin : 'nous-obsidian';
+    const initialSkin = SKINS.some(s => s.id === savedSkin) ? savedSkin : 'nous-onyx';
     setCurrentSkinId(initialSkin);
 
     // 2. Initialize Dark/Light Mode
@@ -105,10 +105,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setCurrentSkinId(newSkinId);
     localStorage.setItem('nous_skin', newSkinId);
 
-    // If user picks Nous Obsidian or Matrix Cyber, ensure dark mode is active
-    // so they immediately experience the obsidian titanium / matrix cyber terminal aesthetic
+    // If user picks Nous Onyx or Matrix Cyber, ensure dark mode is active
+    // so they immediately experience the onyx titanium / matrix cyber terminal aesthetic
     let nextDark = isDark;
-    if (newSkinId === 'nous-obsidian' || newSkinId === 'matrix-cyber') {
+    if (newSkinId === 'nous-onyx' || newSkinId === 'matrix-cyber') {
       if (!isDark) {
         nextDark = true;
         setIsDark(true);

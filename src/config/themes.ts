@@ -26,7 +26,7 @@ export interface Theme {
 }
 
 export type SkinId = 
-  | 'nous-obsidian' 
+  | 'nous-onyx' 
   | 'classic-genieflow' 
   | 'steel-metallic' 
   | 'matrix-cyber' 
@@ -44,10 +44,10 @@ export interface SkinDefinition {
 
 export const SKINS: SkinDefinition[] = [
   {
-    id: 'nous-obsidian',
-    name: 'Sutra Obsidian',
+    id: 'nous-onyx',
+    name: 'Sutra Onyx',
     tagline: 'Deep space titanium & cyan intelligence (Default)',
-    cssClass: 'skin-nous-obsidian',
+    cssClass: 'skin-nous-onyx',
     accentColor: '#2563eb',
     darkBadge: 'Titanium Deep Space',
     lightBadge: 'Crystalline Slate',

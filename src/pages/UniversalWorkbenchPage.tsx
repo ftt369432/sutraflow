@@ -263,7 +263,7 @@ export const UniversalWorkbenchPage: React.FC = () => {
         fileName = `${sanitized}_${dateStr}_${timeStr}.md`;
       }
 
-      const targetDir = 'C:\\Users\\Ftt\\genieflowai\\AI_GENERATED_DOCS';
+      const targetDir = 'I:\\sutraflow\\AI_GENERATED_DOCS';
       const targetPath = `${targetDir}\\${fileName}`;
 
       await sovereignFs.mkdir({ path: targetDir });
@@ -639,8 +639,7 @@ export const UniversalWorkbenchPage: React.FC = () => {
   }, []);
 
   // Listen for agentic canvas document events & click-to-open artifact events to mount in the deliverable pane
-  const handleSendMessageRef = useRef(handleSendMessage);
-  handleSendMessageRef.current = handleSendMessage;
+  const handleSendMessageRef = useRef<((prompt?: string) => Promise<void> | void) | null>(null);
 
   useEffect(() => {
     const handleCanvasCreated = (e: any) => {
@@ -892,11 +891,11 @@ export const UniversalWorkbenchPage: React.FC = () => {
       if (isManifestCommand) {
         handleThoughtStep('Inspecting sovereign storage fabric across 3 nodes for MASTER_MANIFEST.md...');
         const manifestCandidates = [
+          'I:\\.genieflowai.brain\\MASTER_MANIFEST.md',
           'G:\\My Drive\\.GENIEFLOW_MASTER\\MASTER_MANIFEST.md',
           'E:\\.genieflowai.brain\\MASTER_MANIFEST.md',
-          'E:\\.GENIEFLOW_MASTER\\MASTER_MANIFEST.md',
-          'E:\\MASTER_MANIFEST.md',
-          'C:\\Users\\Ftt\\genieflowai\\MASTER_MANIFEST.md'
+          'I:\\sutraflow\\MASTER_MANIFEST.md',
+          'C:\\Users\\TINACO\\01\\genieflowai\\MASTER_MANIFEST.md'
         ];
 
         let loadedManifest = '';
@@ -1073,11 +1072,13 @@ export const UniversalWorkbenchPage: React.FC = () => {
         handleThoughtStep(`Creating and verifying sovereign physical storage across 3 nodes for ${targetEntity}...`);
 
         const pathsToCreate = [
-          `C:\\Users\\Ftt\\genieflowai\\${targetEntity}`,
-          `C:\\Users\\Ftt\\genieflowai\\${targetEntity}\\clients`,
-          `C:\\Users\\Ftt\\genieflowai\\${targetEntity}\\dashboards`,
-          `C:\\Users\\Ftt\\genieflowai\\${targetEntity}\\templates`,
-          `C:\\Users\\Ftt\\genieflowai\\${targetEntity}\\workflows`,
+          `I:\\sutraflow\\${targetEntity}`,
+          `I:\\sutraflow\\${targetEntity}\\clients`,
+          `I:\\sutraflow\\${targetEntity}\\dashboards`,
+          `I:\\sutraflow\\${targetEntity}\\templates`,
+          `I:\\sutraflow\\${targetEntity}\\workflows`,
+          `I:\\.genieflowai.brain\\${targetEntity}`,
+          `I:\\.genieflowai.brain\\${targetEntity}\\clients`,
           `G:\\My Drive\\.GENIEFLOW_MASTER\\${targetEntity}`,
           `G:\\My Drive\\.GENIEFLOW_MASTER\\${targetEntity}\\clients`,
           `G:\\My Drive\\.GENIEFLOW_MASTER\\${targetEntity}\\dashboards`,
@@ -1099,7 +1100,7 @@ export const UniversalWorkbenchPage: React.FC = () => {
         handleThoughtStep(`Auditing existing deliverables in ${targetEntity}...`);
         let planContent = '';
         try {
-          const res = await sovereignFs.readFile({ path: `C:\\Users\\Ftt\\genieflowai\\${targetEntity}\\${targetEntity}_MASTER_PLAN.md` });
+          const res = await sovereignFs.readFile({ path: `I:\\sutraflow\\${targetEntity}\\${targetEntity}_MASTER_PLAN.md` });
           if (res?.success && res.content) {
             planContent = res.content;
           }
@@ -1109,7 +1110,7 @@ export const UniversalWorkbenchPage: React.FC = () => {
           planContent = `# ${targetEntity}: Master Sovereign Workspace Plan\n\n**Generated:** ${new Date().toLocaleDateString()} | **Domain:** ${activeProfile.title}\n\n## 1. Executive Mission\nSovereign workspace established for **${targetEntity}** across all local NVMe, Google Drive Master, and Travel Drive nodes.\n\n## 2. Directory Architecture\n- \`clients/\`: Process logs, click-path audits, client dossiers\n- \`dashboards/\`: Offline single-file HTML command centers with localStorage persistence\n- \`templates/\`: Reusable markdown and conformed artifact templates\n- \`workflows/\`: Deterministic agent skills (.agents/workflows/)\n\n## 3. Immediate Action Items\n1. Define primary client vertical.\n2. Ingest first target process document.\n3. Deploy the sovereign command center dashboard.\n`;
           try {
             await sovereignFs.writeFile({
-              path: `C:\\Users\\Ftt\\genieflowai\\${targetEntity}\\${targetEntity}_MASTER_PLAN.md`,
+              path: `I:\\sutraflow\\${targetEntity}\\${targetEntity}_MASTER_PLAN.md`,
               content: planContent
             });
             await sovereignFs.writeFile({
@@ -1133,9 +1134,9 @@ The dedicated business workspace has been physically initialized and verified ac
 
 | Storage Node | Physical Location | Status |
 | :--- | :--- | :--- |
-| **Local NVMe** | \`C:\\Users\\Ftt\\genieflowai\\${targetEntity}\\\` | [VERIFIED] Active |
+| **Local Workspace** | \`I:\\sutraflow\\${targetEntity}\\\` | [VERIFIED] Active |
+| **Travel Vault** | \`I:\\.genieflowai.brain\\${targetEntity}\\\` | [VERIFIED] Active |
 | **Google Drive Master** | \`G:\\My Drive\\.GENIEFLOW_MASTER\\${targetEntity}\\\` | [SYNCED] |
-| **Sovereign Travel Drive** | \`E:\\${targetEntity}\\\` | [SYNCED] |
 
 #### Standardized Directory Topology
 \`\`\`
@@ -1752,6 +1753,7 @@ The conformed professional document is ready in the **Synthesis Output** pane on
       setLiveThoughtSteps([]);
     }
   };
+  handleSendMessageRef.current = handleSendMessage;
 
   // Export handlers
   const handleCopyOutput = () => {

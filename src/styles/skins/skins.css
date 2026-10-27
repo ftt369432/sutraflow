@@ -6,10 +6,10 @@
 @import './classic-genieflow.css';
 
 /* --------------------------------------------------------------------------
-   1. SUTRA OBSIDIAN (Default Core)
+   1. SUTRA ONYX (Default Core)
    -------------------------------------------------------------------------- */
-.skin-nous-obsidian:not(.dark),
-[data-skin="nous-obsidian"]:not(.dark) {
+.skin-nous-onyx:not(.dark),
+[data-skin="nous-onyx"]:not(.dark) {
   --bg-canvas: #f8fafc;
   --bg-paper: #ffffff;
   --text-main: #0f172a;
@@ -19,19 +19,19 @@
   --accent-telemetry: #059669;
 }
 
-.skin-nous-obsidian:not(.dark) .glassy-header-bar {
+.skin-nous-onyx:not(.dark) .glassy-header-bar {
   background: rgba(248, 250, 252, 0.92) !important;
   border-bottom: 1px solid rgba(226, 232, 240, 0.85) !important;
   box-shadow: 0 4px 20px rgba(37, 99, 235, 0.06) !important;
 }
 
-.skin-nous-obsidian:not(.dark) .glassy-sidebar {
+.skin-nous-onyx:not(.dark) .glassy-sidebar {
   background: rgba(248, 250, 252, 0.96) !important;
   border-right: 1px solid rgba(226, 232, 240, 0.85) !important;
 }
 
-.dark.skin-nous-obsidian,
-.dark[data-skin="nous-obsidian"] {
+.dark.skin-nous-onyx,
+.dark[data-skin="nous-onyx"] {
   --bg-canvas: #070a12;
   --bg-paper: #0d1322;
   --text-main: #f8fafc;
@@ -41,13 +41,13 @@
   --accent-telemetry: #06b6d4;
 }
 
-.dark.skin-nous-obsidian .glassy-header-bar {
+.dark.skin-nous-onyx .glassy-header-bar {
   background: rgba(7, 10, 18, 0.92) !important;
   border-bottom: 1px solid rgba(37, 99, 235, 0.25) !important;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6) !important;
 }
 
-.dark.skin-nous-obsidian .glassy-sidebar {
+.dark.skin-nous-onyx .glassy-sidebar {
   background: rgba(7, 10, 18, 0.97) !important;
   border-right: 1px solid rgba(99, 102, 241, 0.2) !important;
 }

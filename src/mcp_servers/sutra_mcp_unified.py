@@ -1,5 +1,5 @@
 """
-SutraFlow Sovereign Agentic Obsidian & Memory Brain Vault MCP Server
+SutraFlow Sovereign Fabric & Memory Brain Vault MCP Server
 Unified Multi-Harness Bridge for Antigravity, Claude Desktop, Cursor, and External Providers.
 
 Transports Supported:
@@ -8,7 +8,7 @@ Transports Supported:
 - Stdio (standard in/out for local process execution)
 
 Capabilities:
-1. Agentic Obsidian Memory Vault:
+1. Sovereign Fabric Memory Vault:
    - query_brain_vault: Semantic/keyword retrieval across local markdown files, client facts, and case dockets.
    - save_brain_memory: Persist new structured markdown notes, facts, and tactical observations into the vault.
    - list_vault_clients: List all indexed clients and active case dossiers.
@@ -32,9 +32,9 @@ from mcp.server.mcpserver import MCPServer
 
 # Initialize Unified Server
 app = MCPServer(
-    name="SutraFlow-Agentic-Obsidian-Vault",
+    name="SutraFlow-Sovereign-Fabric-Vault",
     instructions=(
-        "SutraFlow Agentic Obsidian & Legal Memory Vault. Provides grounded retrieval across "
+        "SutraFlow Sovereign Fabric & Legal Memory Vault. Provides grounded retrieval across "
         "local markdown case dossiers, persistent memory graphs, California Labor Code, 8 CCR regulations, "
         "medical-legal fee schedules, and anti-sanction pleading verification."
     )
@@ -64,13 +64,13 @@ if not os.path.exists(CORTEX_DB_PATH):
         CORTEX_DB_PATH = alt_db
 
 # -------------------------------------------------------------
-# 1. Agentic Obsidian Vault Tools
+# 1. Sovereign Fabric Vault Tools
 # -------------------------------------------------------------
 
 @app.tool()
 def query_brain_vault(query: str, client_filter: str = "", max_results: int = 5) -> str:
     """
-    Search the Agentic Obsidian Memory Vault across all markdown client fact sheets,
+    Search the Sovereign Fabric Memory Vault across all markdown client fact sheets,
     research notes, precedent briefs, and legal knowledge bases.
     
     :param query: Keywords or concept to search for (e.g. 'impingement syndrome', 'penalty petition', 'MPN notice defect')
@@ -129,9 +129,9 @@ def query_brain_vault(query: str, client_filter: str = "", max_results: int = 5)
 
     results.sort(key=lambda x: x[0], reverse=True)
     if not results:
-        return f"No records found in Agentic Obsidian Vault matching '{query}' (client filter: '{client_filter}')."
+        return f"No records found in Sovereign Fabric Vault matching '{query}' (client filter: '{client_filter}')."
 
-    out = [f"### 🧠 SutraFlow Agentic Obsidian Vault Matches for: '{query}' ({len(results[:max_results])} items)\n"]
+    out = [f"### 🧠 SutraFlow Sovereign Fabric Vault Matches for: '{query}' ({len(results[:max_results])} items)\n"]
     for idx, (sc, fname, path, snip) in enumerate(results[:max_results], 1):
         rel = os.path.relpath(path, BASE_DIR) if BASE_DIR in path else path
         out.append(f"**[{idx}] {fname}** (`{rel}`)\n```markdown\n{snip}...\n```\n")
@@ -141,7 +141,7 @@ def query_brain_vault(query: str, client_filter: str = "", max_results: int = 5)
 @app.tool()
 def save_brain_memory(title: str, content: str, category: str = "notes", client_name: str = "") -> str:
     """
-    Persist a verified fact, strategy observation, or legal synthesis into the Agentic Obsidian Vault.
+    Persist a verified fact, strategy observation, or legal synthesis into the Sovereign Fabric Vault.
     Saves directly as an indexed Markdown note accessible by any AI harness.
     
     :param title: Short title for the memory note
@@ -162,16 +162,16 @@ def save_brain_memory(title: str, content: str, category: str = "notes", client_
     out_file = os.path.join(target_dir, f"{clean_title}.md")
 
     timestamp = "2026-10-25"
-    header = f"# {title}\n\n*Saved to SutraFlow Agentic Obsidian Vault: {timestamp} | Category: {category}*\n\n---\n\n"
+    header = f"# {title}\n\n*Saved to SutraFlow Sovereign Fabric Vault: {timestamp} | Category: {category}*\n\n---\n\n"
     with open(out_file, "w", encoding="utf-8") as f:
         f.write(header + content.strip() + "\n")
 
-    return f"Successfully saved to Agentic Obsidian Vault: `{os.path.relpath(out_file, BASE_DIR)}`"
+    return f"Successfully saved to Sovereign Fabric Vault: `{os.path.relpath(out_file, BASE_DIR)}`"
 
 @app.tool()
 def list_vault_clients() -> str:
     """
-    List all active client workspaces and case dossiers indexed in the Agentic Obsidian Vault.
+    List all active client workspaces and case dossiers indexed in the Sovereign Fabric Vault.
     """
     client_dirs = []
     # Check G: Drive
@@ -196,7 +196,7 @@ def list_vault_clients() -> str:
     if not client_dirs:
         return "No client directories currently indexed in vault."
 
-    return "### 🗂️ SutraFlow Agentic Obsidian — Client Dossiers Index\n\n" + "\n".join(client_dirs[:40])
+    return "### 🗂️ SutraFlow Sovereign Fabric — Client Dossiers Index\n\n" + "\n".join(client_dirs[:40])
 
 # -------------------------------------------------------------
 # 2. Mount All Legal, Medical, and Finance Tools from Sub-Servers
@@ -239,7 +239,7 @@ except Exception as e:
 # 3. Server Startup & CLI Interface
 # -------------------------------------------------------------
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="SutraFlow Sovereign Agentic Obsidian MCP Server")
+    parser = argparse.ArgumentParser(description="SutraFlow Sovereign Sovereign Fabric MCP Server")
     parser.add_argument("--transport", choices=["stdio", "sse", "streamable-http"], default=os.environ.get("MCP_TRANSPORT", "sse"), help="Transport mode (default: sse)")
     parser.add_argument("--host", default=os.environ.get("MCP_HOST", "0.0.0.0"), help="Host address (default: 0.0.0.0)")
     parser.add_argument("--port", type=int, default=int(os.environ.get("MCP_PORT", "8000")), help="Network port (default: 8000)")
@@ -247,7 +247,7 @@ if __name__ == "__main__":
 
     total_tools = len(app._tool_manager._tools)
     print("=" * 60, file=sys.stderr)
-    print(f"  🧠 SutraFlow Agentic Obsidian & Memory Vault MCP Server", file=sys.stderr)
+    print(f"  🧠 SutraFlow Sovereign Fabric & Memory Vault MCP Server", file=sys.stderr)
     print(f"  Transport: {args.transport.upper()} | Interface: {args.host}:{args.port}", file=sys.stderr)
     print(f"  Available Tools: {total_tools} native tools registered", file=sys.stderr)
     print("=" * 60, file=sys.stderr)

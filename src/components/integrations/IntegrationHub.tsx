@@ -73,7 +73,7 @@ export interface ConnectorDefinition {
 const CONNECTOR_REGISTRY: ConnectorDefinition[] = [
   {
     id: 'sutra-mcp-vault',
-    name: 'SutraFlow MCP Vault (Agentic Obsidian)',
+    name: 'SutraFlow Sovereign Fabric Vault',
     category: 'vault',
     categoryLabel: 'Memory & Brain Vault',
     description: 'Universal Model Context Protocol (MCP) bridge exposing your local markdown vault, persistent client dossiers, and 25 deterministic tools over SSE (Port 8000) or sutraflow.us to Antigravity, Claude, Cursor, and any provider.',
@@ -409,7 +409,7 @@ export const IntegrationHub: React.FC = () => {
     if (tab === 'claude') {
       return JSON.stringify({
         mcpServers: {
-          "sutraflow-agentic-obsidian": {
+          "sutraflow-sovereign-vault": {
             command: "npx",
             args: ["-y", "mcp-remote", `http://127.0.0.1:${port}/sse`]
           }
@@ -419,7 +419,7 @@ export const IntegrationHub: React.FC = () => {
     if (tab === 'antigravity') {
       return JSON.stringify({
         mcpServers: {
-          "sutraflow-agentic-obsidian": {
+          "sutraflow-sovereign-vault": {
             command: "python",
             args: ["c:\\Users\\Ftt\\genieflowai\\src\\mcp_servers\\sutra_mcp_unified.py", "--transport", "stdio"],
             url: `http://127.0.0.1:${port}/sse`
@@ -430,7 +430,7 @@ export const IntegrationHub: React.FC = () => {
     if (tab === 'cursor') {
       return JSON.stringify({
         mcpServers: {
-          "sutraflow-agentic-obsidian": {
+          "sutraflow-sovereign-vault": {
             url: `http://127.0.0.1:${port}/sse`
           }
         }
@@ -855,7 +855,7 @@ export const IntegrationHub: React.FC = () => {
           <div className="flex items-center gap-1.5 overflow-x-auto pb-1 md:pb-0 scrollbar-none">
             {[
               { id: 'all', label: 'All Connectors' },
-              { id: 'vault', label: 'Brain Vault (Obsidian)' },
+              { id: 'vault', label: 'Sovereign Fabric Vault' },
               { id: 'byok', label: 'BYOK Models' },
               { id: 'google', label: 'Google Workspace' },
               { id: 'ai', label: 'AI Inference' },
@@ -1095,14 +1095,14 @@ export const IntegrationHub: React.FC = () => {
                   </div>
                 )}
 
-                {/* SutraFlow Universal MCP Vault (Agentic Obsidian) Harness Generator */}
+                {/* SutraFlow Universal Sovereign Fabric Vault Harness Generator */}
                 {configModalConnector.id === 'sutra-mcp-vault' && (
                   <div className="p-4 bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 rounded-xl space-y-3">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
                         <Terminal className="w-4 h-4 text-cyan-500" />
                         <span className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-                          Connect Any AI Harness (Agentic Obsidian)
+                          Connect Any Sovereign Agent Harness (Fabric Vault)
                         </span>
                       </div>
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-100 dark:bg-cyan-950/60 text-cyan-700 dark:text-cyan-300">

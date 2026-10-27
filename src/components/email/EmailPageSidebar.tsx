@@ -5,6 +5,7 @@ import { EmailFolders } from './EmailFolders';
 import { GmailLabel } from './GoogleTagsManager';
 import { EmailAccount } from '../../services/email/types';
 import { toast } from 'sonner';
+import { cn } from '../../lib/utils';
 
 interface EmailPageSidebarProps {
   accounts: EmailAccount[];

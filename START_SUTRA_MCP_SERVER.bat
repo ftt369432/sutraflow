@@ -1,8 +1,8 @@
 @echo off
-title SutraFlow Sovereign Agentic Obsidian MCP Server (Port 8000)
+title SutraFlow Sovereign Fabric Vault MCP Server (Port 8000)
 color 0B
 echo ======================================================================
-echo   SutraFlow Sovereign Agentic Obsidian & Legal Memory Vault
+echo   SutraFlow Sovereign Fabric & Legal Memory Vault
 echo   Multi-Harness MCP Server live on SSE Transport (Port 8000)
 echo ======================================================================
 echo.

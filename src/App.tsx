@@ -92,6 +92,7 @@ const WorkersCompSolutionsPage = lazy(() => import('./pages/WorkersCompSolutions
 const CloudMcpPage = lazy(() => import('./pages/CloudMcpPage'));
 const MasterclassPage = lazy(() => import('./pages/MasterclassPage'));
 const UniversalWorkbenchPage = lazy(() => import('./pages/UniversalWorkbenchPage').then(m => ({ default: m.default || m.UniversalWorkbenchPage })));
+const BusinessOperationsHQ = lazy(() => import('./components/hq/BusinessOperationsHQ'));
 
 // Create a loading fallback component
 const LoadingFallback = () => (
@@ -468,6 +469,7 @@ const ProtectedAppRoutes = () => {
         <Route path="/cortex" element={<ProtectedRoute><ErrorBoundary><CortexPage /></ErrorBoundary></ProtectedRoute>} />
         <Route path="/assistant-store" element={<ProtectedRoute><ErrorBoundary><AssistantStorePage /></ErrorBoundary></ProtectedRoute>} />
         <Route path="/hq" element={<ProtectedRoute><ErrorBoundary><GenieFlowHQPage /></ErrorBoundary></ProtectedRoute>} />
+        <Route path="/agent-hq" element={<ProtectedRoute><ErrorBoundary><BusinessOperationsHQ /></ErrorBoundary></ProtectedRoute>} />
         <Route path="/genie-command" element={<ProtectedRoute><ErrorBoundary><GenieCommandDashboard /></ErrorBoundary></ProtectedRoute>} />
         <Route path="/genetics" element={geniebioEnabled ? <ProtectedRoute><ErrorBoundary><GeneticsHubPage /></ErrorBoundary></ProtectedRoute> : <Navigate to="/dashboard" replace />} />
         <Route path="/nexus" element={nexusEnabled ? <ProtectedRoute><ErrorBoundary><NexusStudioPage /></ErrorBoundary></ProtectedRoute> : <Navigate to="/dashboard" replace />} />

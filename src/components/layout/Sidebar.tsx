@@ -30,7 +30,8 @@ import {
   Crown,
   GraduationCap,
   Sparkles,
-  Waves
+  Waves,
+  Briefcase
 } from 'lucide-react';
 
 interface SidebarItem {
@@ -55,6 +56,12 @@ const sidebarSections: SidebarSection[] = [
         icon: Waves,
         href: '/workbench',
         color: 'text-indigo-600 dark:text-indigo-400 font-bold',
+      },
+      {
+        title: 'Agent HQ (Operations)',
+        icon: Briefcase,
+        href: '/agent-hq',
+        color: 'text-violet-500 font-bold',
       },
       {
         title: 'Executive Dashboard',

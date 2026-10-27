@@ -316,6 +316,60 @@ export const BUILTIN_WORKFLOWS: WorkflowItem[] = [
     icon: 'bar-chart-3',
     prompt: 'Generate an interactive, zero-dependency, single-file HTML command center dashboard with metric cards, Kanban board, status filters, dark mode toggle, and localStorage persistence.',
     filename: 'AGNETICS/dashboards/AGNETICS_COMMAND_CENTER.html'
+  },
+
+  // ==========================================
+  // BUSINESS OPERATIONS (AGENT HQ) WORKFLOWS
+  // ==========================================
+  {
+    id: 'executive-task-decomposition',
+    name: 'executive-task-decomposition',
+    title: 'Executive Task Decomposition & Action Memo',
+    description: 'Chief of Staff decomposes high-level CEO goals into unblocked departmental task streams with ownership and deadlines.',
+    category: 'strategy',
+    domain: 'business_ops',
+    icon: 'brain',
+    prompt: 'Acting as Chief of Staff, conduct an Executive Task Decomposition on the provided strategic initiative. Decompose the high-level objective into concrete, unblocked work streams across Legal, Marketing, Finance, and Operations with explicit ownership, acceptance criteria, and binary QA checkpoints.'
+  },
+  {
+    id: 'gatekeeper-qa-audit',
+    name: 'gatekeeper-qa-audit',
+    title: 'Gatekeeper QA Compliance Audit',
+    description: 'Rigorous binary pass/fail verification enforcing zero placeholders, exact citations, and professional tone before human CEO sign-off.',
+    category: 'audit',
+    domain: 'business_ops',
+    icon: 'shield-check',
+    prompt: 'Execute a Gatekeeper QA Compliance Audit on the active deliverable. Perform a strict binary pass/fail check across: (1) Zero-Placeholder Standard (no brackets or TBDs), (2) Source Grounding & Verifiable Citations, (3) Mathematical & Logical Consistency, and (4) Tone & Executive Polish. Return a PASS or REJECT verdict with required remediation items.'
+  },
+  {
+    id: 'growth-marketing-blueprint',
+    name: 'growth-marketing-blueprint',
+    title: 'Growth Funnel & Marketing Campaign Blueprint',
+    description: 'Marketing Specialist designs conversion-focused positioning, audience segmentation, copy pillars, and distribution cadence.',
+    category: 'strategy',
+    domain: 'business_ops',
+    icon: 'target',
+    prompt: 'As the Marketing & Growth Specialist, draft a full-funnel Marketing Campaign Blueprint. Formulate target ICP personas, core value propositions, copy pillars for cold outreach / social / email, conversion offer mechanics, and a 30-day distribution timeline.'
+  },
+  {
+    id: 'financial-runway-model',
+    name: 'financial-runway-model',
+    title: 'Financial Runway & Unit Economics Model',
+    description: 'Finance Specialist calculates CAC, LTV, monthly burn rate, gross margins, and runway under conservative and growth scenarios.',
+    category: 'custom',
+    domain: 'business_ops',
+    icon: 'calculator',
+    prompt: 'As the Finance & Operations Specialist, build an itemized Financial Runway & Unit Economics Model. Audit monthly burn, calculate LTV:CAC ratios, determine payback period, and forecast 12-month runway across conservative, baseline, and expansion growth projections.'
+  },
+  {
+    id: 'scribe-vault-manifest',
+    name: 'scribe-vault-manifest',
+    title: 'Institutional Scribe Vault Manifest',
+    description: 'Scribe compiles key executive decisions, approved deliverables, and audit logs into persistent local Sovereign Fabric Vault Markdown.',
+    category: 'audit',
+    domain: 'business_ops',
+    icon: 'scroll',
+    prompt: 'As the Institutional Scribe, compile an immutable Sovereign Fabric Vault Decision Manifest. Document: (1) Strategic Decision / Approval, (2) Key Stakeholders, (3) Rationale & Tradeoffs, (4) Gatekeeper Audit Stamp, and (5) Next Action Triggers. Format in clean Markdown with YAML frontmatter ready for vault persistence.'
   }
 ];
 

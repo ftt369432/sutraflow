@@ -22,11 +22,11 @@ export class KnowledgeSkill implements Skill {
     /**
      * 🧠 Learn: Save a new pattern/rule to memory.
      * Indexes it for semantic search if userId is provided.
-     * Formats content with valid Obsidian/OpenBrain YAML frontmatter.
+     * Formats content with valid Sovereign Fabric Markdown YAML frontmatter.
      */
     async learn(title: string, content: string, category: string = 'general', userId?: string, teamId?: string): Promise<boolean> {
         try {
-            // Ensure Obsidian / OpenBrain compatible frontmatter
+            // Ensure Sovereign Fabric compatible frontmatter
             let formattedContent = content;
             if (!content.trim().startsWith('---')) {
                 const nowIso = new Date().toISOString();
@@ -143,7 +143,7 @@ export class KnowledgeSkill implements Skill {
     }
 
     /**
-     * 🔗 Wikilink Extractor (Obsidian / OpenBrain compatibility)
+     * 🔗 Wikilink Extractor (Sovereign Fabric / Markdown compatibility)
      * Extracts [[note-name]] or [[note-name|display text]] links from markdown content.
      */
     extractWikilinks(content: string): string[] {

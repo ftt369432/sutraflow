@@ -495,7 +495,7 @@ export class ConnectorDiagnosticsService {
   }
 
   /**
-   * Diagnostic test for SutraFlow Universal MCP Brain Vault (Agentic Obsidian)
+   * Diagnostic test for SutraFlow Universal MCP Brain Vault (Sovereign Fabric Vault)
    */
   async testUniversalMcp(port: number = 8000): Promise<DiagnosticResult> {
     const startTime = Date.now();
@@ -531,7 +531,7 @@ export class ConnectorDiagnosticsService {
           connectorId: 'sutra-mcp-vault',
           status: 'connected',
           latencyMs: Date.now() - startTime,
-          details: `Active on port ${port} (Agentic Obsidian Vault live)`,
+          details: `Active on port ${port} (Sovereign Fabric Vault live)`,
           timestamp: new Date().toLocaleTimeString()
         };
       }
