@@ -31,4 +31,4 @@ export interface StudioMessage {
 }
 
 export type LayoutMode = 'split' | 'chatOnly' | 'deliverableOnly';
-export type RightTab = 'deliverable' | 'source' | 'notepad' | 'tools' | 'tavily' | 'split';
+export type RightTab = 'deliverable' | 'source' | 'notepad' | 'tools' | 'tavily' | 'split' | 'graph';

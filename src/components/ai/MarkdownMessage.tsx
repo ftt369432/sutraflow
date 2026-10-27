@@ -55,6 +55,15 @@ export const MarkdownMessage = React.memo(function MarkdownMessage({ content, is
     }
   }, [content, streaming]);
 
+  // Obsidian Wikilink Preprocessing: [[Target]] or [[Target|Alias]]
+  const processedContent = React.useMemo(() => {
+    if (!displayedContent) return '';
+    return displayedContent.replace(/\[\[(.*?)(?:\|(.*?))?\]\]/g, (_match, target, alias) => {
+      const label = (alias || target || '').trim();
+      return `[${label}](wikilink:${encodeURIComponent((target || '').trim())})`;
+    });
+  }, [displayedContent]);
+
   const handleCopyCode = (code: string, index: number) => {
     navigator.clipboard.writeText(code);
     setCopiedCodes(prev => ({ ...prev, [index]: true }));
@@ -110,9 +119,33 @@ export const MarkdownMessage = React.memo(function MarkdownMessage({ content, is
             strong: ({ node, ...props }) => (
               <strong className="font-bold text-slate-900 dark:text-slate-100 tracking-tight" {...props} />
             ),
-            a: ({ node, ...props }) => (
-              <a className="text-blue-600 dark:text-blue-400 font-medium underline underline-offset-2 hover:text-blue-700 dark:hover:text-blue-300 transition-colors" target="_blank" rel="noopener noreferrer" {...props} />
-            ),
+            a: ({ node, href, children, ...props }) => {
+              if (href?.startsWith('wikilink:')) {
+                const targetName = decodeURIComponent(href.replace('wikilink:', ''));
+                return (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.dispatchEvent(
+                        new CustomEvent('genieflow:wikilink-clicked', { detail: targetName })
+                      );
+                    }}
+                    className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-purple-500/15 text-purple-700 dark:text-purple-300 border border-purple-500/30 hover:bg-purple-500/25 hover:border-purple-400 font-semibold text-xs transition cursor-pointer select-none"
+                    title={`Obsidian Vault Wikilink: [[${targetName}]]`}
+                  >
+                    <span className="text-[10px] text-purple-500 font-mono font-bold opacity-70">[[</span>
+                    <span className="underline underline-offset-2 decoration-purple-400/50">{children}</span>
+                    <span className="text-[10px] text-purple-500 font-mono font-bold opacity-70">]]</span>
+                  </button>
+                );
+              }
+              return (
+                <a className="text-blue-600 dark:text-blue-400 font-medium underline underline-offset-2 hover:text-blue-700 dark:hover:text-blue-300 transition-colors" target="_blank" rel="noopener noreferrer" href={href} {...props}>
+                  {children}
+                </a>
+              );
+            },
             ul: ({ node, ...props }) => (
               <ul className="list-disc pl-5 mb-3 space-y-1.5 text-slate-700 dark:text-slate-300" {...props} />
             ),
@@ -239,7 +272,7 @@ export const MarkdownMessage = React.memo(function MarkdownMessage({ content, is
             ),
           }}
         >
-          {displayedContent}
+          {processedContent}
         </ReactMarkdown>
       </div>
       

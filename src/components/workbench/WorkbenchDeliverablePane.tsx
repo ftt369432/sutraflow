@@ -22,7 +22,8 @@ import {
   X,
   Lightbulb,
   ChevronDown,
-  ChevronUp
+  ChevronUp,
+  Network
 } from 'lucide-react';
 import { RightTab } from './types';
 import { AnalystAuditReport } from '../../services/ai/ForensicAnalystLinter';
@@ -32,6 +33,7 @@ import { tavilyGrounding, TavilySearchResult, TavilySearchResponse } from '../..
 import { MarkdownMessage } from '../ai/MarkdownMessage';
 import { exportMarkdownToDocx } from '../../utils/docxExportUtil';
 import { unwrapModelDeliverable } from '../../utils/deliverableUnwrapper';
+import { KnowledgeGraphVisualization } from '../geniedrive/KnowledgeGraphVisualization';
 
 
 interface WorkbenchDeliverablePaneProps {
@@ -676,6 +678,20 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
               </span>
             )}
           </button>
+          <button
+            onClick={() => setActiveRightTab('graph')}
+            className={`px-3 py-1 rounded-md text-xs transition cursor-pointer flex items-center gap-1.5 ${
+              activeRightTab === 'graph'
+                ? 'sutra-steel-active font-semibold'
+                : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-100 font-medium'
+            }`}
+          >
+            <Network className="w-3 h-3 text-purple-400" />
+            <span>Vault Graph</span>
+            <span className="px-1.5 py-0.2 rounded-full text-[9px] bg-purple-500/20 text-purple-300 font-semibold border border-purple-500/30">
+              Obsidian
+            </span>
+          </button>
         </div>
 
         {/* Right Action Icons (for Deliverable) */}
@@ -1266,6 +1282,17 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
           </div>
         )}
 
+        {/* Tab 6: Sovereign Knowledge Graph (Obsidian Vault Brain) */}
+        {activeRightTab === 'graph' && (
+          <div className="flex-1 min-h-[580px] flex flex-col p-2">
+            <KnowledgeGraphVisualization
+              height={620}
+              onNodeClick={(node) => {
+                console.log('[KnowledgeGraph] Selected node:', node.name);
+              }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
