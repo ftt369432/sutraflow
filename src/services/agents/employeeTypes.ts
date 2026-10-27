@@ -24,6 +24,8 @@ export interface AIEmployee {
   allowedTools: string[];
   requiresApprovalFor: HighStakesAction[];
   systemDirectives: string;
+  markdownSpecPath?: string; // Local or AI Drive path to linked SOP markdown spec (e.g., "i:/.genieflowai.brain/SOP/LEGAL_COUNSEL_SOP.md")
+  learnedPlaybookPath?: string; // Local path to persistent learned rules markdown
   isCustom?: boolean;
   metrics: {
     tasksCompleted: number;

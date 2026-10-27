@@ -25,8 +25,12 @@ import {
   Sparkles,
   ChevronDown,
   RefreshCw,
-  FolderLock
+  FolderLock,
+  FileText,
+  ExternalLink,
+  HardDrive
 } from 'lucide-react';
+import { sovereignFs } from '../../services/fs/sovereignFsBridge';
 import { cn } from '../../lib/utils';
 import { useAIEmployeeStore } from '../../store/aiEmployeeStore';
 import {
@@ -61,6 +65,16 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
   const [selectedArea, setSelectedArea] = useState<string>('auto');
   const [selectedTask, setSelectedTask] = useState<WorkstreamTask | null>(null);
   const [vaultNotice, setVaultNotice] = useState<string | null>(null);
+
+  // SOP Spec Preview & Generation state
+  const [sopModal, setSopModal] = useState<{
+    isOpen: boolean;
+    title: string;
+    path: string;
+    content: string;
+    isLoading: boolean;
+  } | null>(null);
+  const [isGeneratingSop, setIsGeneratingSop] = useState(false);
 
   // Voice speech-to-text state
   const [isListening, setIsListening] = useState(false);
@@ -186,6 +200,89 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
 
     const vaultMarkdown = hierarchicalOrchestrator.compileVaultRecord(activeBriefing, scribeName);
     setVaultNotice(`Archived ${activeBriefing.workstreams.length} certified workstreams into Local Sovereign Fabric Vault. Document size: ${vaultMarkdown.length} bytes.`);
+  };
+
+  // View linked Markdown SOP file from disk/vault
+  const handleViewSop = async (employee: AIEmployee) => {
+    if (!employee.markdownSpecPath) return;
+    setSopModal({
+      isOpen: true,
+      title: `${employee.name} — SOP Spec`,
+      path: employee.markdownSpecPath,
+      content: '',
+      isLoading: true
+    });
+
+    try {
+      const res = await sovereignFs.readFile({ path: employee.markdownSpecPath });
+      if (res?.success && res.content) {
+        setSopModal(prev => prev ? { ...prev, content: res.content!, isLoading: false } : null);
+      } else {
+        setSopModal(prev => prev ? {
+          ...prev,
+          content: `# ${employee.name} Standard Operating Procedure\n\nNo active document found at:\n\`${employee.markdownSpecPath}\`\n\nYou can click 'AI Generate SOP' to automatically draft and link this file in your AI Drive/Vault.`,
+          isLoading: false
+        } : null);
+      }
+    } catch (err) {
+      setSopModal(prev => prev ? {
+        ...prev,
+        content: `Error loading SOP file: ${String(err)}`,
+        isLoading: false
+      } : null);
+    }
+  };
+
+  // AI Generate full structured SOP Markdown file and write to disk
+  const handleGenerateSop = async (emp: AIEmployee) => {
+    setIsGeneratingSop(true);
+    try {
+      const defaultPath = emp.markdownSpecPath || `i:/.genieflowai.brain/SOP/${emp.id.toUpperCase().replace(/-/g, '_')}_SOP.md`;
+      const generatedMarkdown = `# Standard Operating Procedure (SOP): ${emp.name}
+
+## 1. Identity & Mandate
+- **Role:** ${emp.title}
+- **Department:** ${emp.department.toUpperCase()}
+- **Model Tier:** ${emp.modelTier}
+- **Supervising Principal:** Executive Conductor / The Principal
+
+## 2. Core Operational Directives
+${emp.systemDirectives}
+
+## 3. Allowed Primitives & Tools
+${emp.allowedTools.map(t => `- \`${t}\``).join('\n')}
+
+## 4. Human Approval Guardrails
+${emp.requiresApprovalFor.length > 0
+  ? emp.requiresApprovalFor.map(a => `- **STRICT HUMAN APPROVAL REQUIRED:** \`${a}\``).join('\n')
+  : '- Autonomous execution permitted for non-destructive actions.'}
+
+## 5. Sovereign Execution Standards
+- **Zero Placeholders:** Never generate bracketed placeholders like [Insert Date] or [Amount].
+- **Factual Grounding:** Cross-reference every assertion against primary vault records.
+- **Continuous Learning:** Log corrections and operational playbooks to the Institutional Memory Scribe.
+`;
+
+      await sovereignFs.writeFile({ path: defaultPath, content: generatedMarkdown });
+
+      const updated = { ...emp, markdownSpecPath: defaultPath };
+      updateEmployee(emp.id, updated);
+      if (editingEmployee && editingEmployee.id === emp.id) {
+        setEditingEmployee(updated);
+      }
+
+      setSopModal({
+        isOpen: true,
+        title: `${emp.name} — SOP Spec (Generated)`,
+        path: defaultPath,
+        content: generatedMarkdown,
+        isLoading: false
+      });
+    } catch (err) {
+      console.error('Error generating SOP:', err);
+    } finally {
+      setIsGeneratingSop(false);
+    }
   };
 
   const pendingApprovalsCount = approvalQueue.filter((a) => a.status === 'pending').length;
@@ -628,6 +725,20 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                       </button>
                     </div>
                     <p className="text-[11px] text-gray-600 dark:text-slate-400 line-clamp-2">{emp.title}</p>
+                    {emp.markdownSpecPath && (
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleViewSop(emp);
+                        }}
+                        className="mt-2 inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 text-[10px] font-medium border border-emerald-200 dark:border-emerald-800/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/50"
+                        title={`View attached SOP: ${emp.markdownSpecPath}`}
+                      >
+                        <FileText className="h-2.5 w-2.5" />
+                        <span className="truncate max-w-[130px]">{emp.markdownSpecPath.split(/[/\\]/).pop()}</span>
+                      </button>
+                    )}
                   </div>
 
                   <div className="pt-2.5 mt-2 border-t border-gray-100 dark:border-slate-850 flex items-center justify-between text-[10px] text-gray-400 dark:text-slate-500">
@@ -688,6 +799,20 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                     <div>
                       <h5 className="font-bold text-gray-900 dark:text-white text-xs">{emp.name}</h5>
                       <p className="text-[10px] text-gray-500 dark:text-slate-400">{emp.title}</p>
+                      {emp.markdownSpecPath && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleViewSop(emp);
+                          }}
+                          className="mt-1 inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 text-[9px] font-medium border border-emerald-200 dark:border-emerald-800/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/50"
+                          title={`View linked SOP: ${emp.markdownSpecPath}`}
+                        >
+                          <FileText className="h-2.5 w-2.5" />
+                          <span className="truncate max-w-[110px]">{emp.markdownSpecPath.split(/[/\\]/).pop()}</span>
+                        </button>
+                      )}
                     </div>
                     <button onClick={() => setEditingEmployee(emp)} className="text-gray-400 dark:text-slate-500 hover:text-gray-700 dark:hover:text-slate-200">
                       <Edit3 className="h-3 w-3" />
@@ -710,6 +835,20 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                     <div>
                       <h5 className="font-bold text-gray-900 dark:text-white text-xs">{emp.name}</h5>
                       <p className="text-[10px] text-gray-500 dark:text-slate-400">{emp.title}</p>
+                      {emp.markdownSpecPath && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleViewSop(emp);
+                          }}
+                          className="mt-1 inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 text-[9px] font-medium border border-emerald-200 dark:border-emerald-800/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/50"
+                          title={`View linked SOP: ${emp.markdownSpecPath}`}
+                        >
+                          <FileText className="h-2.5 w-2.5" />
+                          <span className="truncate max-w-[110px]">{emp.markdownSpecPath.split(/[/\\]/).pop()}</span>
+                        </button>
+                      )}
                     </div>
                     <button onClick={() => setEditingEmployee(emp)} className="text-gray-400 dark:text-slate-500 hover:text-gray-700 dark:hover:text-slate-200">
                       <Edit3 className="h-3 w-3" />
@@ -732,6 +871,20 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                     <div>
                       <h5 className="font-bold text-gray-900 dark:text-white text-xs">{emp.name}</h5>
                       <p className="text-[10px] text-gray-500 dark:text-slate-400">{emp.title}</p>
+                      {emp.markdownSpecPath && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleViewSop(emp);
+                          }}
+                          className="mt-1 inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 text-[9px] font-medium border border-emerald-200 dark:border-emerald-800/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/50"
+                          title={`View linked SOP: ${emp.markdownSpecPath}`}
+                        >
+                          <FileText className="h-2.5 w-2.5" />
+                          <span className="truncate max-w-[110px]">{emp.markdownSpecPath.split(/[/\\]/).pop()}</span>
+                        </button>
+                      )}
                     </div>
                     <button onClick={() => setEditingEmployee(emp)} className="text-gray-400 dark:text-slate-500 hover:text-gray-700 dark:hover:text-slate-200">
                       <Edit3 className="h-3 w-3" />
@@ -906,6 +1059,47 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                 />
               </div>
 
+              {/* Linked Markdown SOP Spec */}
+              <div className="space-y-1.5">
+                <div className="flex items-center justify-between">
+                  <label className="text-gray-700 dark:text-slate-300 font-semibold text-xs flex items-center gap-1.5">
+                    <FileText className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
+                    Attached Markdown SOP Spec (AI Drive / Vault)
+                  </label>
+                  <div className="flex items-center gap-2">
+                    {editingEmployee.markdownSpecPath && (
+                      <button
+                        type="button"
+                        onClick={() => handleViewSop(editingEmployee)}
+                        className="text-[11px] text-emerald-600 dark:text-emerald-400 hover:underline flex items-center gap-1"
+                      >
+                        <ExternalLink className="h-3 w-3" />
+                        Preview Spec
+                      </button>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => handleGenerateSop(editingEmployee)}
+                      disabled={isGeneratingSop}
+                      className="text-[11px] bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-900 text-emerald-700 dark:text-emerald-300 px-2 py-0.5 rounded border border-emerald-300 dark:border-emerald-800 flex items-center gap-1 font-medium transition-colors"
+                    >
+                      <Sparkles className="h-3 w-3" />
+                      {isGeneratingSop ? 'Writing...' : 'AI Generate SOP'}
+                    </button>
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  value={editingEmployee.markdownSpecPath || ''}
+                  onChange={(e) => setEditingEmployee({ ...editingEmployee, markdownSpecPath: e.target.value })}
+                  placeholder="e.g., i:/.genieflowai.brain/SOP/LEGAL_COUNSEL_SOP.md"
+                  className="w-full px-3 py-2 rounded-lg bg-gray-50 dark:bg-slate-950 border border-gray-300 dark:border-slate-800 text-gray-900 dark:text-white text-xs focus:outline-none focus:border-emerald-500 font-mono"
+                />
+                <p className="text-[10px] text-gray-500 dark:text-slate-400">
+                  Direct markdown file path on your local drive or AI Drive. Edit the markdown file directly anytime to change how this agent operates.
+                </p>
+              </div>
+
               {/* Strict Approval Guardrails Checkboxes */}
               <div>
                 <label className="block text-gray-700 dark:text-slate-300 font-semibold mb-1.5">Strict Human Approval Required For:</label>
@@ -964,6 +1158,57 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                   Save Changes
                 </button>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* =========================================================================
+          SOP SPEC PREVIEW / READER MODAL
+          ========================================================================= */}
+      {sopModal && (
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-2xl w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl overflow-hidden">
+            <div className="p-4 border-b border-gray-200 dark:border-slate-800 flex items-center justify-between bg-gray-50 dark:bg-slate-950">
+              <div className="flex items-center gap-2">
+                <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                  <FileText className="h-4 w-4" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900 dark:text-white text-sm">{sopModal.title}</h3>
+                  <p className="text-[10px] text-gray-500 dark:text-slate-400 font-mono truncate max-w-md">{sopModal.path}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => setSopModal(null)}
+                className="text-gray-400 hover:text-gray-600 dark:hover:text-white p-1 rounded-lg"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="p-5 overflow-y-auto flex-1 font-mono text-xs bg-gray-50/50 dark:bg-slate-950/50 text-gray-800 dark:text-slate-200 whitespace-pre-wrap leading-relaxed">
+              {sopModal.isLoading ? (
+                <div className="flex items-center justify-center py-12 text-gray-400">
+                  <RefreshCw className="h-5 w-5 animate-spin mr-2" />
+                  Reading SOP spec from disk...
+                </div>
+              ) : (
+                sopModal.content
+              )}
+            </div>
+
+            <div className="p-3 border-t border-gray-200 dark:border-slate-800 flex items-center justify-between bg-gray-50 dark:bg-slate-950 text-xs">
+              <span className="text-[11px] text-gray-500 dark:text-slate-400 flex items-center gap-1.5">
+                <HardDrive className="h-3.5 w-3.5 text-gray-400" />
+                Linked to Sovereign Vault & AI Drive
+              </span>
+              <button
+                onClick={() => setSopModal(null)}
+                className="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold"
+              >
+                Done
+              </button>
             </div>
           </div>
         </div>

@@ -15,6 +15,7 @@ export const DEFAULT_AI_EMPLOYEES: AIEmployee[] = [
     allowedTools: ['decompose_macro_goal', 'assign_department_task', 'compile_executive_brief', 'read_sovereign_vault'],
     requiresApprovalFor: ['contract_sign'],
     systemDirectives: 'Decompose macro objectives into atomic department workstreams. Synthesize reports and never forward raw noise to the CEO. Always require Gatekeeper verification before review.',
+    markdownSpecPath: 'i:/.genieflowai.brain/SOP/CHIEF_OF_STAFF_SOP.md',
     metrics: { tasksCompleted: 42, passRate: 98, tokensSaved: 124800 }
   },
   {
@@ -30,6 +31,7 @@ export const DEFAULT_AI_EMPLOYEES: AIEmployee[] = [
     allowedTools: ['audit_deliverable', 'reject_defective', 'certify_deliverable', 'verify_pii_firewall'],
     requiresApprovalFor: [],
     systemDirectives: 'Perform strict binary pass/fail verification. Catch bracketed placeholders, unredacted PII, unauthorized commercial tools, and ungrounded assertions before deliverables reach executive review.',
+    markdownSpecPath: 'i:/.genieflowai.brain/SOP/QUALITY_GATEKEEPER_SOP.md',
     metrics: { tasksCompleted: 118, passRate: 94, tokensSaved: 284000 }
   },
   {
@@ -45,6 +47,7 @@ export const DEFAULT_AI_EMPLOYEES: AIEmployee[] = [
     allowedTools: ['search_web', 'prospect_contacts', 'draft_outreach_email', 'schedule_followup'],
     requiresApprovalFor: ['external_email', 'calendar_booking'],
     systemDirectives: 'Proactively generate income, discover high-value prospects, track connection follow-ups, and stage tailored outreach messaging for 1-click human approval.',
+    markdownSpecPath: 'i:/.genieflowai.brain/SOP/REVENUE_HUNTER_SOP.md',
     metrics: { tasksCompleted: 29, passRate: 96, tokensSaved: 68500 }
   },
   {
@@ -60,6 +63,8 @@ export const DEFAULT_AI_EMPLOYEES: AIEmployee[] = [
     allowedTools: ['write_sovereign_vault', 'update_client_fact_manifest', 'log_sop', 'catalog_precedent'],
     requiresApprovalFor: [],
     systemDirectives: 'Guarantee institutional learning. Log verified patterns, client facts, and operational playbooks directly into the local Sovereign Fabric Vault as Markdown records.',
+    markdownSpecPath: 'i:/.genieflowai.brain/SOP/VAULT_SCRIBE_SOP.md',
+    learnedPlaybookPath: 'i:/.genieflowai.brain/SOP/LEARNED_RULES.md',
     metrics: { tasksCompleted: 64, passRate: 100, tokensSaved: 153000 }
   },
   {
@@ -75,6 +80,7 @@ export const DEFAULT_AI_EMPLOYEES: AIEmployee[] = [
     allowedTools: ['lookup_labor_code', 'crosswalk_8ccr_rule', 'lookup_med_legal_case', 'compile_pleading_docx', 'view_file'],
     requiresApprovalFor: ['court_filing'],
     systemDirectives: 'Relentlessly prosecute claims and statutory compliance. Quote California Labor Code and 8 CCR verbatim. Compile 28-line legal pleadings with zero placeholders.',
+    markdownSpecPath: 'i:/.genieflowai.brain/SOP/LEGAL_COUNSEL_SOP.md',
     metrics: { tasksCompleted: 87, passRate: 99, tokensSaved: 210000 }
   },
   {
@@ -90,6 +96,7 @@ export const DEFAULT_AI_EMPLOYEES: AIEmployee[] = [
     allowedTools: ['run_command', 'audit_billing_ledger', 'calculate_statutory_interest', 'compute_penalty_exposure'],
     requiresApprovalFor: ['financial_transfer'],
     systemDirectives: 'Audit medical-legal billing under LC § 4622. Calculate mandatory 10% penalties and 7% annual statutory interest deterministically using verified math engines.',
+    markdownSpecPath: 'i:/.genieflowai.brain/SOP/FINANCE_SENTINEL_SOP.md',
     metrics: { tasksCompleted: 53, passRate: 100, tokensSaved: 95400 }
   }
 ];
