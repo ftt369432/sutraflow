@@ -52,37 +52,37 @@ const sidebarSections: SidebarSection[] = [
     title: 'Sovereign Agent Hub',
     items: [
       {
-        title: 'Universal Workbench',
+        title: 'Workbench',
         icon: Waves,
         href: '/workbench',
         color: 'text-indigo-600 dark:text-indigo-400 font-bold',
       },
       {
-        title: 'Agent HQ (Operations)',
+        title: 'Agent HQ',
         icon: Briefcase,
         href: '/agent-hq',
         color: 'text-violet-500 font-bold',
       },
       {
-        title: 'Executive Dashboard',
+        title: 'Dashboard',
         icon: Home,
         href: '/dashboard',
         color: 'text-slate-600 dark:text-slate-300 font-medium',
       },
       {
-        title: 'Statutory Calendar',
+        title: 'Calendar',
         icon: CalendarDays,
         href: '/calendar',
         color: 'text-emerald-500 font-medium',
       },
       {
-        title: 'Practice Tasks',
+        title: 'Tasks',
         icon: ListTodo,
         href: '/tasks',
         color: 'text-amber-500 font-medium',
       },
       {
-        title: 'Inbound Email Nexus',
+        title: 'Email',
         icon: Mail,
         href: '/email',
         color: 'text-blue-500 font-medium',
@@ -93,19 +93,19 @@ const sidebarSections: SidebarSection[] = [
     title: 'Evidence & Precedents',
     items: [
       {
-        title: 'Knowledge Vault',
+        title: 'Knowledge',
         icon: Database,
         href: '/knowledge',
         color: 'text-cyan-500 font-medium',
       },
       {
-        title: 'Sovereign Drive',
+        title: 'Drive',
         icon: FolderOpen,
         href: '/drive',
         color: 'text-teal-500 font-medium',
       },
       {
-        title: 'Solutions Showcase',
+        title: 'Solutions',
         icon: Crown,
         href: '/solutions/ca-workers-comp',
         color: 'text-amber-400 font-medium',
@@ -116,13 +116,13 @@ const sidebarSections: SidebarSection[] = [
     title: 'Nebius & Sovereign Engine',
     items: [
       {
-        title: 'Cloud MCP HUD',
+        title: 'MCP',
         icon: Cpu,
         href: '/mcp',
         color: 'text-indigo-400 font-bold',
       },
       {
-        title: 'System Settings',
+        title: 'Settings',
         icon: Cog,
         href: '/settings',
         color: 'text-slate-400 font-medium',

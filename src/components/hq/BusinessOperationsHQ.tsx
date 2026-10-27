@@ -209,7 +209,7 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
               <Sparkles className="h-5 w-5" />
             </div>
             <div>
-              <h2 className="text-xl font-bold tracking-tight text-white">Mission Control & The Org</h2>
+              <h2 className="text-xl font-bold tracking-tight text-white">Agent HQ</h2>
               <p className="text-xs text-slate-400">
                 Sovereign Practice Controller • Autonomous Multi-Agent Hierarchy • Zero-Cloud Egress
               </p>
