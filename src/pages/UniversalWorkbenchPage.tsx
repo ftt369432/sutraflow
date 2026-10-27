@@ -679,8 +679,7 @@ export const UniversalWorkbenchPage: React.FC = () => {
   }, []);
 
   // Listen for agentic canvas document events & click-to-open artifact events to mount in the deliverable pane
-  const handleSendMessageRef = useRef(handleSendMessage);
-  handleSendMessageRef.current = handleSendMessage;
+  const handleSendMessageRef = useRef<((customPrompt?: string) => Promise<void>) | null>(null);
 
   useEffect(() => {
     const handleCanvasCreated = (e: any) => {
@@ -1792,6 +1791,8 @@ The conformed professional document is ready in the **Synthesis Output** pane on
       setLiveThoughtSteps([]);
     }
   };
+
+  handleSendMessageRef.current = handleSendMessage;
 
   // Export handlers
   const handleCopyOutput = () => {
