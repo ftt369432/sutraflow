@@ -82,4 +82,4 @@ CLAIMANT RELIEF SOUGHT:
 - Costs and sanctions under Labor Code § 5813.
 `.trim();
 
-export const SYNTHETIC_DEMO_OBJECTIVE = `Draft a publication-ready California 28-line legal Post-Trial Brief and Evidentiary Objection Matrix excluding defense late exhibits under LC § 5502(d)(3) and enforcing statutory penalties under LC § 4622.`;
+export const SYNTHETIC_DEMO_OBJECTIVE = `Draft a publication-ready California 28-line legal Post-Trial Brief excluding defense late exhibits under LC § 5502(d)(3) and enforcing statutory penalties under LC § 4622 in straight-writing prose with zero tables.`;

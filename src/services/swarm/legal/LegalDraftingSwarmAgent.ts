@@ -228,10 +228,10 @@ export class LegalDraftingSwarmAgent extends BaseAgent {
       specificStructure = `1. Caption Block
 2. Court Header & Case Caption
 3. Document Title: ${pleadingTitle}
-4. Section I: INTRODUCTION
-5. Section II: PROCEDURAL HISTORY & DISCOVERY CLOSURE AT MSC
-6. Section III: FORMAL EVIDENTIARY OBJECTIONS TABLE (LC § 5502(d)(3), Tuckerman, McClanahan)
-7. Section IV: POINTS AND AUTHORITIES
+4. Section I: INTRODUCTION AND PROCEDURAL POSTURE
+5. Section II: PROCEDURAL HISTORY & DISCOVERY CLOSURE AT MSC (Labor Code § 5502(d)(3))
+6. Section III: SPECIFIC EVIDENTIARY OBJECTIONS & POINTS AND AUTHORITIES (Straight continuous legal prose detailing each objection under Tuckerman and McClanahan; zero tables)
+7. Section IV: MEDICAL-LEGAL PENALTIES & STATUTORY INTEREST (Labor Code § 4622)
 8. Section V: PRAYER FOR RELIEF, SIGNATURE BLOCK, AND VERIFICATION.`;
     }
 
@@ -268,7 +268,8 @@ MANDATORY PLEADING STRUCTURE:
 ${specificStructure}
 
 CRITICAL FORMATTING RULES:
-- Output clean, professional Markdown with standard headings (##), bold titles, and indented legal quotes.
+- Output clean, professional straight-through legal prose with standard headings (##), numbered paragraphs, and indented legal quotes.
+- NEVER generate markdown tables, matrix cells, or spreadsheet grids. All California court petitions and trial briefs must be written in straight, continuous legal text.
 - Do NOT prefix lines with raw number characters (do NOT type "1: ", "2: "). True 28-line legal paper layout is applied by the Word/PDF pleading compiler.
 - Quote all statutory and en banc citations VERBATIM from the verified authority bank.
 - No conversational filler or introductory greetings. Begin directly with the Caption Header.`;

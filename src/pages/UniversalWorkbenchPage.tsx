@@ -1517,13 +1517,14 @@ User Prompt: ${textToSend}
 Instructions:
 Provide an authoritative, in-depth, intuitive, and beautifully structured executive response.
 - Lead with an Executive Summary or Strategic Takeaway (2-3 concise sentences).
-- Use clean Markdown with distinct section headings (##), bullet points with concise bold leads, and cleanly formatted tables where metrics, architectures, or comparisons are relevant.
+${activeProfile.type === 'legal'
+  ? '- PETITIONS & PLEADINGS: For California legal petitions, trial briefs, and motions, NEVER use markdown table grids or spreadsheet cells. Write in straight-through, continuous legal prose with numbered paragraphs (1, 2, 3...), formal IRAC arguments, verbatim statutory quotes, and standard 28-line legal pleading structure.'
+  : '- Use clean Markdown with distinct section headings (##), bullet points with concise bold leads, and cleanly formatted tables where metrics, architectures, or comparisons are relevant.'}
 - ZERO HESITATION / NO INTERVIEW STALLING: NEVER halt execution by asking passive "5-question surveys" or "mandatory calibration interviews". Deliver the complete, actionable blueprint, code, dashboard, or strategy immediately.
 - TERMINOLOGY: "MCP" refers to Model Context Protocol (AI agent servers, tools, JSON-RPC connectors) — NEVER confuse it with California medical billing codes (ML-101/OMFS) unless the user is explicitly in the California Workers' Comp legal domain.
 ${activeProfile.type === 'legal' ? '- When referencing statutes or legal authorities, quote verbatim with exact Labor Code sections and case names.' : '- Ground all standards and regulatory frameworks in the governing authorities of the active professional domain.'}
 - PROACTIVE MANIFESTATION: Proactively outline next implementation steps, concrete technical and business choices, and suggest superior alternatives to help the user manifest and accelerate their vision.
-- Keep the presentation clean, executive, and readable (avoid wall-of-text all-caps bolding).
-- Do NOT generate an unrequested 28-line formal court caption pleading unless the user explicitly asks to draft one.`;
+- Keep the presentation clean, executive, and readable (avoid wall-of-text all-caps bolding).`;
 
         let answer = '';
         const hasNebius = !!nebiusTokenFactory.getApiKey();
