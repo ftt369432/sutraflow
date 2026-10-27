@@ -1088,11 +1088,34 @@ ${emp.requiresApprovalFor.length > 0
                     </button>
                   </div>
                 </div>
+
+                {/* Preset SOP Quick Selector */}
+                <div className="flex items-center gap-2 py-1">
+                  <span className="text-[10px] text-gray-500 dark:text-slate-400 font-medium">Or choose a preset template:</span>
+                  <select
+                    onChange={(e) => {
+                      if (e.target.value) {
+                        setEditingEmployee({ ...editingEmployee, markdownSpecPath: e.target.value });
+                      }
+                    }}
+                    className="text-[11px] px-2 py-1 rounded bg-gray-100 dark:bg-slate-900 border border-gray-300 dark:border-slate-800 text-gray-700 dark:text-slate-300 focus:outline-none focus:border-emerald-500 cursor-pointer"
+                    defaultValue=""
+                  >
+                    <option value="" disabled>Select Preset SOP...</option>
+                    <option value="i:/.genieflowai.brain/SOP/PRESETS/MEDICAL_CLINIC_SOP.md">Medical Practice & Clinic</option>
+                    <option value="i:/.genieflowai.brain/SOP/PRESETS/MARKETING_GROWTH_SOP.md">Growth Marketing & Copywriting</option>
+                    <option value="i:/.genieflowai.brain/SOP/PRESETS/ARCHITECTURE_ENGINEERING_SOP.md">Architecture & Permitting</option>
+                    <option value="i:/.genieflowai.brain/SOP/PRESETS/ACCOUNTING_TAX_SOP.md">Accounting, Tax & Audit</option>
+                    <option value="i:/.genieflowai.brain/SOP/PRESETS/GENERAL_OPERATIONS_SOP.md">General Business Operations</option>
+                    <option value="i:/.genieflowai.brain/SOP/LEGAL_COUNSEL_SOP.md">Legal Counsel & Litigation</option>
+                  </select>
+                </div>
+
                 <input
                   type="text"
                   value={editingEmployee.markdownSpecPath || ''}
                   onChange={(e) => setEditingEmployee({ ...editingEmployee, markdownSpecPath: e.target.value })}
-                  placeholder="e.g., i:/.genieflowai.brain/SOP/LEGAL_COUNSEL_SOP.md"
+                  placeholder="e.g., i:/.genieflowai.brain/SOP/PRESETS/MEDICAL_CLINIC_SOP.md"
                   className="w-full px-3 py-2 rounded-lg bg-gray-50 dark:bg-slate-950 border border-gray-300 dark:border-slate-800 text-gray-900 dark:text-white text-xs focus:outline-none focus:border-emerald-500 font-mono"
                 />
                 <p className="text-[10px] text-gray-500 dark:text-slate-400">
