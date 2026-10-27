@@ -197,20 +197,19 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
   const revenueTeam = employees.filter(e => e.department === 'revenue');
   const legalTeam = employees.filter(e => e.department === 'legal');
   const financeTeam = employees.filter(e => e.department === 'finance');
-  const otherTeams = employees.filter(e => !['executive', 'quality', 'memory', 'revenue', 'legal', 'finance'].includes(e.department));
 
   return (
-    <div className={cn("p-6 space-y-6 text-slate-100 bg-slate-950/90 rounded-2xl border border-slate-800/80 backdrop-blur-md shadow-2xl", className)}>
+    <div className={cn("p-6 space-y-6 text-gray-900 dark:text-slate-100 bg-white dark:bg-slate-950/90 rounded-2xl border border-gray-200 dark:border-slate-800/80 backdrop-blur-md shadow-xl transition-colors", className)}>
       {/* Top Header Bar */}
-      <div className="flex flex-col md:flex-row items-start md:items-center justify-between pb-4 border-b border-slate-800/80 gap-4">
+      <div className="flex flex-col md:flex-row items-start md:items-center justify-between pb-4 border-b border-gray-200 dark:border-slate-800/80 gap-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-orange-500/10 border border-orange-500/30 text-orange-400">
+            <div className="p-2 rounded-xl bg-orange-500/10 border border-orange-500/30 text-orange-600 dark:text-orange-400">
               <Sparkles className="h-5 w-5" />
             </div>
             <div>
-              <h2 className="text-xl font-bold tracking-tight text-white">Agent HQ</h2>
-              <p className="text-xs text-slate-400">
+              <h2 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Agent HQ</h2>
+              <p className="text-xs text-gray-500 dark:text-slate-400">
                 Sovereign Practice Controller • Autonomous Multi-Agent Hierarchy • Zero-Cloud Egress
               </p>
             </div>
@@ -218,14 +217,14 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex items-center gap-1.5 p-1 bg-slate-900 border border-slate-800 rounded-xl text-xs font-medium">
+        <div className="flex items-center gap-1.5 p-1 bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-xl text-xs font-medium">
           <button
             onClick={() => setActiveTab('mission_control')}
             className={cn(
               "px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5",
               activeTab === 'mission_control'
-                ? "bg-orange-500/20 text-orange-300 border border-orange-500/40 shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-white dark:bg-orange-500/20 text-orange-600 dark:text-orange-300 border border-gray-200 dark:border-orange-500/40 shadow-sm font-semibold"
+                : "text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200"
             )}
           >
             <Zap className="h-3.5 w-3.5" />
@@ -237,8 +236,8 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
             className={cn(
               "px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5",
               activeTab === 'the_org'
-                ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-white dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 border border-gray-200 dark:border-emerald-500/40 shadow-sm font-semibold"
+                : "text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200"
             )}
           >
             <Users className="h-3.5 w-3.5" />
@@ -250,14 +249,14 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
             className={cn(
               "px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 relative",
               activeTab === 'approvals'
-                ? "bg-amber-500/20 text-amber-300 border border-amber-500/40 shadow-sm"
-                : "text-slate-400 hover:text-slate-200"
+                ? "bg-white dark:bg-amber-500/20 text-amber-600 dark:text-amber-300 border border-gray-200 dark:border-amber-500/40 shadow-sm font-semibold"
+                : "text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-200"
             )}
           >
             <UserCheck className="h-3.5 w-3.5" />
             1-Click Approvals
             {pendingApprovalsCount > 0 && (
-              <span className="px-1.5 py-0.2 text-[10px] rounded-full bg-amber-500 text-slate-950 font-bold animate-pulse">
+              <span className="px-1.5 py-0.2 text-[10px] rounded-full bg-amber-500 text-white font-bold animate-pulse">
                 {pendingApprovalsCount}
               </span>
             )}
@@ -266,59 +265,59 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
       </div>
 
       {/* =========================================================================
-          TAB 1: MISSION CONTROL (MATCHING THE 4-COUNTER TELEMETRY & VOICE BAR)
+          TAB 1: MISSION CONTROL
           ========================================================================= */}
       {activeTab === 'mission_control' && (
         <div className="space-y-6">
           {/* Top 4 Counter Metric Strip */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
-              <span className="block text-2xl font-black text-cyan-400">{workingNowCount}</span>
-              <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Working Now</span>
+            <div className="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/80 border border-gray-200 dark:border-slate-800 text-center">
+              <span className="block text-2xl font-black text-cyan-600 dark:text-cyan-400">{workingNowCount}</span>
+              <span className="text-[11px] font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wider">Working Now</span>
             </div>
             <div className={cn(
               "p-4 rounded-xl border text-center transition-all",
               pendingApprovalsCount > 0
-                ? "bg-amber-950/40 border-amber-500/60 text-amber-300"
-                : "bg-slate-900/80 border-slate-800 text-slate-400"
+                ? "bg-amber-50 dark:bg-amber-950/40 border-amber-300 dark:border-amber-500/60 text-amber-700 dark:text-amber-300"
+                : "bg-gray-50 dark:bg-slate-900/80 border-gray-200 dark:border-slate-800 text-gray-500 dark:text-slate-400"
             )}>
               <span className={cn(
                 "block text-2xl font-black",
-                pendingApprovalsCount > 0 ? "text-amber-400 animate-pulse" : "text-slate-400"
+                pendingApprovalsCount > 0 ? "text-amber-600 dark:text-amber-400 animate-pulse" : "text-gray-400 dark:text-slate-500"
               )}>
                 {pendingApprovalsCount}
               </span>
               <span className="text-[11px] font-semibold uppercase tracking-wider">Needs You</span>
             </div>
-            <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
-              <span className="block text-2xl font-black text-emerald-400">{readyToReviewCount}</span>
-              <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Ready to Review</span>
+            <div className="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/80 border border-gray-200 dark:border-slate-800 text-center">
+              <span className="block text-2xl font-black text-emerald-600 dark:text-emerald-400">{readyToReviewCount}</span>
+              <span className="text-[11px] font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wider">Ready to Review</span>
             </div>
-            <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 text-center">
-              <span className="block text-2xl font-black text-slate-500">0</span>
-              <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Problems</span>
+            <div className="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/80 border border-gray-200 dark:border-slate-800 text-center">
+              <span className="block text-2xl font-black text-gray-400 dark:text-slate-500">0</span>
+              <span className="text-[11px] font-semibold text-gray-500 dark:text-slate-400 uppercase tracking-wider">Problems</span>
             </div>
           </div>
 
           {/* "While You Were Away" / Morning Executive Briefing Banner */}
-          <div className="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800/80 flex items-center justify-between text-xs text-slate-300">
+          <div className="p-3.5 rounded-xl bg-gray-50 dark:bg-slate-900/60 border border-gray-200 dark:border-slate-800/80 flex items-center justify-between text-xs text-gray-700 dark:text-slate-300">
             <div className="flex items-center gap-2.5">
-              <span className="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 font-bold text-[10px]">
+              <span className="px-2 py-0.5 rounded bg-cyan-500/10 dark:bg-cyan-500/20 text-cyan-700 dark:text-cyan-300 border border-cyan-500/30 font-bold text-[10px]">
                 WHILE YOU WERE AWAY
               </span>
               <span>Executive Sitrep synced with Sovereign Vault • All overnight routines completed.</span>
             </div>
-            <span className="text-slate-500 font-mono text-[11px]">Synced Today at 9:00 AM</span>
+            <span className="text-gray-400 dark:text-slate-500 font-mono text-[11px]">Synced Today at 9:00 AM</span>
           </div>
 
           {/* THE UNIVERSAL DELEGATE & VOICE BAR ("JUST TALK TO IT") */}
-          <div className="p-5 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-900/90 border border-slate-800 shadow-xl space-y-3">
+          <div className="p-5 rounded-2xl bg-gradient-to-b from-gray-50 to-white dark:from-slate-900 dark:to-slate-900/90 border border-gray-200 dark:border-slate-800 shadow-lg space-y-3">
             <div className="flex items-center justify-between">
-              <label className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                <Sparkles className="h-3.5 w-3.5 text-orange-400" />
+              <label className="text-xs font-bold text-gray-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                <Sparkles className="h-3.5 w-3.5 text-orange-500" />
                 Delegate to Team Coordinator
               </label>
-              <span className="text-[11px] text-slate-400">Speak naturally or type your directive</span>
+              <span className="text-[11px] text-gray-400 dark:text-slate-400">Speak naturally or type your directive</span>
             </div>
 
             <div className="flex flex-col md:flex-row items-stretch gap-2.5">
@@ -327,7 +326,7 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                 <select
                   value={selectedArea}
                   onChange={(e) => setSelectedArea(e.target.value)}
-                  className="w-full appearance-none px-3.5 py-3 rounded-xl bg-slate-950 border border-slate-700/80 text-slate-200 text-xs font-semibold focus:outline-none focus:border-orange-500 pr-8 cursor-pointer"
+                  className="w-full appearance-none px-3.5 py-3 rounded-xl bg-white dark:bg-slate-950 border border-gray-300 dark:border-slate-700/80 text-gray-900 dark:text-slate-200 text-xs font-semibold focus:outline-none focus:border-orange-500 pr-8 cursor-pointer shadow-sm"
                 >
                   <option value="auto">Auto — Choose Area</option>
                   <option value="revenue">Revenue & Outbound (CRO)</option>
@@ -335,7 +334,7 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                   <option value="finance">Statutory Billing & Audit</option>
                   <option value="operations">Operations & Sovereign SOPs</option>
                 </select>
-                <ChevronDown className="h-4 w-4 text-slate-500 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <ChevronDown className="h-4 w-4 text-gray-400 dark:text-slate-500 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
               </div>
 
               {/* Main Prompt Input Bar */}
@@ -346,10 +345,10 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                   onChange={(e) => setMacroInput(e.target.value)}
                   placeholder={isListening ? "Listening to your voice..." : "What do you want your team to get done?"}
                   className={cn(
-                    "w-full px-4 py-3 rounded-xl bg-slate-950 border text-white text-sm focus:outline-none pr-12 transition-all",
+                    "w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-950 border text-gray-900 dark:text-white text-sm focus:outline-none pr-12 transition-all shadow-sm",
                     isListening
                       ? "border-red-500 ring-2 ring-red-500/20 placeholder-red-400"
-                      : "border-slate-700/80 focus:border-orange-500"
+                      : "border-gray-300 dark:border-slate-700/80 focus:border-orange-500"
                   )}
                   onKeyDown={(e) => e.key === 'Enter' && handleDecomposeGoal()}
                 />
@@ -362,7 +361,7 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                     "absolute right-2.5 p-2 rounded-lg transition-all",
                     isListening
                       ? "bg-red-500 text-white animate-pulse"
-                      : "text-slate-400 hover:text-orange-400 hover:bg-slate-800"
+                      : "text-gray-400 hover:text-orange-500 hover:bg-gray-100 dark:hover:bg-slate-800"
                   )}
                   title={isListening ? "Stop listening" : "Click to speak voice directive"}
                 >
@@ -373,7 +372,7 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
               {/* Delegate Button */}
               <button
                 onClick={() => handleDecomposeGoal()}
-                className="px-6 py-3 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg shrink-0"
+                className="px-6 py-3 rounded-xl bg-orange-600 hover:bg-orange-500 text-white font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md shrink-0"
               >
                 <Zap className="h-4 w-4" />
                 Delegate
@@ -382,16 +381,17 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
 
             {/* Quick Strategic Presets */}
             <div className="flex flex-wrap items-center gap-2 pt-1 text-xs">
-              <span className="text-slate-500">Quick Shortcuts:</span>
+              <span className="text-gray-400 dark:text-slate-500">Quick Shortcuts:</span>
               <button
                 onClick={() => {
                   const goal = "Prospect 50 TPA claims directors on LinkedIn and stage outbound LC § 4622 penalty demand letters.";
                   setMacroInput(goal);
                   handleDecomposeGoal(goal);
                 }}
-                className="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors"
+                className="px-2.5 py-1 rounded-full bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-300 border border-gray-200 dark:border-slate-700 transition-colors flex items-center gap-1.5"
               >
-                🎯 Outbound CRO Outreach
+                <TrendingUp className="h-3 w-3 text-orange-500" />
+                Outbound CRO Outreach
               </button>
               <button
                 onClick={() => {
@@ -399,9 +399,10 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                   setMacroInput(goal);
                   handleDecomposeGoal(goal);
                 }}
-                className="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors"
+                className="px-2.5 py-1 rounded-full bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-300 border border-gray-200 dark:border-slate-700 transition-colors flex items-center gap-1.5"
               >
-                ⚖️ 28-Line Legal Objection
+                <Scale className="h-3 w-3 text-cyan-500" />
+                28-Line Legal Objection
               </button>
               <button
                 onClick={() => {
@@ -409,27 +410,28 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                   setMacroInput(goal);
                   handleDecomposeGoal(goal);
                 }}
-                className="px-2.5 py-1 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors"
+                className="px-2.5 py-1 rounded-full bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-300 border border-gray-200 dark:border-slate-700 transition-colors flex items-center gap-1.5"
               >
-                💰 LC § 4622 Interest Audit
+                <DollarSign className="h-3 w-3 text-emerald-500" />
+                LC § 4622 Interest Audit
               </button>
             </div>
           </div>
 
-          {/* "NEEDS YOU" SECTION (STRICT GUARDRAILS & 1-CLICK APPROVALS) */}
+          {/* "NEEDS YOU" SECTION */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                <UserCheck className="h-4 w-4 text-amber-400" />
+              <h3 className="text-xs font-bold text-gray-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                <UserCheck className="h-4 w-4 text-amber-500" />
                 Needs You
               </h3>
-              <span className="text-[11px] text-slate-500">
+              <span className="text-[11px] text-gray-500">
                 {pendingApprovalsCount === 0 ? "ALL CLEAR" : `${pendingApprovalsCount} Action(s) Waiting For Sign-off`}
               </span>
             </div>
 
             {pendingApprovalsCount === 0 ? (
-              <div className="p-4 rounded-xl bg-slate-900/50 border border-slate-800/80 text-center text-slate-400 text-xs">
+              <div className="p-4 rounded-xl bg-gray-50 dark:bg-slate-900/50 border border-gray-200 dark:border-slate-800/80 text-center text-gray-500 dark:text-slate-400 text-xs">
                 All Clear — No pending agent approvals or questions. Review Open Loops for business decisions.
               </div>
             ) : (
@@ -437,20 +439,20 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                 {approvalQueue.filter(item => item.status === 'pending').map((item) => (
                   <div
                     key={item.id}
-                    className="p-4 rounded-xl bg-slate-900 border border-amber-500/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-lg"
+                    className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-amber-300 dark:border-amber-500/40 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-md"
                   >
                     <div className="space-y-1 flex-1">
                       <div className="flex items-center gap-2">
-                        <span className="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[10px] font-bold uppercase">
+                        <span className="px-2 py-0.5 rounded bg-amber-500/10 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-400/30 dark:border-amber-500/40 text-[10px] font-bold uppercase">
                           {item.actionType.replace('_', ' ')}
                         </span>
-                        <span className="text-xs text-slate-400">Staged by <strong>{item.employeeName}</strong></span>
+                        <span className="text-xs text-gray-600 dark:text-slate-400">Staged by <strong>{item.employeeName}</strong></span>
                         {item.recipientOrTarget && (
-                          <span className="text-xs text-emerald-400 font-mono">→ {item.recipientOrTarget}</span>
+                          <span className="text-xs text-emerald-600 dark:text-emerald-400 font-mono">→ {item.recipientOrTarget}</span>
                         )}
                       </div>
-                      <h4 className="font-bold text-white text-sm">{item.title}</h4>
-                      <pre className="p-3 rounded bg-slate-950 border border-slate-800 text-[11px] text-slate-300 font-mono whitespace-pre-wrap max-h-32 overflow-y-auto">
+                      <h4 className="font-bold text-gray-900 dark:text-white text-sm">{item.title}</h4>
+                      <pre className="p-3 rounded bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 text-[11px] text-gray-800 dark:text-slate-300 font-mono whitespace-pre-wrap max-h-32 overflow-y-auto">
                         {item.previewContent}
                       </pre>
                     </div>
@@ -465,7 +467,7 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                       </button>
                       <button
                         onClick={() => rejectApprovalItem(item.id)}
-                        className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-red-950/40 text-slate-400 hover:text-red-400 text-xs font-semibold border border-slate-700 transition-colors"
+                        className="px-4 py-2 rounded-lg bg-gray-100 dark:bg-slate-800 hover:bg-red-50 dark:hover:bg-red-950/40 text-gray-700 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 text-xs font-semibold border border-gray-300 dark:border-slate-700 transition-colors"
                       >
                         Reject / Revise
                       </button>
@@ -480,21 +482,21 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
           {activeBriefing && (
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                <h3 className="text-xs font-bold text-gray-700 dark:text-slate-300 uppercase tracking-wider flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-500" />
                   Ready to Review ({activeBriefing.workstreams.length} Workstreams)
                 </h3>
                 <button
                   onClick={handleCommitVault}
-                  className="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 flex items-center gap-1.5 transition-colors"
+                  className="px-3 py-1 rounded-lg bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-200 text-xs font-semibold border border-gray-200 dark:border-slate-700 flex items-center gap-1.5 transition-colors"
                 >
-                  <Database className="h-3.5 w-3.5 text-cyan-400" />
+                  <Database className="h-3.5 w-3.5 text-cyan-500" />
                   Commit to Vault
                 </button>
               </div>
 
               {vaultNotice && (
-                <div className="p-3 rounded-lg bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 text-xs flex items-center gap-2">
+                <div className="p-3 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-500/40 text-emerald-800 dark:text-emerald-300 text-xs flex items-center gap-2">
                   <CheckCircle2 className="h-4 w-4 shrink-0" />
                   {vaultNotice}
                 </div>
@@ -510,35 +512,35 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                       className={cn(
                         "p-4 rounded-xl border transition-all cursor-pointer flex flex-col justify-between",
                         selectedTask?.id === task.id
-                          ? "bg-slate-900 border-cyan-500/80 shadow-md ring-1 ring-cyan-500/40"
-                          : "bg-slate-900/60 border-slate-800 hover:border-slate-700"
+                          ? "bg-white dark:bg-slate-900 border-cyan-500 shadow-md ring-1 ring-cyan-500/40"
+                          : "bg-gray-50/70 dark:bg-slate-900/60 border-gray-200 dark:border-slate-800 hover:border-gray-300 dark:hover:border-slate-700"
                       )}
                     >
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 dark:text-slate-400">
                             {task.department}
                           </span>
                           {task.auditReport?.pass ? (
-                            <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[10px] font-semibold flex items-center gap-1">
+                            <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-500/30 text-[10px] font-semibold flex items-center gap-1">
                               <CheckCircle2 className="h-2.5 w-2.5" />
                               Certified Pass
                             </span>
                           ) : (
-                            <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 text-[10px] font-semibold flex items-center gap-1">
+                            <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-300 dark:border-amber-500/30 text-[10px] font-semibold flex items-center gap-1">
                               <AlertTriangle className="h-2.5 w-2.5" />
                               Audit Flagged
                             </span>
                           )}
                         </div>
 
-                        <h4 className="font-bold text-white text-sm mb-1">{task.title}</h4>
-                        <p className="text-xs text-slate-400 line-clamp-2 mb-3">{task.description}</p>
+                        <h4 className="font-bold text-gray-900 dark:text-white text-sm mb-1">{task.title}</h4>
+                        <p className="text-xs text-gray-600 dark:text-slate-400 line-clamp-2 mb-3">{task.description}</p>
                       </div>
 
-                      <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
-                        <div className="flex items-center gap-1.5 text-slate-300">
-                          {renderEmployeeIcon(assignedEmp.avatarIcon, "h-3.5 w-3.5 text-emerald-400")}
+                      <div className="pt-3 border-t border-gray-200 dark:border-slate-800 flex items-center justify-between text-xs">
+                        <div className="flex items-center gap-1.5 text-gray-700 dark:text-slate-300">
+                          {renderEmployeeIcon(assignedEmp.avatarIcon, "h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400")}
                           <span className="font-medium text-[11px]">{assignedEmp.name}</span>
                         </div>
 
@@ -548,13 +550,13 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                               e.stopPropagation();
                               handleStageForApproval(task);
                             }}
-                            className="px-2 py-1 rounded bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-[10px] font-semibold flex items-center gap-1 transition-colors"
+                            className="px-2 py-1 rounded bg-amber-500/10 dark:bg-amber-500/20 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-500/40 text-[10px] font-semibold flex items-center gap-1 transition-colors"
                           >
                             <Send className="h-2.5 w-2.5" />
                             Stage Approval
                           </button>
                         ) : (
-                          <span className="text-[10px] font-medium text-amber-400 flex items-center gap-1">
+                          <span className="text-[10px] font-medium text-amber-600 dark:text-amber-400 flex items-center gap-1">
                             <Clock className="h-2.5 w-2.5" />
                             Staged
                           </span>
@@ -570,32 +572,32 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
       )}
 
       {/* =========================================================================
-          TAB 2: "THE ORG" (MATCHING SCREENSHOT 2: VISUAL ORG CHART HIERARCHY)
+          TAB 2: "THE ORG"
           ========================================================================= */}
       {activeTab === 'the_org' && (
         <div className="space-y-8">
           {/* Top Apex Node: The Human Principal */}
           <div className="flex flex-col items-center justify-center">
-            <div className="p-4 px-8 rounded-2xl bg-gradient-to-r from-orange-500/20 via-orange-500/30 to-orange-500/20 border-2 border-orange-500/60 shadow-xl flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-orange-500 text-slate-950 font-black text-lg flex items-center justify-center shadow-lg">
+            <div className="p-4 px-8 rounded-2xl bg-gradient-to-r from-orange-50 via-orange-100/50 to-orange-50 dark:from-orange-500/20 dark:via-orange-500/30 dark:to-orange-500/20 border-2 border-orange-300 dark:border-orange-500/60 shadow-lg flex items-center gap-3">
+              <div className="h-10 w-10 rounded-xl bg-orange-500 text-white font-black text-lg flex items-center justify-center shadow-md">
                 F
               </div>
               <div>
-                <h3 className="font-black text-white text-base">You (The Principal)</h3>
-                <p className="text-xs text-orange-200">The Human • Final Decisions & Direct Authorizations</p>
+                <h3 className="font-black text-gray-900 dark:text-white text-base">You (The Principal)</h3>
+                <p className="text-xs text-orange-700 dark:text-orange-200">The Human • Final Decisions & Direct Authorizations</p>
               </div>
             </div>
-            <div className="h-6 w-0.5 bg-slate-700" />
+            <div className="h-6 w-0.5 bg-gray-300 dark:bg-slate-700" />
           </div>
 
-          {/* Level 2: Executive Management Hub (Coordinator, Gatekeeper, Scribe) */}
-          <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl space-y-4">
-            <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+          {/* Level 2: Executive Management Hub */}
+          <div className="p-5 rounded-2xl bg-gray-50/80 dark:bg-slate-900 border border-gray-200 dark:border-slate-800 shadow-lg space-y-4">
+            <div className="flex items-center justify-between border-b border-gray-200 dark:border-slate-800 pb-3">
               <div>
-                <h4 className="font-bold text-white text-sm uppercase tracking-wider">Executive Management Desk</h4>
-                <p className="text-xs text-slate-400">Led by your Chief of Staff • Central hub for all department directives</p>
+                <h4 className="font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wider">Executive Management Desk</h4>
+                <p className="text-xs text-gray-500 dark:text-slate-400">Led by your Chief of Staff • Central hub for all department directives</p>
               </div>
-              <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold border border-emerald-500/30">
+              <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 text-xs font-semibold border border-emerald-300 dark:border-emerald-500/30">
                 Core Leadership Hub
               </span>
             </div>
@@ -604,33 +606,33 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
               {executiveTeam.map((emp) => (
                 <div
                   key={emp.id}
-                  className="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800 hover:border-slate-700 transition-all flex flex-col justify-between"
+                  className="p-3.5 rounded-xl bg-white dark:bg-slate-950/70 border border-gray-200 dark:border-slate-800 hover:border-gray-300 dark:hover:border-slate-700 transition-all flex flex-col justify-between shadow-sm"
                 >
                   <div>
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-2">
-                        <div className="p-2 rounded-lg bg-slate-900 border border-slate-800 text-emerald-400">
+                        <div className="p-2 rounded-lg bg-gray-100 dark:bg-slate-900 border border-gray-200 dark:border-slate-800 text-emerald-600 dark:text-emerald-400">
                           {renderEmployeeIcon(emp.avatarIcon)}
                         </div>
                         <div>
-                          <h5 className="font-bold text-white text-xs">{emp.name}</h5>
-                          <span className="text-[10px] text-slate-400 capitalize">{emp.role}</span>
+                          <h5 className="font-bold text-gray-900 dark:text-white text-xs">{emp.name}</h5>
+                          <span className="text-[10px] text-gray-500 dark:text-slate-400 capitalize">{emp.role}</span>
                         </div>
                       </div>
                       <button
                         onClick={() => setEditingEmployee(emp)}
-                        className="text-slate-500 hover:text-slate-200 p-1"
+                        className="text-gray-400 dark:text-slate-500 hover:text-gray-700 dark:hover:text-slate-200 p-1"
                         title="Rename or configure"
                       >
                         <Edit3 className="h-3 w-3" />
                       </button>
                     </div>
-                    <p className="text-[11px] text-slate-400 line-clamp-2">{emp.title}</p>
+                    <p className="text-[11px] text-gray-600 dark:text-slate-400 line-clamp-2">{emp.title}</p>
                   </div>
 
-                  <div className="pt-2.5 mt-2 border-t border-slate-850 flex items-center justify-between text-[10px] text-slate-500">
+                  <div className="pt-2.5 mt-2 border-t border-gray-100 dark:border-slate-850 flex items-center justify-between text-[10px] text-gray-400 dark:text-slate-500">
                     <span>Tier: {emp.modelTier}</span>
-                    <span className="text-emerald-400 font-bold">{emp.metrics.passRate}% pass</span>
+                    <span className="text-emerald-600 dark:text-emerald-400 font-bold">{emp.metrics.passRate}% pass</span>
                   </div>
                 </div>
               ))}
@@ -641,8 +643,8 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
-                <h4 className="font-bold text-white text-sm uppercase tracking-wider">Departments & Specialists</h4>
-                <p className="text-xs text-slate-400">Autonomous departmental sub-agents managed by the Executive Conductor</p>
+                <h4 className="font-bold text-gray-900 dark:text-white text-sm uppercase tracking-wider">Departments & Specialists</h4>
+                <p className="text-xs text-gray-500 dark:text-slate-400">Autonomous departmental sub-agents managed by the Executive Conductor</p>
               </div>
 
               <button
@@ -673,21 +675,21 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {/* Revenue & CRO Team Card */}
-              <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                  <div className="flex items-center gap-2 text-orange-400 font-bold text-xs uppercase tracking-wider">
+              <div className="p-4 rounded-xl bg-gray-50/80 dark:bg-slate-900 border border-gray-200 dark:border-slate-800 space-y-3">
+                <div className="flex items-center justify-between border-b border-gray-200 dark:border-slate-800 pb-2">
+                  <div className="flex items-center gap-2 text-orange-600 dark:text-orange-400 font-bold text-xs uppercase tracking-wider">
                     <TrendingUp className="h-4 w-4" />
                     Revenue & Growth (CRO)
                   </div>
-                  <span className="text-[10px] text-slate-400">{revenueTeam.length} Agent(s)</span>
+                  <span className="text-[10px] text-gray-400 dark:text-slate-500">{revenueTeam.length} Agent(s)</span>
                 </div>
                 {revenueTeam.map((emp) => (
-                  <div key={emp.id} className="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-between">
+                  <div key={emp.id} className="p-3 rounded-lg bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 flex items-center justify-between shadow-sm">
                     <div>
-                      <h5 className="font-bold text-white text-xs">{emp.name}</h5>
-                      <p className="text-[10px] text-slate-400">{emp.title}</p>
+                      <h5 className="font-bold text-gray-900 dark:text-white text-xs">{emp.name}</h5>
+                      <p className="text-[10px] text-gray-500 dark:text-slate-400">{emp.title}</p>
                     </div>
-                    <button onClick={() => setEditingEmployee(emp)} className="text-slate-500 hover:text-slate-200">
+                    <button onClick={() => setEditingEmployee(emp)} className="text-gray-400 dark:text-slate-500 hover:text-gray-700 dark:hover:text-slate-200">
                       <Edit3 className="h-3 w-3" />
                     </button>
                   </div>
@@ -695,21 +697,21 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
               </div>
 
               {/* Workers' Comp Litigation Team Card */}
-              <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                  <div className="flex items-center gap-2 text-cyan-400 font-bold text-xs uppercase tracking-wider">
+              <div className="p-4 rounded-xl bg-gray-50/80 dark:bg-slate-900 border border-gray-200 dark:border-slate-800 space-y-3">
+                <div className="flex items-center justify-between border-b border-gray-200 dark:border-slate-800 pb-2">
+                  <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 font-bold text-xs uppercase tracking-wider">
                     <Scale className="h-4 w-4" />
                     Litigation & Pleadings
                   </div>
-                  <span className="text-[10px] text-slate-400">{legalTeam.length} Agent(s)</span>
+                  <span className="text-[10px] text-gray-400 dark:text-slate-500">{legalTeam.length} Agent(s)</span>
                 </div>
                 {legalTeam.map((emp) => (
-                  <div key={emp.id} className="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-between">
+                  <div key={emp.id} className="p-3 rounded-lg bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 flex items-center justify-between shadow-sm">
                     <div>
-                      <h5 className="font-bold text-white text-xs">{emp.name}</h5>
-                      <p className="text-[10px] text-slate-400">{emp.title}</p>
+                      <h5 className="font-bold text-gray-900 dark:text-white text-xs">{emp.name}</h5>
+                      <p className="text-[10px] text-gray-500 dark:text-slate-400">{emp.title}</p>
                     </div>
-                    <button onClick={() => setEditingEmployee(emp)} className="text-slate-500 hover:text-slate-200">
+                    <button onClick={() => setEditingEmployee(emp)} className="text-gray-400 dark:text-slate-500 hover:text-gray-700 dark:hover:text-slate-200">
                       <Edit3 className="h-3 w-3" />
                     </button>
                   </div>
@@ -717,21 +719,21 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
               </div>
 
               {/* Finance & Statutory Billing Team Card */}
-              <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
-                <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                  <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase tracking-wider">
+              <div className="p-4 rounded-xl bg-gray-50/80 dark:bg-slate-900 border border-gray-200 dark:border-slate-800 space-y-3">
+                <div className="flex items-center justify-between border-b border-gray-200 dark:border-slate-800 pb-2">
+                  <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400 font-bold text-xs uppercase tracking-wider">
                     <DollarSign className="h-4 w-4" />
                     Finance & Penalties
                   </div>
-                  <span className="text-[10px] text-slate-400">{financeTeam.length} Agent(s)</span>
+                  <span className="text-[10px] text-gray-400 dark:text-slate-500">{financeTeam.length} Agent(s)</span>
                 </div>
                 {financeTeam.map((emp) => (
-                  <div key={emp.id} className="p-3 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-between">
+                  <div key={emp.id} className="p-3 rounded-lg bg-white dark:bg-slate-950 border border-gray-200 dark:border-slate-800 flex items-center justify-between shadow-sm">
                     <div>
-                      <h5 className="font-bold text-white text-xs">{emp.name}</h5>
-                      <p className="text-[10px] text-slate-400">{emp.title}</p>
+                      <h5 className="font-bold text-gray-900 dark:text-white text-xs">{emp.name}</h5>
+                      <p className="text-[10px] text-gray-500 dark:text-slate-400">{emp.title}</p>
                     </div>
-                    <button onClick={() => setEditingEmployee(emp)} className="text-slate-500 hover:text-slate-200">
+                    <button onClick={() => setEditingEmployee(emp)} className="text-gray-400 dark:text-slate-500 hover:text-gray-700 dark:hover:text-slate-200">
                       <Edit3 className="h-3 w-3" />
                     </button>
                   </div>
@@ -748,14 +750,14 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
       {activeTab === 'approvals' && (
         <div className="space-y-4">
           <div>
-            <h3 className="text-sm font-semibold text-white uppercase tracking-wider">1-Click Human Approval Queue</h3>
-            <p className="text-xs text-slate-400">
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-white uppercase tracking-wider">1-Click Human Approval Queue</h3>
+            <p className="text-xs text-gray-500 dark:text-slate-400">
               Direct Report Protocol: AI Employees stage high-stakes external actions (emails, filings, transactions) here for your review before dispatch.
             </p>
           </div>
 
           {approvalQueue.length === 0 ? (
-            <div className="p-8 rounded-xl bg-slate-900 border border-slate-800 text-center text-slate-400 text-xs">
+            <div className="p-8 rounded-xl bg-gray-50 dark:bg-slate-900 border border-gray-200 dark:border-slate-800 text-center text-gray-500 dark:text-slate-400 text-xs">
               Zero pending items in approval queue. All agent actions have been resolved.
             </div>
           ) : (
@@ -763,30 +765,30 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
               {approvalQueue.map((item) => (
                 <div
                   key={item.id}
-                  className="p-4 rounded-xl bg-slate-900 border border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-lg"
+                  className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-md"
                 >
                   <div className="space-y-1 flex-1">
                     <div className="flex items-center gap-2">
                       <span className={cn(
                         "px-2 py-0.5 rounded text-[10px] font-bold uppercase",
-                        item.status === 'pending' ? "bg-amber-500/20 text-amber-300 border border-amber-500/40" :
-                        item.status === 'authorized' ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40" :
-                        "bg-red-500/20 text-red-300 border border-red-500/40"
+                        item.status === 'pending' ? "bg-amber-500/10 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-300 dark:border-amber-500/40" :
+                        item.status === 'authorized' ? "bg-emerald-500/10 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/40" :
+                        "bg-red-500/10 dark:bg-red-500/20 text-red-700 dark:text-red-300 border border-red-300 dark:border-red-500/40"
                       )}>
                         {item.status}
                       </span>
-                      <span className="text-xs text-slate-400">Staged by <strong>{item.employeeName}</strong></span>
-                      <span className="text-xs text-slate-500">•</span>
-                      <span className="text-xs text-cyan-400 font-mono capitalize">{item.actionType.replace('_', ' ')}</span>
+                      <span className="text-xs text-gray-600 dark:text-slate-400">Staged by <strong>{item.employeeName}</strong></span>
+                      <span className="text-xs text-gray-400 dark:text-slate-500">•</span>
+                      <span className="text-xs text-cyan-600 dark:text-cyan-400 font-mono capitalize">{item.actionType.replace('_', ' ')}</span>
                     </div>
 
-                    <h4 className="font-bold text-white text-sm">{item.title}</h4>
+                    <h4 className="font-bold text-gray-900 dark:text-white text-sm">{item.title}</h4>
                     {item.recipientOrTarget && (
-                      <p className="text-xs text-slate-300">
-                        Target Recipient: <span className="font-mono text-emerald-400">{item.recipientOrTarget}</span>
+                      <p className="text-xs text-gray-600 dark:text-slate-300">
+                        Target Recipient: <span className="font-mono text-emerald-600 dark:text-emerald-400">{item.recipientOrTarget}</span>
                       </p>
                     )}
-                    <pre className="p-3 rounded bg-slate-950 border border-slate-800 text-[11px] text-slate-300 font-mono whitespace-pre-wrap max-h-36 overflow-y-auto">
+                    <pre className="p-3 rounded bg-gray-50 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 text-[11px] text-gray-800 dark:text-slate-300 font-mono whitespace-pre-wrap max-h-36 overflow-y-auto">
                       {item.previewContent}
                     </pre>
                   </div>
@@ -802,7 +804,7 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                       </button>
                       <button
                         onClick={() => rejectApprovalItem(item.id)}
-                        className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-red-950/40 text-slate-400 hover:text-red-400 text-xs font-semibold border border-slate-700 transition-colors"
+                        className="px-4 py-2 rounded-lg bg-gray-100 dark:bg-slate-800 hover:bg-red-50 dark:hover:bg-red-950/40 text-gray-600 dark:text-slate-400 hover:text-red-600 dark:hover:text-red-400 text-xs font-semibold border border-gray-200 dark:border-slate-700 transition-colors"
                       >
                         Reject / Revise
                       </button>
@@ -816,24 +818,24 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
       )}
 
       {/* =========================================================================
-          MODAL: EDIT / CONFIGURE AI EMPLOYEE (USER-CUSTOMIZABLE NAMING & ROLES)
+          MODAL: EDIT / CONFIGURE AI EMPLOYEE
           ========================================================================= */}
       {editingEmployee && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in">
-          <div className="w-full max-w-lg p-6 rounded-2xl bg-slate-900 border border-slate-800 text-slate-100 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-slate-950/80 backdrop-blur-sm animate-in fade-in">
+          <div className="w-full max-w-lg p-6 rounded-2xl bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 text-gray-900 dark:text-slate-100 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-gray-200 dark:border-slate-800">
               <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
+                <div className="p-2 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400">
                   {renderEmployeeIcon(editingEmployee.avatarIcon)}
                 </div>
                 <div>
-                  <h3 className="font-bold text-white text-base">Configure AI Employee</h3>
-                  <p className="text-xs text-slate-400">Customize display name, model tier, and strict guardrails.</p>
+                  <h3 className="font-bold text-gray-900 dark:text-white text-base">Configure AI Employee</h3>
+                  <p className="text-xs text-gray-500 dark:text-slate-400">Customize display name, model tier, and strict guardrails.</p>
                 </div>
               </div>
               <button
                 onClick={() => setEditingEmployee(null)}
-                className="p-1 rounded text-slate-400 hover:text-slate-200"
+                className="p-1 rounded text-gray-400 hover:text-gray-700 dark:hover:text-slate-200"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -841,33 +843,33 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
 
             <div className="space-y-3 text-xs">
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">Employee Display Name</label>
+                <label className="block text-gray-700 dark:text-slate-300 font-semibold mb-1">Employee Display Name</label>
                 <input
                   type="text"
                   value={editingEmployee.name}
                   onChange={(e) => setEditingEmployee({ ...editingEmployee, name: e.target.value })}
                   placeholder="e.g., Frank Jr, Sentinel, Revenue Hunter"
-                  className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 rounded-lg bg-gray-50 dark:bg-slate-950 border border-gray-300 dark:border-slate-800 text-gray-900 dark:text-white focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">Functional Title</label>
+                <label className="block text-gray-700 dark:text-slate-300 font-semibold mb-1">Functional Title</label>
                 <input
                   type="text"
                   value={editingEmployee.title}
                   onChange={(e) => setEditingEmployee({ ...editingEmployee, title: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 rounded-lg bg-gray-50 dark:bg-slate-950 border border-gray-300 dark:border-slate-800 text-gray-900 dark:text-white focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">Department</label>
+                  <label className="block text-gray-700 dark:text-slate-300 font-semibold mb-1">Department</label>
                   <select
                     value={editingEmployee.department}
                     onChange={(e) => setEditingEmployee({ ...editingEmployee, department: e.target.value as DepartmentType })}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3 py-2 rounded-lg bg-gray-50 dark:bg-slate-950 border border-gray-300 dark:border-slate-800 text-gray-900 dark:text-white focus:outline-none focus:border-emerald-500"
                   >
                     <option value="executive">Executive</option>
                     <option value="quality">Quality / QA</option>
@@ -880,11 +882,11 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-1">Model Inference Tier</label>
+                  <label className="block text-gray-700 dark:text-slate-300 font-semibold mb-1">Model Inference Tier</label>
                   <select
                     value={editingEmployee.modelTier}
                     onChange={(e) => setEditingEmployee({ ...editingEmployee, modelTier: e.target.value as ModelTier })}
-                    className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-emerald-500"
+                    className="w-full px-3 py-2 rounded-lg bg-gray-50 dark:bg-slate-950 border border-gray-300 dark:border-slate-800 text-gray-900 dark:text-white focus:outline-none focus:border-emerald-500"
                   >
                     <option value="frontier_reasoning">Frontier Reasoning (Nemotron 550B)</option>
                     <option value="fast_verifier">Fast Verifier (Sub-1s Token Tier)</option>
@@ -895,23 +897,23 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
               </div>
 
               <div>
-                <label className="block text-slate-300 font-semibold mb-1">System Directives & Core Purpose</label>
+                <label className="block text-gray-700 dark:text-slate-300 font-semibold mb-1">System Directives & Core Purpose</label>
                 <textarea
                   rows={2}
                   value={editingEmployee.systemDirectives}
                   onChange={(e) => setEditingEmployee({ ...editingEmployee, systemDirectives: e.target.value })}
-                  className="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-emerald-500"
+                  className="w-full px-3 py-2 rounded-lg bg-gray-50 dark:bg-slate-950 border border-gray-300 dark:border-slate-800 text-gray-900 dark:text-white focus:outline-none focus:border-emerald-500"
                 />
               </div>
 
               {/* Strict Approval Guardrails Checkboxes */}
               <div>
-                <label className="block text-slate-300 font-semibold mb-1.5">Strict Human Approval Required For:</label>
-                <div className="grid grid-cols-2 gap-2 bg-slate-950 p-2.5 rounded-lg border border-slate-800">
+                <label className="block text-gray-700 dark:text-slate-300 font-semibold mb-1.5">Strict Human Approval Required For:</label>
+                <div className="grid grid-cols-2 gap-2 bg-gray-50 dark:bg-slate-950 p-2.5 rounded-lg border border-gray-200 dark:border-slate-800">
                   {(['external_email', 'financial_transfer', 'court_filing', 'contract_sign', 'calendar_booking'] as HighStakesAction[]).map((action) => {
                     const checked = editingEmployee.requiresApprovalFor.includes(action);
                     return (
-                      <label key={action} className="flex items-center gap-2 cursor-pointer text-slate-300">
+                      <label key={action} className="flex items-center gap-2 cursor-pointer text-gray-700 dark:text-slate-300">
                         <input
                           type="checkbox"
                           checked={checked}
@@ -921,7 +923,7 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
                               : editingEmployee.requiresApprovalFor.filter((a) => a !== action);
                             setEditingEmployee({ ...editingEmployee, requiresApprovalFor: next });
                           }}
-                          className="rounded border-slate-700 bg-slate-900 text-emerald-500 focus:ring-0"
+                          className="rounded border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-emerald-500 focus:ring-0"
                         />
                         <span className="capitalize">{action.replace('_', ' ')}</span>
                       </label>
@@ -931,14 +933,14 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
               </div>
             </div>
 
-            <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+            <div className="pt-4 border-t border-gray-200 dark:border-slate-800 flex items-center justify-between">
               {editingEmployee.isCustom ? (
                 <button
                   onClick={() => {
                     deleteEmployee(editingEmployee.id);
                     setEditingEmployee(null);
                   }}
-                  className="text-xs text-red-400 hover:text-red-300 flex items-center gap-1"
+                  className="text-xs text-red-500 hover:text-red-700 flex items-center gap-1"
                 >
                   <Trash2 className="h-3.5 w-3.5" />
                   Delete Employee
@@ -948,7 +950,7 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setEditingEmployee(null)}
-                  className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium"
+                  className="px-3 py-1.5 rounded-lg bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 text-gray-700 dark:text-slate-300 text-xs font-medium"
                 >
                   Cancel
                 </button>

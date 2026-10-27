@@ -257,7 +257,7 @@ ${briefing.conductorSummary}
       (w) => `
 ### [${w.department.toUpperCase()}] ${w.title}
 **Assigned Employee ID**: \`${w.assignedEmployeeId}\`  
-**Gatekeeper Status**: ${w.auditReport?.pass ? '✅ CERTIFIED PASS' : '⚠️ REJECTED / PENDING'}
+**Gatekeeper Status**: ${w.auditReport?.pass ? '[CERTIFIED PASS]' : '[REJECTED / PENDING]'}
 
 \`\`\`markdown
 ${w.draftContent || 'No content drafted.'}
