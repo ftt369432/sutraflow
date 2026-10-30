@@ -89,9 +89,9 @@ function extractArtifactBadges(msg: StudioMessage): ArtifactBadge[] {
 
 interface WorkbenchChatFeedProps {
   messages: StudioMessage[];
-  chatScrollRef: React.RefObject<HTMLDivElement | null>;
-  expandedThoughtIds: Record<string, boolean>;
-  toggleThought: (msgId: string) => void;
+  chatScrollRef?: React.RefObject<HTMLDivElement | null>;
+  expandedThoughtIds?: Record<string, boolean>;
+  toggleThought?: (msgId: string) => void;
   isProcessing: boolean;
   progressStep?: string;
   liveThoughtSteps?: ThoughtTraceStep[];
@@ -110,7 +110,21 @@ export const WorkbenchChatFeed: React.FC<WorkbenchChatFeedProps> = ({
 }) => {
   // Individual step expansion map (for behind-the-scenes deep inspection)
   const [expandedStepIds, setExpandedStepIds] = useState<Record<string, boolean>>({});
+  const [internalExpandedThoughtIds, setInternalExpandedThoughtIds] = useState<Record<string, boolean>>({});
+  const internalChatScrollRef = React.useRef<HTMLDivElement | null>(null);
+  const activeChatScrollRef = chatScrollRef || internalChatScrollRef;
   const [copiedStepId, setCopiedStepId] = useState<string | null>(null);
+
+  const handleToggleThought = (msgId: string) => {
+    if (toggleThought) {
+      toggleThought(msgId);
+    } else {
+      setInternalExpandedThoughtIds((prev) => ({
+        ...prev,
+        [msgId]: prev[msgId] !== undefined ? !prev[msgId] : false
+      }));
+    }
+  };
 
   const handleOpenArtifact = (art: ArtifactBadge) => {
     window.dispatchEvent(
@@ -263,13 +277,14 @@ export const WorkbenchChatFeed: React.FC<WorkbenchChatFeedProps> = ({
 
   return (
     <div
-      ref={chatScrollRef as any}
+      ref={activeChatScrollRef as any}
       className="flex-1 min-h-0 p-4 sm:p-6 overflow-y-auto space-y-4 text-sm leading-relaxed"
     >
       {messages.map((msg) => {
         const isUser = msg.role === 'user';
         // Open and free by default (like HQ chevrons) unless user explicitly collapses it
-        const isExpanded = expandedThoughtIds[msg.id] !== undefined ? expandedThoughtIds[msg.id] : true;
+        const currentThoughtMap = expandedThoughtIds || internalExpandedThoughtIds;
+        const isExpanded = currentThoughtMap[msg.id] !== undefined ? currentThoughtMap[msg.id] : true;
         const thinkMatch = msg.content?.match(/<think>([\s\S]*?)<\/think>/i);
         const internalMonologue = thinkMatch ? thinkMatch[1].trim() : null;
         const cleanContent = msg.content ? msg.content.replace(/<think>[\s\S]*?<\/think>/gi, '').trim() : '';
@@ -297,7 +312,7 @@ export const WorkbenchChatFeed: React.FC<WorkbenchChatFeedProps> = ({
                 <div className="flex items-center justify-between">
                   <button
                     type="button"
-                    onClick={() => toggleThought(msg.id)}
+                    onClick={() => handleToggleThought(msg.id)}
                     className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800/60 font-semibold transition cursor-pointer"
                   >
                     <Sparkles className="w-3.5 h-3.5 text-blue-500" />

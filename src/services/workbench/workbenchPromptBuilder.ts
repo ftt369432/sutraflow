@@ -138,3 +138,4 @@ Welcome to your new Sovereign Brain! Let's tailor this cortex specifically to yo
     timestamp: timestamp || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
   };
 }
+

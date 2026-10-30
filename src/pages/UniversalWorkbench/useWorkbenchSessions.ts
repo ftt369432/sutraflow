@@ -277,3 +277,4 @@ export function useWorkbenchSessions(profiles: Record<DomainType, DomainProfile>
     updateSessionData
   };
 }
+

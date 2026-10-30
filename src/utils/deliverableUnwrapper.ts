@@ -36,22 +36,24 @@ export function isConversationalDiscussion(raw: string): boolean {
   const text = raw.trim();
   const lower = text.toLowerCase();
 
-  // Explicit options menus & next step prompts
+  // Explicit options menus, calibration prompts, or next step choices
   if (
     lower.includes('immediate options to resume') ||
     lower.includes('options to continue') ||
     lower.includes('how would you like to proceed') ||
     lower.includes('which option would you prefer') ||
-    lower.includes('provide the continuing context in one sentence') ||
+    lower.includes('provide the continuing context') ||
     lower.includes('select an option to proceed') ||
     lower.includes('let me know how you would like to proceed') ||
     lower.includes('calibration interview') ||
-    lower.includes('i need you to specify the domain, objective')
+    lower.includes('i need you to specify the domain') ||
+    lower.includes('choose one of the options') ||
+    lower.includes('to resume, please specify') ||
+    lower.includes('| option |') ||
+    lower.includes('| action required |') ||
+    lower.includes('| my delivery |')
   ) {
-    // If it also contains an options table like | OPTION | ACTION REQUIRED |
-    if (lower.includes('| option |') || lower.includes('| action required |') || lower.includes('| my delivery |')) {
-      return true;
-    }
+    return true;
   }
 
   // Pure conversational inquiries / clarifications
