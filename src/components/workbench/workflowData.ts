@@ -260,6 +260,113 @@ export const BUILTIN_WORKFLOWS: WorkflowItem[] = [
   },
 
   // ==========================================
+  // CODING & SOFTWARE ENGINEERING WORKFLOWS
+  // ==========================================
+  {
+    id: 'system-architecture-rfc',
+    name: 'system-architecture-rfc',
+    title: 'System Architecture RFC & Blueprint',
+    description: 'Generates production-grade RFC blueprint with component diagrams, data flow, API contracts, and trade-off matrices.',
+    category: 'tech',
+    domain: 'coding',
+    icon: 'terminal',
+    prompt: 'Formulate an exhaustive System Architecture Request for Comments (RFC) and Implementation Blueprint. Detail: 1) System overview & business problem, 2) High-level component architecture & data flow, 3) Strict API contracts and data schemas, 4) Failure modes & zero-downtime fallback strategies, and 5) Implementation roadmap with acceptance criteria.',
+    filename: '.agents/workflows/system-architecture-rfc.md'
+  },
+  {
+    id: 'api-contract-spec',
+    name: 'api-contract-spec',
+    title: 'Full-Stack API Contract Specification',
+    description: 'Designs typed TypeScript / OpenAPI / RESTful contract specifications with request/response schemas and error models.',
+    category: 'tech',
+    domain: 'coding',
+    icon: 'file-code',
+    prompt: 'Generate a production-ready Full-Stack API Contract Specification. Include complete TypeScript interface definitions, HTTP verb/route mapping, request validation schemas (Zod/JSON Schema), response payloads, status codes, and deterministic error envelope formats.',
+    filename: '.agents/workflows/api-contract-spec.md'
+  },
+  {
+    id: 'owasp-security-audit',
+    name: 'owasp-security-audit',
+    title: 'OWASP Top 10 Security Architecture Audit',
+    description: 'Audits codebase for injection, broken authentication, SSRF, permissive CORS, and secrets leakage.',
+    category: 'audit',
+    domain: 'coding',
+    icon: 'shield-check',
+    prompt: 'Conduct an in-depth OWASP Top 10 Security Architecture Audit. Inspect the provided code for SQL/command injection, authentication bypasses, broken object-level authorization (BOLA), sensitive data exposure, and unhardened dependencies. Provide line-numbered code patches for all identified vulnerabilities.',
+    filename: '.agents/workflows/owasp-security-audit.md'
+  },
+  {
+    id: 'cicd-pipeline-blueprint',
+    name: 'cicd-pipeline-blueprint',
+    title: 'CI/CD & DevOps Deployment Blueprint',
+    description: 'Designs automated GitHub Actions pipelines, multi-stage Docker builds, and zero-downtime deployment pipelines.',
+    category: 'tech',
+    domain: 'coding',
+    icon: 'rocket',
+    prompt: 'Synthesize an enterprise CI/CD Pipeline and Deployment Blueprint. Design GitHub Actions workflows for automated linting, test execution, containerized multi-stage Docker builds, staging rollouts, and production blue/green deployment with rollback triggers.',
+    filename: '.agents/workflows/cicd-pipeline-blueprint.md'
+  },
+  {
+    id: 'unit-test-suite-generator',
+    name: 'unit-test-suite-generator',
+    title: 'Vitest / Jest Test Suite Generator',
+    description: 'Generates exhaustive unit, edge-case, and mock integration test suites with 90%+ code coverage target.',
+    category: 'tech',
+    domain: 'coding',
+    icon: 'check-circle-2',
+    prompt: 'Generate an exhaustive Vitest / Jest test suite for the provided module. Cover happy paths, negative boundaries, network timeout scenarios, mock external dependencies, and asynchronous error handling with high assertion fidelity.',
+    filename: '.agents/workflows/unit-test-suite-generator.md'
+  },
+
+  // ==========================================
+  // REAL ESTATE & HOUSING WORKFLOWS
+  // ==========================================
+  {
+    id: 'lease-tenant-audit',
+    name: 'lease-tenant-audit',
+    title: 'Lease Agreement & Tenant Screening Audit',
+    description: 'Analyzes commercial and residential leases for rent escalation, indemnity clauses, maintenance obligations, and default remedies.',
+    category: 'audit',
+    domain: 'real_estate',
+    icon: 'building',
+    prompt: 'Conduct a forensic Lease Agreement & Tenant Screening Audit. Audit base rent escalations, CAM allocations, property tax pass-throughs, assignment/sublet covenants, tenant improvement allowances, and statutory notice compliance.',
+    filename: '.agents/workflows/lease-tenant-audit.md'
+  },
+  {
+    id: 'pro-forma-cash-model',
+    name: 'pro-forma-cash-model',
+    title: 'Pro Forma & Cash-on-Cash Return Model',
+    description: 'Builds acquisition pro forma, NOI calculations, debt-service coverage ratio (DSCR), and internal rate of return (IRR).',
+    category: 'strategy',
+    domain: 'real_estate',
+    icon: 'calculator',
+    prompt: 'Build a comprehensive Real Estate Acquisition Pro Forma and Cash-on-Cash Return Model. Calculate Gross Scheduled Income, vacancy reserves, Effective Gross Income, itemized operating expenses, Net Operating Income (NOI), cap rate, DSCR, and 5-year IRR projections.',
+    filename: '.agents/workflows/pro-forma-cash-model.md'
+  },
+  {
+    id: 'zoning-due-diligence',
+    name: 'zoning-due-diligence',
+    title: 'Municipal Zoning & Land-Use Due Diligence',
+    description: 'Audits property zoning classifications, floor area ratio (FAR), setbacks, parking minimums, and permitted use variances.',
+    category: 'audit',
+    domain: 'real_estate',
+    icon: 'compass',
+    prompt: 'Execute a Municipal Zoning & Land-Use Due Diligence Audit. Verify zoning designation, maximum allowable FAR, height limits, front/rear/side setbacks, ADU statutory development standards under California state law, and discretionary permit requirements.',
+    filename: '.agents/workflows/zoning-due-diligence.md'
+  },
+  {
+    id: 'inspection-repair-audit',
+    name: 'inspection-repair-audit',
+    title: 'Inspection Red-Flag & Repair Request',
+    description: 'Distills physical inspection reports into prioritized buyer repair request packages with cost estimates.',
+    category: 'custom',
+    domain: 'real_estate',
+    icon: 'shield-check',
+    prompt: 'Audit the attached property inspection report and draft a formal Buyer Request for Repair (CAR Form RR). Categorize findings into structural/foundation, roof, electrical/safety, and plumbing. Formulate credit demands and escrow holdback specifications.',
+    filename: '.agents/workflows/inspection-repair-audit.md'
+  },
+
+  // ==========================================
   // GENERAL & STRATEGY (AVAILABLE EVERYWHERE)
   // ==========================================
   {
@@ -283,6 +390,17 @@ export const BUILTIN_WORKFLOWS: WorkflowItem[] = [
     icon: 'search',
     prompt: 'Conduct a thorough Forensic Discrepancy Audit across all provided documents. Cross-examine dates, dollar amounts, party statements, and identify any inconsistencies, altered figures, or missing corroborating exhibits.',
     filename: '.agents/workflows/forensic-document-audit.md'
+  },
+  {
+    id: 'socratic-brain-genesis',
+    name: 'socratic-brain-genesis',
+    title: 'Socratic Brain Customizer',
+    description: 'Interactive guided interview to tailor industry vertical, deliverables, and sovereign workflows for your business.',
+    category: 'genesis',
+    domain: 'custom',
+    icon: 'sparkles',
+    prompt: 'I want to customize this brain for my business. Walk me through the 3-step setup interview to configure our industry vertical, core work products, and governing standards.',
+    filename: '.agents/workflows/socratic-brain-genesis.md'
   },
   {
     id: 'agentify-business-audit',

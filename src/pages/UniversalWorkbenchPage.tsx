@@ -9,7 +9,7 @@ import {
 } from '../services/ai/UniversalDomainOperator';
 import { ForensicAnalystLinter, AnalystAuditReport } from '../services/ai/ForensicAnalystLinter';
 import { exportMarkdownToDocx } from '../utils/docxExportUtil';
-import { unwrapModelDeliverable } from '../utils/deliverableUnwrapper';
+import { unwrapModelDeliverable, partitionDiscussionAndWorkProduct, isConversationalDiscussion } from '../utils/deliverableUnwrapper';
 import { agentRunner } from '../services/swarm/engine/AgentRunner';
 import { legalSwarmCoordinator } from '../services/swarm/legal/LegalSwarmCoordinator';
 import { universalSwarmEngine } from '../services/swarm/UniversalSwarmEngine';
@@ -326,6 +326,43 @@ export const UniversalWorkbenchPage: React.FC = () => {
   // 💡 Dynamic Contextual Suggestion Pills Engine
   const getDynamicSuggestions = (lastText: string, domain: string): MessageSuggestion[] => {
     const lower = (lastText || '').toLowerCase();
+
+    if (domain === 'coding' || lower.includes('typescript') || lower.includes('architecture') || lower.includes('api') || lower.includes('github') || lower.includes('docker')) {
+      return [
+        { id: 'c-1', label: '⚡ Synthesize Architecture RFC', prompt: 'Draft a comprehensive System Architecture RFC for this service with component diagrams and failure modes.', icon: 'zap' },
+        { id: 'c-2', label: '📋 Generate Typed API Contract', prompt: 'Formulate a full-stack OpenAPI / TypeScript API contract specification with request/response schemas.', icon: 'target' },
+        { id: 'c-3', label: '🛡️ Run OWASP Security Audit', prompt: 'Perform a strict OWASP Top 10 code security audit and generate remediated patches.', icon: 'shield' },
+        { id: 'c-4', label: '🚀 Design CI/CD Pipeline Blueprint', prompt: 'Create an automated GitHub Actions CI/CD deployment pipeline with test validation.', icon: 'folder' }
+      ];
+    }
+
+    if (domain === 'real_estate' || lower.includes('zoning') || lower.includes('lease') || lower.includes('tenant') || lower.includes('property') || lower.includes('escrow')) {
+      return [
+        { id: 're-1', label: '🏢 Audit Lease & Escalations', prompt: 'Conduct a forensic Lease Agreement Audit: inspect rent escalations, CAM fees, and default provisions.', icon: 'target' },
+        { id: 're-2', label: '📊 Build Acquisition Pro Forma & IRR', prompt: 'Build a full Real Estate Pro Forma with NOI, DSCR, and 5-year IRR projections.', icon: 'brain' },
+        { id: 're-3', label: '🗺️ Verify Municipal Zoning & Setbacks', prompt: 'Conduct a Municipal Zoning Audit: verify FAR, setback minimums, and California ADU regulations.', icon: 'shield' },
+        { id: 're-4', label: '📝 Draft CAR Repair Request Form', prompt: 'Analyze physical inspection defects and compile a formal Buyer Request for Repair (Form RR).', icon: 'folder' }
+      ];
+    }
+
+    if (domain === 'medical' || lower.includes('qme') || lower.includes('ime') || lower.includes('mtus') || lower.includes('acoem') || lower.includes('wpi')) {
+      return [
+        { id: 'med-1', label: '🩺 Clinical Chronology & Treatment Review', prompt: 'Synthesize an itemized clinical treatment chronology across all diagnostic exams and PR-2 reports.', icon: 'brain' },
+        { id: 'med-2', label: '📋 MTUS Treatment Necessity Rebuttal', prompt: 'Draft a formal clinical rebuttal under MTUS and ACOEM guidelines demonstrating medical necessity.', icon: 'shield' },
+        { id: 'med-3', label: '⚖️ Forensic Apportionment Analysis', prompt: 'Extract whole person impairment (WPI) and assess substantial medical evidence on apportionment under Escobedo.', icon: 'scale' },
+        { id: 'med-4', label: '💰 Audit OMFS Medical-Legal Billing', prompt: 'Audit billing codes under 8 CCR § 9795 (OMFS ML201-ML204) for fee schedule compliance.', icon: 'folder' }
+      ];
+    }
+
+    if (domain === 'accounting' || lower.includes('tax') || lower.includes('ledger') || lower.includes('omfs') || lower.includes('p&l') || lower.includes('ebitda')) {
+      return [
+        { id: 'acc-1', label: '📊 Audit Fee Petition & Billing Ledger', prompt: 'Perform an itemized Fee Petition Audit: reconcile hourly rates, billing entries, and calculate objections.', icon: 'target' },
+        { id: 'acc-2', label: '📈 Calculate Statutory Daily Interest', prompt: 'Calculate statutory prejudgment interest under Civil Code § 3287 and Labor Code § 4622(a)(1).', icon: 'zap' },
+        { id: 'acc-3', label: '🧾 Verify OMFS Conversion Factors', prompt: 'Verify OMFS physician conversion factors and identify carrier improper fee reductions.', icon: 'shield' },
+        { id: 'acc-4', label: '💵 Model 12-Month Runway & Burn Rate', prompt: 'Build a 12-month cash runway and unit economics forecast with conservative burn scenarios.', icon: 'folder' }
+      ];
+    }
+
     if (lower.includes('marketing') || lower.includes('ad') || lower.includes('ecom') || lower.includes('campaign')) {
       return [
         { id: 'm-1', label: '⚡ Assemble 3 Ad & Outbound Workflows', prompt: 'Assemble 3 core workflows for our marketing agency into .agents/workflows/: Ad Copy Sniper, Cold Outbound Forge, and Client Retention Engine.', icon: 'zap' },
@@ -334,6 +371,7 @@ export const UniversalWorkbenchPage: React.FC = () => {
         { id: 'm-4', label: '✍️ Draft 5-Stage VSL & Funnel Copy', prompt: 'Draft a high-converting 5-stage Video Sales Letter (VSL) and landing page copy outline following our SOUL.md voice.', icon: 'brain' }
       ];
     }
+
     if (lower.includes('wcab') || lower.includes('beltran') || lower.includes('penalty') || lower.includes('pleading') || domain === 'legal') {
       return [
         { id: 'l-1', label: '⚖️ Draft Petition for LC § 5814 Penalties', prompt: 'Draft a formal California 28-line conformed Petition for LC § 5814 Penalties and § 5814.5 Attorney Fees based on carrier unreasonable delay.', icon: 'scale' },
@@ -342,9 +380,10 @@ export const UniversalWorkbenchPage: React.FC = () => {
         { id: 'l-4', label: '📂 Sync Client Binder to Active Workspace', prompt: 'Verify all exhibits and conform pleadings with our active legal workspace records.', icon: 'folder' }
       ];
     }
+
     return [
-      { id: 'g-1', label: '🧠 Expand Minimal Brief into Full Brain', prompt: 'Synthesize a complete Sovereign Brain architecture for our business: generate SOUL.md, PLAYBOOK.md, and RULES.md.', icon: 'brain' },
-      { id: 'g-2', label: '⚡ Assemble 3 Domain Workflows', prompt: 'Proactively generate and save the top 3 high-impact workflows for this business into .agents/workflows/.', icon: 'zap' },
+      { id: 'g-1', label: '🧠 Walk Through Socratic Setup Interview', prompt: 'I want to customize this brain for my business. Walk me through the 3-step setup interview to configure our vertical, deliverables, and rules.', icon: 'brain' },
+      { id: 'g-2', label: '⚡ Assemble 3 Custom Workflows', prompt: 'Proactively generate and save the top 3 high-impact workflows for this business into .agents/workflows/.', icon: 'zap' },
       { id: 'g-3', label: '🎯 Define Ideal Client Profile (ICP)', prompt: 'Detail our Ideal Client Profile, target audience pain points, and intake audit criteria.', icon: 'target' },
       { id: 'g-4', label: '📂 Mount to Sovereign Workspace', prompt: 'Verify folder architecture and mount master client files directly to the active workspace.', icon: 'folder' }
     ];
@@ -589,20 +628,55 @@ export const UniversalWorkbenchPage: React.FC = () => {
         timestamp: 'Active'
       }
     ];
+    const domainLabels: Record<string, string> = {
+      legal: 'Litigation Matter',
+      medical: 'Clinical Audit Project',
+      real_estate: 'Property Advisory Project',
+      coding: 'Software Engineering Project',
+      accounting: 'Forensic Accounting Audit',
+      business_ops: 'Executive Operations Sprint',
+      biotech: 'Life Sciences Study',
+      architecture: 'Building Code Review',
+      custom: 'Custom Practice Brain'
+    };
+
+    const isCustom = activeDomainType === 'custom';
+    const initMessage: StudioMessage = isCustom
+      ? {
+          id: `socratic-${Date.now()}`,
+          role: 'assistant',
+          content: `### 🧠 Sovereign Brain Genesis: Interactive Customization Walkthrough
+
+Welcome to your new Sovereign Brain! Let's tailor this cortex specifically to your professional practice in 3 quick questions:
+
+1. **Industry & Vertical:** What domain or industry does your practice operate in? (e.g., Medical Practice, Real Estate Agency, Software Engineering Lab, Accounting Firm)
+2. **Primary Work Product:** What core deliverables do you want this brain to generate? (e.g., Clinical evaluations, Purchase agreements, RFCs & code, Tax models)
+3. **Governing Authorities:** What statutes, standards, or guidelines should ground your outputs? (e.g., HIPAA / MTUS, California DRE, OWASP, GAAP / IRS)
+
+*Click one of the fast-start domain archetypes below to auto-configure, or reply directly with your specific practice details!*`,
+          suggestions: [
+            { id: 'soc-1', label: '🏥 Medical / Clinical Practice', prompt: 'Configure my brain for a Clinical & Forensic Medical Practice with HIPAA, MTUS/ACOEM guidelines, and QME/IME impairment reporting.', icon: 'brain' },
+            { id: 'soc-2', label: '🏢 Real Estate & Development', prompt: 'Configure my brain for Real Estate Brokerage and Property Management with California DRE, CAR purchase agreements, and municipal zoning compliance.', icon: 'target' },
+            { id: 'soc-3', label: '💻 Software Engineering Lab', prompt: 'Configure my brain for Principal Software Engineering with Clean Architecture, TypeScript/React/Node, OWASP Top 10, and RFC specs.', icon: 'zap' },
+            { id: 'soc-4', label: '📊 Accounting & Tax Practice', prompt: 'Configure my brain for Forensic Accounting and Enterprise Tax with California OMFS, GAAP, and IRS regulations.', icon: 'folder' }
+          ],
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        }
+      : {
+          id: `init-${Date.now()}`,
+          role: 'assistant',
+          content: `SutraFlow ${profiles[activeDomainType]?.title || 'Copilot'} initialized for new project session. Attach source records or choose a high-impact workflow below to begin.`,
+          suggestions: getDynamicSuggestions('', activeDomainType),
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+
     const newSession: WorkbenchSession = {
       id: newId,
-      title: `New Case Project (${new Date().toLocaleDateString([], { month: 'short', day: 'numeric' })})`,
+      title: `New ${domainLabels[activeDomainType] || 'Project'} (${new Date().toLocaleDateString([], { month: 'short', day: 'numeric' })})`,
       domainType: activeDomainType,
       createdAt: Date.now(),
       updatedAt: Date.now(),
-      messages: [
-        {
-          id: `init-${Date.now()}`,
-          role: 'assistant',
-          content: 'SutraFlow Studios Copilot initialized for new project session. Attach a case record or select a legal workflow to begin.',
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        }
-      ],
+      messages: [initMessage],
       generatedOutput: '',
       liveThoughtSteps: [],
       artifacts: cleanEmptyArtifacts,
@@ -1571,27 +1645,35 @@ ${activeProfile.type === 'legal' ? '- When referencing statutes or legal authori
         }
         const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
 
-        // Auto-mount deliverable to Synthesis Output pane if answer contains a deliverable, blueprint, or markdown document
-        if (
-          answer.includes('END OF DELIVERABLE') ||
-          answer.includes('### DELIVERABLE') ||
-          answer.includes('```') ||
-          (answer.length > 600 && (answer.includes('## ') || answer.includes('# ')))
-        ) {
-          setGeneratedOutput(answer);
+        // Clean Work Product vs Discussion Partitioning:
+        // Synthesis Output viewport receives ONLY genuine work products.
+        // Discussion, questions, options menus, and next actions stay strictly in the chat feed.
+        const partitioned = partitionDiscussionAndWorkProduct(answer);
+        if (partitioned.workProduct) {
+          setGeneratedOutput(partitioned.workProduct);
           setActiveRightTab('deliverable');
-          persistDeliverableToDisk(textToSend.slice(0, 30), answer);
+          persistDeliverableToDisk(
+            partitioned.suggestedFileName || textToSend.slice(0, 30),
+            partitioned.workProduct
+          );
         }
+
+        const chatFeedDisplay = partitioned.workProduct
+          ? (partitioned.discussion && partitioned.discussion.length > 20
+              ? partitioned.discussion
+              : `The requested deliverable has been synthesized and mounted in the **Synthesis Output** viewport on the right.`)
+          : answer;
 
         setMessages((prev) =>
           prev.map((msg) =>
             msg.id === assistantMsgId
               ? {
                   ...msg,
-                  content: answer,
+                  content: chatFeedDisplay,
                   isStreaming: false,
                   thoughtDuration: `${elapsed}s`,
-                  thoughtSteps: thoughtTraceSteps
+                  thoughtSteps: thoughtTraceSteps,
+                  suggestions: getDynamicSuggestions(textToSend + ' ' + answer, activeDomainType)
                 }
               : msg
           )
@@ -1688,26 +1770,35 @@ ${activeProfile.type === 'legal' ? '- When referencing statutes or legal authori
               type: wf.path.endsWith('.docx') ? 'docx' : wf.path.endsWith('.md') ? 'md' : 'text'
             }));
           } else {
-            const unwrapped = unwrapModelDeliverable(resultText);
-            primaryDeliverableContent = unwrapped.content;
-            setGeneratedOutput(primaryDeliverableContent);
-            setActiveRightTab('deliverable');
-            persistDeliverableToDisk(
-              unwrapped.suggestedFileName || textToSend.slice(0, 30),
-              primaryDeliverableContent,
-              unwrapped.suggestedFileName
-            );
+            const partitioned = partitionDiscussionAndWorkProduct(resultText);
+            if (partitioned.workProduct) {
+              primaryDeliverableContent = partitioned.workProduct;
+              setGeneratedOutput(primaryDeliverableContent);
+              setActiveRightTab('deliverable');
+              persistDeliverableToDisk(
+                partitioned.suggestedFileName || textToSend.slice(0, 30),
+                primaryDeliverableContent,
+                partitioned.suggestedFileName
+              );
+            }
           }
+
+          const partitionedResult = partitionDiscussionAndWorkProduct(resultText);
+          const chatFeedSummaryText = partitionedResult.workProduct
+            ? (partitionedResult.discussion && partitionedResult.discussion.length > 20
+                ? partitionedResult.discussion
+                : `The requested deliverable has been synthesized and mounted in the **Synthesis Output** viewport on the right.`)
+            : resultText;
 
           const sovereignSummary = `### Sovereign Autonomous Execution Complete
 - **Domain:** ${activeProfile.title}
 - **Engine:** Sovereign Multi-Turn ReAct Cortex (24 Native Tools)
 - **Status:** Complete in ${thoughtDuration}
 
-${resultText}
+${chatFeedSummaryText}
 
 ---
-**Next Action & Suggested Output:** The full conformed legal work product is loaded in the **Deliverable Viewport** on the right. You can review, switch between artifact tabs, export to Word (\`.docx\`), or download as Markdown (\`.md\`).`;
+**Next Action & Suggested Output:** The full verified work product is loaded in the **Synthesis Output** viewport on the right. You can review, switch between artifact tabs, export to Word (\`.docx\`), or download as Markdown (\`.md\`).`;
 
           setMessages((prev) =>
             prev.map((msg) =>
@@ -1739,22 +1830,29 @@ ${resultText}
         domainProfile: activeProfile,
         onProgress: (step, detail) => handleThoughtStep(step, detail),
         onPartial: (partial) => {
-          setGeneratedOutput(unwrapModelDeliverable(partial).content);
-          setActiveRightTab('deliverable');
+          if (!isConversationalDiscussion(partial)) {
+            const clean = unwrapModelDeliverable(partial).content;
+            if (clean && !isConversationalDiscussion(clean)) {
+              setGeneratedOutput(clean);
+              setActiveRightTab('deliverable');
+            }
+          }
         }
       });
 
       const elapsedSeconds = ((Date.now() - startTime) / 1000).toFixed(1);
       const thoughtDuration = `${elapsedSeconds}s`;
 
-      const unwrappedAgent = unwrapModelDeliverable(agentResult.deliverable);
-      setGeneratedOutput(unwrappedAgent.content);
-      setActiveRightTab('deliverable');
-      persistDeliverableToDisk(
-        unwrappedAgent.suggestedFileName || agentResult.findings.deliverableType || textToSend.slice(0, 30),
-        unwrappedAgent.content,
-        unwrappedAgent.suggestedFileName
-      );
+      const partitionedAgent = partitionDiscussionAndWorkProduct(agentResult.deliverable);
+      if (partitionedAgent.workProduct) {
+        setGeneratedOutput(partitionedAgent.workProduct);
+        setActiveRightTab('deliverable');
+        persistDeliverableToDisk(
+          partitionedAgent.suggestedFileName || agentResult.findings.deliverableType || textToSend.slice(0, 30),
+          partitionedAgent.workProduct,
+          partitionedAgent.suggestedFileName
+        );
+      }
 
       if (agentResult.findings.resolvedSource && !attachedFileName) {
         setAttachedFileName(`${agentResult.findings.subjectEntity} (Source: ${agentResult.findings.resolvedSource})`);
@@ -1894,6 +1992,29 @@ The conformed professional document is ready in the **Synthesis Output** pane on
         onSelectDomain={(key) => {
           setActiveDomainType(key);
           setShowDomainDropdown(false);
+          if (key === 'custom') {
+            setMessages((prev) => {
+              const hasSocratic = prev.some((m) => m.content.includes('Sovereign Brain Genesis: Interactive Customization'));
+              if (!hasSocratic) {
+                return [
+                  ...prev,
+                  {
+                    id: `socratic-${Date.now()}`,
+                    role: 'assistant',
+                    content: `### 🧠 Sovereign Brain Genesis: Interactive Customization Walkthrough\n\nWelcome to your new Sovereign Brain! Let's tailor this cortex specifically to your professional practice in 3 quick questions:\n\n1. **Industry & Vertical:** What domain or industry does your practice operate in? (e.g., Medical Practice, Real Estate Agency, Software Engineering Lab, Accounting Firm)\n2. **Primary Work Product:** What core deliverables do you want this brain to generate? (e.g., Clinical evaluations, Purchase agreements, RFCs & code, Tax models)\n3. **Governing Authorities:** What statutes, standards, or guidelines should ground your outputs? (e.g., HIPAA / MTUS, California DRE, OWASP, GAAP / IRS)\n\n*Click one of the fast-start domain archetypes below to auto-configure, or reply directly with your specific practice details!*`,
+                    suggestions: [
+                      { id: 'soc-1', label: '🏥 Medical / Clinical Practice', prompt: 'Configure my brain for a Clinical & Forensic Medical Practice with HIPAA, MTUS/ACOEM guidelines, and QME/IME impairment reporting.', icon: 'brain' },
+                      { id: 'soc-2', label: '🏢 Real Estate & Development', prompt: 'Configure my brain for Real Estate Brokerage and Property Management with California DRE, CAR purchase agreements, and municipal zoning compliance.', icon: 'target' },
+                      { id: 'soc-3', label: '💻 Software Engineering Lab', prompt: 'Configure my brain for Principal Software Engineering with Clean Architecture, TypeScript/React/Node, OWASP Top 10, and RFC specs.', icon: 'zap' },
+                      { id: 'soc-4', label: '📊 Accounting & Tax Practice', prompt: 'Configure my brain for Forensic Accounting and Enterprise Tax with California OMFS, GAAP, and IRS regulations.', icon: 'folder' }
+                    ],
+                    timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                  }
+                ];
+              }
+              return prev;
+            });
+          }
         }}
         onOpenCustomModal={() => {
           setShowDomainDropdown(false);
@@ -2066,6 +2187,7 @@ The conformed professional document is ready in the **Synthesis Output** pane on
             <WorkbenchDeliverablePane
               activeRightTab={activeRightTab}
               setActiveRightTab={setActiveRightTab}
+              activeDomainType={activeDomainType}
               generatedOutput={generatedOutput}
               savedDiskPath={savedDiskPath}
               copied={copied}

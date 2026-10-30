@@ -8,6 +8,9 @@
  * 
  * Unwraps the pure Markdown content, normalizes any escaped literal \n sequences,
  * and extracts the suggested file name and disk path.
+ * 
+ * Crucially partitions conversational discussion/menus/options into chat feed,
+ * and genuine work products into the synthesis viewport.
  */
 
 export interface UnwrappedDeliverable {
@@ -15,6 +18,156 @@ export interface UnwrappedDeliverable {
   suggestedFileName?: string;
   diskPath?: string;
   isJsonArtifact: boolean;
+}
+
+export interface PartitionedResponse {
+  discussion: string;
+  workProduct: string | null;
+  suggestedFileName?: string;
+  diskPath?: string;
+}
+
+/**
+ * Checks whether text is purely conversational discussion, an options menu,
+ * next steps prompt, or onboarding questionnaire rather than a genuine work product.
+ */
+export function isConversationalDiscussion(raw: string): boolean {
+  if (!raw) return true;
+  const text = raw.trim();
+  const lower = text.toLowerCase();
+
+  // Explicit options menus & next step prompts
+  if (
+    lower.includes('immediate options to resume') ||
+    lower.includes('options to continue') ||
+    lower.includes('how would you like to proceed') ||
+    lower.includes('which option would you prefer') ||
+    lower.includes('provide the continuing context in one sentence') ||
+    lower.includes('select an option to proceed') ||
+    lower.includes('let me know how you would like to proceed') ||
+    lower.includes('calibration interview') ||
+    lower.includes('i need you to specify the domain, objective')
+  ) {
+    // If it also contains an options table like | OPTION | ACTION REQUIRED |
+    if (lower.includes('| option |') || lower.includes('| action required |') || lower.includes('| my delivery |')) {
+      return true;
+    }
+  }
+
+  // Pure conversational inquiries / clarifications
+  if (
+    text.length < 500 &&
+    (lower.startsWith('hello') ||
+     lower.startsWith('hi ') ||
+     lower.startsWith('sure, ') ||
+     lower.startsWith('certainly') ||
+     lower.startsWith('to get started') ||
+     lower.startsWith('before we proceed') ||
+     lower.includes('would you like me to') ||
+     lower.includes('please provide the') ||
+     lower.includes('could you clarify'))
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
+/**
+ * Partitions an AI response into conversational discussion (for chat feed)
+ * and genuine work product (for synthesis viewport).
+ * If the response is purely conversational, workProduct is returned as null.
+ */
+export function partitionDiscussionAndWorkProduct(raw: string | null | undefined): PartitionedResponse {
+  if (!raw) {
+    return { discussion: '', workProduct: null };
+  }
+
+  const unwrapped = unwrapModelDeliverable(raw);
+  const text = unwrapped.content.trim();
+
+  // If the whole content is an options menu or conversational prompt
+  if (isConversationalDiscussion(text)) {
+    return {
+      discussion: text,
+      workProduct: null
+    };
+  }
+
+  // Check if an explicit deliverable block exists (fenced code block or deliverable delimiter)
+  const deliverableFenceMatch = text.match(/```(?:markdown|python|typescript|tsx|jsx|json|yaml|sql|html|css|text)?\s*([\s\S]+?)```/i);
+  if (deliverableFenceMatch && deliverableFenceMatch[1] && deliverableFenceMatch[1].trim().length > 150) {
+    const codeContent = deliverableFenceMatch[1].trim();
+    // Verify the code block isn't just an options list
+    if (!isConversationalDiscussion(codeContent)) {
+      const discussionPart = text.replace(deliverableFenceMatch[0], '').trim();
+      return {
+        discussion: discussionPart || 'The complete work product has been synthesized into the viewport.',
+        workProduct: codeContent,
+        suggestedFileName: unwrapped.suggestedFileName,
+        diskPath: unwrapped.diskPath
+      };
+    }
+  }
+
+  // Check if response has conversational preamble followed by a formal document title (# ...)
+  // Examples: "Here is the drafted pleading:\n\n# REQUEST FOR APPROVAL TO ANSWER WCJ REPORT..."
+  const docHeaderMatch = text.match(/\n+(#{1,2}\s+[A-Z0-9\s\-_§:()]{4,80}\n+[\s\S]+)$/);
+  if (docHeaderMatch && docHeaderMatch[1]) {
+    const preamble = text.slice(0, text.indexOf(docHeaderMatch[1])).trim();
+    const potentialDoc = docHeaderMatch[1].trim();
+
+    // Ensure the document portion is substantive and not an options table
+    if (potentialDoc.length > 250 && !isConversationalDiscussion(potentialDoc)) {
+      // Extract suggested filename from title
+      const firstLine = potentialDoc.split('\n')[0].replace(/^#+\s*/, '').trim();
+      const cleanFileName = firstLine.replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 40) + '.md';
+
+      return {
+        discussion: preamble || 'The complete work product has been synthesized into the viewport.',
+        workProduct: potentialDoc,
+        suggestedFileName: unwrapped.suggestedFileName || cleanFileName,
+        diskPath: unwrapped.diskPath
+      };
+    }
+  }
+
+  // If text starts directly with formal header or YAML frontmatter
+  if (
+    text.startsWith('# ') ||
+    text.startsWith('---') ||
+    text.startsWith('CASE NO.') ||
+    text.startsWith('STATE OF CALIFORNIA') ||
+    text.startsWith('WORKERS\' COMPENSATION APPEALS BOARD') ||
+    text.startsWith('### PETITION') ||
+    text.startsWith('### RFC') ||
+    text.startsWith('### SPECIFICATION')
+  ) {
+    if (!isConversationalDiscussion(text)) {
+      return {
+        discussion: 'The complete work product has been synthesized into the viewport.',
+        workProduct: text,
+        suggestedFileName: unwrapped.suggestedFileName,
+        diskPath: unwrapped.diskPath
+      };
+    }
+  }
+
+  // If text is substantive (> 600 chars) and has section headings, treat as document ONLY IF not conversational
+  if (text.length > 600 && (text.includes('## ') || text.includes('# ')) && !isConversationalDiscussion(text)) {
+    return {
+      discussion: 'The complete work product has been synthesized into the viewport.',
+      workProduct: text,
+      suggestedFileName: unwrapped.suggestedFileName,
+      diskPath: unwrapped.diskPath
+    };
+  }
+
+  // Fallback: Pure conversational discussion
+  return {
+    discussion: text,
+    workProduct: null
+  };
 }
 
 export function unwrapModelDeliverable(raw: string | null | undefined): UnwrappedDeliverable {

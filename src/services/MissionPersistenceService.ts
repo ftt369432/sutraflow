@@ -62,11 +62,6 @@ export class MissionPersistenceService {
             return this.resolvedRoot;
         }
     }
-            } catch {}
-        }
-        this.resolvedRoot = this.primaryRoot; // Default to E: brain
-        return this.resolvedRoot;
-    }
 
     /**
      * Returns the full directory path for a specific mission

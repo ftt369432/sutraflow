@@ -18,7 +18,8 @@ import {
   Briefcase,
   History,
   Compass,
-  Home
+  Home,
+  Terminal
 } from 'lucide-react';
 import { DomainType, DomainProfile } from '../../services/ai/UniversalDomainOperator';
 import { LayoutMode } from './types';
@@ -65,6 +66,8 @@ const getDomainIcon = (iconName: string) => {
       return <Compass className="w-4 h-4 text-slate-700 dark:text-slate-300" />;
     case 'Home':
       return <Home className="w-4 h-4 text-slate-700 dark:text-slate-300" />;
+    case 'Terminal':
+      return <Terminal className="w-4 h-4 text-slate-700 dark:text-slate-300" />;
     default:
       return <Briefcase className="w-4 h-4 text-slate-700 dark:text-slate-300" />;
   }

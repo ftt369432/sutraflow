@@ -29,7 +29,7 @@ import { RightTab } from './types';
 import { AnalystAuditReport } from '../../services/ai/ForensicAnalystLinter';
 import { Tool } from '../../services/agents/ToolRegistry';
 import { Button } from '../ui/Button';
-import { tavilyGrounding, TavilySearchResult, TavilySearchResponse } from '../../services/legal/TavilyGroundingService';
+import { tavilyGrounding, TavilySearchResult, TavilySearchResponse, DOMAIN_GROUNDING_CONFIGS } from '../../services/legal/TavilyGroundingService';
 import { MarkdownMessage } from '../ai/MarkdownMessage';
 import { exportMarkdownToDocx } from '../../utils/docxExportUtil';
 import { unwrapModelDeliverable } from '../../utils/deliverableUnwrapper';
@@ -68,6 +68,7 @@ interface WorkbenchDeliverablePaneProps {
   savedDiskPath?: string;
   // Session & Multi-Artifact Persistence
   activeSessionId?: string;
+  activeDomainType?: string;
   initialArtifacts?: Array<{ id: string; title: string; content: string; timestamp: string; diskPath?: string }>;
   initialActiveArtifactId?: string;
   onArtifactsChange?: (artifacts: Array<{ id: string; title: string; content: string; timestamp: string; diskPath?: string }>, activeId: string) => void;
@@ -99,10 +100,12 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
   onExecuteTool,
   savedDiskPath,
   activeSessionId,
+  activeDomainType = 'legal',
   initialArtifacts,
   initialActiveArtifactId,
   onArtifactsChange
 }) => {
+  const groundingConfig = DOMAIN_GROUNDING_CONFIGS[activeDomainType || 'legal'] || DOMAIN_GROUNDING_CONFIGS.custom;
   const [showAuditDetail, setShowAuditDetail] = React.useState(false);
   const auditScore = auditReport ? (auditReport.overallScore ?? auditReport.score ?? 90) : 0;
   const isConformant = auditReport ? (auditReport.overallStatus === 'PASS' || auditScore >= 80) : false;
@@ -580,7 +583,8 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
     try {
       const resp = await tavilyGrounding.searchPrecedents(q, {
         searchDepth: 'advanced',
-        maxResults: 4
+        maxResults: 4,
+        domainType: activeDomainType
       });
       setTavilyResults(resp.results || []);
       setTavilyAnswer(resp.answer || '');
@@ -667,7 +671,7 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
             }`}
           >
             <Search className="w-3 h-3 text-amber-500" />
-            <span>Precedent Grounding</span>
+            <span>{groundingConfig.tabLabel}</span>
             {tavilyResults.length > 0 ? (
               <span className="px-1.5 py-0.2 rounded-full text-[9px] bg-amber-500/20 text-amber-600 dark:text-amber-400 font-bold border border-amber-500/30">
                 {tavilyResults.length}
@@ -1027,14 +1031,14 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
                   </div>
                   <div>
                     <h3 className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                      <span>Real-Time Statutory & Precedent Grounding</span>
+                      <span>{groundingConfig.headerTitle}</span>
                       <span className="px-1.5 py-0.2 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold border border-emerald-500/20 flex items-center gap-1">
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        Live Web Grounding
+                        {groundingConfig.badgeLabel}
                       </span>
                     </h3>
                     <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                      Grounds pleading synthesis against live California Court of Appeal, WCAB en banc, and DIR statutory sources.
+                      {groundingConfig.headerSubtitle}
                     </p>
                   </div>
                 </div>
@@ -1055,32 +1059,22 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
                 </div>
               </div>
 
-              {/* Dynamic Legal Issue Chips */}
+              {/* Dynamic Domain Authority Chips */}
               <div className="mt-3">
                 <div className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1.5">
-                  Dynamic California Workers' Comp Issues
+                  Authoritative {groundingConfig.tabLabel} Fast Query Chips
                 </div>
                 <div className="flex flex-wrap gap-1.5">
-                  {[
-                    'LC § 5814 Unreasonable Delay',
-                    'LC § 4622 Medical Billing 60-Day Mandate',
-                    'LC § 5813 Bad Faith Sanctions',
-                    '8 CCR § 10786 Costs Petition (Master V5)',
-                    '8 CCR § 10964 Answer to WCJ Report',
-                    'LC § 4062.2 Strike Panel Replacement',
-                    'Otis v. City of Los Angeles (En Banc)',
-                    'Escobedo Medical Apportionment'
-                  ].map((preset) => (
+                  {groundingConfig.suggestedQueries.map((item) => (
                     <button
-                      key={preset}
+                      key={item.label}
                       onClick={() => {
-                        const q = `California workers compensation: ${preset}`;
-                        setTavilyQuery(q);
-                        handleExecuteTavilySearch(q);
+                        setTavilyQuery(item.query);
+                        handleExecuteTavilySearch(item.query);
                       }}
                       className="px-2 py-0.5 rounded-md text-[10px] font-medium bg-amber-500/10 hover:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/20 transition cursor-pointer"
                     >
-                      + {preset}
+                      + {item.label}
                     </button>
                   ))}
                 </div>
@@ -1168,7 +1162,7 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
                   value={tavilyQuery}
                   onChange={(e) => setTavilyQuery(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleExecuteTavilySearch()}
-                  placeholder="Enter California legal statutory or case-law issue to ground..."
+                  placeholder={groundingConfig.searchPlaceholder}
                   className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 focus:outline-none focus:ring-1 focus:ring-amber-500/40"
                 />
               </div>
@@ -1255,13 +1249,13 @@ export const WorkbenchDeliverablePane: React.FC<WorkbenchDeliverablePaneProps> =
                     No active Tavily searches yet
                   </p>
                   <p className="text-[11px] text-slate-400 dark:text-slate-500 mt-1 max-w-sm mx-auto">
-                    Click one of the statutory chips above or run a custom query to ground legal authorities with live appellate precedents.
+                    Click one of the suggested query chips above or run a custom query to ground {groundingConfig.tabLabel.toLowerCase()} with live web verification.
                   </p>
                   <button
-                    onClick={() => handleExecuteTavilySearch('California workers compensation Labor Code 5814 penalties')}
+                    onClick={() => handleExecuteTavilySearch(groundingConfig.suggestedQueries[0]?.query || 'Authoritative industry standards')}
                     className="mt-3 px-3 py-1.5 rounded-lg text-xs font-semibold bg-amber-500 hover:bg-amber-600 text-slate-950 transition cursor-pointer"
                   >
-                    Run Sample Grounding Search
+                    Run Sample {groundingConfig.tabLabel} Search
                   </button>
                 </div>
               )}

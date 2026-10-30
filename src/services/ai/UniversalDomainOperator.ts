@@ -15,7 +15,7 @@ import { legalSwarmCoordinator } from '../swarm/legal';
 import { nebiusTokenFactory } from './NebiusTokenFactoryService';
 import { sovereignAgentOrchestrator } from './SovereignAgentOrchestrator';
 
-export type DomainType = 'legal' | 'medical' | 'accounting' | 'business_ops' | 'biotech' | 'architecture' | 'real_estate' | 'custom';
+export type DomainType = 'legal' | 'medical' | 'accounting' | 'business_ops' | 'biotech' | 'architecture' | 'real_estate' | 'coding' | 'custom';
 
 export interface DomainProfile {
   id: string;
@@ -194,6 +194,30 @@ Your core operational protocol:
       'Purchase Contingency Removal Package'
     ],
     systemPrompt: `You are the "Sovereign Real Estate Advisory Engine," analyzing property disclosures, home inspection reports, title exceptions, and contract contingencies with precision, zero hallucination, and statutory disclosure compliance.`
+  },
+
+  coding: {
+    id: 'domain_coding_eng',
+    type: 'coding',
+    title: 'Software Engineering & System Architecture',
+    subtitle: 'Architecture RFCs, API Specs, Production Code & Security Audits',
+    icon: 'Terminal',
+    practitionerTitle: 'Principal Staff Engineer / Solutions Architect',
+    organization: 'Autonomous Systems & Engineering Lab',
+    governingStandards: [
+      'OWASP Top 10 Security Architecture Standards',
+      'Clean Architecture & SOLID Engineering Principles',
+      'TypeScript / Python / React / Node Production Specs',
+      'RFC 2119 Key Words for Requirements'
+    ],
+    defaultDeliverables: [
+      'System Architecture RFC & Blueprint',
+      'Full-Stack API Contract Specification',
+      'OWASP Security Audit & Vulnerability Remediation Plan',
+      'CI/CD Pipeline & Infrastructure as Code (IaC)',
+      'Vitest / Jest Comprehensive Test Suite'
+    ],
+    systemPrompt: `You are the "Sovereign Principal Software Architect & Engineering Engine," designing production-grade systems, formulating architecture RFCs, writing verified code, and performing strict code quality audits with zero hallucination and zero placeholders.`
   },
 
   custom: {
