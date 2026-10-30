@@ -478,7 +478,7 @@ export default defineConfig(({ mode }) => {
       port: 3000, // Change to 3000 to match CORS settings
       open: false, // Do not auto-open external browser (Electron handles desktop window)
       host: '0.0.0.0', // Allow external connections
-      hmr: false, // Temporarily disable HMR to stop reload loops
+      hmr: { overlay: false },
       proxy: {
         '/api/ollama': {
           target: 'http://127.0.0.1:11434',

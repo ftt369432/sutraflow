@@ -480,6 +480,11 @@ export class TeamService {
    * Returns a function to unsubscribe
    */
   static subscribeToMessages(pageId: string, callback: (payload: any) => void): () => void {
+    const hasLiveSupabase = Boolean(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY);
+    if (!hasLiveSupabase) {
+      console.log('TeamService: Live Supabase not configured — skipping realtime subscription in offline/air-gapped mode.');
+      return () => {};
+    }
     console.log('TeamService: Subscribing to messages for page:', pageId);
     let channel: any = null;
     let retryCount = 0;
@@ -553,6 +558,11 @@ export class TeamService {
    * Returns a function to unsubscribe
    */
   static subscribeToPresence(teamId: string, userId: string, presenceStatus: string = 'online', onPresenceSync: (presences: any) => void): () => void {
+    const hasLiveSupabase = Boolean(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY);
+    if (!hasLiveSupabase) {
+      console.log('TeamService: Live Supabase not configured — skipping realtime subscription in offline/air-gapped mode.');
+      return () => {};
+    }
     console.log('TeamService: Subscribing to presence for team:', teamId);
     let channel: any = null;
     let retryCount = 0;
