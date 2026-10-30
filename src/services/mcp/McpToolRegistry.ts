@@ -1197,7 +1197,7 @@ export async function executeSovereignTool(toolName: string, args: Record<string
 
     case 'sync_machine_environment': {
       return `### 🖥️ Workstation Sovereign Environment Synchronization Status:
-- Local Workstation NVMe: C:\\Users\\Ftt\\genieflowai\\ (🟢 Active)
+- Local Workstation NVMe: I:\\.genieflowai.brain\\ (🟢 Active)
 - Google Drive Master: G:\\My Drive\\.GENIEFLOW_MASTER\\ (🟢 Synced)
 - Sovereign Travel Drive: E:\\.genieflowai.brain\\ (🟢 Synced)
 - AI Hardware: NVIDIA GeForce RTX 4090 (24GB VRAM, CUDA 13.1 Ready)

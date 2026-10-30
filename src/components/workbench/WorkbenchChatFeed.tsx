@@ -18,7 +18,8 @@ import {
   Eye,
   EyeOff,
   Brain,
-  ExternalLink
+  ExternalLink,
+  ArrowRight
 } from 'lucide-react';
 import { StudioMessage, ThoughtTraceStep, ArtifactBadge } from './types';
 import { MarkdownMessage } from '../ai/MarkdownMessage';
@@ -94,6 +95,7 @@ interface WorkbenchChatFeedProps {
   isProcessing: boolean;
   progressStep?: string;
   liveThoughtSteps?: ThoughtTraceStep[];
+  onSelectSuggestion?: (prompt: string) => void;
 }
 
 export const WorkbenchChatFeed: React.FC<WorkbenchChatFeedProps> = ({
@@ -103,7 +105,8 @@ export const WorkbenchChatFeed: React.FC<WorkbenchChatFeedProps> = ({
   toggleThought,
   isProcessing,
   progressStep,
-  liveThoughtSteps = []
+  liveThoughtSteps = [],
+  onSelectSuggestion
 }) => {
   // Individual step expansion map (for behind-the-scenes deep inspection)
   const [expandedStepIds, setExpandedStepIds] = useState<Record<string, boolean>>({});
@@ -431,6 +434,27 @@ export const WorkbenchChatFeed: React.FC<WorkbenchChatFeedProps> = ({
                 <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
                   • Quote Guard Verified • 28-Line Conformed • Zero-PHI Shield Active
                 </span>
+              </div>
+            )}
+
+            {/* Contextual Suggestive Prompts / Next Actions inside Message Bubble */}
+            {msg.suggestions && msg.suggestions.length > 0 && (
+              <div className="pt-3 flex flex-wrap items-center gap-1.5 animate-in fade-in duration-200">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mr-1 flex items-center gap-1">
+                  <Sparkles className="w-3 h-3 text-amber-500" />
+                  Suggested Next Actions:
+                </span>
+                {msg.suggestions.map((sug) => (
+                  <button
+                    key={sug.id}
+                    type="button"
+                    onClick={() => onSelectSuggestion?.(sug.prompt)}
+                    className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-slate-50 hover:bg-blue-50/90 dark:bg-slate-800/80 dark:hover:bg-slate-700 text-slate-700 hover:text-blue-700 dark:text-slate-200 dark:hover:text-white border border-slate-200/90 hover:border-blue-300 dark:border-slate-700/70 dark:hover:border-blue-500/50 shadow-2xs transition-all duration-150 cursor-pointer group"
+                  >
+                    <span>{sug.label}</span>
+                    <ArrowRight className="w-2.5 h-2.5 text-slate-400 group-hover:text-blue-600 dark:text-slate-500 dark:group-hover:text-blue-400 group-hover:translate-x-0.5 transition-transform" />
+                  </button>
+                ))}
               </div>
             )}
           </div>

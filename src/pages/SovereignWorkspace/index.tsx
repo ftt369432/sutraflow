@@ -1,3 +1,4 @@
+import { sovereignWorkspace } from '../../services/sovereign/sovereignWorkspace';
 /**
  * 👑 SovereignWorkspace
  * 
@@ -741,10 +742,11 @@ export function SovereignWorkspace() {
                               // Use Electron IPC if available, else download
                               const bridge = (window as any).electronBridge;
                               if (bridge?.fs?.writeFile) {
-                                const savePath = `G:\\My Drive\\.GENIEFLOW_MASTER\\dashboards\\${fileName}`;
+                                const saveDir = await sovereignWorkspace.resolvePath('dashboards');
+const savePath = `${saveDir}/${fileName}`;
                                 await bridge.fs.writeFile(savePath, html);
                                 const { toast } = await import('sonner');
-                                toast.success(`Saved to G:\\dashboards\\${fileName}`);
+                                toast.success(`Saved to dashboards/${fileName}`);
                               } else {
                                 const blob = new Blob([html], { type: 'text/html' });
                                 const a = document.createElement('a');

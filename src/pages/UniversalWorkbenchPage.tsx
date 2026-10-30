@@ -33,6 +33,7 @@ import { WorkbenchChatFeed } from '../components/workbench/WorkbenchChatFeed';
 import { WorkbenchPromptInput } from '../components/workbench/WorkbenchPromptInput';
 import { WorkbenchDeliverablePane } from '../components/workbench/WorkbenchDeliverablePane';
 import { DynamicWorkflowCarousel } from '../components/workbench/DynamicWorkflowCarousel';
+import { MessageSuggestion } from '../components/workbench/types';
 import { NewWorkflowModal } from '../components/workbench/NewWorkflowModal';
 import { BrainGenesisModal } from '../components/workbench/BrainGenesisModal';
 import { WorkflowItem } from '../components/workbench/workflowData';
@@ -42,6 +43,7 @@ import {
   WorkbenchSession
 } from '../components/workbench/WorkbenchSessionHistoryDrawer';
 import { sovereignAgentOrchestrator } from '../services/ai/SovereignAgentOrchestrator';
+import { sovereignWorkspace } from '../services/sovereign/sovereignWorkspace';
 import { nebiusTokenFactory } from '../services/ai/NebiusTokenFactoryService';
 import { X, Settings, Sparkles } from 'lucide-react';
 
@@ -64,7 +66,12 @@ const INITIAL_DEMO_SESSIONS: WorkbenchSession[] = [
         id: 'msg-2',
         role: 'assistant',
         content: 'Drafted 28-line legal pleading and complete 8 CCR § 10964 Request for Approval with verbatim statutory citations, factual chronology, and points & authorities.',
-        timestamp: '11:46 AM'
+        timestamp: '11:46 AM',
+        suggestions: [
+          { id: 'sug-1', label: '⚖️ Draft Petition for LC § 5814 Penalties', prompt: 'Draft a formal California 28-line conformed Petition for LC § 5814 Penalties and § 5814.5 Attorney Fees based on carrier unreasonable delay.' },
+          { id: 'sug-2', label: '📋 Compile 15-Exhibit Conformed Master Binder', prompt: 'Recompile the complete 15-exhibit conformed master exhibit binder with bates stamps and Avruscio-grid separators.' },
+          { id: 'sug-3', label: '🩺 Extract QME Impairment & Apportionment', prompt: 'Perform forensic extraction of WPI impairment percentages, AMA Guides Chapter 15 ratings, and 100% industrial causation findings.' }
+        ]
       }
     ],
     generatedOutput: '# REQUEST FOR APPROVAL TO ANSWER WCJ REPORT\n\n**Case No.:** ADJ20377197\n**Applicant:** Yolanda Ramirez\n**Defendant:** Country Villa / Pacific Hospital Supply\n\n[Full 28-Line Pleading compiled in AI_GENERATED_DOCS/RAMIREZ_YOLANDA/]',
@@ -74,7 +81,7 @@ const INITIAL_DEMO_SESSIONS: WorkbenchSession[] = [
         title: 'Petition: 8 CCR § 10964',
         content: '# REQUEST FOR APPROVAL TO ANSWER WCJ REPORT\n\n**Case No.:** ADJ20377197\n**Applicant:** Yolanda Ramirez\n**Defendant:** Country Villa / Pacific Hospital Supply\n\n[Full 28-Line Pleading compiled in AI_GENERATED_DOCS/RAMIREZ_YOLANDA/]',
         timestamp: '11:46 AM',
-        diskPath: 'C:\\Users\\Ftt\\genieflowai\\AI_GENERATED_DOCS\\RAMIREZ_YOLANDA\\8CCR10964_ANSWER.md'
+        diskPath: 'AI_GENERATED_DOCS/RAMIREZ_YOLANDA/8CCR10964_ANSWER.md'
       }
     ],
     activeArtifactId: 'doc-ramirez-1',
@@ -114,7 +121,7 @@ const INITIAL_DEMO_SESSIONS: WorkbenchSession[] = [
         title: 'Benchmark Verification',
         content: '# MOCK BENCHMARK: JOHN DOE (ADJ18923412)\n\n[Stored in AI_GENERATED_DOCS/TEST_CASES/JOHN_DOE_BENCHMARK_MOCK.md]',
         timestamp: '10:17 AM',
-        diskPath: 'C:\\Users\\Ftt\\genieflowai\\AI_GENERATED_DOCS\\TEST_CASES\\JOHN_DOE_BENCHMARK_MOCK.md'
+        diskPath: 'AI_GENERATED_DOCS/TEST_CASES/JOHN_DOE_BENCHMARK_MOCK.md'
       }
     ],
     activeArtifactId: 'doc-jd-1',
@@ -263,7 +270,7 @@ export const UniversalWorkbenchPage: React.FC = () => {
         fileName = `${sanitized}_${dateStr}_${timeStr}.md`;
       }
 
-      const targetDir = 'C:\\Users\\Ftt\\genieflowai\\AI_GENERATED_DOCS';
+      const targetDir = await sovereignWorkspace.getGeneratedDocsDir();
       const targetPath = `${targetDir}\\${fileName}`;
 
       await sovereignFs.mkdir({ path: targetDir });
@@ -315,6 +322,35 @@ export const UniversalWorkbenchPage: React.FC = () => {
   const [activeRightTab, setActiveRightTab] = useState<RightTab>('deliverable');
   const [sourceSearchTerm, setSourceSearchTerm] = useState<string>('');
   const [toolSearchTerm, setToolSearchTerm] = useState<string>('');
+
+  // 💡 Dynamic Contextual Suggestion Pills Engine
+  const getDynamicSuggestions = (lastText: string, domain: string): MessageSuggestion[] => {
+    const lower = (lastText || '').toLowerCase();
+    if (lower.includes('marketing') || lower.includes('ad') || lower.includes('ecom') || lower.includes('campaign')) {
+      return [
+        { id: 'm-1', label: '⚡ Assemble 3 Ad & Outbound Workflows', prompt: 'Assemble 3 core workflows for our marketing agency into .agents/workflows/: Ad Copy Sniper, Cold Outbound Forge, and Client Retention Engine.', icon: 'zap' },
+        { id: 'm-2', label: '🎯 Define ICP & Objection Matrix', prompt: 'Generate the detailed Ideal Client Profile (ICP), target audience pain points, and objection-handling matrix for our marketing brain.', icon: 'target' },
+        { id: 'm-3', label: '📂 Mount to Marketing Brain Folder', prompt: 'Mount and write the complete Marketing Brain directory structure and .md files to our active sovereign workspace.', icon: 'folder' },
+        { id: 'm-4', label: '✍️ Draft 5-Stage VSL & Funnel Copy', prompt: 'Draft a high-converting 5-stage Video Sales Letter (VSL) and landing page copy outline following our SOUL.md voice.', icon: 'brain' }
+      ];
+    }
+    if (lower.includes('wcab') || lower.includes('beltran') || lower.includes('penalty') || lower.includes('pleading') || domain === 'legal') {
+      return [
+        { id: 'l-1', label: '⚖️ Draft Petition for LC § 5814 Penalties', prompt: 'Draft a formal California 28-line conformed Petition for LC § 5814 Penalties and § 5814.5 Attorney Fees based on carrier unreasonable delay.', icon: 'scale' },
+        { id: 'l-2', label: '📋 Compile 15-Exhibit Conformed Master Binder', prompt: 'Recompile the complete 15-exhibit conformed master exhibit binder with bates stamps and Avruscio-grid separators.', icon: 'shield' },
+        { id: 'l-3', label: '🩺 Extract QME Impairment & Apportionment', prompt: 'Perform forensic extraction of WPI impairment percentages, AMA Guides Chapter 15 ratings, and 100% industrial causation findings.', icon: 'brain' },
+        { id: 'l-4', label: '📂 Sync Client Binder to Active Workspace', prompt: 'Verify all exhibits and conform pleadings with our active legal workspace records.', icon: 'folder' }
+      ];
+    }
+    return [
+      { id: 'g-1', label: '🧠 Expand Minimal Brief into Full Brain', prompt: 'Synthesize a complete Sovereign Brain architecture for our business: generate SOUL.md, PLAYBOOK.md, and RULES.md.', icon: 'brain' },
+      { id: 'g-2', label: '⚡ Assemble 3 Domain Workflows', prompt: 'Proactively generate and save the top 3 high-impact workflows for this business into .agents/workflows/.', icon: 'zap' },
+      { id: 'g-3', label: '🎯 Define Ideal Client Profile (ICP)', prompt: 'Detail our Ideal Client Profile, target audience pain points, and intake audit criteria.', icon: 'target' },
+      { id: 'g-4', label: '📂 Mount to Sovereign Workspace', prompt: 'Verify folder architecture and mount master client files directly to the active workspace.', icon: 'folder' }
+    ];
+  };
+
+
 
   // Dynamic Workflow Pills & Modal State
   const [selectedWorkflowId, setSelectedWorkflowId] = useState<string | undefined>(undefined);
@@ -935,7 +971,7 @@ export const UniversalWorkbenchPage: React.FC = () => {
           'E:\\.genieflowai.brain\\MASTER_MANIFEST.md',
           'E:\\.GENIEFLOW_MASTER\\MASTER_MANIFEST.md',
           'E:\\MASTER_MANIFEST.md',
-          'C:\\Users\\Ftt\\genieflowai\\MASTER_MANIFEST.md'
+          'I:\\.genieflowai.brain\\MASTER_MANIFEST.md'
         ];
 
         let loadedManifest = '';
@@ -1109,56 +1145,34 @@ export const UniversalWorkbenchPage: React.FC = () => {
           targetEntity = 'AGNETICS';
         }
 
-        handleThoughtStep(`Creating and verifying sovereign physical storage across 3 nodes for ${targetEntity}...`);
-
-        const pathsToCreate = [
-          `C:\\Users\\Ftt\\genieflowai\\${targetEntity}`,
-          `C:\\Users\\Ftt\\genieflowai\\${targetEntity}\\clients`,
-          `C:\\Users\\Ftt\\genieflowai\\${targetEntity}\\dashboards`,
-          `C:\\Users\\Ftt\\genieflowai\\${targetEntity}\\templates`,
-          `C:\\Users\\Ftt\\genieflowai\\${targetEntity}\\workflows`,
-          `G:\\My Drive\\.GENIEFLOW_MASTER\\${targetEntity}`,
-          `G:\\My Drive\\.GENIEFLOW_MASTER\\${targetEntity}\\clients`,
-          `G:\\My Drive\\.GENIEFLOW_MASTER\\${targetEntity}\\dashboards`,
-          `G:\\My Drive\\.GENIEFLOW_MASTER\\${targetEntity}\\templates`,
-          `G:\\My Drive\\.GENIEFLOW_MASTER\\${targetEntity}\\workflows`,
-          `E:\\${targetEntity}`,
-          `E:\\${targetEntity}\\clients`,
-          `E:\\${targetEntity}\\dashboards`,
-          `E:\\${targetEntity}\\templates`,
-          `E:\\${targetEntity}\\workflows`
-        ];
-
-        for (const p of pathsToCreate) {
-          try {
-            await sovereignFs.mkdir({ path: p });
-          } catch (_) {}
-        }
+        handleThoughtStep(`Creating and verifying sovereign physical storage topology for ${targetEntity}...`);
+        const { primaryPath, verifiedNodes } = await sovereignWorkspace.ensureWorkspaceTopology(targetEntity);
 
         handleThoughtStep(`Auditing existing deliverables in ${targetEntity}...`);
+        const planPath = await sovereignWorkspace.resolvePath(targetEntity, `${targetEntity}_MASTER_PLAN.md`);
         let planContent = '';
         try {
-          const res = await sovereignFs.readFile({ path: `C:\\Users\\Ftt\\genieflowai\\${targetEntity}\\${targetEntity}_MASTER_PLAN.md` });
+          const res = await sovereignFs.readFile({ path: planPath });
           if (res?.success && res.content) {
             planContent = res.content;
           }
         } catch (_) {}
 
         if (!planContent) {
-          planContent = `# ${targetEntity}: Master Sovereign Workspace Plan\n\n**Generated:** ${new Date().toLocaleDateString()} | **Domain:** ${activeProfile.title}\n\n## 1. Executive Mission\nSovereign workspace established for **${targetEntity}** across all local NVMe, Google Drive Master, and Travel Drive nodes.\n\n## 2. Directory Architecture\n- \`clients/\`: Process logs, click-path audits, client dossiers\n- \`dashboards/\`: Offline single-file HTML command centers with localStorage persistence\n- \`templates/\`: Reusable markdown and conformed artifact templates\n- \`workflows/\`: Deterministic agent skills (.agents/workflows/)\n\n## 3. Immediate Action Items\n1. Define primary client vertical.\n2. Ingest first target process document.\n3. Deploy the sovereign command center dashboard.\n`;
+          planContent = `# ${targetEntity}: Master Sovereign Workspace Plan\n\n**Generated:** ${new Date().toLocaleDateString()} | **Domain:** ${activeProfile.title}\n\n## 1. Executive Mission\nSovereign workspace established for **${targetEntity}** across all active and attached storage nodes.\n\n## 2. Directory Architecture\n- \`clients/\`: Process logs, click-path audits, client dossiers\n- \`dashboards/\`: Offline single-file HTML command centers with localStorage persistence\n- \`templates/\`: Reusable markdown and conformed artifact templates\n- \`workflows/\`: Deterministic agent skills (.agents/workflows/)\n\n## 3. Immediate Action Items\n1. Define primary client vertical.\n2. Ingest first target process document.\n3. Deploy the sovereign command center dashboard.\n`;
           try {
             await sovereignFs.writeFile({
-              path: `C:\\Users\\Ftt\\genieflowai\\${targetEntity}\\${targetEntity}_MASTER_PLAN.md`,
+              path: planPath,
               content: planContent
             });
-            await sovereignFs.writeFile({
-              path: `G:\\My Drive\\.GENIEFLOW_MASTER\\${targetEntity}\\${targetEntity}_MASTER_PLAN.md`,
-              content: planContent
-            });
-            await sovereignFs.writeFile({
-              path: `E:\\${targetEntity}\\${targetEntity}_MASTER_PLAN.md`,
-              content: planContent
-            });
+            for (const node of verifiedNodes) {
+              if (node.path !== primaryPath) {
+                try {
+                  const nodePlanPath = `${node.path}\\${targetEntity}_MASTER_PLAN.md`;
+                  await sovereignFs.writeFile({ path: nodePlanPath, content: planContent });
+                } catch (_) {}
+              }
+            }
           } catch (_) {}
         }
 
@@ -1166,15 +1180,14 @@ export const UniversalWorkbenchPage: React.FC = () => {
         setActiveRightTab('deliverable');
 
         const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+        const nodeTable = verifiedNodes.map(n => `| **${n.name}** | \`${n.path}\` | [VERIFIED] Active |`).join('\n');
         const folderConfirmMd = `### Sovereign Workspace Physical Creation Confirmed: **${targetEntity}**
 
-The dedicated business workspace has been physically initialized and verified across all 3 storage nodes with persistent memory:
+The dedicated business workspace has been physically initialized and verified with persistent memory:
 
 | Storage Node | Physical Location | Status |
 | :--- | :--- | :--- |
-| **Local NVMe** | \`C:\\Users\\Ftt\\genieflowai\\${targetEntity}\\\` | [VERIFIED] Active |
-| **Google Drive Master** | \`G:\\My Drive\\.GENIEFLOW_MASTER\\${targetEntity}\\\` | [SYNCED] |
-| **Sovereign Travel Drive** | \`E:\\${targetEntity}\\\` | [SYNCED] |
+${nodeTable || `| **Active Workspace** | \`${primaryPath}\` | [VERIFIED] Active |`}
 
 #### Standardized Directory Topology
 \`\`\`
@@ -1376,7 +1389,7 @@ Provide a direct, authoritative research response citing applicable California L
             'G:\\My Drive\\.GENIEFLOW_MASTER\\MASTER_MANIFEST.md',
             'E:\\.genieflowai.brain\\MASTER_MANIFEST.md',
             'E:\\MASTER_MANIFEST.md',
-            'C:\\Users\\Ftt\\genieflowai\\MASTER_MANIFEST.md'
+            'I:\\.genieflowai.brain\\MASTER_MANIFEST.md'
           ];
           for (const candPath of manifestCandidates) {
             try {
@@ -1505,7 +1518,7 @@ Provide a direct, authoritative research response citing applicable California L
         const conversationalPrompt = `${activeProfile.systemPrompt}
 
 ### SOVEREIGN STORAGE & ATTACHED ENVIRONMENT:
-- You operate with full visibility into the user's sovereign storage fabric (Google Drive Master G:\\My Drive, Travel Drive E:\\, and Local NVMe Workspace C:\\Users\\Ftt\\genieflowai).
+- You operate with full visibility into the user's sovereign storage fabric and active workspace.
 - Pinned Records in Active Context: ${storePinned.length > 0 ? storePinned.map((p) => `"${p.name}"`).join(', ') : 'None explicitly pinned (Auto-discovery active)'}
 - Auto-Discovered Records: ${autoDiscoveredName || 'None'}
 - Direct Directive: NEVER claim you cannot access Google Drive or local directories. If records are provided below, audit and cite them directly. If the user asks whether a record is pinned or visible, confirm its status and summarize its contents accurately.
@@ -1703,6 +1716,7 @@ ${resultText}
                     ...msg,
                     content: sovereignSummary,
                     artifacts: artifactBadges.length > 0 ? artifactBadges : undefined,
+                    suggestions: getDynamicSuggestions(textToSend + ' ' + resultText, activeDomainType),
                     isStreaming: false,
                     thoughtDuration,
                     thoughtSteps: thoughtTraceSteps
@@ -1966,6 +1980,10 @@ The conformed professional document is ready in the **Synthesis Output** pane on
               isProcessing={isProcessing}
               progressStep={progressStep}
               liveThoughtSteps={liveThoughtSteps}
+              onSelectSuggestion={(prompt) => {
+                setChatInput(prompt);
+                handleSendMessage(prompt);
+              }}
             />
 
             {/* Dynamic Workflow Pill Carousel (Discovered from .agents/workflows/*.md) */}

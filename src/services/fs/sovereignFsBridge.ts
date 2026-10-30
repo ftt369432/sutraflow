@@ -1,3 +1,26 @@
+function cleanWindowsPath(rawPath: string): string {
+  if (!rawPath) return rawPath;
+  let p = rawPath.trim();
+  // Strip hardcoded user paths dynamically without hardcoded usernames
+  p = p.replace(/^[A-Za-z]:[\\/]Users[\\/][^\\/]+[\\/]genieflowai/gi, 'AI_GENERATED_DOCS');
+  p = p.replace(/^[A-Za-z]:[\\/]Users[\\/][^\\/]+/gi, '.');
+  let drivePrefix = '';
+  if (/^[A-Za-z]:[\\/]/.test(p)) {
+    drivePrefix = p.slice(0, 3);
+    p = p.slice(3);
+  } else if (p.startsWith('\\\\')) {
+    const parts = p.slice(2).split(/[\\/]/);
+    if (parts.length >= 2) {
+      drivePrefix = `\\\\${parts[0]}\\${parts[1]}\\`;
+      p = parts.slice(2).join('\\');
+    }
+  }
+  const segments = p.split(/[\\/]+/).map(seg => {
+    return seg.replace(/[:*?"<>|]/g, '-').trim();
+  }).filter(Boolean);
+  return drivePrefix ? (drivePrefix + segments.join('\\')) : segments.join('/');
+}
+
 /**
  * Sovereign File System Bridge
  * Provides transparent access to the local filesystem:
@@ -171,7 +194,7 @@ export const sovereignFs = {
       const res = await fetch(getApiUrl('/api/fs/mkdir'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ path })
+        body: JSON.stringify({ path: cleanWindowsPath(path) })
       });
       const contentType = res.headers.get('content-type') || '';
       if (res.ok && contentType.includes('application/json')) {
@@ -210,7 +233,7 @@ export const sovereignFs = {
       const res = await fetch(getApiUrl('/api/fs/write'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ path, content })
+        body: JSON.stringify({ path: cleanWindowsPath(path), content })
       });
       const contentType = res.headers.get('content-type') || '';
       if (res.ok && contentType.includes('application/json')) {

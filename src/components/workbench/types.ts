@@ -18,6 +18,13 @@ export interface ArtifactBadge {
   type?: string;
 }
 
+export interface MessageSuggestion {
+  id: string;
+  label: string;
+  prompt: string;
+  icon?: string;
+}
+
 export interface StudioMessage {
   id: string;
   role: 'user' | 'assistant';
@@ -28,6 +35,7 @@ export interface StudioMessage {
   thoughtDuration?: string;
   thoughtSteps?: ThoughtTraceStep[];
   artifacts?: ArtifactBadge[];
+  suggestions?: MessageSuggestion[];
 }
 
 export type LayoutMode = 'split' | 'chatOnly' | 'deliverableOnly';

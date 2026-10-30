@@ -32,6 +32,7 @@ except ImportError:
 
 # Find authoritative input repositories (Priority: E:\ travel drive -> G:\ master -> local)
 CANDIDATE_ROOTS = [
+    r"I:\.genieflowai.brain",
     r"E:\.genieflowai.brain",
     r"G:\My Drive\.GENIEFLOW_MASTER",
     os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -42,8 +43,8 @@ EXTRA_CLIENT_DIRS = [
 ]
 
 EXTRA_DOC_DIRS = [
-    r"C:\Users\Ftt\genieflowai\AI_GENERATED_DOCS",
-    r"C:\Users\Ftt\genieflowai\02_OUTPUT",
+    os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "AI_GENERATED_DOCS")),
+    r"I:\.genieflowai.brain\AI_GENERATED_DOCS",
     r"G:\My Drive\.GENIEFLOW_MASTER\AI_GENERATED_DOCS",
     r"E:\00 Elite Law\doc_drafts",
     r"E:\00 Elite Law\knowledge\pdr_2005",
@@ -80,18 +81,11 @@ for root in CANDIDATE_ROOTS:
 
 BRAIN_ROOT = next((r for r in CANDIDATE_ROOTS if os.path.exists(r)), os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
-# Dedicated Local RTX 4090 Fast Storage Anchor (NVMe C: Drive)
-LOCAL_4090_ANCHOR = r"C:\Users\Ftt\genieflowai\infrastructure\4090_training"
-if os.path.exists(LOCAL_4090_ANCHOR):
-    CORTEX_DIR = LOCAL_4090_ANCHOR
-    DB_PATH = os.path.join(CORTEX_DIR, "cortex_memory.db")
-    CORTEX_JSON_PATH = os.path.join(CORTEX_DIR, "cortex_data.json")
-    TRAINING_JSONL_PATH = os.path.join(CORTEX_DIR, "genieflow_universal_dataset.jsonl")
-else:
-    CORTEX_DIR = os.path.join(BRAIN_ROOT, "infrastructure", "cortex")
-    DB_PATH = os.path.join(CORTEX_DIR, "cortex_memory.db")
-    CORTEX_JSON_PATH = os.path.join(CORTEX_DIR, "cortex_data.json")
-    TRAINING_JSONL_PATH = os.path.join(BRAIN_ROOT, "infrastructure", "genieflow_universal_dataset.jsonl")
+CORTEX_DIR = os.path.join(BRAIN_ROOT, "infrastructure", "cortex")
+DB_PATH = os.path.join(CORTEX_DIR, "cortex_memory.db")
+CORTEX_JSON_PATH = os.path.join(CORTEX_DIR, "cortex_data.json")
+TRAINING_JSONL_PATH = os.path.join(BRAIN_ROOT, "infrastructure", "genieflow_universal_dataset.jsonl")
+SUTRAFLOW_JSONL_PATH = os.path.join(BRAIN_ROOT, "infrastructure", "sutraflow_universal_dataset.jsonl")
 
 # Regex Patterns for Legal Entities
 PATTERNS = {
@@ -1142,8 +1136,7 @@ def query_cached_cortex(query: str, search_func) -> str:
 
     TARGET_CORTEX_JSONS = [
         os.path.join(BRAIN_ROOT, "infrastructure", "cortex_data.json"),
-        r"C:\Users\Ftt\genieflowai\infrastructure\cortex_data.json",
-        r"G:\My Drive\.GENIEFLOW_MASTER\infrastructure\cortex_data.json",
+                r"G:\My Drive\.GENIEFLOW_MASTER\infrastructure\cortex_data.json",
         r"E:\.genieflowai.brain\infrastructure\cortex_data.json",
     ]
     for c_path in TARGET_CORTEX_JSONS:
@@ -1162,8 +1155,7 @@ def query_cached_cortex(query: str, search_func) -> str:
 
     TARGET_DBS = [
         os.path.join(BRAIN_ROOT, "infrastructure", "cortex", "cortex_memory.db"),
-        r"C:\Users\Ftt\genieflowai\infrastructure\cortex\cortex_memory.db",
-        r"G:\My Drive\.GENIEFLOW_MASTER\infrastructure\cortex\cortex_memory.db",
+                r"G:\My Drive\.GENIEFLOW_MASTER\infrastructure\cortex\cortex_memory.db",
         r"E:\.genieflowai.brain\infrastructure\cortex\cortex_memory.db",
     ]
     for db_p in TARGET_DBS:
@@ -1185,9 +1177,7 @@ def query_cached_cortex(query: str, search_func) -> str:
         TRAINING_JSONL_PATH,
         os.path.join(BRAIN_ROOT, "infrastructure", "genieflow_universal_dataset.jsonl"),
         os.path.join(BRAIN_ROOT, "infrastructure", "sutraflow_universal_dataset.jsonl"),
-        r"C:\Users\Ftt\genieflowai\infrastructure\genieflow_universal_dataset.jsonl",
-        r"C:\Users\Ftt\genieflowai\infrastructure\sutraflow_universal_dataset.jsonl",
-        r"G:\My Drive\.GENIEFLOW_MASTER\infrastructure\genieflow_universal_dataset.jsonl",
+                        r"G:\My Drive\.GENIEFLOW_MASTER\infrastructure\genieflow_universal_dataset.jsonl",
         r"G:\My Drive\.GENIEFLOW_MASTER\infrastructure\sutraflow_universal_dataset.jsonl",
         r"E:\.genieflowai.brain\infrastructure\genieflow_universal_dataset.jsonl",
         r"E:\.genieflowai.brain\infrastructure\sutraflow_universal_dataset.jsonl",
@@ -1207,6 +1197,10 @@ def query_cached_cortex(query: str, search_func) -> str:
                         fh.write(json.dumps(item, ensure_ascii=False) + "\n")
                 written_targets.add(target_abs)
                 print(f"-> Synced clean training dataset ({len(training_pairs)} pairs) to {target_abs}")
+                # Export ShareGPT / Unsloth format JSON alongside JSONL
+                json_path = target_abs.replace(".jsonl", ".json")
+                with open(json_path, "w", encoding="utf-8") as jfh:
+                    json.dump(training_pairs, jfh, indent=2, ensure_ascii=False)
         except Exception as e:
             print(f"Note: Could not write dataset to {target_abs}: {e}")
 

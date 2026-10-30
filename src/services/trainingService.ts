@@ -1,4 +1,3 @@
-// filepath: c:\\Users\\TINACO\\01\\genieflowai\\src\\services\\trainingService.ts
 import axios from 'axios';
 
 interface TrainingResponse {

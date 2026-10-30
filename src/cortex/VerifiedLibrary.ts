@@ -11,8 +11,9 @@ const execAsync = promisify(exec);
  */
 export class VerifiedLibrary {
     private static instance: VerifiedLibrary;
-    private libraryDir = 'c:\\Users\\TINACO\\01\\genieflowai\\skills_library';
-    private customDir = 'c:\\Users\\TINACO\\01\\genieflowai\\cortex\\skills\\custom';
+    private baseRoot = process.env.VITE_WORKSPACE_ROOT || process.cwd();
+    private libraryDir = path.resolve(this.baseRoot, 'skills_library');
+    private customDir = path.resolve(this.baseRoot, 'src', 'cortex', 'skills', 'custom');
 
     public static getInstance() {
         if (!VerifiedLibrary.instance) {
@@ -34,7 +35,7 @@ export class VerifiedLibrary {
 
         try {
             // 1. Run Quick Validate
-            const validatorPath = 'c:\\Users\\TINACO\\01\\genieflowai\\cortex\\skills\\skill-creator\\scripts\\quick_validate.py';
+            const validatorPath = path.resolve(this.baseRoot, 'src', 'cortex', 'skills', 'skill-creator', 'scripts', 'quick_validate.py');
             const { stdout } = await execAsync(`python "${validatorPath}" "${source}"`);
 
             if (!stdout.includes('VALIDATION SUCCESS')) {

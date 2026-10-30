@@ -1,4 +1,3 @@
-// filepath: c:\\Users\\TINACO\\01\\genieflowai\\src\\services\\openaiService.ts
 import OpenAI from 'openai';
 
 const openaiApiKey = import.meta.env.VITE_OPENAI_API_KEY;

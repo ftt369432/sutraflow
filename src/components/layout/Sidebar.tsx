@@ -52,16 +52,10 @@ const sidebarSections: SidebarSection[] = [
     title: 'Sovereign Agent Hub',
     items: [
       {
-        title: 'Workbench',
+        title: 'Universal Workbench',
         icon: Waves,
         href: '/workbench',
         color: 'text-indigo-600 dark:text-indigo-400 font-bold',
-      },
-      {
-        title: 'Agent HQ',
-        icon: Briefcase,
-        href: '/agent-hq',
-        color: 'text-violet-500 font-bold',
       },
       {
         title: 'Dashboard',

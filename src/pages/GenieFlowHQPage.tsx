@@ -198,15 +198,15 @@ const GenieFlowHQPage: React.FC = () => {
             if (activeMission?.title) {
                 const safeTitle = activeMission.title.replace(/[^a-z0-9]/gi, '_').toLowerCase();
                 candidatePaths.push(
-                    `C:\\Users\\Ftt\\genieflowai\\missions\\${safeTitle}\\${cleanName}`,
+                    `I:\\.genieflowai.brain\\missions\\${safeTitle}\\${cleanName}`,
                     `missions/${safeTitle}/${cleanName}`
                 );
             }
 
             candidatePaths.push(
-                `C:\\Users\\Ftt\\genieflowai\\${cleanName}`,
-                `C:\\Users\\Ftt\\genieflowai\\missions\\${cleanName}`,
-                `C:\\Users\\Ftt\\genieflowai\\AI_GENERATED_DOCS\\${cleanName}`,
+                `I:\\.genieflowai.brain\\${cleanName}`,
+                `I:\\.genieflowai.brain\\missions\\${cleanName}`,
+                `I:\\.genieflowai.brain\\AI_GENERATED_DOCS\\${cleanName}`,
                 `G:\\My Drive\\.GENIEFLOW_MASTER\\${cleanName}`,
                 `E:\\${cleanName}`
             );
@@ -397,7 +397,7 @@ const GenieFlowHQPage: React.FC = () => {
                         'G:\\My Drive\\.GENIEFLOW_MASTER\\MASTER_MANIFEST.md',
                         'E:\\.genieflowai.brain\\MASTER_MANIFEST.md',
                         'E:\\MASTER_MANIFEST.md',
-                        'C:\\Users\\Ftt\\genieflowai\\MASTER_MANIFEST.md'
+                        'I:\\.genieflowai.brain\\MASTER_MANIFEST.md'
                     ];
                     for (const cp of candidatePaths) {
                         try {
@@ -494,15 +494,15 @@ const GenieFlowHQPage: React.FC = () => {
             const aiFactory = AIServiceFactory.getInstance();
             const systemPrompt = `You are ${BRAND_CONFIG.name} (${BRAND_CONFIG.webName}), operating as a deterministic California Workers' Compensation research, tools, and calculation assistant pair-programming with the practitioner.
 You operate with the high standards, thoroughness, and precision of Google Antigravity.
-You have direct read visibility into the practitioner's attached sovereign drives (Google Drive Master G:\\My Drive\\.GENIEFLOW_MASTER, Travel Drive E:\\.genieflowai.brain, and Local NVMe Workspace C:\\Users\\Ftt\\genieflowai).
-The authoritative Master Manifest and System Architecture is located at G:\\My Drive\\.GENIEFLOW_MASTER\\MASTER_MANIFEST.md (or E:\\.genieflowai.brain\\MASTER_MANIFEST.md).
+You have direct read visibility into the practitioner's active sovereign workspace and attached storage drives.
+The Master Manifest and System Architecture is located in the root of the active workspace or attached drives.
 NEVER ask the user to run bash or dir commands to locate files. You already have access to the verified disk contents provided below.
 DIRECT DIRECTIVE: NEVER claim you cannot access Google Drive or local directories. If records are provided below, audit and cite them directly. If the user asks whether a record is pinned or visible, confirm its status and summarize its contents accurately.
 When asked about available assets, tools, or the manifest, examine the verified grounding text below and provide a structured, comprehensive, and exhaustive breakdown of all legal engines, compilers, case law vaults, calculators, and runtime launchers.
 When asked to create Python scripts, HTML dashboards, calculations, or legal templates:
 - Provide production-grade, functional code inside standard code blocks (\`\`\`python, \`\`\`html, \`\`\`markdown, etc.).
 - Include a top-line comment specifying the filename (e.g. # filename.py or <!-- dashboard.html -->).
-- The Sovereign Mission Persistence Engine automatically parses and writes these artifacts directly to disk under E:\\.genieflowai.brain\\missions\\<missionId>\\artifacts\\.
+- The Sovereign Mission Persistence Engine automatically parses and writes these artifacts directly to disk in the mission artifacts directory.
 ${localContext ? `\nVERIFIED DISK GROUNDING:\n${localContext}` : ''}`;
 
             let response: string;

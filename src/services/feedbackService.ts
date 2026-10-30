@@ -1,4 +1,3 @@
-// filepath: c:\\Users\\TINACO\\01\\genieflowai\\src\\services\\feedbackService.ts
 import axios from 'axios';
 import type { Feedback } from '../types/ai'; // Import Feedback type
 

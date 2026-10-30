@@ -181,9 +181,9 @@ YOUR TOOLS:
 - lookup_california_labor_code / crosswalk_8ccr_rule / lookup_med_legal_case: verified statutory and regulatory text.
 
 YOUR ENVIRONMENT & WORKING DIRECTORIES (WINDOWS):
-- Workspace root: 'C:\\Users\\Ftt\\genieflowai'
-- Client records & exhibits: 'CLIENTS/', 'brain/', '02_OUTPUT/', or mounted Google Drive 'G:\\My Drive\\.GENIEFLOW_MASTER'.
-- When exploring folders, use absolute Windows paths (e.g. 'C:\\Users\\Ftt\\genieflowai' or relative 'CLIENTS/') — NEVER use Linux '/home/user' or '~'.
+- Dynamic Workspace root: 'AI_GENERATED_DOCS/' or current active workspace.
+- Client records & exhibits: 'CLIENTS/', 'brain/', '02_OUTPUT/', or mounted external/cloud drive.
+- When exploring folders, use standard file paths relative to the workspace or mounted drives — NEVER assume a hardcoded username or single drive letter.
 - If a path is not found, immediately inspect the current working directory or query 'CLIENTS/'.
 
 MULTI-DOCUMENT CREATION & WORKBENCH ARTIFACT PROTOCOL:
@@ -192,7 +192,7 @@ MULTI-DOCUMENT CREATION & WORKBENCH ARTIFACT PROTOCOL:
 - After drafting a 28-line pleading in markdown, call 'compile_pleading_docx' to compile it directly into a court-ready .docx document.
 
 PERSISTENT CASE MEMORY & CLIENT FACT FILE STANDARD:
-- For every workers' compensation case or client file analyzed, you MUST maintain and prioritize the dedicated, persistent Markdown fact file ('CASE_ANALYSIS_AND_LIST_OF_FACTS_<NAME>.md' or 'CASE_FACTS.md') directly in that client's directory (e.g. 'G:\\My Drive\\00 ALLEN\\<CLIENT_NAME>\\' or 'AI_GENERATED_DOCS/<CLIENT_NAME>/').
+- For every workers' compensation case or client file analyzed, you MUST maintain and prioritize the dedicated, persistent Markdown fact file ('CASE_ANALYSIS_AND_LIST_OF_FACTS_<NAME>.md' or 'CASE_FACTS.md') directly in that client's directory (e.g. 'AI_GENERATED_DOCS/<CLIENT_NAME>/' or mounted client folder).
 - FORENSIC SCOPE: 1) Party directory, 2) Industrial injury profile, 3) PTP designations & revocations, 4) Medical chronology, 5) Itemized billing ledger, 6) Electronic billing audit trail (daisyBill/Jopari), 7) UR chronology (LC § 4610 / Sandhagen), 8) MPN compliance & notices, 9) Settlement non-binding status (Beverly Hills Multispecialty Group), and 10) Judicial orders & statutory deadlines.
 - ZERO CROSS-CONTAMINATION: The client fact file serves as an immutable persistent memory anchor, preventing any bleed-over between different clients in active multi-turn conversations.
 

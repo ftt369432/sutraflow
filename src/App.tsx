@@ -468,8 +468,8 @@ const ProtectedAppRoutes = () => {
         <Route path="/ai-assistant/*" element={<ProtectedRoute><AIAssistantPage /></ProtectedRoute>} />
         <Route path="/cortex" element={<ProtectedRoute><ErrorBoundary><CortexPage /></ErrorBoundary></ProtectedRoute>} />
         <Route path="/assistant-store" element={<ProtectedRoute><ErrorBoundary><AssistantStorePage /></ErrorBoundary></ProtectedRoute>} />
-        <Route path="/hq" element={<ProtectedRoute><ErrorBoundary><GenieFlowHQPage /></ErrorBoundary></ProtectedRoute>} />
-        <Route path="/agent-hq" element={<ProtectedRoute><ErrorBoundary><BusinessOperationsHQ /></ErrorBoundary></ProtectedRoute>} />
+        <Route path="/hq" element={<Navigate to="/workbench" replace />} />
+        <Route path="/agent-hq" element={<Navigate to="/workbench" replace />} />
         <Route path="/genie-command" element={<ProtectedRoute><ErrorBoundary><GenieCommandDashboard /></ErrorBoundary></ProtectedRoute>} />
         <Route path="/genetics" element={geniebioEnabled ? <ProtectedRoute><ErrorBoundary><GeneticsHubPage /></ErrorBoundary></ProtectedRoute> : <Navigate to="/dashboard" replace />} />
         <Route path="/nexus" element={nexusEnabled ? <ProtectedRoute><ErrorBoundary><NexusStudioPage /></ErrorBoundary></ProtectedRoute> : <Navigate to="/dashboard" replace />} />

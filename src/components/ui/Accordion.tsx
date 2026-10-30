@@ -1,4 +1,3 @@
-// filepath: c:\Users\TINACO\genieflowai.com\src\components\ui\Accordion.tsx
 "use client";
 
 import * as React from "react";

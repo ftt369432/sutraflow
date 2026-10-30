@@ -1,3 +1,5 @@
+import { sovereignWorkspace } from './sovereign/sovereignWorkspace';
+import { sovereignFs } from './fs/sovereignFsBridge';
 /**
  * 🏛️ GenieFlow Sovereign Mission Persistence Service
  * 
@@ -44,14 +46,22 @@ export class MissionPersistenceService {
     public async getMissionRoot(): Promise<string> {
         if (this.resolvedRoot) return this.resolvedRoot;
 
-        const bridge = (window as any).electronBridge;
-        if (bridge?.fs?.stat) {
-            try {
-                const res = await bridge.fs.stat({ path: 'E:\\.genieflowai.brain' });
-                if (res?.success) {
-                    this.resolvedRoot = this.primaryRoot;
-                    return this.resolvedRoot;
-                }
+        try {
+            const check = await sovereignFs.listFiles({ path: this.primaryRoot });
+            if (check.success) {
+                this.resolvedRoot = this.primaryRoot;
+                return this.resolvedRoot;
+            }
+        } catch {}
+
+        try {
+            this.resolvedRoot = await sovereignWorkspace.getMissionsDir();
+            return this.resolvedRoot;
+        } catch {
+            this.resolvedRoot = this.fallbackRoot;
+            return this.resolvedRoot;
+        }
+    }
             } catch {}
         }
         this.resolvedRoot = this.primaryRoot; // Default to E: brain

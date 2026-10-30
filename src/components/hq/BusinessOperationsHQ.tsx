@@ -31,6 +31,7 @@ import {
   HardDrive
 } from 'lucide-react';
 import { sovereignFs } from '../../services/fs/sovereignFsBridge';
+import { sovereignWorkspace } from '../../services/sovereign/sovereignWorkspace';
 import { cn } from '../../lib/utils';
 import { useAIEmployeeStore } from '../../store/aiEmployeeStore';
 import {
@@ -214,7 +215,8 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
     });
 
     try {
-      const res = await sovereignFs.readFile({ path: employee.markdownSpecPath });
+      const resolvedPath = await sovereignWorkspace.resolvePath(employee.markdownSpecPath);
+      const res = await sovereignFs.readFile({ path: resolvedPath });
       if (res?.success && res.content) {
         setSopModal(prev => prev ? { ...prev, content: res.content!, isLoading: false } : null);
       } else {
@@ -237,7 +239,8 @@ export const BusinessOperationsHQ: React.FC<{ className?: string }> = ({ classNa
   const handleGenerateSop = async (emp: AIEmployee) => {
     setIsGeneratingSop(true);
     try {
-      const defaultPath = emp.markdownSpecPath || `i:/.genieflowai.brain/SOP/${emp.id.toUpperCase().replace(/-/g, '_')}_SOP.md`;
+      const relPath = emp.markdownSpecPath || `SOP/${emp.id.toUpperCase().replace(/-/g, '_')}_SOP.md`;
+      const defaultPath = await sovereignWorkspace.resolvePath(relPath);
       const generatedMarkdown = `# Standard Operating Procedure (SOP): ${emp.name}
 
 ## 1. Identity & Mandate
@@ -1102,12 +1105,12 @@ ${emp.requiresApprovalFor.length > 0
                     defaultValue=""
                   >
                     <option value="" disabled>Select Preset SOP...</option>
-                    <option value="i:/.genieflowai.brain/SOP/PRESETS/MEDICAL_CLINIC_SOP.md">Medical Practice & Clinic</option>
-                    <option value="i:/.genieflowai.brain/SOP/PRESETS/MARKETING_GROWTH_SOP.md">Growth Marketing & Copywriting</option>
-                    <option value="i:/.genieflowai.brain/SOP/PRESETS/ARCHITECTURE_ENGINEERING_SOP.md">Architecture & Permitting</option>
-                    <option value="i:/.genieflowai.brain/SOP/PRESETS/ACCOUNTING_TAX_SOP.md">Accounting, Tax & Audit</option>
-                    <option value="i:/.genieflowai.brain/SOP/PRESETS/GENERAL_OPERATIONS_SOP.md">General Business Operations</option>
-                    <option value="i:/.genieflowai.brain/SOP/LEGAL_COUNSEL_SOP.md">Legal Counsel & Litigation</option>
+                    <option value="SOP/PRESETS/MEDICAL_CLINIC_SOP.md">Medical Practice & Clinic</option>
+                    <option value="SOP/PRESETS/MARKETING_GROWTH_SOP.md">Growth Marketing & Copywriting</option>
+                    <option value="SOP/PRESETS/ARCHITECTURE_ENGINEERING_SOP.md">Architecture & Permitting</option>
+                    <option value="SOP/PRESETS/ACCOUNTING_TAX_SOP.md">Accounting, Tax & Audit</option>
+                    <option value="SOP/PRESETS/GENERAL_OPERATIONS_SOP.md">General Business Operations</option>
+                    <option value="SOP/LEGAL_COUNSEL_SOP.md">Legal Counsel & Litigation</option>
                   </select>
                 </div>
 
@@ -1115,7 +1118,7 @@ ${emp.requiresApprovalFor.length > 0
                   type="text"
                   value={editingEmployee.markdownSpecPath || ''}
                   onChange={(e) => setEditingEmployee({ ...editingEmployee, markdownSpecPath: e.target.value })}
-                  placeholder="e.g., i:/.genieflowai.brain/SOP/PRESETS/MEDICAL_CLINIC_SOP.md"
+                  placeholder="e.g., SOP/PRESETS/MEDICAL_CLINIC_SOP.md"
                   className="w-full px-3 py-2 rounded-lg bg-gray-50 dark:bg-slate-950 border border-gray-300 dark:border-slate-800 text-gray-900 dark:text-white text-xs focus:outline-none focus:border-emerald-500 font-mono"
                 />
                 <p className="text-[10px] text-gray-500 dark:text-slate-400">

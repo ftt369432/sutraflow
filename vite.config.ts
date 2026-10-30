@@ -285,6 +285,44 @@ export default defineConfig(({ mode }) => {
               }
             }
 
+            const sanitizeWindowsPath = (rawPath: string): string => {
+              if (!rawPath) return rawPath;
+              let p = rawPath.trim();
+              const userHome = process.env.USERPROFILE || process.env.HOME || (process.platform === 'win32' ? 'C:\\' : '/');
+
+              // Dynamically map legacy user paths to host environment
+              p = p.replace(/^[A-Za-z]:[\\/]Users[\\/][^\\/]+[\\/]genieflowai/gi, path.resolve(__dirname, 'AI_GENERATED_DOCS'));
+              p = p.replace(/^[A-Za-z]:[\\/]Users[\\/][^\\/]+/gi, userHome);
+
+              let drivePrefix = '';
+              if (/^[A-Za-z]:[\\/]/.test(p)) {
+                drivePrefix = p.slice(0, 3);
+                p = p.slice(3);
+              } else if (p.startsWith('\\\\')) {
+                const parts = p.slice(2).split(/[\\/]/);
+                if (parts.length >= 2) {
+                  drivePrefix = `\\\\${parts[0]}\\${parts[1]}\\`;
+                  p = parts.slice(2).join('\\');
+                }
+              }
+              const segments = p.split(/[\\/]+/).map(seg => {
+                return seg.replace(/[:*?"<>|]/g, '-').trim();
+              }).filter(Boolean);
+              const cleanRest = segments.join(path.sep);
+
+              // If a drive prefix was specified, verify it exists on this host before attempting access
+              if (drivePrefix) {
+                if (fs.existsSync(drivePrefix)) {
+                  return path.join(drivePrefix, cleanRest);
+                } else {
+                  // Fall back gracefully to project workspace so it never crashes with 500 on different machines
+                  return path.resolve(__dirname, 'AI_GENERATED_DOCS', cleanRest);
+                }
+              }
+
+              return path.resolve(__dirname, cleanRest);
+            };
+
             if (req.url && req.url.startsWith('/api/fs/mkdir') && req.method === 'POST') {
               let raw = '';
               const preParsed = (req as any).body;
@@ -298,7 +336,7 @@ export default defineConfig(({ mode }) => {
                     res.end(JSON.stringify({ success: false, error: 'Path required' }));
                     return;
                   }
-                  targetPath = path.resolve(targetPath);
+                  targetPath = sanitizeWindowsPath(targetPath);
                   fs.mkdirSync(targetPath, { recursive: true });
                   res.end(JSON.stringify({ success: true, path: targetPath }));
                 } catch (err: any) {
@@ -327,7 +365,7 @@ export default defineConfig(({ mode }) => {
                     res.end(JSON.stringify({ success: false, error: 'Path required' }));
                     return;
                   }
-                  targetPath = path.resolve(targetPath);
+                  targetPath = sanitizeWindowsPath(targetPath);
                   const parentDir = path.dirname(targetPath);
                   if (!fs.existsSync(parentDir)) {
                     fs.mkdirSync(parentDir, { recursive: true });

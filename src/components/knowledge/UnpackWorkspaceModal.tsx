@@ -16,7 +16,7 @@ export function UnpackWorkspaceModal({
   onClose,
   onSuccess
 }: UnpackWorkspaceModalProps) {
-  const [workspacePath, setWorkspacePath] = useState('c:\\SovereignWorkspace');
+  const [workspacePath, setWorkspacePath] = useState('./SovereignWorkspace');
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncLogs, setSyncLogs] = useState<string[]>([]);
   const [syncResult, setSyncResult] = useState<UnpackLog | null>(null);

@@ -421,7 +421,7 @@ export const IntegrationHub: React.FC = () => {
         mcpServers: {
           "sutraflow-sovereign-vault": {
             command: "python",
-            args: ["c:\\Users\\Ftt\\genieflowai\\src\\mcp_servers\\sutra_mcp_unified.py", "--transport", "stdio"],
+            args: ["./src/mcp_servers/sutra_mcp_unified.py", "--transport", "stdio"],
             url: `http://127.0.0.1:${port}/sse`
           }
         }

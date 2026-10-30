@@ -29,7 +29,7 @@ export const DEFAULT_AGENT_CONFIG: AgentEngineConfig = {
     'G:\\My Drive\\00 ALLEN',
     `${MASTER}\\CLIENTS`,
     'E:\\clients',
-    'C:\\Users\\Ftt\\genieflowai\\CLIENTS',
+    'I:\\.genieflowai.brain\\CLIENTS',
     `${MASTER}\\PROJECTS`,
     `${MASTER}\\PATIENTS`,
     `${MASTER}\\PROPERTIES`
